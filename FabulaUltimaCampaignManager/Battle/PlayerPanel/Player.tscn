@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtsiqen0mcy4f"]
+
+[ext_resource type="Theme" uid="uid://dtpbrs518fimv" path="res://Battle/battle_theme.tres" id="1_y6t83"]
+[ext_resource type="Script" path="res://Battle/PlayerPanel/BattlePlayer.cs" id="2_k75ct"]
+[ext_resource type="Script" path="res://Battle/PlayerPanel/BattleCharacterName.cs" id="3_ab1mh"]
+[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="4_m8i1m"]
+[ext_resource type="Script" path="res://Battle/PlayerPanel/BattleCharacterTitle.cs" id="4_re6ki"]
+[ext_resource type="Script" path="res://Battle/PlayerPanel/BattlePlayerName.cs" id="5_s3ntj"]
+
+[node name="Player" type="HBoxContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_y6t83")
+script = ExtResource("2_k75ct")
+
+[node name="CharacterName" type="Label" parent="."]
+layout_mode = 2
+theme = ExtResource("1_y6t83")
+text = "Character Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_ab1mh")
+
+[node name="CharacterTitle" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_y6t83")
+theme_override_fonts/font = ExtResource("4_m8i1m")
+text = "Character Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_re6ki")
+
+[node name="PlayerName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("1_y6t83")
+theme_override_fonts/font = ExtResource("4_m8i1m")
+text = "Player Name"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("5_s3ntj")
+
+[connection signal="PlayerUpdated" from="." to="CharacterName" method="ReadPlayer"]
+[connection signal="PlayerUpdated" from="." to="CharacterTitle" method="ReadPlayer"]
+[connection signal="PlayerUpdated" from="." to="PlayerName" method="ReadPlayer"]

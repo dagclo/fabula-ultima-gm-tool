@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://dn3nwxahhysgn"]
+
+[ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="1_3dubo"]
+[ext_resource type="Script" path="res://Encounters/NPCShortEntry.cs" id="1_cbp4a"]
+[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_lmbrw"]
+[ext_resource type="Script" path="res://Npc/NpcName.cs" id="3_eb1qw"]
+[ext_resource type="Script" path="res://Npc/NpcType.cs" id="4_w2gt0"]
+[ext_resource type="Script" path="res://Npc/NpcLevel.cs" id="5_o07c8"]
+[ext_resource type="Script" path="res://Npc/NpcRank.cs" id="7_b5hw3"]
+
+[node name="NPCShortEntry" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lmbrw")
+script = ExtResource("1_cbp4a")
+
+[node name="Name" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Name"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Name/HBoxContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="NameEdit" type="LineEdit" parent="Name/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Instance Name"
+script = ExtResource("3_eb1qw")
+
+[node name="Type" parent="." instance=ExtResource("1_3dubo")]
+layout_mode = 2
+
+[node name="Label" parent="Type/HBoxContainer" index="0"]
+text = "Type:"
+
+[node name="Text" parent="Type/HBoxContainer" index="1"]
+text = "Archer"
+script = ExtResource("4_w2gt0")
+
+[node name="Level" parent="." instance=ExtResource("1_3dubo")]
+layout_mode = 2
+
+[node name="Label" parent="Level/HBoxContainer" index="0"]
+text = "Level:"
+
+[node name="Text" parent="Level/HBoxContainer" index="1"]
+text = "5"
+script = ExtResource("5_o07c8")
+
+[node name="Rank" parent="." instance=ExtResource("1_3dubo")]
+layout_mode = 2
+
+[node name="Label" parent="Rank/HBoxContainer" index="0"]
+text = "Rank:"
+
+[node name="Text" parent="Rank/HBoxContainer" index="1"]
+text = "Soldier"
+script = ExtResource("7_b5hw3")
+
+[connection signal="text_submitted" from="Name/HBoxContainer/NameEdit" to="Name/HBoxContainer/NameEdit" method="OnTextSubmitted"]
+
+[editable path="Type"]
+[editable path="Level"]
+[editable path="Rank"]

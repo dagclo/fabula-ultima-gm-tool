@@ -1,0 +1,374 @@
+[gd_scene load_steps=39 format=3 uid="uid://dvrc1lde82y6f"]
+
+[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_8xl3l"]
+[ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_t4gi0"]
+[ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="2_6f5hl"]
+[ext_resource type="Texture2D" uid="uid://i7qlj5i8k4cu" path="res://Battle/Monster Unknown.png" id="2_g8s5x"]
+[ext_resource type="Script" path="res://BeastiaryScenes/DescriptionImage.cs" id="3_bbr3a"]
+[ext_resource type="Script" path="res://BeastiaryScenes/AttributeLabel.cs" id="3_nqrqn"]
+[ext_resource type="PackedScene" uid="uid://c8bw0vtfllsa1" path="res://BeastiaryScenes/ResistancePanel.tscn" id="3_vhcs2"]
+[ext_resource type="PackedScene" uid="uid://cwsegr0yegay2" path="res://BeastiaryScenes/attack.tscn" id="4_716ij"]
+[ext_resource type="Script" path="res://BeastiaryScenes/ComputedHealthLabel.cs" id="5_f5oe2"]
+[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="6_8ebfp"]
+[ext_resource type="Script" path="res://BeastiaryScenes/ComputedMagicPointsLabel.cs" id="6_x4de1"]
+[ext_resource type="Script" path="res://BeastiaryScenes/UseDiceSizeLabel.cs" id="7_g4asi"]
+[ext_resource type="Texture2D" uid="uid://841utmxt0qwh" path="res://ResistanceImages/fire.png" id="9_7ggv3"]
+[ext_resource type="Texture2D" uid="uid://dn022obe4wsvv" path="res://ResistanceImages/Physical.png" id="9_o3jl4"]
+[ext_resource type="Texture2D" uid="uid://b8unp67ejg4g8" path="res://ResistanceImages/fire_gray.png" id="10_1k8xn"]
+[ext_resource type="Texture2D" uid="uid://yi8c5x5mup3" path="res://ResistanceImages/Physical_Gray.png" id="10_lo6wk"]
+[ext_resource type="Texture2D" uid="uid://bx3difes0s0f8" path="res://ResistanceImages/Air.png" id="11_bh076"]
+[ext_resource type="Texture2D" uid="uid://dxrjc70qtd7c6" path="res://ResistanceImages/Air_Gray.png" id="12_g7x3k"]
+[ext_resource type="Texture2D" uid="uid://bua57wksv3bbq" path="res://ResistanceImages/Bolt.png" id="13_71cir"]
+[ext_resource type="Texture2D" uid="uid://c5nkgvrnujjs2" path="res://ResistanceImages/Bolt_Gray.png" id="14_dok2s"]
+[ext_resource type="Texture2D" uid="uid://dkb2h3smqxjwn" path="res://ResistanceImages/Dark.png" id="15_o1kul"]
+[ext_resource type="Texture2D" uid="uid://chhxtotj7ddwu" path="res://ResistanceImages/Dark_Gray.png" id="16_pqgbu"]
+[ext_resource type="Texture2D" uid="uid://bd6kwo67yuncp" path="res://ResistanceImages/Earth.png" id="17_u0xnt"]
+[ext_resource type="Texture2D" uid="uid://cve4d1yt4inqo" path="res://ResistanceImages/Earth_Gray.png" id="18_0yh00"]
+[ext_resource type="Texture2D" uid="uid://bq2tr0ndgiijs" path="res://ResistanceImages/Ice.png" id="21_j58ux"]
+[ext_resource type="Texture2D" uid="uid://ca0116gfhcsbt" path="res://ResistanceImages/Ice_Gray.png" id="22_1502u"]
+[ext_resource type="Texture2D" uid="uid://dtj00b1kbtyrq" path="res://ResistanceImages/Light.png" id="23_17lks"]
+[ext_resource type="Texture2D" uid="uid://b3erp4ynwlnuf" path="res://ResistanceImages/Light_Gray.png" id="24_cqar5"]
+[ext_resource type="Texture2D" uid="uid://dyyns8miuhia7" path="res://ResistanceImages/Poison.png" id="25_neycv"]
+[ext_resource type="Texture2D" uid="uid://c5dpdbuy6wbb6" path="res://ResistanceImages/Poison_Gray.png" id="26_6eorr"]
+[ext_resource type="Script" path="res://BeastiaryScenes/Attacks.cs" id="28_80a1i"]
+[ext_resource type="Script" path="res://Equipment/EquipmentList.cs" id="28_ful48"]
+[ext_resource type="Script" path="res://BeastiaryScenes/GetSpells.cs" id="30_tqdql"]
+[ext_resource type="PackedScene" uid="uid://l57ucy852qf2" path="res://BeastiaryScenes/spell.tscn" id="31_1wadr"]
+[ext_resource type="Script" path="res://Skills/SpecialRules.cs" id="33_gd0nc"]
+[ext_resource type="Script" path="res://BeastiaryScenes/OtherActions.cs" id="33_icnde"]
+[ext_resource type="PackedScene" uid="uid://ddx26ghe36o0p" path="res://BeastiaryScenes/action.tscn" id="33_ma2ky"]
+[ext_resource type="PackedScene" uid="uid://b6kwc80e1vqp1" path="res://BeastiaryScenes/other_action.tscn" id="34_mp60j"]
+
+[node name="BeastEntryNode" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8xl3l")
+script = ExtResource("1_t4gi0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Description" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="DescriptionImage" type="TextureRect" parent="VBoxContainer/Description"]
+layout_mode = 2
+texture = ExtResource("2_g8s5x")
+expand_mode = 3
+script = ExtResource("3_bbr3a")
+
+[node name="DescriptionText" type="VBoxContainer" parent="VBoxContainer/Description"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+text = "Archer"
+script = ExtResource("3_nqrqn")
+AttributeName = "Name"
+
+[node name="Level" type="Label" parent="VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+text = "Lvl 5"
+script = ExtResource("3_nqrqn")
+AttributeName = "Level"
+
+[node name="Species" type="Label" parent="VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+text = "Humanoid"
+script = ExtResource("3_nqrqn")
+AttributeName = "Species"
+
+[node name="Details" type="Label" parent="VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_8ebfp")
+text = "Fires from on high with the eyes of an eagle."
+script = ExtResource("3_nqrqn")
+AttributeName = "Description"
+
+[node name="Traits" parent="VBoxContainer/Description/DescriptionText" instance=ExtResource("2_6f5hl")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/Description/DescriptionText/Traits/HBoxContainer" index="0"]
+theme_override_font_sizes/font_size = 0
+text = "Typical Traits: "
+
+[node name="Text" parent="VBoxContainer/Description/DescriptionText/Traits/HBoxContainer" index="1"]
+text = "boastful, irritable, proud, strong "
+script = ExtResource("3_nqrqn")
+AttributeName = "Traits"
+
+[node name="Stats" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+columns = 9
+
+[node name="Dexterity" parent="VBoxContainer/Stats" instance=ExtResource("2_6f5hl")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/Stats/Dexterity/HBoxContainer" index="0"]
+text = "DEX: "
+
+[node name="Text" parent="VBoxContainer/Stats/Dexterity/HBoxContainer" index="1"]
+text = "d6"
+script = ExtResource("3_nqrqn")
+AttributeName = "Dexterity"
+
+[node name="Insight" parent="VBoxContainer/Stats" instance=ExtResource("2_6f5hl")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/Stats/Insight/HBoxContainer" index="0"]
+text = "INS: "
+
+[node name="Text" parent="VBoxContainer/Stats/Insight/HBoxContainer" index="1"]
+text = "d8"
+script = ExtResource("3_nqrqn")
+AttributeName = "Insight"
+
+[node name="Might" parent="VBoxContainer/Stats" instance=ExtResource("2_6f5hl")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/Stats/Might/HBoxContainer" index="0"]
+text = "MIG:"
+
+[node name="Text" parent="VBoxContainer/Stats/Might/HBoxContainer" index="1"]
+text = "d10"
+script = ExtResource("3_nqrqn")
+AttributeName = "Might"
+
+[node name="WillPower" parent="VBoxContainer/Stats" instance=ExtResource("2_6f5hl")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/Stats/WillPower/HBoxContainer" index="0"]
+text = "WLP "
+
+[node name="Text" parent="VBoxContainer/Stats/WillPower/HBoxContainer" index="1"]
+text = "d8"
+script = ExtResource("3_nqrqn")
+AttributeName = "WillPower"
+
+[node name="HealthPoints" parent="VBoxContainer/Stats" instance=ExtResource("2_6f5hl")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/Stats/HealthPoints/HBoxContainer" index="0"]
+text = "HP:"
+
+[node name="Text" parent="VBoxContainer/Stats/HealthPoints/HBoxContainer" index="1"]
+text = "60 | 30"
+script = ExtResource("5_f5oe2")
+
+[node name="MagicPoints" parent="VBoxContainer/Stats" instance=ExtResource("2_6f5hl")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/Stats/MagicPoints/HBoxContainer" index="0"]
+text = "MP:"
+
+[node name="Text" parent="VBoxContainer/Stats/MagicPoints/HBoxContainer" index="1"]
+text = "45"
+script = ExtResource("6_x4de1")
+
+[node name="Initiative" parent="VBoxContainer/Stats" instance=ExtResource("2_6f5hl")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/Stats/Initiative/HBoxContainer" index="0"]
+text = "INIT:"
+
+[node name="Text" parent="VBoxContainer/Stats/Initiative/HBoxContainer" index="1"]
+text = "10"
+script = ExtResource("3_nqrqn")
+AttributeName = "Initiative"
+
+[node name="Defense" parent="VBoxContainer/Stats" instance=ExtResource("2_6f5hl")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/Stats/Defense/HBoxContainer" index="0"]
+text = "DEF:"
+
+[node name="Text" parent="VBoxContainer/Stats/Defense/HBoxContainer" index="1"]
+text = "+3"
+script = ExtResource("7_g4asi")
+AttributeDice = "Defense"
+
+[node name="MagicDefense" parent="VBoxContainer/Stats" instance=ExtResource("2_6f5hl")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/Stats/MagicDefense/HBoxContainer" index="0"]
+text = "M. DEF:"
+
+[node name="Text" parent="VBoxContainer/Stats/MagicDefense/HBoxContainer" index="1"]
+text = "+1"
+script = ExtResource("7_g4asi")
+AttributeDice = "Defense"
+
+[node name="PhysicalResistance" parent="VBoxContainer/Stats" instance=ExtResource("3_vhcs2")]
+layout_mode = 2
+ResistanceName = "Physical"
+
+[node name="Image" parent="VBoxContainer/Stats/PhysicalResistance/VBoxContainer" index="0"]
+texture = ExtResource("9_o3jl4")
+BrightImage = ExtResource("9_o3jl4")
+GrayImage = ExtResource("10_lo6wk")
+
+[node name="AirResistance" parent="VBoxContainer/Stats" instance=ExtResource("3_vhcs2")]
+layout_mode = 2
+ResistanceName = "Air"
+
+[node name="Image" parent="VBoxContainer/Stats/AirResistance/VBoxContainer" index="0"]
+texture = ExtResource("11_bh076")
+BrightImage = ExtResource("11_bh076")
+GrayImage = ExtResource("12_g7x3k")
+
+[node name="BoltResistance" parent="VBoxContainer/Stats" instance=ExtResource("3_vhcs2")]
+layout_mode = 2
+ResistanceName = "Bolt"
+
+[node name="Image" parent="VBoxContainer/Stats/BoltResistance/VBoxContainer" index="0"]
+texture = ExtResource("13_71cir")
+BrightImage = ExtResource("13_71cir")
+GrayImage = ExtResource("14_dok2s")
+
+[node name="DarkResistance" parent="VBoxContainer/Stats" instance=ExtResource("3_vhcs2")]
+layout_mode = 2
+ResistanceName = "Dark"
+
+[node name="Image" parent="VBoxContainer/Stats/DarkResistance/VBoxContainer" index="0"]
+texture = ExtResource("15_o1kul")
+BrightImage = ExtResource("15_o1kul")
+GrayImage = ExtResource("16_pqgbu")
+
+[node name="EarthResistance" parent="VBoxContainer/Stats" instance=ExtResource("3_vhcs2")]
+layout_mode = 2
+ResistanceName = "Earth"
+
+[node name="Image" parent="VBoxContainer/Stats/EarthResistance/VBoxContainer" index="0"]
+texture = ExtResource("17_u0xnt")
+BrightImage = ExtResource("17_u0xnt")
+GrayImage = ExtResource("18_0yh00")
+
+[node name="FireResistance" parent="VBoxContainer/Stats" instance=ExtResource("3_vhcs2")]
+layout_mode = 2
+ResistanceName = "Fire"
+
+[node name="Image" parent="VBoxContainer/Stats/FireResistance/VBoxContainer" index="0"]
+texture = ExtResource("9_7ggv3")
+BrightImage = ExtResource("9_7ggv3")
+GrayImage = ExtResource("10_1k8xn")
+
+[node name="IceResistance" parent="VBoxContainer/Stats" instance=ExtResource("3_vhcs2")]
+layout_mode = 2
+ResistanceName = "Ice"
+
+[node name="Image" parent="VBoxContainer/Stats/IceResistance/VBoxContainer" index="0"]
+texture = ExtResource("21_j58ux")
+BrightImage = ExtResource("21_j58ux")
+GrayImage = ExtResource("22_1502u")
+
+[node name="LightResistance" parent="VBoxContainer/Stats" instance=ExtResource("3_vhcs2")]
+layout_mode = 2
+ResistanceName = "Light"
+
+[node name="Image" parent="VBoxContainer/Stats/LightResistance/VBoxContainer" index="0"]
+texture = ExtResource("23_17lks")
+BrightImage = ExtResource("23_17lks")
+GrayImage = ExtResource("24_cqar5")
+
+[node name="PoisonResistance" parent="VBoxContainer/Stats" instance=ExtResource("3_vhcs2")]
+layout_mode = 2
+ResistanceName = "Poison"
+
+[node name="Image" parent="VBoxContainer/Stats/PoisonResistance/VBoxContainer" index="0"]
+texture = ExtResource("25_neycv")
+BrightImage = ExtResource("25_neycv")
+GrayImage = ExtResource("26_6eorr")
+
+[node name="Equipment" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Equipment"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/Equipment/HBoxContainer"]
+layout_mode = 2
+text = "Equipment: "
+
+[node name="EquipmentList" type="Label" parent="VBoxContainer/Equipment/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_8ebfp")
+text = "Bow, travel garb"
+script = ExtResource("28_ful48")
+
+[node name="Attacks" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("28_80a1i")
+AttackNodeScene = ExtResource("4_716ij")
+
+[node name="Label" type="Label" parent="VBoxContainer/Attacks"]
+layout_mode = 2
+text = "BASIC ATTACKS"
+
+[node name="Attack" parent="VBoxContainer/Attacks" instance=ExtResource("4_716ij")]
+layout_mode = 2
+
+[node name="Spells" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("30_tqdql")
+SpellScene = ExtResource("31_1wadr")
+
+[node name="Label" type="Label" parent="VBoxContainer/Spells"]
+layout_mode = 2
+text = "SPELLS"
+
+[node name="Spell" parent="VBoxContainer/Spells" instance=ExtResource("31_1wadr")]
+layout_mode = 2
+
+[node name="OtherActions" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("33_icnde")
+ActionScene = ExtResource("34_mp60j")
+
+[node name="Label" type="Label" parent="VBoxContainer/OtherActions"]
+layout_mode = 2
+text = "OTHER ACTIONS"
+
+[node name="OtherAction" parent="VBoxContainer/OtherActions" instance=ExtResource("34_mp60j")]
+layout_mode = 2
+
+[node name="SpecialRules" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("33_gd0nc")
+OnlySpecialRules = true
+SkillNodeScene = ExtResource("33_ma2ky")
+
+[node name="Label" type="Label" parent="VBoxContainer/SpecialRules"]
+layout_mode = 2
+text = "SPECIAL RULES"
+
+[node name="Action" parent="VBoxContainer/SpecialRules" instance=ExtResource("33_ma2ky")]
+layout_mode = 2
+
+[node name="AddToEncounterButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Add To Current Encounter"
+
+[connection signal="pressed" from="VBoxContainer/AddToEncounterButton" to="." method="OnAddToEncounterButtonPressed"]
+
+[editable path="VBoxContainer/Description/DescriptionText/Traits"]
+[editable path="VBoxContainer/Stats/Dexterity"]
+[editable path="VBoxContainer/Stats/Insight"]
+[editable path="VBoxContainer/Stats/Might"]
+[editable path="VBoxContainer/Stats/WillPower"]
+[editable path="VBoxContainer/Stats/HealthPoints"]
+[editable path="VBoxContainer/Stats/MagicPoints"]
+[editable path="VBoxContainer/Stats/Initiative"]
+[editable path="VBoxContainer/Stats/Defense"]
+[editable path="VBoxContainer/Stats/MagicDefense"]
+[editable path="VBoxContainer/Stats/PhysicalResistance"]
+[editable path="VBoxContainer/Stats/AirResistance"]
+[editable path="VBoxContainer/Stats/BoltResistance"]
+[editable path="VBoxContainer/Stats/DarkResistance"]
+[editable path="VBoxContainer/Stats/EarthResistance"]
+[editable path="VBoxContainer/Stats/FireResistance"]
+[editable path="VBoxContainer/Stats/IceResistance"]
+[editable path="VBoxContainer/Stats/LightResistance"]
+[editable path="VBoxContainer/Stats/PoisonResistance"]

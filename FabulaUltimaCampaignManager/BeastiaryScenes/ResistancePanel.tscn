@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8bw0vtfllsa1"]
+
+[ext_resource type="Script" path="res://BeastiaryScenes/ResistancePanel.cs" id="1_rt7lw"]
+[ext_resource type="Texture2D" uid="uid://cugh3k4c43aya" path="res://ResistanceImages/default.png" id="2_okqos"]
+[ext_resource type="Script" path="res://BeastiaryScenes/ImageResistanceReceiver.cs" id="3_pg7f5"]
+[ext_resource type="Script" path="res://BeastiaryScenes/TextResistanceReciever.cs" id="3_rts8w"]
+
+[node name="ResistancePanel" type="PanelContainer"]
+script = ExtResource("1_rt7lw")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Image" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_okqos")
+expand_mode = 2
+script = ExtResource("3_pg7f5")
+
+[node name="Text" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.964706, 0, 0, 1)
+text = "RS"
+script = ExtResource("3_rts8w")

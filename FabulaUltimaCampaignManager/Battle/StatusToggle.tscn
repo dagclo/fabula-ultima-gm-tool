@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://3cfcbw84wt2l"]
+
+[ext_resource type="Script" path="res://Battle/StatusToggle.cs" id="1_wpy45"]
+
+[node name="StatusToggle" type="CheckButton"]
+text = "Status"
+script = ExtResource("1_wpy45")
+
+[connection signal="toggled" from="." to="." method="OnToggle"]

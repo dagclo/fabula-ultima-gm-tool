@@ -1,0 +1,165 @@
+[gd_scene load_steps=16 format=3 uid="uid://cdbhgvau850oy"]
+
+[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_27rb4"]
+[ext_resource type="Script" path="res://Battle/RunEncounter.cs" id="1_dwbmd"]
+[ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="2_sfbix"]
+[ext_resource type="PackedScene" uid="uid://bsxr63lu04kga" path="res://Battle/npc_panel.tscn" id="2_wj8as"]
+[ext_resource type="Script" path="res://Battle/NpcTabs.cs" id="3_75r23"]
+[ext_resource type="PackedScene" uid="uid://erwugkr5gcel" path="res://Battle/player_panel.tscn" id="4_nde4l"]
+[ext_resource type="Script" path="res://Battle/TurnTracker.cs" id="5_23ujl"]
+[ext_resource type="Script" path="res://Battle/GMScreen.cs" id="6_jr3u1"]
+[ext_resource type="Script" path="res://Battle/CurrentRound.cs" id="7_iwhkn"]
+[ext_resource type="Script" path="res://Battle/CurrentTurn.cs" id="7_wtj7o"]
+[ext_resource type="Script" path="res://Battle/CurrentTurnOwner.cs" id="9_go3nm"]
+[ext_resource type="Script" path="res://Battle/GameLog.cs" id="10_f45dp"]
+[ext_resource type="Script" path="res://Battle/PlayersList.cs" id="10_xq16r"]
+[ext_resource type="Script" path="res://Encounters/EndEncounterButton.cs" id="12_2xgj5"]
+[ext_resource type="PackedScene" uid="uid://cxgjs17e7mmas" path="res://Battle/battle_window.tscn" id="14_c81va"]
+
+[node name="RunEncounter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_27rb4")
+script = ExtResource("1_dwbmd")
+
+[node name="GMScreen" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 5
+script = ExtResource("6_jr3u1")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GMScreen"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Npcs" type="TabContainer" parent="GMScreen/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("3_75r23")
+
+[node name="NPCPanel1" parent="GMScreen/ScrollContainer/Npcs" instance=ExtResource("2_wj8as")]
+layout_mode = 2
+
+[node name="NPCPanel2" parent="GMScreen/ScrollContainer/Npcs" instance=ExtResource("2_wj8as")]
+visible = false
+layout_mode = 2
+SlotIndex = 1
+
+[node name="NPCPanel3" parent="GMScreen/ScrollContainer/Npcs" instance=ExtResource("2_wj8as")]
+visible = false
+layout_mode = 2
+SlotIndex = 2
+
+[node name="NPCPanel4" parent="GMScreen/ScrollContainer/Npcs" instance=ExtResource("2_wj8as")]
+visible = false
+layout_mode = 2
+SlotIndex = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GMScreen"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TurnTracker" type="GridContainer" parent="GMScreen/VBoxContainer"]
+layout_mode = 2
+columns = 2
+script = ExtResource("5_23ujl")
+
+[node name="CurrentRound" parent="GMScreen/VBoxContainer/TurnTracker" instance=ExtResource("2_sfbix")]
+layout_mode = 2
+script = ExtResource("7_iwhkn")
+
+[node name="Label" parent="GMScreen/VBoxContainer/TurnTracker/CurrentRound/HBoxContainer" index="0"]
+text = "Round: "
+
+[node name="Text" parent="GMScreen/VBoxContainer/TurnTracker/CurrentRound/HBoxContainer" index="1"]
+text = "<unset>"
+
+[node name="CurrentTurn" parent="GMScreen/VBoxContainer/TurnTracker" instance=ExtResource("2_sfbix")]
+layout_mode = 2
+script = ExtResource("7_wtj7o")
+
+[node name="Label" parent="GMScreen/VBoxContainer/TurnTracker/CurrentTurn/HBoxContainer" index="0"]
+text = "Turn: "
+
+[node name="Text" parent="GMScreen/VBoxContainer/TurnTracker/CurrentTurn/HBoxContainer" index="1"]
+text = "<unset>"
+
+[node name="CurrentTurnOwner" parent="GMScreen/VBoxContainer/TurnTracker" instance=ExtResource("2_sfbix")]
+layout_mode = 2
+script = ExtResource("9_go3nm")
+
+[node name="Label" parent="GMScreen/VBoxContainer/TurnTracker/CurrentTurnOwner/HBoxContainer" index="0"]
+text = "Owner:"
+
+[node name="Text" parent="GMScreen/VBoxContainer/TurnTracker/CurrentTurnOwner/HBoxContainer" index="1"]
+text = "<unset>"
+
+[node name="Players" type="VBoxContainer" parent="GMScreen/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("10_xq16r")
+
+[node name="PlayerPanel1" parent="GMScreen/VBoxContainer/Players" instance=ExtResource("4_nde4l")]
+layout_mode = 2
+
+[node name="PlayerPanel2" parent="GMScreen/VBoxContainer/Players" instance=ExtResource("4_nde4l")]
+layout_mode = 2
+
+[node name="PlayerPanel3" parent="GMScreen/VBoxContainer/Players" instance=ExtResource("4_nde4l")]
+layout_mode = 2
+
+[node name="PlayerPanel4" parent="GMScreen/VBoxContainer/Players" instance=ExtResource("4_nde4l")]
+layout_mode = 2
+
+[node name="GameLog" type="PanelContainer" parent="GMScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GameLog" type="VBoxContainer" parent="GMScreen/VBoxContainer/GameLog"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GMScreen/VBoxContainer/GameLog/GameLog"]
+layout_mode = 2
+text = "Game Log"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GMScreen/VBoxContainer/GameLog/GameLog"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="GMScreen/VBoxContainer/GameLog/GameLog/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Log" type="Label" parent="GMScreen/VBoxContainer/GameLog/GameLog/ScrollContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 10
+text = "testing
+what multiple lines
+look like"
+script = ExtResource("10_f45dp")
+
+[node name="EndEncounterButton" type="Button" parent="GMScreen/VBoxContainer"]
+layout_mode = 2
+text = "End Encounter"
+script = ExtResource("12_2xgj5")
+NextScreenPath = "res://node_2d.tscn"
+
+[node name="BattleWindow" parent="." instance=ExtResource("14_c81va")]
+visible = false
+
+[connection signal="pressed" from="GMScreen/VBoxContainer/EndEncounterButton" to="GMScreen/VBoxContainer/EndEncounterButton" method="OnButtonPressed"]
+
+[editable path="GMScreen/VBoxContainer/TurnTracker/CurrentRound"]
+[editable path="GMScreen/VBoxContainer/TurnTracker/CurrentTurn"]
+[editable path="GMScreen/VBoxContainer/TurnTracker/CurrentTurnOwner"]

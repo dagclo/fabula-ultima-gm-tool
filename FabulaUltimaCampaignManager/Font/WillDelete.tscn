@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0o84dijbs683"]
+
+[ext_resource type="FontFile" uid="uid://ypuiap2spg2i" path="res://Font/BoldTwilight.fnt" id="1_wbjyu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5mnb"]
+bg_color = Color(0.0705882, 0.0313726, 0.392157, 1)
+
+[node name="WillDelete" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_wbjyu")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxFlat_u5mnb")
+text = "Fabula Ultima
+Campaign Manager"
+horizontal_alignment = 1
+vertical_alignment = 1

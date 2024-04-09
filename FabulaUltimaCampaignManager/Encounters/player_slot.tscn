@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxbt82uyb2oo7"]
+
+[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_3wx5j"]
+[ext_resource type="Script" path="res://Player/PlayerSlot.cs" id="1_alfyt"]
+[ext_resource type="Script" path="res://Player/PlayerNameInput.cs" id="2_xsw1t"]
+[ext_resource type="Script" path="res://Player/CharacterNameEdit.cs" id="3_qclik"]
+[ext_resource type="Script" path="res://Player/CharacterTitleEdit.cs" id="4_laftu"]
+
+[node name="PlayerSlot" type="VBoxContainer"]
+size_flags_horizontal = 3
+theme = ExtResource("1_3wx5j")
+script = ExtResource("1_alfyt")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PlayerName" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="PlayerNameInput" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "name"
+script = ExtResource("2_xsw1t")
+
+[node name="CharacterName" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Character Name:"
+
+[node name="CharacterNameEdit" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "name"
+script = ExtResource("3_qclik")
+
+[node name="CharacterTitle" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Character Title:"
+
+[node name="CharacterTitleEdit" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "title"
+script = ExtResource("4_laftu")
+
+[connection signal="text_submitted" from="HBoxContainer/PlayerNameInput" to="HBoxContainer/PlayerNameInput" method="OnTextSubmitted"]
+[connection signal="text_submitted" from="HBoxContainer/CharacterNameEdit" to="HBoxContainer/CharacterNameEdit" method="OnTextSubmitted"]
+[connection signal="text_submitted" from="HBoxContainer/CharacterTitleEdit" to="HBoxContainer/CharacterTitleEdit" method="OnTextSubmitted"]

@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://drddw6trt8kk4"]
+
+[ext_resource type="PackedScene" uid="uid://ddx26ghe36o0p" path="res://BeastiaryScenes/action.tscn" id="1_5c8sd"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/SkillDetail/SkillEntry.cs" id="1_l1sv6"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/SkillDetail/SkillOptions.cs" id="2_phoqs"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/SkillDetail/IsSpecialAttack.cs" id="3_bcb10"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/SkillDetail/AttackContainer.cs" id="5_bayl8"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/SkillDetail/AttackOptions.cs" id="6_1reaw"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/SkillDetail/ErrorLabel.cs" id="7_0tai3"]
+
+[node name="Skill" type="VBoxContainer"]
+script = ExtResource("1_l1sv6")
+
+[node name="SkillSelection" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="SkillSelection"]
+layout_mode = 2
+text = "Select Skill:"
+
+[node name="SkillOptions" type="OptionButton" parent="SkillSelection"]
+layout_mode = 2
+allow_reselect = true
+script = ExtResource("2_phoqs")
+
+[node name="IsSpecialAttack" type="CheckButton" parent="SkillSelection"]
+layout_mode = 2
+disabled = true
+text = "is special attack"
+script = ExtResource("3_bcb10")
+
+[node name="Selected Skill Details" parent="." instance=ExtResource("1_5c8sd")]
+layout_mode = 2
+
+[node name="AttackContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+script = ExtResource("5_bayl8")
+
+[node name="AttackOptionLabel" type="Label" parent="AttackContainer"]
+layout_mode = 2
+text = "Attacks To Modify"
+
+[node name="AttackOptions" type="OptionButton" parent="AttackContainer"]
+layout_mode = 2
+allow_reselect = true
+script = ExtResource("6_1reaw")
+
+[node name="ErrorLabel" type="Label" parent="."]
+layout_mode = 2
+script = ExtResource("7_0tai3")
+
+[connection signal="SkillSelected" from="SkillSelection/SkillOptions" to="." method="OnSkillSelected"]
+[connection signal="item_selected" from="SkillSelection/SkillOptions" to="SkillSelection/SkillOptions" method="OnItemSelected"]
+[connection signal="SkillReady" from="AttackContainer/AttackOptions" to="." method="OnSkillReady"]
+[connection signal="item_selected" from="AttackContainer/AttackOptions" to="AttackContainer/AttackOptions" method="OnItemSelected"]
+[connection signal="SkillReady" from="ErrorLabel" to="." method="OnSkillReady"]

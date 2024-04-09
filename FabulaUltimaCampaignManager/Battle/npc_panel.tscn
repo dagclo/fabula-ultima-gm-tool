@@ -1,0 +1,352 @@
+[gd_scene load_steps=28 format=3 uid="uid://bsxr63lu04kga"]
+
+[ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="1_1ptjk"]
+[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_83a5u"]
+[ext_resource type="Script" path="res://Battle/NpcPanel.cs" id="1_g5bm3"]
+[ext_resource type="Script" path="res://Battle/NpcAttributeLabel.cs" id="3_novmc"]
+[ext_resource type="PackedScene" uid="uid://b6kwc80e1vqp1" path="res://BeastiaryScenes/other_action.tscn" id="4_hy8io"]
+[ext_resource type="Script" path="res://Battle/NpcStatusLabel.cs" id="4_q3u3n"]
+[ext_resource type="PackedScene" uid="uid://ddx26ghe36o0p" path="res://BeastiaryScenes/action.tscn" id="5_37xok"]
+[ext_resource type="PackedScene" uid="uid://3cfcbw84wt2l" path="res://Battle/StatusToggle.tscn" id="5_fwa0l"]
+[ext_resource type="Script" path="res://Battle/Attacks.cs" id="6_3sx6m"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/DeadToggle.cs" id="6_4n0rd"]
+[ext_resource type="PackedScene" uid="uid://cerx6ejkwe1tc" path="res://Battle/attack_panel.tscn" id="7_mbs67"]
+[ext_resource type="Script" path="res://Battle/SpellList.cs" id="8_l6g8q"]
+[ext_resource type="PackedScene" uid="uid://dywmh38jaem58" path="res://Battle/spell_panel.tscn" id="9_4q14p"]
+[ext_resource type="Script" path="res://Battle/OtherActionList.cs" id="10_ttwg6"]
+[ext_resource type="Script" path="res://Battle/RollButton.cs" id="12_h1pac"]
+[ext_resource type="Script" path="res://Battle/RulesList.cs" id="12_u0kj1"]
+[ext_resource type="Script" path="res://Battle/DamageButton.cs" id="15_1atgb"]
+[ext_resource type="Script" path="res://Battle/FinishTurnButton.cs" id="15_6xvc4"]
+[ext_resource type="Script" path="res://Battle/DamageTypeOptions.cs" id="15_cb83f"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/ActionOptions.cs" id="16_os7ll"]
+[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="17_hqeym"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/AccuracyMod.cs" id="17_i44yt"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/Difficulty.cs" id="17_ta6go"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/AttributeOptions.cs" id="17_xfhcf"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/HighRollMod.cs" id="18_87kxn"]
+[ext_resource type="Script" path="res://Battle/ExpectedDamage.cs" id="18_wj2dn"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/ResultLabel.cs" id="21_xpnbq"]
+
+[node name="NPCPanel" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_83a5u")
+script = ExtResource("1_g5bm3")
+
+[node name="NpcStatus" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Attributes" type="HBoxContainer" parent="NpcStatus"]
+layout_mode = 2
+
+[node name="Name" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
+layout_mode = 2
+script = ExtResource("3_novmc")
+Attribute = "Name"
+
+[node name="Label" parent="NpcStatus/Attributes/Name/HBoxContainer" index="0"]
+text = "Name: "
+
+[node name="Text" parent="NpcStatus/Attributes/Name/HBoxContainer" index="1"]
+text = "<unset>"
+
+[node name="HP" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
+layout_mode = 2
+script = ExtResource("4_q3u3n")
+Attribute = "HP"
+
+[node name="Label" parent="NpcStatus/Attributes/HP/HBoxContainer" index="0"]
+text = "HP: "
+
+[node name="Text" parent="NpcStatus/Attributes/HP/HBoxContainer" index="1"]
+text = "unset"
+
+[node name="MP" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
+layout_mode = 2
+script = ExtResource("4_q3u3n")
+Attribute = "MP"
+
+[node name="Label" parent="NpcStatus/Attributes/MP/HBoxContainer" index="0"]
+text = "MP: "
+
+[node name="Text" parent="NpcStatus/Attributes/MP/HBoxContainer" index="1"]
+text = "<unset>"
+
+[node name="Type" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
+layout_mode = 2
+script = ExtResource("3_novmc")
+Attribute = "Type"
+
+[node name="Label" parent="NpcStatus/Attributes/Type/HBoxContainer" index="0"]
+text = "Type: "
+
+[node name="Text" parent="NpcStatus/Attributes/Type/HBoxContainer" index="1"]
+text = "<unset>"
+
+[node name="Mdef" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
+layout_mode = 2
+script = ExtResource("3_novmc")
+Attribute = "MDef"
+
+[node name="Label" parent="NpcStatus/Attributes/Mdef/HBoxContainer" index="0"]
+text = "M.Def: "
+
+[node name="Text" parent="NpcStatus/Attributes/Mdef/HBoxContainer" index="1"]
+text = "<unset>"
+
+[node name="PDef" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
+layout_mode = 2
+script = ExtResource("3_novmc")
+Attribute = "PDef"
+
+[node name="Label" parent="NpcStatus/Attributes/PDef/HBoxContainer" index="0"]
+text = "P Def: "
+
+[node name="Text" parent="NpcStatus/Attributes/PDef/HBoxContainer" index="1"]
+text = "<unset>"
+
+[node name="Statuses" type="HBoxContainer" parent="NpcStatus"]
+layout_mode = 2
+
+[node name="DeadToggle" type="CheckButton" parent="NpcStatus/Statuses"]
+layout_mode = 2
+text = "Dead"
+script = ExtResource("6_4n0rd")
+
+[node name="DazedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
+layout_mode = 2
+text = "Dazed"
+
+[node name="EnragedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
+layout_mode = 2
+text = "Enraged"
+Status = 1
+
+[node name="PoisonedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
+layout_mode = 2
+text = "Poisoned"
+Status = 2
+
+[node name="ShakenToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
+layout_mode = 2
+text = "Shaken"
+Status = 3
+
+[node name="SlowToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
+layout_mode = 2
+text = "Slow"
+Status = 4
+
+[node name="WeakToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
+layout_mode = 2
+text = "Weak"
+Status = 5
+
+[node name="Attacks" type="VBoxContainer" parent="NpcStatus"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NpcStatus/Attacks"]
+layout_mode = 2
+text = "Attacks"
+
+[node name="AttackList" type="VBoxContainer" parent="NpcStatus/Attacks"]
+layout_mode = 2
+script = ExtResource("6_3sx6m")
+AttackScene = ExtResource("7_mbs67")
+
+[node name="AttackPanel" parent="NpcStatus/Attacks/AttackList" instance=ExtResource("7_mbs67")]
+layout_mode = 2
+
+[node name="Spells" type="VBoxContainer" parent="NpcStatus"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NpcStatus/Spells"]
+layout_mode = 2
+text = "Spells:"
+
+[node name="SpellList" type="VBoxContainer" parent="NpcStatus/Spells"]
+layout_mode = 2
+script = ExtResource("8_l6g8q")
+SpellScene = ExtResource("9_4q14p")
+
+[node name="SpellPanel" parent="NpcStatus/Spells/SpellList" instance=ExtResource("9_4q14p")]
+layout_mode = 2
+
+[node name="OtherActions" type="VBoxContainer" parent="NpcStatus"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NpcStatus/OtherActions"]
+layout_mode = 2
+text = "Other Actions"
+
+[node name="OtherActionList" type="VBoxContainer" parent="NpcStatus/OtherActions"]
+layout_mode = 2
+script = ExtResource("10_ttwg6")
+ActionScene = ExtResource("4_hy8io")
+
+[node name="OtherAction" parent="NpcStatus/OtherActions/OtherActionList" instance=ExtResource("4_hy8io")]
+layout_mode = 2
+
+[node name="SpecialRules" type="VBoxContainer" parent="NpcStatus"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NpcStatus/SpecialRules"]
+layout_mode = 2
+text = "Special Rules:"
+
+[node name="RulesList" type="VBoxContainer" parent="NpcStatus/SpecialRules"]
+layout_mode = 2
+script = ExtResource("12_u0kj1")
+SkillScene = ExtResource("5_37xok")
+
+[node name="Skill" parent="NpcStatus/SpecialRules/RulesList" instance=ExtResource("5_37xok")]
+layout_mode = 2
+
+[node name="Roll" type="FlowContainer" parent="NpcStatus"]
+layout_mode = 2
+
+[node name="ActionLabel" type="Label" parent="NpcStatus/Roll"]
+layout_mode = 2
+text = "Action:"
+
+[node name="ActionOptions" type="OptionButton" parent="NpcStatus/Roll"]
+layout_mode = 2
+item_count = 1
+popup/item_0/text = ""
+popup/item_0/id = 0
+script = ExtResource("16_os7ll")
+
+[node name="Attribute1Label" type="Label" parent="NpcStatus/Roll"]
+layout_mode = 2
+text = "Attribute"
+
+[node name="Attribute1Options" type="OptionButton" parent="NpcStatus/Roll"]
+layout_mode = 2
+script = ExtResource("17_xfhcf")
+
+[node name="Attribute2Label" type="Label" parent="NpcStatus/Roll"]
+layout_mode = 2
+text = "Attribute"
+
+[node name="Attribute2Options" type="OptionButton" parent="NpcStatus/Roll"]
+layout_mode = 2
+script = ExtResource("17_xfhcf")
+IsAttribute1 = false
+
+[node name="AccuracyModLabel" type="Label" parent="NpcStatus/Roll"]
+layout_mode = 2
+text = "Acc Mod"
+
+[node name="AccuracyMod" type="LineEdit" parent="NpcStatus/Roll"]
+layout_mode = 2
+placeholder_text = "damage mod"
+script = ExtResource("17_i44yt")
+
+[node name="HighRollModLabel" type="Label" parent="NpcStatus/Roll"]
+layout_mode = 2
+text = "HR Mod"
+
+[node name="HighRollMod" type="LineEdit" parent="NpcStatus/Roll"]
+layout_mode = 2
+placeholder_text = "HR mod"
+script = ExtResource("18_87kxn")
+
+[node name="DifficultyModLabel" type="Label" parent="NpcStatus/Roll"]
+layout_mode = 2
+text = "Difficulty"
+
+[node name="Difficulty" type="LineEdit" parent="NpcStatus/Roll"]
+layout_mode = 2
+placeholder_text = "HR mod"
+script = ExtResource("17_ta6go")
+
+[node name="RollButton" type="Button" parent="NpcStatus/Roll"]
+layout_mode = 2
+text = "Roll
+"
+script = ExtResource("12_h1pac")
+
+[node name="ResultLabel" type="Label" parent="NpcStatus/Roll"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("17_hqeym")
+text = "<unset>"
+script = ExtResource("21_xpnbq")
+
+[node name="Damage" type="HBoxContainer" parent="NpcStatus"]
+layout_mode = 2
+
+[node name="DamageAmount" type="LineEdit" parent="NpcStatus/Damage"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+placeholder_text = "damage"
+
+[node name="DamageType" type="OptionButton" parent="NpcStatus/Damage"]
+layout_mode = 2
+item_count = 1
+selected = 0
+popup/item_0/text = "Damage Type"
+popup/item_0/id = 0
+script = ExtResource("15_cb83f")
+
+[node name="ResistanceOverride" type="CheckButton" parent="NpcStatus/Damage"]
+layout_mode = 2
+tooltip_text = "usually from guard. doesn't double up with existing resistance and only brings vulnerabilities up to \"no affnity\""
+text = "add resistance"
+
+[node name="ExpectedDamageLabel" type="Label" parent="NpcStatus/Damage"]
+layout_mode = 2
+text = "Expected: "
+
+[node name="ExpectedDamage" type="Label" parent="NpcStatus/Damage"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("17_hqeym")
+text = "<unset>"
+script = ExtResource("18_wj2dn")
+
+[node name="DamageButton" type="Button" parent="NpcStatus/Damage"]
+layout_mode = 2
+text = "Apply Damage"
+script = ExtResource("15_1atgb")
+
+[node name="FinishTurnButton" type="Button" parent="NpcStatus"]
+layout_mode = 2
+text = "Finish Turn"
+script = ExtResource("15_6xvc4")
+
+[connection signal="TurnChanged" from="." to="NpcStatus/FinishTurnButton" method="OnTurnChanged"]
+[connection signal="toggled" from="NpcStatus/Statuses/DeadToggle" to="NpcStatus/Statuses/DeadToggle" method="OnToggleDeath"]
+[connection signal="ActionSet" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/Attribute1Options" method="OnActionSet"]
+[connection signal="ActionSet" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/Attribute2Options" method="OnActionSet"]
+[connection signal="ActionSet" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/AccuracyMod" method="OnActionSet"]
+[connection signal="ActionSet" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/HighRollMod" method="OnActionSet"]
+[connection signal="ActionSet" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/Difficulty" method="OnActionSet"]
+[connection signal="ActionSet" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/RollButton" method="OnActionSet"]
+[connection signal="ActionSet" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/ResultLabel" method="OnActionSet"]
+[connection signal="item_selected" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/ActionOptions" method="OnItemSelected"]
+[connection signal="item_selected" from="NpcStatus/Roll/Attribute1Options" to="NpcStatus/Roll/Attribute1Options" method="OnItemSelected"]
+[connection signal="item_selected" from="NpcStatus/Roll/Attribute2Options" to="NpcStatus/Roll/Attribute2Options" method="OnItemSelected"]
+[connection signal="text_submitted" from="NpcStatus/Roll/AccuracyMod" to="NpcStatus/Roll/AccuracyMod" method="OnSubmit"]
+[connection signal="text_submitted" from="NpcStatus/Roll/HighRollMod" to="NpcStatus/Roll/HighRollMod" method="OnSubmit"]
+[connection signal="text_submitted" from="NpcStatus/Roll/Difficulty" to="NpcStatus/Roll/Difficulty" method="OnSubmit"]
+[connection signal="ResultReady" from="NpcStatus/Roll/RollButton" to="NpcStatus/Roll/ResultLabel" method="OnResultReady"]
+[connection signal="pressed" from="NpcStatus/Roll/RollButton" to="NpcStatus/Roll/RollButton" method="OnRoll"]
+[connection signal="text_submitted" from="NpcStatus/Damage/DamageAmount" to="NpcStatus/Damage/ExpectedDamage" method="OnTextChanged"]
+[connection signal="DamageTypeAndAffinityChanged" from="NpcStatus/Damage/DamageType" to="NpcStatus/Damage/ExpectedDamage" method="OnDamageTypeChanged"]
+[connection signal="DamageTypeAndAffinityChanged" from="NpcStatus/Damage/DamageType" to="NpcStatus/Damage/DamageButton" method="OnDamageTypeChanged"]
+[connection signal="item_selected" from="NpcStatus/Damage/DamageType" to="NpcStatus/Damage/DamageType" method="OnItemSelected"]
+[connection signal="toggled" from="NpcStatus/Damage/ResistanceOverride" to="NpcStatus/Damage/ExpectedDamage" method="OnResistanceOverrideChange"]
+[connection signal="ExpectedDamageChanged" from="NpcStatus/Damage/ExpectedDamage" to="NpcStatus/Damage/DamageButton" method="OnDamageChanged"]
+[connection signal="pressed" from="NpcStatus/Damage/DamageButton" to="NpcStatus/Damage/DamageButton" method="OnButtonPressed"]
+[connection signal="pressed" from="NpcStatus/FinishTurnButton" to="." method="OnTurnEnd"]
+[connection signal="pressed" from="NpcStatus/FinishTurnButton" to="NpcStatus/FinishTurnButton" method="OnButtonPressed"]
+
+[editable path="NpcStatus/Attributes/Name"]
+[editable path="NpcStatus/Attributes/HP"]
+[editable path="NpcStatus/Attributes/MP"]
+[editable path="NpcStatus/Attributes/Type"]
+[editable path="NpcStatus/Attributes/Mdef"]
+[editable path="NpcStatus/Attributes/PDef"]

@@ -1,0 +1,90 @@
+[gd_scene load_steps=10 format=3 uid="uid://cxgjs17e7mmas"]
+
+[ext_resource type="Script" path="res://Battle/BattleWindow.cs" id="1_m7k50"]
+[ext_resource type="SpriteFrames" uid="uid://c82vwyudb7xd2" path="res://Battle/Backgroudn.tres" id="2_inpd1"]
+[ext_resource type="Script" path="res://Battle/Background.cs" id="3_frth7"]
+[ext_resource type="PackedScene" uid="uid://b54cktmhcq4dq" path="res://Battle/battle_slot.tscn" id="4_qo5g6"]
+[ext_resource type="Script" path="res://Battle/PlayerPanel/BattlePlayerPanel.cs" id="6_32chj"]
+[ext_resource type="Theme" uid="uid://dtpbrs518fimv" path="res://Battle/battle_theme.tres" id="6_q2ftn"]
+[ext_resource type="PackedScene" uid="uid://dtsiqen0mcy4f" path="res://Battle/PlayerPanel/Player.tscn" id="6_xpt3v"]
+[ext_resource type="Script" path="res://Battle/PlayerPanel/AnnouncementPanel.cs" id="7_l4fvx"]
+[ext_resource type="Script" path="res://Battle/PlayerPanel/Announcement.cs" id="8_2ab8g"]
+
+[node name="BattleWindow" type="Window"]
+initial_position = 3
+size = Vector2i(1200, 900)
+current_screen = 0
+theme = ExtResource("6_q2ftn")
+script = ExtResource("1_m7k50")
+
+[node name="Background" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("2_inpd1")
+animation = &"DESERT"
+centered = false
+offset = Vector2(-90, 0)
+script = ExtResource("3_frth7")
+
+[node name="BattleSlot1" parent="." instance=ExtResource("4_qo5g6")]
+position = Vector2(125, 300)
+
+[node name="BattleSlot2" parent="." instance=ExtResource("4_qo5g6")]
+position = Vector2(775, 300)
+SlotIndex = 1
+
+[node name="BattleSlot3" parent="." instance=ExtResource("4_qo5g6")]
+position = Vector2(450, 550)
+SlotIndex = 2
+
+[node name="BattleSlot4" parent="." instance=ExtResource("4_qo5g6")]
+position = Vector2(1075, 550)
+SlotIndex = 3
+
+[node name="DisplayPanel" type="VBoxContainer" parent="."]
+anchors_preset = -1
+anchor_top = 0.833
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -65.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("6_q2ftn")
+
+[node name="AnnouncementPanel" type="PanelContainer" parent="DisplayPanel"]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("7_l4fvx")
+
+[node name="Announcement" type="Label" parent="DisplayPanel/AnnouncementPanel"]
+layout_mode = 2
+text = "<Accouncement>"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_2ab8g")
+
+[node name="PlayerPanel" type="PanelContainer" parent="DisplayPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_32chj")
+
+[node name="GridContainer" type="GridContainer" parent="DisplayPanel/PlayerPanel"]
+layout_mode = 2
+columns = 2
+
+[node name="Player1" parent="DisplayPanel/PlayerPanel/GridContainer" instance=ExtResource("6_xpt3v")]
+layout_mode = 2
+
+[node name="Player2" parent="DisplayPanel/PlayerPanel/GridContainer" instance=ExtResource("6_xpt3v")]
+layout_mode = 2
+
+[node name="Player3" parent="DisplayPanel/PlayerPanel/GridContainer" instance=ExtResource("6_xpt3v")]
+layout_mode = 2
+
+[node name="Player4" parent="DisplayPanel/PlayerPanel/GridContainer" instance=ExtResource("6_xpt3v")]
+layout_mode = 2
+
+[connection signal="WaitTimeSet" from="DisplayPanel/AnnouncementPanel" to="DisplayPanel/AnnouncementPanel/Announcement" method="OnWaitTimeSet"]
+[connection signal="MessageReceived" from="DisplayPanel/AnnouncementPanel/Announcement" to="DisplayPanel/AnnouncementPanel" method="OnMessageReceived"]

@@ -1,0 +1,27 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://d2sfrnkc8pqs1"]
+
+[ext_resource type="FontFile" uid="uid://dya0rxr7wqedx" path="res://Font/NicoBold-Regular.ttf" id="1_bqook"]
+[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="2_4yk3g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jf365"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+
+[resource]
+default_font = ExtResource("1_bqook")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(1, 1, 1, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 1
+Label/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("1_bqook")
+Label/styles/normal = SubResource("StyleBoxFlat_jf365")
+LineEdit/fonts/font = ExtResource("2_4yk3g")
+TextEdit/fonts/font = ExtResource("2_4yk3g")

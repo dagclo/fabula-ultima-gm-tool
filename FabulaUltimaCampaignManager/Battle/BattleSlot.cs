@@ -1,0 +1,47 @@
+using FirstProject.Encounters;
+using FirstProject.Npc;
+using Godot;
+using System;
+using System.Linq;
+
+public partial class BattleSlot : Node2D, INpcInstanceReader
+{
+	[Export]
+    public int SlotIndex { get; set; }
+
+    [Signal]
+    public delegate void BattleStatusChangedEventHandler(BattleStatus status);
+    private Action<NpcInstance> NpcChanged { get; set; }
+
+    private Sprite2D _sprite;
+    private Sprite2D _shadow;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+	{
+        this.Visible = false;
+        foreach (var child in this.FindChildren("*")
+           .Where(l => l is INpcReader))
+        {   
+            var sprite = child as INpcReader;
+            this.NpcChanged += sprite.HandleNpcChanged;
+        }
+    }
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+
+    public void ReadNpc(NpcInstance instance, BattleStatus battleStatus)
+    {   
+        this.Visible = true;
+        NpcChanged?.Invoke(instance);
+        battleStatus.StatusChanged += this.StatusChanged;
+    }
+
+    private void StatusChanged(BattleStatus newStatus)
+    {
+        EmitSignal(SignalName.BattleStatusChanged, newStatus);
+    }
+}

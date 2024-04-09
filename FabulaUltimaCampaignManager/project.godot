@@ -1,0 +1,35 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="FabulaUltimaCampaignManager"
+run/main_scene="res://node_2d.tscn"
+config/features=PackedStringArray("4.2", "C#", "Mobile")
+boot_splash/image="res://splashscreen.png"
+config/icon="res://icon.svg"
+
+[autoload]
+
+RunState="*res://RunState.cs"
+MessageRouter="*res://Messaging/MessageRouter.cs"
+DbAccess="*res://DbAccess.cs"
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=550
+window/subwindows/embed_subwindows=false
+window/stretch/aspect="ignore"
+
+[dotnet]
+
+project/assembly_name="FirstProject"
+project/solution_directory="D:\\Godot\\FabulaUltimaCampaignManager\\"

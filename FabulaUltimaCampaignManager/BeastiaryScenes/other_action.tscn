@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6kwc80e1vqp1"]
+
+[ext_resource type="Script" path="res://BeastiaryScenes/OtherActionEntry.cs" id="1_lk36b"]
+[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_qpsqa"]
+[ext_resource type="Script" path="res://BeastiaryScenes/OtherActionName.cs" id="2_sc1f4"]
+[ext_resource type="Script" path="res://BeastiaryScenes/OtherActionEffect.cs" id="3_8jnhx"]
+[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="4_egd25"]
+
+[node name="OtherAction" type="PanelContainer"]
+offset_right = 393.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+theme = ExtResource("1_qpsqa")
+script = ExtResource("1_lk36b")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Action"
+script = ExtResource("2_sc1f4")
+
+[node name="Effect" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_egd25")
+text = "Effect"
+autowrap_mode = 2
+script = ExtResource("3_8jnhx")

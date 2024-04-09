@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://3eqvokisi6o7"]
+
+[ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="1_gn58d"]
+[ext_resource type="Script" path="res://Encounters/EncounterEntry.cs" id="1_o6o6v"]
+[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="3_cvxr5"]
+[ext_resource type="Script" path="res://Encounters/EncounterName.cs" id="3_d5kal"]
+[ext_resource type="Script" path="res://Encounters/NumNpcs.cs" id="4_wf6x0"]
+[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="5_8r10l"]
+
+[node name="Encounter" type="VBoxContainer"]
+script = ExtResource("1_o6o6v")
+
+[node name="Name" parent="." instance=ExtResource("1_gn58d")]
+layout_mode = 2
+
+[node name="Label" parent="Name/HBoxContainer" index="0"]
+text = "Name: "
+
+[node name="Text" parent="Name/HBoxContainer" index="1"]
+theme_override_fonts/font = ExtResource("3_cvxr5")
+text = "Made up Encounter"
+script = ExtResource("3_d5kal")
+
+[node name="NumNpcs" parent="." instance=ExtResource("1_gn58d")]
+layout_mode = 2
+
+[node name="Label" parent="NumNpcs/HBoxContainer" index="0"]
+text = "Num NPCs:"
+
+[node name="Text" parent="NumNpcs/HBoxContainer" index="1"]
+theme_override_fonts/font = ExtResource("3_cvxr5")
+text = "1"
+script = ExtResource("4_wf6x0")
+
+[node name="LoadEncounterButton" type="Button" parent="."]
+layout_mode = 2
+theme = ExtResource("5_8r10l")
+text = "Load"
+
+[node name="DeleteEncounterButton" type="Button" parent="."]
+layout_mode = 2
+theme = ExtResource("5_8r10l")
+text = "Delete"
+
+[connection signal="pressed" from="LoadEncounterButton" to="." method="OnLoadButtonPressed"]
+[connection signal="pressed" from="DeleteEncounterButton" to="." method="OnDeleteButtonPressed"]
+
+[editable path="Name"]
+[editable path="NumNpcs"]

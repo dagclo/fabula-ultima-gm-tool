@@ -1,0 +1,214 @@
+[gd_scene load_steps=21 format=3 uid="uid://pqw3i42qkgpi"]
+
+[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_t803w"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/NPCWizard.cs" id="2_8f8xe"]
+[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="2_uou5l"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/WizardTabs.cs" id="3_t4msy"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/InstanceDetail.cs" id="4_1jtec"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/NameLineEdit.cs" id="5_limf2"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/TypeValueLabel.cs" id="7_gn756"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/LevelOption.cs" id="8_237r0"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/InstanceDetail/NextButton.cs" id="9_23wcm"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/InstanceDetail/RankOption.cs" id="9_f78dt"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/SkillDetail.cs" id="9_hi8oj"]
+[ext_resource type="PackedScene" uid="uid://drddw6trt8kk4" path="res://Encounters/NpcWizard/SkillDetail/skill.tscn" id="12_3pnfv"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/SkillDetail/SkillList.cs" id="12_gocpy"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/SkillDetail/NextButton.cs" id="14_adso8"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/ResultDetail.cs" id="15_67juc"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/ResultDetail/BeastScroller.cs" id="16_paqhm"]
+[ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="16_pr8a5"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/ResultDetail/Name.cs" id="16_ug6x6"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/ResultDetail/Level.cs" id="17_ggmoy"]
+[ext_resource type="Script" path="res://Encounters/NpcWizard/ResultDetail/Rank.cs" id="18_spiib"]
+
+[node name="NpcWizard" type="Window"]
+title = "NPC Wizard"
+initial_position = 1
+size = Vector2i(800, 500)
+keep_title_visible = true
+theme = ExtResource("1_t803w")
+script = ExtResource("2_8f8xe")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 2
+script = ExtResource("3_t4msy")
+
+[node name="InstanceDetail" type="PanelContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("4_1jtec")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/InstanceDetail"]
+layout_mode = 2
+
+[node name="NameLine" type="HBoxContainer" parent="TabContainer/InstanceDetail/VBoxContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="TabContainer/InstanceDetail/VBoxContainer/NameLine"]
+layout_mode = 2
+text = "Name:"
+
+[node name="NameLineEdit" type="LineEdit" parent="TabContainer/InstanceDetail/VBoxContainer/NameLine"]
+layout_mode = 2
+placeholder_text = "Name of Instance"
+script = ExtResource("5_limf2")
+
+[node name="TypeLine" type="HBoxContainer" parent="TabContainer/InstanceDetail/VBoxContainer"]
+layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="TabContainer/InstanceDetail/VBoxContainer/TypeLine"]
+layout_mode = 2
+text = "Type:"
+
+[node name="TypeValueLabel" type="Label" parent="TabContainer/InstanceDetail/VBoxContainer/TypeLine"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_uou5l")
+text = "Archer"
+script = ExtResource("7_gn756")
+
+[node name="LevelLine" type="HBoxContainer" parent="TabContainer/InstanceDetail/VBoxContainer"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="TabContainer/InstanceDetail/VBoxContainer/LevelLine"]
+layout_mode = 2
+text = "Level:"
+
+[node name="LevelOption" type="OptionButton" parent="TabContainer/InstanceDetail/VBoxContainer/LevelLine"]
+layout_mode = 2
+tooltip_text = "disabled until level up is completed"
+theme_override_fonts/font = ExtResource("2_uou5l")
+disabled = true
+item_count = 1
+selected = 0
+popup/item_0/text = "5"
+popup/item_0/id = 5
+script = ExtResource("8_237r0")
+
+[node name="RankLine" type="HBoxContainer" parent="TabContainer/InstanceDetail/VBoxContainer"]
+layout_mode = 2
+
+[node name="RankLabel" type="Label" parent="TabContainer/InstanceDetail/VBoxContainer/RankLine"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Rank:"
+
+[node name="RankOption" type="OptionButton" parent="TabContainer/InstanceDetail/VBoxContainer/RankLine"]
+layout_mode = 2
+size_flags_vertical = 0
+tooltip_text = "disabled until level up is completed"
+theme_override_fonts/font = ExtResource("2_uou5l")
+item_count = 1
+selected = 0
+popup/item_0/text = "SOLDIER"
+popup/item_0/id = 0
+script = ExtResource("9_f78dt")
+
+[node name="NextButton" type="Button" parent="TabContainer/InstanceDetail/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+disabled = true
+text = "Next"
+script = ExtResource("9_23wcm")
+
+[node name="SkillDetail" type="PanelContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("9_hi8oj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/SkillDetail"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SkillList" type="VBoxContainer" parent="TabContainer/SkillDetail/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("12_gocpy")
+SkillScene = ExtResource("12_3pnfv")
+
+[node name="Skill" parent="TabContainer/SkillDetail/VBoxContainer/SkillList" instance=ExtResource("12_3pnfv")]
+layout_mode = 2
+
+[node name="NextButton" type="Button" parent="TabContainer/SkillDetail/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Next"
+script = ExtResource("14_adso8")
+
+[node name="ResultDetail" type="PanelContainer" parent="TabContainer"]
+layout_mode = 2
+script = ExtResource("15_67juc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/ResultDetail"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/ResultDetail/VBoxContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="TabContainer/ResultDetail/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Name: <unset>"
+script = ExtResource("16_ug6x6")
+
+[node name="Level" type="Label" parent="TabContainer/ResultDetail/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Level: <unset>"
+script = ExtResource("17_ggmoy")
+
+[node name="Rank" type="Label" parent="TabContainer/ResultDetail/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Rank: <unset>
+"
+script = ExtResource("18_spiib")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/ResultDetail/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("16_paqhm")
+
+[node name="BeastEntry" parent="TabContainer/ResultDetail/VBoxContainer/ScrollContainer" instance=ExtResource("16_pr8a5")]
+layout_mode = 2
+
+[node name="AddToEncounterButton" parent="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer" index="7"]
+visible = false
+
+[node name="CompleteButton" type="Button" parent="TabContainer/ResultDetail/VBoxContainer"]
+layout_mode = 2
+text = "Complete
+"
+
+[connection signal="close_requested" from="." to="." method="OnClose"]
+[connection signal="text_submitted" from="TabContainer/InstanceDetail/VBoxContainer/NameLine/NameLineEdit" to="TabContainer/InstanceDetail/VBoxContainer/NameLine/NameLineEdit" method="OnSubmit"]
+[connection signal="item_selected" from="TabContainer/InstanceDetail/VBoxContainer/LevelLine/LevelOption" to="TabContainer/InstanceDetail/VBoxContainer/LevelLine/LevelOption" method="OnItemSelected"]
+[connection signal="item_selected" from="TabContainer/InstanceDetail/VBoxContainer/RankLine/RankOption" to="TabContainer/InstanceDetail/VBoxContainer/RankLine/RankOption" method="OnItemSelected"]
+[connection signal="pressed" from="TabContainer/InstanceDetail/VBoxContainer/NextButton" to="TabContainer/InstanceDetail" method="OnNextPressed"]
+[connection signal="SkillsReady" from="TabContainer/SkillDetail" to="TabContainer/SkillDetail/VBoxContainer/SkillList" method="OnSkillsReady"]
+[connection signal="SkillsDefined" from="TabContainer/SkillDetail/VBoxContainer/SkillList" to="TabContainer/SkillDetail/VBoxContainer/NextButton" method="OnSkillsDefined"]
+[connection signal="pressed" from="TabContainer/SkillDetail/VBoxContainer/NextButton" to="TabContainer/SkillDetail" method="OnNextPressed"]
+[connection signal="pressed" from="TabContainer/ResultDetail/VBoxContainer/CompleteButton" to="." method="OnComplete"]
+
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Description/DescriptionText/Traits"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/Dexterity"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/Insight"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/Might"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/WillPower"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/HealthPoints"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/MagicPoints"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/Initiative"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/Defense"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/MagicDefense"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/PhysicalResistance"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/AirResistance"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/BoltResistance"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/DarkResistance"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/EarthResistance"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/FireResistance"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/IceResistance"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/LightResistance"]
+[editable path="TabContainer/ResultDetail/VBoxContainer/ScrollContainer/BeastEntry/VBoxContainer/Stats/PoisonResistance"]

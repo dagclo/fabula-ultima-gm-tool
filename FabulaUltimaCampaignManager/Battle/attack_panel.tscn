@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cerx6ejkwe1tc"]
+
+[ext_resource type="PackedScene" uid="uid://cwsegr0yegay2" path="res://BeastiaryScenes/attack.tscn" id="1_dmhor"]
+[ext_resource type="Script" path="res://Battle/NpcAttack.cs" id="1_wanax"]
+[ext_resource type="Script" path="res://Battle/UseAttackButton.cs" id="3_e6yql"]
+
+[node name="AttackPanel" type="PanelContainer"]
+script = ExtResource("1_wanax")
+
+[node name="UseAttack" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Attack" parent="UseAttack" instance=ExtResource("1_dmhor")]
+layout_mode = 2
+
+[node name="Use" type="Button" parent="UseAttack"]
+layout_mode = 2
+text = "Use"
+script = ExtResource("3_e6yql")
+
+[connection signal="pressed" from="UseAttack/Use" to="UseAttack/Use" method="OnUseAttack"]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://erwugkr5gcel"]
+
+[ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="1_fn1gu"]
+[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_n1cmj"]
+[ext_resource type="Script" path="res://Battle/PlayerPanel.cs" id="1_sesvu"]
+[ext_resource type="Script" path="res://Battle/CompleteTurnButton.cs" id="4_d45na"]
+[ext_resource type="Script" path="res://Battle/PlayerPanel/BattlePlayerName.cs" id="4_up2s2"]
+
+[node name="PlayerPanel" type="PanelContainer"]
+theme = ExtResource("1_n1cmj")
+script = ExtResource("1_sesvu")
+
+[node name="PlayerStatus" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="LabeledText" parent="PlayerStatus" instance=ExtResource("1_fn1gu")]
+layout_mode = 2
+
+[node name="Label" parent="PlayerStatus/LabeledText/HBoxContainer" index="0"]
+text = "Name: "
+
+[node name="Text" parent="PlayerStatus/LabeledText/HBoxContainer" index="1"]
+text = "<unset>"
+script = ExtResource("4_up2s2")
+
+[node name="CompleteTurnButton" type="Button" parent="PlayerStatus"]
+layout_mode = 2
+text = "Complete Turn"
+script = ExtResource("4_d45na")
+
+[connection signal="PlayerUpdated" from="." to="PlayerStatus/LabeledText/HBoxContainer/Text" method="ReadPlayer"]
+[connection signal="RoundEnd" from="." to="PlayerStatus/CompleteTurnButton" method="OnRoundEnd"]
+[connection signal="RoundStart" from="." to="PlayerStatus/CompleteTurnButton" method="OnRoundStart"]
+[connection signal="TurnStart" from="." to="PlayerStatus/CompleteTurnButton" method="OnTurnStart"]
+[connection signal="pressed" from="PlayerStatus/CompleteTurnButton" to="." method="OnCompletedTurn"]
+[connection signal="pressed" from="PlayerStatus/CompleteTurnButton" to="PlayerStatus/CompleteTurnButton" method="OnButtonPressed"]
+
+[editable path="PlayerStatus/LabeledText"]

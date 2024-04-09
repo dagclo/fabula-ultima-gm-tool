@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bmn7nbr6v446u"]
+
+[ext_resource type="Script" path="res://Campaign/CampaignData.cs" id="1_tgfhw"]
+
+[resource]
+script = ExtResource("1_tgfhw")
+Name = "Default Campaign"
+Encounters = null
+Id = "336b7d6a-10c5-4b69-a232-5b9f94e4a7b1"
+Players = null

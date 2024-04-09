@@ -1,0 +1,283 @@
+[gd_scene load_steps=24 format=3 uid="uid://ec56818wobea"]
+
+[ext_resource type="Script" path="res://GetBeastiary.cs" id="1_4mhff"]
+[ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
+[ext_resource type="Script" path="res://node_2d.cs" id="1_5rpfd"]
+[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_f3kj6"]
+[ext_resource type="PackedScene" uid="uid://dn3nwxahhysgn" path="res://Encounters/npc_short_entry.tscn" id="2_vysl0"]
+[ext_resource type="Script" path="res://Encounters/CurrentEncounter.cs" id="2_w6myd"]
+[ext_resource type="Script" path="res://Encounters/EncounterTitleEdit.cs" id="3_3pve8"]
+[ext_resource type="Script" path="res://Encounters/NPCList.cs" id="3_5rnrb"]
+[ext_resource type="PackedScene" uid="uid://3eqvokisi6o7" path="res://Encounters/encounterEntry.tscn" id="3_eceqq"]
+[ext_resource type="Script" path="res://Campaign/Campaign.cs" id="3_tscfl"]
+[ext_resource type="PackedScene" uid="uid://cxbt82uyb2oo7" path="res://Encounters/player_slot.tscn" id="4_6fi46"]
+[ext_resource type="Script" path="res://Encounters/StartEncounterButton.cs" id="4_t2e78"]
+[ext_resource type="Resource" uid="uid://bmn7nbr6v446u" path="res://CampaignData/campaign_data.tres" id="4_wujyf"]
+[ext_resource type="PackedScene" uid="uid://cdbhgvau850oy" path="res://Encounters/RunEncounter.tscn" id="5_tr8nu"]
+[ext_resource type="Script" path="res://Encounters/InitiativePopup.cs" id="6_6b2gf"]
+[ext_resource type="Script" path="res://Encounters/Encounters.cs" id="6_ful6c"]
+[ext_resource type="Script" path="res://Encounters/EncounterList.cs" id="7_275cp"]
+[ext_resource type="Script" path="res://Encounters/InitiativeDifficulty.cs" id="7_nprtx"]
+[ext_resource type="Resource" uid="uid://bwfobx7pek8br" path="res://configuration.tres" id="8_qwns5"]
+[ext_resource type="Script" path="res://Encounters/GroupCheck.cs" id="8_vnw2q"]
+[ext_resource type="Script" path="res://Encounters/RunEncounterButton.cs" id="9_buhfi"]
+[ext_resource type="Script" path="res://Encounters/BattleBackOptions.cs" id="11_5ov2a"]
+[ext_resource type="PackedScene" uid="uid://pqw3i42qkgpi" path="res://Encounters/NPCWizard.tscn" id="23_hlpai"]
+
+[node name="Fabula Ultima Campaign Manager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5rpfd")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+split_offset = 100
+dragger_visibility = 2
+
+[node name="CurrentEncounter" type="PanelContainer" parent="HSplitContainer"]
+layout_mode = 2
+theme = ExtResource("1_f3kj6")
+script = ExtResource("2_w6myd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/CurrentEncounter"]
+layout_mode = 2
+
+[node name="Window Title" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+layout_mode = 2
+text = "Current Encounter"
+
+[node name="EncounterTitle" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_f3kj6")
+placeholder_text = "Encounter Name"
+script = ExtResource("3_3pve8")
+
+[node name="StartEncounterButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+layout_mode = 2
+text = "Start Encounter"
+script = ExtResource("4_t2e78")
+RunEncounterScene = ExtResource("5_tr8nu")
+
+[node name="InitiativePopup" type="PopupPanel" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton"]
+title = "Initiative"
+initial_position = 2
+size = Vector2i(250, 148)
+borderless = false
+keep_title_visible = true
+script = ExtResource("6_6b2gf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 246.0
+offset_bottom = 144.0
+theme = ExtResource("1_f3kj6")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_f3kj6")
+
+[node name="Title" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "InitiativeCheck:"
+
+[node name="InitiativeDifficulty" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "<unset>"
+script = ExtResource("7_nprtx")
+
+[node name="GroupCheck" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_f3kj6")
+placeholder_text = "Enter Group Initiative"
+script = ExtResource("8_vnw2q")
+
+[node name="RunEncounterButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_f3kj6")
+disabled = true
+text = "Run"
+script = ExtResource("9_buhfi")
+
+[node name="Label" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+layout_mode = 2
+text = "Background"
+
+[node name="BattleBackOptions" type="OptionButton" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("11_5ov2a")
+
+[node name="NPCPanel" type="PanelContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_f3kj6")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="NPCList" type="VBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_f3kj6")
+script = ExtResource("3_5rnrb")
+EntryScene = ExtResource("2_vysl0")
+
+[node name="NPCShortEntry" parent="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" instance=ExtResource("2_vysl0")]
+layout_mode = 2
+
+[node name="CampaignManager" type="TabContainer" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_f3kj6")
+current_tab = 1
+
+[node name="Campaign" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
+visible = false
+layout_mode = 2
+script = ExtResource("3_tscfl")
+CampaignData = ExtResource("4_wujyf")
+Configuration = ExtResource("8_qwns5")
+
+[node name="CampaignName" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
+layout_mode = 2
+
+[node name="CampaignNameLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/CampaignName"]
+layout_mode = 2
+text = "Campaign Name:"
+
+[node name="CampaignNameEdit" type="LineEdit" parent="HSplitContainer/CampaignManager/Campaign/CampaignName"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Encounters" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_ful6c")
+
+[node name="Label" type="Label" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
+layout_mode = 2
+theme = ExtResource("1_f3kj6")
+text = "Encounters"
+
+[node name="AddEncounterButton" type="Button" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
+layout_mode = 2
+theme = ExtResource("1_f3kj6")
+text = "Add Encounter"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EncounterList" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer"]
+layout_mode = 2
+script = ExtResource("7_275cp")
+PackedEncounter = ExtResource("3_eceqq")
+
+[node name="Encounter" parent="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" instance=ExtResource("3_eceqq")]
+layout_mode = 2
+
+[node name="Players" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
+layout_mode = 2
+
+[node name="PlayerTitle" type="Label" parent="HSplitContainer/CampaignManager/Campaign/Players"]
+layout_mode = 2
+text = "Player Slots"
+
+[node name="PlayerSlot" parent="HSplitContainer/CampaignManager/Campaign/Players" instance=ExtResource("4_6fi46")]
+layout_mode = 2
+
+[node name="PlayerSlot2" parent="HSplitContainer/CampaignManager/Campaign/Players" instance=ExtResource("4_6fi46")]
+layout_mode = 2
+SlotIndex = 1
+
+[node name="PlayerSlot3" parent="HSplitContainer/CampaignManager/Campaign/Players" instance=ExtResource("4_6fi46")]
+layout_mode = 2
+SlotIndex = 2
+
+[node name="PlayerSlot4" parent="HSplitContainer/CampaignManager/Campaign/Players" instance=ExtResource("4_6fi46")]
+layout_mode = 2
+SlotIndex = 3
+
+[node name="Beastiary" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
+layout_mode = 2
+
+[node name="FilteredSearch" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary"]
+layout_mode = 2
+
+[node name="Search" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch"]
+layout_mode = 2
+
+[node name="SearchLabel" type="Label" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search"]
+layout_mode = 2
+text = "Search: "
+
+[node name="SearchText" type="LineEdit" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "search"
+max_length = 25
+
+[node name="Filters" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Filter stand by"
+fit_content = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Filter stand by"
+fit_content = true
+
+[node name="BeastList" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Beastiary"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/BeastList"]
+layout_mode = 2
+script = ExtResource("1_4mhff")
+BeastEntryScene = ExtResource("1_4uxgl")
+NpcWizard = ExtResource("23_hlpai")
+
+[node name="BeastEntry" parent="HSplitContainer/CampaignManager/Beastiary/BeastList/VBoxContainer" instance=ExtResource("1_4uxgl")]
+layout_mode = 2
+
+[connection signal="UpdateEncounter" from="HSplitContainer/CurrentEncounter" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
+[connection signal="text_submitted" from="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" to="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" method="OnTextSubmitted"]
+[connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton" method="OnButtonPressed"]
+[connection signal="SwitchScene" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton" method="OnSwitchScene"]
+[connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" method="OnTextChanged"]
+[connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/RunEncounterButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup" method="OnRunButton"]
+[connection signal="item_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" to="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" method="OnSelection"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot2" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot3" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot4" method="UpdateEncounter"]
+[connection signal="AddEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CampaignManager/Campaign" method="AddEncounter"]
+[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter" method="HandleUpdateEncounter"]
+[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" method="UpdateEncounter"]
+[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" method="UpdateEncounter"]
+[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
+[connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Encounters/AddEncounterButton" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnAddEncounterButtonPressed"]
+[connection signal="DeleteEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CurrentEncounter" method="HideEncounterIfDeleted"]
+[connection signal="LoadEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnLoadEncounter"]
+[connection signal="AddBeastToEncounter" from="HSplitContainer/CampaignManager/Beastiary/BeastList/VBoxContainer" to="HSplitContainer/CurrentEncounter" method="AddNpcToEncounter"]

@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://cwsegr0yegay2"]
+
+[ext_resource type="Script" path="res://BeastiaryScenes/BasicAttack.cs" id="1_c5yaq"]
+[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_xovs7"]
+[ext_resource type="Script" path="res://BeastiaryScenes/AttackType.cs" id="2_xf8qj"]
+[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="3_5bceh"]
+[ext_resource type="Script" path="res://BeastiaryScenes/AttackName.cs" id="3_62dtn"]
+[ext_resource type="Script" path="res://BeastiaryScenes/AttackRoll.cs" id="4_j3glc"]
+[ext_resource type="Script" path="res://BeastiaryScenes/DamageRoll.cs" id="5_iqll7"]
+[ext_resource type="Script" path="res://BeastiaryScenes/DamageType.cs" id="7_1733w"]
+[ext_resource type="Script" path="res://BeastiaryScenes/SpecialAttackLabel.cs" id="8_l2u61"]
+
+[node name="Attack" type="HBoxContainer"]
+size_flags_horizontal = 3
+theme = ExtResource("1_xovs7")
+script = ExtResource("1_c5yaq")
+
+[node name="Type" type="Label" parent="."]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_5bceh")
+text = "Ranged"
+script = ExtResource("2_xf8qj")
+
+[node name="Separator" type="Label" parent="."]
+layout_mode = 2
+text = "|"
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+text = "Shortbow"
+script = ExtResource("3_62dtn")
+
+[node name="Separator2" type="Label" parent="."]
+layout_mode = 2
+text = "|"
+
+[node name="AttackRoll" type="Label" parent="."]
+layout_mode = 2
+text = "[DEX + DEX] + 1"
+script = ExtResource("4_j3glc")
+
+[node name="Separator3" type="Label" parent="."]
+layout_mode = 2
+text = "|"
+
+[node name="DamageRoll" type="Label" parent="."]
+layout_mode = 2
+text = "[HR + 8]"
+script = ExtResource("5_iqll7")
+
+[node name="DamageType" type="Label" parent="."]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_5bceh")
+text = "physical"
+script = ExtResource("7_1733w")
+
+[node name="EndText" type="Label" parent="."]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_5bceh")
+text = "damage"
+
+[node name="Special Attack" type="Label" parent="."]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_5bceh")
+autowrap_mode = 2
+script = ExtResource("8_l2u61")

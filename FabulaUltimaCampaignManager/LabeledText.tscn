@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://btyqcwcw47tqx"]
+
+[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_oc7uy"]
+[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="2_kvy3m"]
+
+[node name="LabeledText" type="PanelContainer"]
+theme = ExtResource("1_oc7uy")
+metadata/Testing = "default"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("1_oc7uy")
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_oc7uy")
+text = "Label: "
+
+[node name="Text" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_oc7uy")
+theme_override_fonts/font = ExtResource("2_kvy3m")
+text = "text"

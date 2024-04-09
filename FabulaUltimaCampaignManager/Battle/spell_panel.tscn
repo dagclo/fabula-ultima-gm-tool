@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dywmh38jaem58"]
+
+[ext_resource type="PackedScene" uid="uid://l57ucy852qf2" path="res://BeastiaryScenes/spell.tscn" id="1_2ohnr"]
+[ext_resource type="Script" path="res://Battle/SpellPanel.cs" id="1_vf5y5"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/UseSpellButton.cs" id="3_ovmff"]
+
+[node name="SpellPanel" type="PanelContainer"]
+script = ExtResource("1_vf5y5")
+
+[node name="UseSpell" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Spell" parent="UseSpell" instance=ExtResource("1_2ohnr")]
+layout_mode = 2
+
+[node name="Use" type="Button" parent="UseSpell"]
+layout_mode = 2
+text = "Use"
+script = ExtResource("3_ovmff")
+
+[connection signal="NotEnoughMP" from="." to="UseSpell/Use" method="OnNotEnoughMP"]
+[connection signal="pressed" from="UseSpell/Use" to="." method="OnUseSpell"]

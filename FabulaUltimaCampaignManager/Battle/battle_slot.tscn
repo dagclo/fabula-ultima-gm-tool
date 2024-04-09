@@ -1,0 +1,259 @@
+[gd_scene load_steps=30 format=3 uid="uid://b54cktmhcq4dq"]
+
+[ext_resource type="Script" path="res://Battle/BattleSlot.cs" id="1_q5xa3"]
+[ext_resource type="Texture2D" uid="uid://i7qlj5i8k4cu" path="res://Battle/Monster Unknown.png" id="2_icy35"]
+[ext_resource type="Texture2D" uid="uid://bbv82k6x2e6eq" path="res://Battle/shadow.png" id="3_niyuk"]
+[ext_resource type="Script" path="res://Battle/Sprite.cs" id="3_s1sbu"]
+[ext_resource type="Texture2D" uid="uid://cgdlprcdb8ffj" path="res://Battle/Resources/HealthBarBack.png" id="6_nr4mn"]
+[ext_resource type="Texture2D" uid="uid://d2wqeorwvi0ar" path="res://Battle/Resources/Enraged.png" id="6_uv6fq"]
+[ext_resource type="Script" path="res://Battle/BattleSlot/StatusEffectDisplay.cs" id="7_4m4uy"]
+[ext_resource type="Texture2D" uid="uid://46l8nhlctefv" path="res://Battle/Resources/HealthBarBorder.png" id="7_gogc4"]
+[ext_resource type="Texture2D" uid="uid://bncqi5wg6i1y" path="res://Battle/Resources/Dazed.png" id="8_sdhoq"]
+[ext_resource type="Texture2D" uid="uid://tp4uqrdpnyr8" path="res://Battle/Resources/HealthBarFront.png" id="8_sy7u1"]
+[ext_resource type="Texture2D" uid="uid://djwpdymtksamy" path="res://Battle/Resources/Weak.png" id="9_klp1o"]
+[ext_resource type="Script" path="res://Battle/HpProgressBar.cs" id="9_qsfe8"]
+[ext_resource type="Script" path="res://Battle/BattleSlotName.cs" id="9_vyohd"]
+[ext_resource type="Texture2D" uid="uid://bry8nge3r3ox4" path="res://Battle/Resources/Slow.png" id="10_axbhy"]
+[ext_resource type="Texture2D" uid="uid://vr4526gsuuj8" path="res://Battle/Resources/Poisoned.png" id="11_l18x0"]
+[ext_resource type="Texture2D" uid="uid://ck22l0ou7gjbu" path="res://Battle/Resources/Shaken.png" id="12_2yaa4"]
+[ext_resource type="Script" path="res://Battle/BattleSlot/RankIcon.cs" id="17_xmcw2"]
+[ext_resource type="Texture2D" uid="uid://bv6hlum4nideo" path="res://Battle/Resources/shield-wood-1.png" id="18_5yvjv"]
+[ext_resource type="Texture2D" uid="uid://b44piog8ba1go" path="res://Battle/Resources/shield-silver-2.png" id="19_gy17o"]
+[ext_resource type="Texture2D" uid="uid://dhjos7mj8pftp" path="res://Battle/Resources/shield-platinum-4.png" id="20_7621w"]
+[ext_resource type="Texture2D" uid="uid://csn2i0kg01qfw" path="res://Battle/Resources/shield-sapphire-3.png" id="21_pk6ic"]
+[ext_resource type="Texture2D" uid="uid://dsmn0g2p50jw2" path="res://Battle/Resources/shield-master-12.png" id="22_k5na8"]
+
+[sub_resource type="Animation" id="Animation_16v3y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iibqk"]
+resource_name = "active"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.0174533, 0.0174533, -0.0174533, 0.0174533]
+}
+
+[sub_resource type="Animation" id="Animation_cenu7"]
+resource_name = "default"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_axk60"]
+resource_name = "dying"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r14qm"]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(-50, 0), Vector2(20, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qrsdv"]
+resource_name = "reviving"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t0cuy"]
+_data = {
+"RESET": SubResource("Animation_16v3y"),
+"active": SubResource("Animation_iibqk"),
+"default": SubResource("Animation_cenu7"),
+"dying": SubResource("Animation_axk60"),
+"hit": SubResource("Animation_r14qm"),
+"reviving": SubResource("Animation_qrsdv")
+}
+
+[node name="BattleSlot" type="Node2D"]
+position = Vector2(125, 250)
+script = ExtResource("1_q5xa3")
+
+[node name="BeastSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_icy35")
+script = ExtResource("3_s1sbu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BeastSprite"]
+libraries = {
+"": SubResource("AnimationLibrary_t0cuy")
+}
+
+[node name="ShadowSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_niyuk")
+
+[node name="StatusList" type="HBoxContainer" parent="."]
+offset_left = -69.0
+offset_top = 123.0
+offset_right = 90.0
+offset_bottom = 155.0
+
+[node name="Enraged" type="TextureRect" parent="StatusList"]
+visible = false
+layout_mode = 2
+texture = ExtResource("6_uv6fq")
+script = ExtResource("7_4m4uy")
+Target = 1
+
+[node name="Dazed" type="TextureRect" parent="StatusList"]
+visible = false
+layout_mode = 2
+texture = ExtResource("8_sdhoq")
+script = ExtResource("7_4m4uy")
+
+[node name="Weak" type="TextureRect" parent="StatusList"]
+visible = false
+layout_mode = 2
+texture = ExtResource("9_klp1o")
+script = ExtResource("7_4m4uy")
+Target = 5
+
+[node name="Slow" type="TextureRect" parent="StatusList"]
+visible = false
+layout_mode = 2
+texture = ExtResource("10_axbhy")
+script = ExtResource("7_4m4uy")
+Target = 4
+
+[node name="Poisoned" type="TextureRect" parent="StatusList"]
+visible = false
+layout_mode = 2
+texture = ExtResource("11_l18x0")
+script = ExtResource("7_4m4uy")
+Target = 2
+
+[node name="Shaken" type="TextureRect" parent="StatusList"]
+visible = false
+layout_mode = 2
+texture = ExtResource("12_2yaa4")
+script = ExtResource("7_4m4uy")
+Target = 3
+
+[node name="Hp" type="TextureProgressBar" parent="."]
+offset_left = -78.0
+offset_top = -175.0
+offset_right = 322.0
+offset_bottom = -125.0
+scale = Vector2(0.5, 0.5)
+step = 0.001
+value = 50.0
+texture_under = ExtResource("6_nr4mn")
+texture_over = ExtResource("7_gogc4")
+texture_progress = ExtResource("8_sy7u1")
+script = ExtResource("9_qsfe8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -153.0
+offset_right = 135.0
+offset_bottom = -116.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "<Insert Name>"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_vyohd")
+
+[node name="RankIcon" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("18_5yvjv")
+expand_mode = 3
+script = ExtResource("17_xmcw2")
+Soldier = ExtResource("18_5yvjv")
+Elite = ExtResource("19_gy17o")
+Champion = ExtResource("20_7621w")
+SuperChampion = ExtResource("21_pk6ic")
+UberChampion = ExtResource("22_k5na8")
+
+[connection signal="BattleStatusChanged" from="." to="BeastSprite" method="HandleStatusChanged"]
+[connection signal="BattleStatusChanged" from="." to="StatusList/Enraged" method="StatusChanged"]
+[connection signal="BattleStatusChanged" from="." to="StatusList/Dazed" method="StatusChanged"]
+[connection signal="BattleStatusChanged" from="." to="StatusList/Weak" method="StatusChanged"]
+[connection signal="BattleStatusChanged" from="." to="StatusList/Slow" method="StatusChanged"]
+[connection signal="BattleStatusChanged" from="." to="StatusList/Poisoned" method="StatusChanged"]
+[connection signal="BattleStatusChanged" from="." to="StatusList/Shaken" method="StatusChanged"]
+[connection signal="BattleStatusChanged" from="." to="Hp" method="StatusChanged"]
+[connection signal="HpChanged" from="Hp" to="BeastSprite" method="OnHpChanged"]
