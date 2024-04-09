@@ -1,3 +1,8 @@
+## How to build
+1. Download Godot 4.1.2: https://godotengine.org/download/windows/
+
+
+## What's Next
 Next flow: Add Skill
 	- Program: upload known skills to db
 	- Beast Workflow: add skill workflow
@@ -8,7 +13,7 @@ Next flow: Add Skill
 			* use https://github.com/DapperLib/Dapper/tree/main/Dapper.SqlBuilder
 
 	
-bugs	
+## Bugs	
 	- get rid of any interface methods that don't need to be implemented
 	- nuke database to get rid of orphans (maybe add this as a clean up task?)
 	- list of impossible book creatures (Razorbird, Cutterpillar, Hivekin, Cockatrice, Alraune)
