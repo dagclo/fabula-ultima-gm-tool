@@ -1,3 +1,7 @@
+## How to Add Monsters
+- [Youtube Video](https://youtu.be/WgJQ1ZyKUn0)
+
+
 ## How to build
 1. Download Godot 4.1.2: https://godotengine.org/download/windows/
 
