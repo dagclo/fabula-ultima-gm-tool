@@ -7,7 +7,6 @@ Project Description
 ### Backlog
 
 - [ ] Add After Encounter Result  
-- [ ] Create a About Popup with credits  
 - [ ] Enable Selection of Players  
 - [ ] Find good music for background  
 - [ ] implement leveling up npc  
@@ -28,6 +27,7 @@ Project Description
 
 ### In Progress
 
+- [ ] Create a About Popup with credits  
 
 ### Done ✓
 
