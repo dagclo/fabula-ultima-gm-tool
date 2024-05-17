@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstProject", "FirstProject.csproj", "{553018C0-0383-4E1F-BDCF-ED4F40F26C91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FabulaUltimaGMTool", "FabulaUltimaGMTool.csproj", "{553018C0-0383-4E1F-BDCF-ED4F40F26C91}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FabulaUltimaDatabase", "..\FabulaUltimaDataImporter\FabulaUltimaDatabase\FabulaUltimaDatabase.csproj", "{45E91F4C-9C78-41BA-BA9E-1FF99A7D0E7B}"
 EndProject
