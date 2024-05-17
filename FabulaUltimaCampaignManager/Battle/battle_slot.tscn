@@ -1,9 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://b54cktmhcq4dq"]
+[gd_scene load_steps=31 format=3 uid="uid://b54cktmhcq4dq"]
 
 [ext_resource type="Script" path="res://Battle/BattleSlot.cs" id="1_q5xa3"]
 [ext_resource type="Texture2D" uid="uid://i7qlj5i8k4cu" path="res://Battle/Monster Unknown.png" id="2_icy35"]
 [ext_resource type="Texture2D" uid="uid://bbv82k6x2e6eq" path="res://Battle/shadow.png" id="3_niyuk"]
 [ext_resource type="Script" path="res://Battle/Sprite.cs" id="3_s1sbu"]
+[ext_resource type="AudioStream" uid="uid://b10ttinjm20g1" path="res://Battle/Resources/HitSounds/PUNCH_CLEAN_HEAVY_10.wav" id="4_g3yvn"]
 [ext_resource type="Texture2D" uid="uid://cgdlprcdb8ffj" path="res://Battle/Resources/HealthBarBack.png" id="6_nr4mn"]
 [ext_resource type="Texture2D" uid="uid://d2wqeorwvi0ar" path="res://Battle/Resources/Enraged.png" id="6_uv6fq"]
 [ext_resource type="Script" path="res://Battle/BattleSlot/StatusEffectDisplay.cs" id="7_4m4uy"]
@@ -36,6 +37,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_iibqk"]
@@ -114,6 +127,33 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(-50, 0), Vector2(20, 0), Vector2(0, 0)]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_g3yvn")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-20.0, -20.0]
+}
 
 [sub_resource type="Animation" id="Animation_qrsdv"]
 resource_name = "reviving"
@@ -153,6 +193,8 @@ script = ExtResource("3_s1sbu")
 libraries = {
 "": SubResource("AnimationLibrary_t0cuy")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="BeastSprite"]
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 visible = false
