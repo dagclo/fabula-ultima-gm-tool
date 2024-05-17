@@ -6,6 +6,7 @@ Project Description
 
 ### Backlog
 
+- [ ] Add After Encounter Result  
 - [ ] Create a About Popup with credits  
 - [ ] Enable Selection of Players  
 - [ ] Find good music for background  
@@ -27,10 +28,10 @@ Project Description
 
 ### In Progress
 
-- [ ] Add Sound Effects to Hit  
 
 ### Done ✓
 
+- [x] Add Sound Effects to Hit  
 - [x] Find sound effects  
 - [x] Apply ranks properly  
 - [x] implement ranking up  
