@@ -6,11 +6,10 @@ Project Description
 
 ### Backlog
 
+- [ ] implement clocks  
 - [ ] Add After Encounter Result  
 - [ ] Enable Selection of Players  
-- [ ] Find good music for background  
 - [ ] implement leveling up npc  
-- [ ] implement clocks  
 - [ ] Implement PC Death  
 - [ ] Enable PC Theme Music  
 - [ ] Implement Cross Network Dice Rolls  
@@ -30,6 +29,7 @@ Project Description
 
 ### Done ✓
 
+- [x] Find good music for background  
 - [x] Create a About Popup with credits  
 - [x] Add Sound Effects to Hit  
 - [x] Find sound effects  

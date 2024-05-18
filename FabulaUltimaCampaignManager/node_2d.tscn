@@ -272,7 +272,6 @@ layout_mode = 2
 [node name="AboutPanel" type="PopupPanel" parent="."]
 initial_position = 1
 size = Vector2i(309, 134)
-visible = true
 borderless = false
 keep_title_visible = true
 theme = ExtResource("1_f3kj6")
@@ -286,11 +285,6 @@ offset_bottom = 130.0
 [node name="Title" type="Label" parent="AboutPanel/VBoxContainer"]
 layout_mode = 2
 text = "Fabula Ultima Campaign Manager"
-
-[node name="Credits" type="Label" parent="AboutPanel/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Monster Art: Aekashics"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="AboutPanel/VBoxContainer"]
 layout_mode = 2
