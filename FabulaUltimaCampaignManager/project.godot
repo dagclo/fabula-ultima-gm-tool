@@ -31,5 +31,5 @@ window/stretch/aspect="ignore"
 
 [dotnet]
 
-project/assembly_name="FirstProject"
+project/assembly_name="FabulaUltimaGMTool"
 project/solution_directory="D:\\Godot\\FabulaUltimaCampaignManager\\"

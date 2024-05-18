@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=27 format=3 uid="uid://ec56818wobea"]
 
 [ext_resource type="Script" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
 [ext_resource type="Script" path="res://node_2d.cs" id="1_5rpfd"]
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_f3kj6"]
+[ext_resource type="Script" path="res://TopMenu/Help.cs" id="2_iyeul"]
 [ext_resource type="PackedScene" uid="uid://dn3nwxahhysgn" path="res://Encounters/npc_short_entry.tscn" id="2_vysl0"]
 [ext_resource type="Script" path="res://Encounters/CurrentEncounter.cs" id="2_w6myd"]
 [ext_resource type="Script" path="res://Encounters/EncounterTitleEdit.cs" id="3_3pve8"]
@@ -23,6 +24,8 @@
 [ext_resource type="Script" path="res://Encounters/RunEncounterButton.cs" id="9_buhfi"]
 [ext_resource type="Script" path="res://Encounters/BattleBackOptions.cs" id="11_5ov2a"]
 [ext_resource type="PackedScene" uid="uid://pqw3i42qkgpi" path="res://Encounters/NPCWizard.tscn" id="23_hlpai"]
+[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="25_0xra3"]
+[ext_resource type="FontFile" uid="uid://dya0rxr7wqedx" path="res://Font/NicoBold-Regular.ttf" id="26_wiiue"]
 
 [node name="Fabula Ultima Campaign Manager" type="VBoxContainer"]
 anchors_preset = 15
@@ -30,21 +33,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_f3kj6")
 script = ExtResource("1_5rpfd")
 
 [node name="MenuBar" type="MenuBar" parent="."]
 layout_mode = 2
 
-[node name="Help" type="PopupMenu" parent="MenuBar"]
+[node name="Help" type="PopupMenu" parent="MenuBar" node_paths=PackedStringArray("AboutPanel")]
 title = "Help"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuBar/Help"]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Button" type="Button" parent="MenuBar/Help/VBoxContainer"]
-layout_mode = 2
-text = "About"
+item_count = 1
+item_0/text = "About"
+item_0/id = 0
+script = ExtResource("2_iyeul")
+AboutPanel = NodePath("../../AboutPanel")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 2
@@ -268,6 +269,38 @@ NpcWizard = ExtResource("23_hlpai")
 [node name="BeastEntry" parent="HSplitContainer/CampaignManager/Beastiary/BeastList/VBoxContainer" instance=ExtResource("1_4uxgl")]
 layout_mode = 2
 
+[node name="AboutPanel" type="PopupPanel" parent="."]
+initial_position = 1
+size = Vector2i(309, 134)
+visible = true
+borderless = false
+keep_title_visible = true
+theme = ExtResource("1_f3kj6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AboutPanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 305.0
+offset_bottom = 130.0
+
+[node name="Title" type="Label" parent="AboutPanel/VBoxContainer"]
+layout_mode = 2
+text = "Fabula Ultima Campaign Manager"
+
+[node name="Credits" type="Label" parent="AboutPanel/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Monster Art: Aekashics"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AboutPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("25_0xra3")
+theme_override_fonts/bold_font = ExtResource("26_wiiue")
+bbcode_enabled = true
+text = "[b]Monster Art:[/b] Aekashics"
+fit_content = true
+
+[connection signal="id_pressed" from="MenuBar/Help" to="MenuBar/Help" method="OnOptionPressed"]
 [connection signal="UpdateEncounter" from="HSplitContainer/CurrentEncounter" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
 [connection signal="text_submitted" from="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" to="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" method="OnTextSubmitted"]
 [connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton" method="OnButtonPressed"]

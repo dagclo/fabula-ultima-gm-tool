@@ -27,10 +27,10 @@ Project Description
 
 ### In Progress
 
-- [ ] Create a About Popup with credits  
 
 ### Done ✓
 
+- [x] Create a About Popup with credits  
 - [x] Add Sound Effects to Hit  
 - [x] Find sound effects  
 - [x] Apply ranks properly  
