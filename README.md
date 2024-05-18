@@ -4,6 +4,8 @@
 
 ## How to build
 1. Download Godot 4.1.2: https://godotengine.org/download/windows/
+2. Add Godot to PATH variable
+2. Run the Importer to build the database
 
 
 ## What's Next
