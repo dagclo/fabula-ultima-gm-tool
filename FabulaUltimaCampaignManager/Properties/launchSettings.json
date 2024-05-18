@@ -1,8 +1,5 @@
 {
   "profiles": {
-    "FirstProject": {
-      "commandName": "Project"
-    },
     " Run Campaign Manager": {
       "commandName": "Executable",
       "executablePath": "Godot_v4.2.1-stable_mono_win64.exe",
