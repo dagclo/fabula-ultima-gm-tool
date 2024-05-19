@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxgjs17e7mmas"]
+[gd_scene load_steps=11 format=3 uid="uid://cxgjs17e7mmas"]
 
 [ext_resource type="Script" path="res://Battle/BattleWindow.cs" id="1_m7k50"]
 [ext_resource type="SpriteFrames" uid="uid://c82vwyudb7xd2" path="res://Battle/Backgroudn.tres" id="2_inpd1"]
 [ext_resource type="Script" path="res://Battle/Background.cs" id="3_frth7"]
 [ext_resource type="PackedScene" uid="uid://b54cktmhcq4dq" path="res://Battle/battle_slot.tscn" id="4_qo5g6"]
+[ext_resource type="AudioStream" uid="uid://da3ceh0ypddgk" path="res://Battle/Resources/Music/Three Red Hearts - Go (No Vocal).ogg" id="5_mth6u"]
 [ext_resource type="Script" path="res://Battle/PlayerPanel/BattlePlayerPanel.cs" id="6_32chj"]
 [ext_resource type="Theme" uid="uid://dtpbrs518fimv" path="res://Battle/battle_theme.tres" id="6_q2ftn"]
 [ext_resource type="PackedScene" uid="uid://dtsiqen0mcy4f" path="res://Battle/PlayerPanel/Player.tscn" id="6_xpt3v"]
@@ -24,6 +25,11 @@ animation = &"DESERT"
 centered = false
 offset = Vector2(-90, 0)
 script = ExtResource("3_frth7")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="Background"]
+stream = ExtResource("5_mth6u")
+volume_db = -28.924
+autoplay = true
 
 [node name="BattleSlot1" parent="." instance=ExtResource("4_qo5g6")]
 position = Vector2(125, 300)
