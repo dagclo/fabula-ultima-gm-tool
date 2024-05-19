@@ -28,14 +28,20 @@ public partial class BeastEntryNode : PanelContainer
             .Where(l => l is IBeastAttribute))
         {
             var label = child as IBeastAttribute;
-            this.BeastChanged += label.HandleBeastChanged;          
+            this.BeastChanged += label.HandleBeastChanged;
+            label.Save += this.SaveTemplate;
         }
 
         if(_template != null) this.BeastChanged?.Invoke(_template);
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+    private void SaveTemplate()
+    {
+        throw new NotImplementedException();
+    }
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
 	{
 
 	}
