@@ -9,6 +9,7 @@ Project Description
 - [ ] implement clocks  
 - [ ] Add After Encounter Result  
 - [ ] Enable Selection of Players  
+- [ ] Update NPC Image Button only appears when hovering over Image  
 - [ ] implement leveling up npc  
 - [ ] Implement PC Death  
 - [ ] Enable PC Theme Music  
@@ -26,10 +27,10 @@ Project Description
 
 ### In Progress
 
-- [ ] Update Image from App  
 
 ### Done ✓
 
+- [x] Update Image from App  
 - [x] Find good music for background  
 - [x] Create a About Popup with credits  
 - [x] Add Sound Effects to Hit  

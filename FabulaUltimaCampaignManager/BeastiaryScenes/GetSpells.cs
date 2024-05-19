@@ -1,5 +1,6 @@
 using FabulaUltimaNpc;
 using Godot;
+using System;
 using System.Linq;
 
 public partial class GetSpells : VBoxContainer, IBeastAttribute
@@ -7,8 +8,10 @@ public partial class GetSpells : VBoxContainer, IBeastAttribute
 	[Export]
 	public PackedScene SpellScene { get; set; }
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    public Action Save { get; set; }
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
         foreach (var child in this.FindChildren("Spell", "PanelContainer"))
         {
@@ -17,11 +20,6 @@ public partial class GetSpells : VBoxContainer, IBeastAttribute
         }
         this.Visible = false;
     }
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {

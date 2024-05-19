@@ -1,4 +1,6 @@
 ﻿using FabulaUltimaNpc;
+using FirstProject;
+using FirstProject.Beastiary;
 using Godot;
 using System;
 using System.Linq;
@@ -9,7 +11,9 @@ public partial class BeastEntryNode : PanelContainer
 
 	public event BeastChangedEventHandler BeastChanged;
 
-    private IBeastTemplate _template;
+    private IBeastTemplate _template;    
+    private BeastiaryRepository _beastRepository;
+
     public IBeastTemplate Beast
 	{
 		set 
@@ -24,6 +28,7 @@ public partial class BeastEntryNode : PanelContainer
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
+        _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;
         foreach (var child in this.FindChildren("*")            
             .Where(l => l is IBeastAttribute))
         {
@@ -37,7 +42,8 @@ public partial class BeastEntryNode : PanelContainer
 
     private void SaveTemplate()
     {
-        throw new NotImplementedException();
+        _beastRepository?.UpdateBeastTemplate(_template);
+        this.BeastChanged?.Invoke(_template);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -49,5 +49,10 @@ namespace FirstProject.Beastiary
 
             return result;
         }
+
+        internal void UpdateBeastTemplate(IBeastTemplate template)
+        {
+            _database.UpdateBeast(template);
+        }
     }
 }
