@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dvrc1lde82y6f"]
+[gd_scene load_steps=40 format=3 uid="uid://dvrc1lde82y6f"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_8xl3l"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_t4gi0"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c8bw0vtfllsa1" path="res://BeastiaryScenes/ResistancePanel.tscn" id="3_vhcs2"]
 [ext_resource type="PackedScene" uid="uid://cwsegr0yegay2" path="res://BeastiaryScenes/attack.tscn" id="4_716ij"]
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedHealthLabel.cs" id="5_f5oe2"]
+[ext_resource type="Script" path="res://BeastiaryScenes/FileDialog.cs" id="5_i30y8"]
 [ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="6_8ebfp"]
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedMagicPointsLabel.cs" id="6_x4de1"]
 [ext_resource type="Script" path="res://BeastiaryScenes/UseDiceSizeLabel.cs" id="7_g4asi"]
@@ -54,11 +55,29 @@ layout_mode = 2
 [node name="Description" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="DescriptionImage" type="TextureRect" parent="VBoxContainer/Description"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Description"]
+layout_mode = 2
+
+[node name="DescriptionImage" type="TextureRect" parent="VBoxContainer/Description/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("2_g8s5x")
 expand_mode = 3
 script = ExtResource("3_bbr3a")
+
+[node name="UpdateImageButton" type="Button" parent="VBoxContainer/Description/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "update"
+
+[node name="FileDialog" type="FileDialog" parent="VBoxContainer/Description/PanelContainer"]
+title = "Open a File"
+initial_position = 1
+size = Vector2i(800, 400)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png ; PNG Images", "*.jpg; JPG Images")
+script = ExtResource("5_i30y8")
 
 [node name="DescriptionText" type="VBoxContainer" parent="VBoxContainer/Description"]
 layout_mode = 2
@@ -351,6 +370,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Add To Current Encounter"
 
+[connection signal="pressed" from="VBoxContainer/Description/PanelContainer/UpdateImageButton" to="VBoxContainer/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
+[connection signal="file_selected" from="VBoxContainer/Description/PanelContainer/FileDialog" to="VBoxContainer/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
 [connection signal="pressed" from="VBoxContainer/AddToEncounterButton" to="." method="OnAddToEncounterButtonPressed"]
 
 [editable path="VBoxContainer/Description/DescriptionText/Traits"]

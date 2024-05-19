@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_d73sm")
 CampaignFolder = "user://campaignData/"
-DatabaseFilePath = "D:\\\\Godot\\\\FabulaUltimaDataImporter\\\\FabulaUltimaDataImporter\\\\test.sqlite"
+DatabaseFilePath = "../BeastiaryDB.sqlite"

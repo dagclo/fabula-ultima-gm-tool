@@ -26,6 +26,7 @@ Project Description
 
 ### In Progress
 
+- [ ] Update Image from App  
 
 ### Done ✓
 
