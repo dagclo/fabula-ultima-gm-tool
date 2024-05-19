@@ -11,6 +11,7 @@ Project Description
 - [ ] Enable Selection of Players  
 - [ ] Update NPC Image Button only appears when hovering over Image  
 - [ ] implement leveling up npc  
+- [ ] Implement updating all beast attributes  
 - [ ] Implement PC Death  
 - [ ] Enable PC Theme Music  
 - [ ] Implement Cross Network Dice Rolls  
