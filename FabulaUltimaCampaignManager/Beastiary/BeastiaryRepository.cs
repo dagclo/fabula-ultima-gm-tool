@@ -22,7 +22,7 @@ namespace FirstProject.Beastiary
 
         public IEnumerable<IBeastTemplate> GetBeasts()
         {
-            return _database.GetBeasts().Select(b => new SkilledBeastTemplateWrapper(b));
+            return _database.GetBeasts().Select(b => new SkilledBeastTemplateWrapper(b)).OrderBy(sb => sb.Name);
         }
 
         private Lazy<IEnumerable<FabulaUltimaDatabase.Models.DamageTypeEntry>> _damageTypes;

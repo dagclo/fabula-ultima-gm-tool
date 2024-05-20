@@ -6,7 +6,11 @@ Project Description
 
 ### Backlog
 
+- [ ] Implement Filtering by species, and level  
+- [ ] Fix Basic Attack Spacing in Index  
 - [ ] only offensive spells need attributes assigned to them  
+- [ ] Fix Razorbird  
+- [ ] Fix Magitech Trooper. improved damage is off by 1  
 - [ ] Fix Sun Bear pg 327  
 - [ ] implement clocks  
 - [ ] Add After Encounter Result  
@@ -33,6 +37,8 @@ Project Description
 
 ### Done ✓
 
+- [x] Sort Beastiary by name  
+- [x] Fix Forest Golem  
 - [x] Update Image from App  
 - [x] Find good music for background  
 - [x] Create a About Popup with credits  
