@@ -6,6 +6,8 @@ Project Description
 
 ### Backlog
 
+- [ ] only offensive spells need attributes assigned to them  
+- [ ] Fix Sun Bear pg 327  
 - [ ] implement clocks  
 - [ ] Add After Encounter Result  
 - [ ] Enable Selection of Players  
