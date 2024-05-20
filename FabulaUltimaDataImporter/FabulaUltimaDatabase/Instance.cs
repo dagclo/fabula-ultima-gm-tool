@@ -840,14 +840,12 @@ namespace FabulaUltimaDatabase
 
         public void UpdateBeast(IBeastTemplate template)
         {
-            try
+            using (var connection = _configuration.GetConnection())
             {
-                using (var connection = _configuration.GetConnection())
-                {
-                    connection.Open();
+                connection.Open();
 
-                    var beast = template.Model;
-                    connection.Execute(@"
+                var beast = template.Model;
+                connection.Execute(@"
                     UPDATE [BeastTemplate]
                     SET
                         Name = @Name,
@@ -861,28 +859,22 @@ namespace FabulaUltimaDatabase
                         ImageFile = @ImageFile
                     WHERE Id = @Id
                 ",
-                    new
-                    {
-                        Id = beast.Id.ToString(),
-                        Name = beast.Name,
-                        Description = beast.Description,
-                        Level = beast.Level,
-                        Traits = beast.Traits,                        
-                        Dexterity = beast.Dexterity.Sides,
-                        Insight = beast.Insight.Sides,
-                        Might = beast.Might.Sides,
-                        Willpower = beast.WillPower.Sides,
-                        ImageFile = beast.ImageFile,
-                    });
+                new
+                {
+                    Id = beast.Id.ToString(),
+                    Name = beast.Name,
+                    Description = beast.Description,
+                    Level = beast.Level,
+                    Traits = beast.Traits,
+                    Dexterity = beast.Dexterity.Sides,
+                    Insight = beast.Insight.Sides,
+                    Might = beast.Might.Sides,
+                    Willpower = beast.WillPower.Sides,
+                    ImageFile = beast.ImageFile,
+                });
 
-                    //todo: allow update of beast relationships including species
-                }
+                //todo: allow update of beast relationships including species
             }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
         }
     }
 }
