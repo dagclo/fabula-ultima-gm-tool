@@ -291,7 +291,9 @@ namespace FabulaUltimaDataImporter.Processor
 
         private static readonly IReadOnlySet<string> _supportedImageFileExtensions = new HashSet<string>()
         {
-            ".png"
+            ".png",
+            ".jpg",
+            ".jpeg"
         };
         private string GetImageFile()
         {
