@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dvrc1lde82y6f"]
+[gd_scene load_steps=44 format=3 uid="uid://dvrc1lde82y6f"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_8xl3l"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_t4gi0"]
@@ -42,6 +42,7 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/DeleteButton.cs" id="40_1wrog"]
 [ext_resource type="Script" path="res://BeastiaryScenes/DeleteQuestion.cs" id="41_kbchb"]
 [ext_resource type="Script" path="res://BeastiaryScenes/DeleteConfirmButton.cs" id="42_nml4d"]
+[ext_resource type="Script" path="res://BeastiaryScenes/CancelDeleteButton.cs" id="43_jbvkn"]
 
 [node name="BeastEntryNode" type="PanelContainer"]
 anchors_preset = 15
@@ -380,8 +381,8 @@ script = ExtResource("40_1wrog")
 DeleteDialog = NodePath("DeleteDialog")
 
 [node name="DeleteDialog" type="PopupPanel" parent="VBoxContainer/DeleteButton"]
+initial_position = 1
 size = Vector2i(444, 100)
-visible = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/DeleteButton/DeleteDialog"]
 offset_left = 4.0
@@ -402,14 +403,18 @@ layout_mode = 2
 text = "Delete"
 script = ExtResource("42_nml4d")
 
-[node name="CancelButton" type="Button" parent="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer"]
+[node name="CancelDeleteButton" type="Button" parent="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer" node_paths=PackedStringArray("DeleteBeastDialog")]
 layout_mode = 2
 text = "Cancel"
+script = ExtResource("43_jbvkn")
+DeleteBeastDialog = NodePath("../..")
 
 [connection signal="pressed" from="VBoxContainer/Description/PanelContainer/UpdateImageButton" to="VBoxContainer/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="VBoxContainer/Description/PanelContainer/FileDialog" to="VBoxContainer/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
 [connection signal="pressed" from="VBoxContainer/AddToEncounterButton" to="." method="OnAddToEncounterButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/DeleteButton" to="VBoxContainer/DeleteButton" method="OnClick"]
 [connection signal="pressed" from="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer/DeleteConfirmButton" to="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer/DeleteConfirmButton" method="OnPressed"]
+[connection signal="pressed" from="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer/CancelDeleteButton" to="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer/CancelDeleteButton" method="OnPressed"]
 
 [editable path="VBoxContainer/Description/DescriptionText/Traits"]
 [editable path="VBoxContainer/Stats/Dexterity"]
