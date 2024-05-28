@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dvrc1lde82y6f"]
+[gd_scene load_steps=43 format=3 uid="uid://dvrc1lde82y6f"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_8xl3l"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_t4gi0"]
@@ -39,6 +39,9 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/OtherActions.cs" id="33_icnde"]
 [ext_resource type="PackedScene" uid="uid://ddx26ghe36o0p" path="res://BeastiaryScenes/action.tscn" id="33_ma2ky"]
 [ext_resource type="PackedScene" uid="uid://b6kwc80e1vqp1" path="res://BeastiaryScenes/other_action.tscn" id="34_mp60j"]
+[ext_resource type="Script" path="res://BeastiaryScenes/DeleteButton.cs" id="40_1wrog"]
+[ext_resource type="Script" path="res://BeastiaryScenes/DeleteQuestion.cs" id="41_kbchb"]
+[ext_resource type="Script" path="res://BeastiaryScenes/DeleteConfirmButton.cs" id="42_nml4d"]
 
 [node name="BeastEntryNode" type="PanelContainer"]
 anchors_preset = 15
@@ -370,9 +373,43 @@ layout_mode = 2
 layout_mode = 2
 text = "Add To Current Encounter"
 
+[node name="DeleteButton" type="Button" parent="VBoxContainer" node_paths=PackedStringArray("DeleteDialog")]
+layout_mode = 2
+text = "Delete"
+script = ExtResource("40_1wrog")
+DeleteDialog = NodePath("DeleteDialog")
+
+[node name="DeleteDialog" type="PopupPanel" parent="VBoxContainer/DeleteButton"]
+size = Vector2i(444, 100)
+visible = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/DeleteButton/DeleteDialog"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 440.0
+offset_bottom = 96.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer"]
+layout_mode = 2
+
+[node name="DeleteQuestion" type="Label" parent="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Are you sure you want to delete <insert value>?"
+script = ExtResource("41_kbchb")
+
+[node name="DeleteConfirmButton" type="Button" parent="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer"]
+layout_mode = 2
+text = "Delete"
+script = ExtResource("42_nml4d")
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
 [connection signal="pressed" from="VBoxContainer/Description/PanelContainer/UpdateImageButton" to="VBoxContainer/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="VBoxContainer/Description/PanelContainer/FileDialog" to="VBoxContainer/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
 [connection signal="pressed" from="VBoxContainer/AddToEncounterButton" to="." method="OnAddToEncounterButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer/DeleteConfirmButton" to="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer/DeleteConfirmButton" method="OnPressed"]
 
 [editable path="VBoxContainer/Description/DescriptionText/Traits"]
 [editable path="VBoxContainer/Stats/Dexterity"]

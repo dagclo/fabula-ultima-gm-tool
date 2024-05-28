@@ -6,12 +6,19 @@ Project Description
 
 ### Backlog
 
+- [ ] Don't require attacks if equipment equipped  
+- [ ] Fix Spikeflake  
+- [ ] Fix Razorbird  
+- [ ] Fix Nymph  
+- [ ] Fix Chaos Shard  
+- [ ] Fix Sun Bear pg 327  
+- [ ] Allow for zero cost equipment  
 - [ ] Implement Filtering by species, and level  
+- [ ] Add Skill Tab  
+- [ ] Add Spell Tab  
 - [ ] Fix Basic Attack Spacing in Index  
 - [ ] only offensive spells need attributes assigned to them  
-- [ ] Fix Razorbird  
 - [ ] Fix Magitech Trooper. improved damage is off by 1  
-- [ ] Fix Sun Bear pg 327  
 - [ ] implement clocks  
 - [ ] Add After Encounter Result  
 - [ ] Enable Selection of Players  
@@ -34,9 +41,11 @@ Project Description
 
 ### In Progress
 
+- [ ] Implement Beast Delete (only beast)  
 
 ### Done ✓
 
+- [x] Fix Guard  
 - [x] Sort Beastiary by name  
 - [x] Fix Forest Golem  
 - [x] Update Image from App  
