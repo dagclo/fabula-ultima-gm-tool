@@ -8,7 +8,7 @@ public partial class Attacks : VBoxContainer, IBeastAttribute
     [Export]
     public PackedScene AttackNodeScene { get; set; }
 
-    public Action Save { get; set; }
+    public Action<bool> Save { get; set; }
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         foreach(var child in this.FindChildren("*", owned: false).Where(c => c is BasicAttack)) //instantiated scenes aren't "owned"

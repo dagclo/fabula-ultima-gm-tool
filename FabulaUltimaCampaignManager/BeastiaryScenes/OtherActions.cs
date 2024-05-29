@@ -8,7 +8,7 @@ public partial class OtherActions : VBoxContainer, IBeastAttribute
     [Export]
     public PackedScene ActionScene { get; set; }
 
-    public Action Save { get; set; }
+    public Action<bool> Save { get; set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

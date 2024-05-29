@@ -54,5 +54,10 @@ namespace FirstProject.Beastiary
         {
             _database.UpdateBeast(template);
         }
+
+        internal void DeleteBeastTemplate(Guid id)
+        {
+            _database.RemoveBeast(id);
+        }
     }
 }

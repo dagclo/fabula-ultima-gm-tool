@@ -6,7 +6,7 @@ public partial class UseDiceSizeLabel : Label, IBeastAttribute
 {
 	[Export]
     public string AttributeDice { get; set; }
-    public Action Save { get; set; }
+    public Action<bool> Save { get; set; }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {

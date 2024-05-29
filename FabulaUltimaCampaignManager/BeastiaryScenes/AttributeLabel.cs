@@ -8,7 +8,7 @@ public partial class AttributeLabel : Label, IBeastAttribute
     [Export]
     public string AttributeName { get; set; }
 
-    public Action Save { get; set; }
+    public Action<bool> Save { get; set; }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {

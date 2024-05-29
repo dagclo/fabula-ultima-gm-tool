@@ -20,16 +20,18 @@ public partial class GetBeastiary : VBoxContainer
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-		// remove example beast
-		var childNode = this.GetChildren().Single();
-		this.RemoveChild(childNode);
-        childNode.QueueFree();
-
         CallDeferred(MethodName.Setup);
 	}
 
 	private void Setup()
 	{
+        // remove any existing children
+        foreach (var child in this.GetChildren())
+        {
+            this.RemoveChild(child);
+            child.QueueFree();
+        }
+
         var dBAccess = GetNode<DbAccess>("/root/DbAccess");
         foreach (var beast in dBAccess.Repository.GetBeasts())
         {
@@ -37,6 +39,7 @@ public partial class GetBeastiary : VBoxContainer
             node.Beast = beast;
             this.AddChild(node);
             node.OnAddToEncounter += HandleAddEncounter;
+            node.OnDeleteBeast += HandleDeleteBeast;
         }
     }
 
@@ -55,6 +58,14 @@ public partial class GetBeastiary : VBoxContainer
         npcWizard.OnAddBeastToEncounter(instance);
         npcWizard.Closing += () => OnWizardClose(npcWizard);
         npcWizard.InstanceSet += AddInstanceToEncounter;
+    }
+
+    private void HandleDeleteBeast(IBeastTemplate template)
+    {
+        var dBAccess = GetNode<DbAccess>("/root/DbAccess");
+        var repository = dBAccess.Repository;
+        repository.DeleteBeastTemplate(template.Id);
+        Setup();
     }
 
     private void AddInstanceToEncounter(NpcInstance instance)

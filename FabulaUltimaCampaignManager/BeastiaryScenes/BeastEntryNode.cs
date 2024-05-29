@@ -24,6 +24,7 @@ public partial class BeastEntryNode : PanelContainer
     }
 
     public Action<IBeastTemplate> OnAddToEncounter { get; set; }
+    public Action<IBeastTemplate> OnDeleteBeast { get; set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -40,17 +41,18 @@ public partial class BeastEntryNode : PanelContainer
         if(_template != null) this.BeastChanged?.Invoke(_template);
     }
 
-    private void SaveTemplate()
+    private void SaveTemplate(bool delete)
     {
-        _beastRepository?.UpdateBeastTemplate(_template);
-        this.BeastChanged?.Invoke(_template);
+        if (delete)
+        {
+            this.OnDeleteBeast?.Invoke(_template);
+        }
+        else
+        {
+            _beastRepository?.UpdateBeastTemplate(_template);
+            this.BeastChanged?.Invoke(_template);
+        }       
     }
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-	{
-
-	}
 
     public void OnAddToEncounterButtonPressed()
     {

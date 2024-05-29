@@ -4,5 +4,5 @@ using System;
 public interface IBeastAttribute
 {
     void HandleBeastChanged(IBeastTemplate beastTemplate);
-    Action Save { get; set; }
+    Action<bool> Save { get; set; }
 }

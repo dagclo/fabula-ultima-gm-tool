@@ -11,7 +11,6 @@ Project Description
 - [ ] Fix Razorbird  
 - [ ] Fix Nymph  
 - [ ] Fix Chaos Shard  
-- [ ] Fix Sun Bear pg 327  
 - [ ] Allow for zero cost equipment  
 - [ ] Implement Filtering by species, and level  
 - [ ] Add Skill Tab  
@@ -41,10 +40,11 @@ Project Description
 
 ### In Progress
 
-- [ ] Implement Beast Delete (only beast)  
+- [ ] Fix Sun Bear pg 327  
 
 ### Done ✓
 
+- [x] Implement Beast Delete (only beast)  
 - [x] Fix Guard  
 - [x] Sort Beastiary by name  
 - [x] Fix Forest Golem  

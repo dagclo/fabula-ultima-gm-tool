@@ -6,7 +6,7 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
 {
     private IBeastTemplate _beastTemplate = null;
 
-    public Action Save { get; set; }
+    public Action<bool> Save { get; set; }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
@@ -21,6 +21,6 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
 	{
         if (string.IsNullOrWhiteSpace(imageFileName)) return;
         _beastTemplate.ImageFile = imageFileName;
-        Save?.Invoke();
+        Save?.Invoke(false);
     }
 }

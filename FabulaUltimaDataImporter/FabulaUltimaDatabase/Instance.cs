@@ -4,6 +4,7 @@ using FabulaUltimaDatabase.Models;
 using FabulaUltimaNpc;
 using Microsoft.Data.Sqlite;
 using Newtonsoft.Json;
+using static Dapper.SqlBuilder;
 
 namespace FabulaUltimaDatabase
 {
@@ -874,6 +875,43 @@ namespace FabulaUltimaDatabase
                 });
 
                 //todo: allow update of beast relationships including species
+            }
+        }
+
+        public void RemoveBeast(Guid id)
+        {
+            using (var connection = _configuration.GetConnection())
+            {
+                connection.Open();
+                
+                connection.Execute(@"
+                    DELETE FROM [BeastTemplate]
+                    WHERE Id = @Id;
+                    
+                    DELETE FROM [BeastResistance]
+                    WHERE BeastTemplateId = @Id;
+
+                    DELETE FROM [BeastAttack]
+                    WHERE BeastTemplateId = @Id;
+
+                    DELETE FROM [BeastAction]
+                    WHERE BeastTemplateId = @Id;
+
+                    DELETE FROM [BeastSpell]
+                    WHERE BeastTemplateId = @Id;
+
+                    DELETE FROM [BeastEquipment]
+                    WHERE BeastTemplateId = @Id;
+
+                    DELETE FROM [BeastSkill]
+                    WHERE BeastTemplateId = @Id;
+                ",
+                new
+                {
+                    Id = id.ToString(),                 
+                });
+
+                
             }
         }
     }

@@ -4,7 +4,7 @@ using System;
 
 public partial class ComputedHealthLabel : Label, IBeastAttribute
 {
-    public Action Save { get; set; }
+    public Action<bool> Save { get; set; }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {

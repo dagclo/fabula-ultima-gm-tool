@@ -5,7 +5,7 @@ using System.Linq;
 
 public partial class EquipmentList : Label, IBeastAttribute
 {
-    public Action Save { get; set; }
+    public Action<bool> Save { get; set; }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
