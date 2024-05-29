@@ -1862,6 +1862,74 @@ namespace FabulaUltimaSkillLibraryTests
                     }
 
                     ).SetName("Cactroll pg 347");
+
+                var bearHugId = Guid.NewGuid();
+
+                yield return new TestCaseData(
+                    null,
+                    new BeastTemplate(new BeastModel
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Sun Bear",
+                        Level = 15,
+                        Species = BEAST,
+                        Dexterity = D8,
+                        Insight = D8,
+                        Might = D10,
+                        WillPower = D6,
+                        Resistances = GetResistances(bolt: "RS", dark: "VU", earth: "VU", fire: "RS", ice: "RS", light: "RS"),
+                        // no equipment
+                        BasicAttacks = new BasicAttackTemplate[]
+                        {
+                            new BasicAttackTemplate
+                            {
+                                Id = bearHugId,
+                                DamageMod = 1,
+                                AttackMod = 5,
+                                Name = "Bear Hug",
+                                DamageType = PHYSICAL,
+                                Attribute1 = DEXTERITY,
+                                Attribute2 = MIGHT,
+                                IsRanged = false
+                            }
+                        },
+                        // no spells
+                    }),
+                    new SkillInputData
+                    {
+                        MaxHP = 80,
+                        MaxMP = 45,
+                        DefMod = 1,
+                        MDefMod = 2,
+                        Init = 8,
+                        AttackModifiers = new Dictionary<Guid, AttackModifier>()
+                        {
+                            {
+                                bearHugId,
+                                new AttackModifier
+                                {
+                                    AttackId = bearHugId,
+                                    AtkMod = 1,
+                                    DamMod = 10,
+                                    Text = "the target suffers weak"
+                                }
+                            }
+                        }
+                    },
+                    new (SkillTemplate skill, Guid? targetId)?[]
+                    {
+                        (KnownSkills.SpecialAttackSufferWeak, bearHugId),
+                        (KnownSkills.ImprovedDamageAttack, bearHugId),
+                        (KnownSkills.BoltResistance, null),
+                        (KnownSkills.DarkVulnerability, null),
+                        (KnownSkills.EarthVulnerability, null),
+                        (KnownSkills.FireResistance, null),
+                        (KnownSkills.IceResistance, null),
+                        (KnownSkills.LightResistance, null),
+                        null,
+                        null,
+                        null
+                    }).SetName("Sun Bear pg 327");
             }
         }
     }

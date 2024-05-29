@@ -40,6 +40,7 @@ Project Description
 
 ### In Progress
 
+- [ ] Fix failing unit tests  
 - [ ] Fix Sun Bear pg 327  
 
 ### Done ✓
