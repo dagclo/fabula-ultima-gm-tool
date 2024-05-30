@@ -8,7 +8,6 @@ Project Description
 
 - [ ] Block adding equipment with the same name  
 - [ ] Don't require attacks if equipment equipped  
-- [ ] Fix Chaos Shard  
 - [ ] Allow for zero cost equipment  
 - [ ] Implement Filtering by species, and level  
 - [ ] Add Skill Tab  
@@ -38,10 +37,11 @@ Project Description
 
 ### In Progress
 
-- [ ] Fix Nymph  
 
 ### Done ✓
 
+- [x] Fix Chaos Shard - book is wrong  
+- [x] Fix Nymph  
 - [x] Fix Razorbird  
 - [x] Fix Spikeflake  
 - [x] Fix Sun Bear pg 327  
