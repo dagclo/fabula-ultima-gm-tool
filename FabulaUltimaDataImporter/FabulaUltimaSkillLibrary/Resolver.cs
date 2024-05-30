@@ -364,5 +364,10 @@ namespace FabulaUltimaSkillLibrary
             var numSkillSlots = _instance.GetNumSkills(species);
             return Enumerable.Range(0, numSkillSlots).Select(_ => ((SkillTemplate skill, Guid? targetId) ?) null);
         }
+
+        public void RebuildSpecialAttackIndex()
+        {
+            _specialAttackIndex.Rebuild();
+        }
     }
 }

@@ -6,9 +6,8 @@ Project Description
 
 ### Backlog
 
+- [ ] Block adding equipment with the same name  
 - [ ] Don't require attacks if equipment equipped  
-- [ ] Fix Razorbird  
-- [ ] Fix Nymph  
 - [ ] Fix Chaos Shard  
 - [ ] Allow for zero cost equipment  
 - [ ] Implement Filtering by species, and level  
@@ -39,10 +38,12 @@ Project Description
 
 ### In Progress
 
-- [ ] Fix Spikeflake  
+- [ ] Fix Nymph  
 
 ### Done ✓
 
+- [x] Fix Razorbird  
+- [x] Fix Spikeflake  
 - [x] Fix Sun Bear pg 327  
 - [x] Fix is inside tree error during delete  
 - [x] Fix failing unit tests  

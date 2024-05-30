@@ -38,7 +38,23 @@ internal class SkillWorkflow : IWorkflow
 
     private IEnumerable<IWorkflow> RunCreateSkill()
     {
-        throw new NotImplementedException();
+        var skillName = _userIOWrapper.GetValidString("Skill Name");
+        _userIOWrapper.WriteLine($"Creating new Skill {skillName}");
+        var isSpecialAttack = _userIOWrapper.GetBoolean($"Is '{skillName}' a Special Attack?", "yes", "no");
+        SkillTemplate skill;
+        if (isSpecialAttack == true)
+        {
+            skill = GetSpecialAttackSkill(skillName);
+        }
+        else
+        {
+            skill = GetSkill(skillName);
+        }
+        var isFree = _userIOWrapper.GetBoolean($"Is '{skillName}' a Free?", "yes", "no");
+        if(isFree == true) skill.OtherAttributes[KnownSkills.IS_SPECIAL_ATTACK_DETRIMENT] = true.ToString();
+        _database.AddSkills(new[] {skill});
+        _skillResolver.RebuildSpecialAttackIndex();
+        yield break;
     }
 
     public IEnumerable<IWorkflow> RunBeastSkillAssignment()
@@ -94,6 +110,7 @@ internal class SkillWorkflow : IWorkflow
                     .Select(s => new BeastSkillEntry { BeastTemplateId = beast.Id, SkillId = s.Value.skill.Id, BasicAttackId = s.Value.targetId });        
 
         _database.AssignSkills(beast.Id, beastSkillEntries);
+        _skillResolver.RebuildSpecialAttackIndex();
         yield break;
     }
 
@@ -171,7 +188,7 @@ internal class SkillWorkflow : IWorkflow
             TargetType = typeof(BeastTemplate),
             IsSpecialRule = true,            
             Text = text,
-            Keywords = keywords.Split(",").Select(k => k.ToLowerInvariant()).ToHashSet(),    
+            Keywords = keywords.Split(",").Select(k => k.Trim().ToLowerInvariant()).ToHashSet(),    
             OtherAttributes = new SkillAttributeCollection
             {
                 [IS_NEW] = true.ToString(),
@@ -183,6 +200,11 @@ internal class SkillWorkflow : IWorkflow
     private SkillTemplate GetSpecialAttackSkill(string skillName, IReadOnlyList<BasicAttackTemplate> allAttacks, out Guid? attackId)
     {
         attackId = GetTargetAttack(allAttacks);
+        return GetSpecialAttackSkill(skillName);       
+    }
+
+    private SkillTemplate GetSpecialAttackSkill(string skillName)
+    {
         var skill = GetSkill(skillName);
         skill.IsSpecialRule = false;
         skill.TargetType = typeof(BasicAttackTemplate);

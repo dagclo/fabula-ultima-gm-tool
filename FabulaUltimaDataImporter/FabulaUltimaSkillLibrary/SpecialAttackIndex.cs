@@ -12,17 +12,23 @@ namespace FabulaUltimaSkillLibrary
         {
         }
 
-        public SpecialAttackIndex( IEnumerable<SkillTemplate> specialAttacks, Instance dbInstance)
+        public SpecialAttackIndex(IEnumerable<SkillTemplate> specialAttacks, Instance dbInstance)
         {
             _dbInstance = dbInstance;
-            IEnumerable<SkillTemplate> dbSkills = dbInstance.GetSkills(new Dictionary<string, string> { { KnownSkills.IS_SPECIAL_ATTACK, true.ToString() } });
+            IEnumerable<SkillTemplate> dbSkills = _dbInstance.GetSkills(new Dictionary<string, string> { { KnownSkills.IS_SPECIAL_ATTACK, true.ToString() } });
             _keywordToSkillMap = new Dictionary<string, ICollection<SkillTemplate>>();
-            foreach(var attack in specialAttacks.Concat(dbSkills))
+            BuildKeywordToSkillMap(specialAttacks, dbSkills);
+        }
+
+        private void BuildKeywordToSkillMap(IEnumerable<SkillTemplate> specialAttacks, IEnumerable<SkillTemplate> dbSkills)
+        {
+            _keywordToSkillMap.Clear();
+            foreach (var attack in specialAttacks.Concat(dbSkills))
             {
-                foreach(var keyword in attack.Keywords) 
-                { 
+                foreach (var keyword in attack.Keywords)
+                {
                     var normalizedKeyword = keyword.ToLowerInvariant();
-                    if(!_keywordToSkillMap.ContainsKey(normalizedKeyword))
+                    if (!_keywordToSkillMap.ContainsKey(normalizedKeyword))
                     {
                         _keywordToSkillMap[normalizedKeyword] = new List<SkillTemplate>();
                     }
@@ -67,6 +73,12 @@ namespace FabulaUltimaSkillLibrary
         internal IEnumerable<SkillTemplate?> GetSpecialAttacks(string text)
         {
             return GetSpecialAttacks(text.Split(new[] { " ", ".", ",", ":" }, StringSplitOptions.RemoveEmptyEntries));
+        }
+
+        internal void Rebuild()
+        {
+            IEnumerable<SkillTemplate> dbSkills = _dbInstance.GetSkills(new Dictionary<string, string> { { KnownSkills.IS_SPECIAL_ATTACK, true.ToString() } });            
+            BuildKeywordToSkillMap(new SkillTemplate[0], dbSkills);
         }
     }
 }
