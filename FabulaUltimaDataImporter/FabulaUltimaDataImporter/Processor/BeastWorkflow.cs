@@ -163,7 +163,7 @@ namespace FabulaUltimaDataImporter.Processor
             return new SkillInputData
             {
                 DefMod = isOverride == true ? 0 : defVal,
-                DefOverride = isOverride == true ? null : defVal,
+                DefOverride = isOverride == false ? null : defVal,
                 MDefMod = mDefVal,
                 Init = initiative,
                 MaxHP = maxHp,

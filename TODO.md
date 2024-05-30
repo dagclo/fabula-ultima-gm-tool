@@ -7,7 +7,6 @@ Project Description
 ### Backlog
 
 - [ ] Don't require attacks if equipment equipped  
-- [ ] Fix Spikeflake  
 - [ ] Fix Razorbird  
 - [ ] Fix Nymph  
 - [ ] Fix Chaos Shard  
@@ -40,11 +39,13 @@ Project Description
 
 ### In Progress
 
-- [ ] Fix failing unit tests  
-- [ ] Fix Sun Bear pg 327  
+- [ ] Fix Spikeflake  
 
 ### Done ✓
 
+- [x] Fix Sun Bear pg 327  
+- [x] Fix is inside tree error during delete  
+- [x] Fix failing unit tests  
 - [x] Implement Beast Delete (only beast)  
 - [x] Fix Guard  
 - [x] Sort Beastiary by name  

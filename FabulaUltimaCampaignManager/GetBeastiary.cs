@@ -65,7 +65,7 @@ public partial class GetBeastiary : VBoxContainer
         var dBAccess = GetNode<DbAccess>("/root/DbAccess");
         var repository = dBAccess.Repository;
         repository.DeleteBeastTemplate(template.Id);
-        Setup();
+        CallDeferred(MethodName.Setup);
     }
 
     private void AddInstanceToEncounter(NpcInstance instance)
