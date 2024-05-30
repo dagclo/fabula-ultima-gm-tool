@@ -1884,8 +1884,8 @@ namespace FabulaUltimaSkillLibraryTests
                             new BasicAttackTemplate
                             {
                                 Id = bearHugId,
-                                DamageMod = 1,
-                                AttackMod = 5,
+                                DamageMod = 5,
+                                AttackMod = 0,
                                 Name = "Bear Hug",
                                 DamageType = PHYSICAL,
                                 Attribute1 = DEXTERITY,
@@ -1926,8 +1926,8 @@ namespace FabulaUltimaSkillLibraryTests
                         (KnownSkills.FireResistance, null),
                         (KnownSkills.IceResistance, null),
                         (KnownSkills.LightResistance, null),
-                        null,
-                        null,
+                        (KnownSkills.ImprovedDefensesMagical, null),
+                        null,                        
                         null
                     }).SetName("Sun Bear pg 327");
             }

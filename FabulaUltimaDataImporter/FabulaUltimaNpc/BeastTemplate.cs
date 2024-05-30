@@ -144,7 +144,7 @@
         public int MagicalDefense => Insight.Sides;
         public int Defense => Dexterity.Sides;
 
-        public int Initiative => (Dexterity.Sides + Insight.Sides) / 2 + (Equipment?.Sum(e => e.StatsModifier?.InitiativeModifier ?? 0) ?? 0) + Model.Rank.GetNumSoldiersReplaced();
+        public int Initiative => (Dexterity.Sides + Insight.Sides) / 2 + (Equipment?.Sum(e => e.StatsModifier?.InitiativeModifier ?? 0) ?? 0) + (Model.Rank.GetNumSoldiersReplaced() - 1);
         public int HealthPoints => (2 * Level + 5 * Might.Sides) * Model.Rank.GetNumSoldiersReplaced();
         public int MagicPoints => (Level + 5 * WillPower.Sides) * Model.Rank.MagicPointMultiplier();
         public int Crisis => HealthPoints / 2;
