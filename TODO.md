@@ -6,15 +6,15 @@ Project Description
 
 ### Backlog
 
+- [ ] Fix Cockatrice's Petrifying Peck  
+- [ ] Implement Filtering by species, and level  
 - [ ] Block adding equipment with the same name  
 - [ ] Don't require attacks if equipment equipped  
 - [ ] Allow for zero cost equipment  
-- [ ] Implement Filtering by species, and level  
 - [ ] Add Skill Tab  
 - [ ] Add Spell Tab  
 - [ ] Fix Basic Attack Spacing in Index  
 - [ ] only offensive spells need attributes assigned to them  
-- [ ] Fix Magitech Trooper. improved damage is off by 1  
 - [ ] implement clocks  
 - [ ] Add After Encounter Result  
 - [ ] Enable Selection of Players  
@@ -25,7 +25,6 @@ Project Description
 - [ ] Enable PC Theme Music  
 - [ ] Implement Cross Network Dice Rolls  
 - [ ] enable removing npc  
-- [ ] pg 343 Drake - add magic accuracy skill  
 - [ ] Get Rid of CallDeferrer and use CallDeferred  
 - [ ] get rid of any interface methods that don't need to be implemented  
 - [ ] nuke database to get rid of orphans (maybe add this as a clean up task?)  
@@ -40,6 +39,8 @@ Project Description
 
 ### Done ✓
 
+- [x] Fix Magitech Trooper. improved damage is off by 1  
+- [x] pg 343 Drake - add magic accuracy skill  
 - [x] Fix Chaos Shard - book is wrong  
 - [x] Fix Nymph  
 - [x] Fix Razorbird  
