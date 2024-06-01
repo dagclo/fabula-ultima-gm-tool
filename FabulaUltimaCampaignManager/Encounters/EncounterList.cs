@@ -4,7 +4,7 @@ using FirstProject.Encounters;
 using FirstProject.Messaging;
 using Godot;
 
-public partial class EncounterList : VBoxContainer
+public partial class EncounterList : Node
 {
 	[Export]
 	public PackedScene PackedEncounter { get; set; }

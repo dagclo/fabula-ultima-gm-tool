@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://b54cktmhcq4dq"]
+[gd_scene load_steps=33 format=3 uid="uid://b54cktmhcq4dq"]
 
 [ext_resource type="Script" path="res://Battle/BattleSlot.cs" id="1_q5xa3"]
 [ext_resource type="Texture2D" uid="uid://i7qlj5i8k4cu" path="res://Battle/Monster Unknown.png" id="2_icy35"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://d2wqeorwvi0ar" path="res://Battle/Resources/Enraged.png" id="6_uv6fq"]
 [ext_resource type="Script" path="res://Battle/BattleSlot/StatusEffectDisplay.cs" id="7_4m4uy"]
 [ext_resource type="Texture2D" uid="uid://46l8nhlctefv" path="res://Battle/Resources/HealthBarBorder.png" id="7_gogc4"]
+[ext_resource type="Theme" uid="uid://dtpbrs518fimv" path="res://Battle/battle_theme.tres" id="7_yxys7"]
 [ext_resource type="Texture2D" uid="uid://bncqi5wg6i1y" path="res://Battle/Resources/Dazed.png" id="8_sdhoq"]
 [ext_resource type="Texture2D" uid="uid://tp4uqrdpnyr8" path="res://Battle/Resources/HealthBarFront.png" id="8_sy7u1"]
 [ext_resource type="Texture2D" uid="uid://djwpdymtksamy" path="res://Battle/Resources/Weak.png" id="9_klp1o"]
@@ -221,6 +222,7 @@ offset_left = -69.0
 offset_top = 123.0
 offset_right = 90.0
 offset_bottom = 155.0
+theme = ExtResource("7_yxys7")
 
 [node name="Enraged" type="TextureRect" parent="StatusList"]
 visible = false
@@ -269,6 +271,7 @@ offset_top = -175.0
 offset_right = 322.0
 offset_bottom = -125.0
 scale = Vector2(0.5, 0.5)
+theme = ExtResource("7_yxys7")
 step = 0.001
 value = 50.0
 texture_under = ExtResource("6_nr4mn")
@@ -286,10 +289,11 @@ offset_right = 135.0
 offset_bottom = -116.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("7_yxys7")
 
 [node name="Name" type="Label" parent="HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme = ExtResource("7_yxys7")
 text = "<Insert Name>"
 horizontal_alignment = 1
 vertical_alignment = 1

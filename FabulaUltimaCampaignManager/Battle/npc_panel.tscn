@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bsxr63lu04kga"]
+[gd_scene load_steps=27 format=3 uid="uid://bsxr63lu04kga"]
 
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="1_1ptjk"]
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_83a5u"]
@@ -20,7 +20,6 @@
 [ext_resource type="Script" path="res://Battle/FinishTurnButton.cs" id="15_6xvc4"]
 [ext_resource type="Script" path="res://Battle/DamageTypeOptions.cs" id="15_cb83f"]
 [ext_resource type="Script" path="res://Battle/NpcPanel/ActionOptions.cs" id="16_os7ll"]
-[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="17_hqeym"]
 [ext_resource type="Script" path="res://Battle/NpcPanel/AccuracyMod.cs" id="17_i44yt"]
 [ext_resource type="Script" path="res://Battle/NpcPanel/Difficulty.cs" id="17_ta6go"]
 [ext_resource type="Script" path="res://Battle/NpcPanel/AttributeOptions.cs" id="17_xfhcf"]
@@ -151,6 +150,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="NpcStatus/Attacks"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Attacks"
 
 [node name="AttackList" type="VBoxContainer" parent="NpcStatus/Attacks"]
@@ -166,6 +166,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="NpcStatus/Spells"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Spells:"
 
 [node name="SpellList" type="VBoxContainer" parent="NpcStatus/Spells"]
@@ -181,6 +182,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="NpcStatus/OtherActions"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Other Actions"
 
 [node name="OtherActionList" type="VBoxContainer" parent="NpcStatus/OtherActions"]
@@ -196,6 +198,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="NpcStatus/SpecialRules"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Special Rules:"
 
 [node name="RulesList" type="VBoxContainer" parent="NpcStatus/SpecialRules"]
@@ -211,6 +214,7 @@ layout_mode = 2
 
 [node name="ActionLabel" type="Label" parent="NpcStatus/Roll"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Action:"
 
 [node name="ActionOptions" type="OptionButton" parent="NpcStatus/Roll"]
@@ -222,6 +226,7 @@ script = ExtResource("16_os7ll")
 
 [node name="Attribute1Label" type="Label" parent="NpcStatus/Roll"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Attribute"
 
 [node name="Attribute1Options" type="OptionButton" parent="NpcStatus/Roll"]
@@ -230,6 +235,7 @@ script = ExtResource("17_xfhcf")
 
 [node name="Attribute2Label" type="Label" parent="NpcStatus/Roll"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Attribute"
 
 [node name="Attribute2Options" type="OptionButton" parent="NpcStatus/Roll"]
@@ -239,6 +245,7 @@ IsAttribute1 = false
 
 [node name="AccuracyModLabel" type="Label" parent="NpcStatus/Roll"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Acc Mod"
 
 [node name="AccuracyMod" type="LineEdit" parent="NpcStatus/Roll"]
@@ -248,6 +255,7 @@ script = ExtResource("17_i44yt")
 
 [node name="HighRollModLabel" type="Label" parent="NpcStatus/Roll"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "HR Mod"
 
 [node name="HighRollMod" type="LineEdit" parent="NpcStatus/Roll"]
@@ -257,6 +265,7 @@ script = ExtResource("18_87kxn")
 
 [node name="DifficultyModLabel" type="Label" parent="NpcStatus/Roll"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Difficulty"
 
 [node name="Difficulty" type="LineEdit" parent="NpcStatus/Roll"]
@@ -272,7 +281,6 @@ script = ExtResource("12_h1pac")
 
 [node name="ResultLabel" type="Label" parent="NpcStatus/Roll"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("17_hqeym")
 text = "<unset>"
 script = ExtResource("21_xpnbq")
 
@@ -299,11 +307,11 @@ text = "add resistance"
 
 [node name="ExpectedDamageLabel" type="Label" parent="NpcStatus/Damage"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Expected: "
 
 [node name="ExpectedDamage" type="Label" parent="NpcStatus/Damage"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("17_hqeym")
 text = "<unset>"
 script = ExtResource("18_wj2dn")
 

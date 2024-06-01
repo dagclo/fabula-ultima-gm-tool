@@ -33,3 +33,8 @@ window/stretch/aspect="ignore"
 
 project/assembly_name="FabulaUltimaGMTool"
 project/solution_directory="."
+
+[gui]
+
+theme/custom="res://node_2d.tres"
+theme/custom_font="res://Font/Mukta-Regular.ttf"

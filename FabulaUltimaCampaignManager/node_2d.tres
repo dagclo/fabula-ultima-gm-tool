@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=4 format=3 uid="uid://d2sfrnkc8pqs1"]
 
-[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="2_4yk3g"]
+[ext_resource type="FontFile" uid="uid://xh7tj07do221" path="res://Font/Mukta-Bold.ttf" id="1_05gy6"]
 [ext_resource type="FontFile" uid="uid://d3qnkiy0xhdyx" path="res://Font/Mukta-Regular.ttf" id="3_7uv60"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jf365"]
@@ -12,6 +12,9 @@ bg_color = Color(0.133333, 0.133333, 0.133333, 1)
 
 [resource]
 default_font = ExtResource("3_7uv60")
+BoldLabel/base_type = &"Label"
+BoldLabel/fonts/font = ExtResource("1_05gy6")
+Button/fonts/font = ExtResource("1_05gy6")
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(1, 1, 1, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)
@@ -22,5 +25,3 @@ Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 1
 Label/font_sizes/font_size = 16
 Label/styles/normal = SubResource("StyleBoxFlat_jf365")
-LineEdit/fonts/font = ExtResource("2_4yk3g")
-TextEdit/fonts/font = ExtResource("2_4yk3g")

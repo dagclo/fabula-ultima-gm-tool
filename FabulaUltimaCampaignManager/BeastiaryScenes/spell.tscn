@@ -21,6 +21,7 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="SpellDetails/HBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Curse"
 script = ExtResource("2_a0dvv")
 

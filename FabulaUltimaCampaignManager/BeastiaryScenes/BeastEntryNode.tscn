@@ -68,7 +68,7 @@ script = ExtResource("3_bbr3a")
 [node name="UpdateImageButton" type="Button" parent="VBoxContainer/Description/PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "update"
+text = "Update"
 
 [node name="FileDialog" type="FileDialog" parent="VBoxContainer/Description/PanelContainer"]
 title = "Open a File"
@@ -309,6 +309,7 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="VBoxContainer/Equipment/HBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Equipment: "
 
 [node name="EquipmentList" type="Label" parent="VBoxContainer/Equipment/HBoxContainer"]
@@ -323,6 +324,7 @@ AttackNodeScene = ExtResource("4_716ij")
 
 [node name="Label" type="Label" parent="VBoxContainer/Attacks"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "BASIC ATTACKS"
 
 [node name="Attack" parent="VBoxContainer/Attacks" instance=ExtResource("4_716ij")]
@@ -335,6 +337,7 @@ SpellScene = ExtResource("31_1wadr")
 
 [node name="Label" type="Label" parent="VBoxContainer/Spells"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "SPELLS"
 
 [node name="Spell" parent="VBoxContainer/Spells" instance=ExtResource("31_1wadr")]
@@ -347,6 +350,7 @@ ActionScene = ExtResource("34_mp60j")
 
 [node name="Label" type="Label" parent="VBoxContainer/OtherActions"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "OTHER ACTIONS"
 
 [node name="OtherAction" parent="VBoxContainer/OtherActions" instance=ExtResource("34_mp60j")]
@@ -360,6 +364,7 @@ SkillNodeScene = ExtResource("33_ma2ky")
 
 [node name="Label" type="Label" parent="VBoxContainer/SpecialRules"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "SPECIAL RULES"
 
 [node name="Action" parent="VBoxContainer/SpecialRules" instance=ExtResource("33_ma2ky")]
@@ -383,7 +388,7 @@ size = Vector2i(444, 100)
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 440.0
-offset_bottom = 97.0
+offset_bottom = 122.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer"]
 layout_mode = 2

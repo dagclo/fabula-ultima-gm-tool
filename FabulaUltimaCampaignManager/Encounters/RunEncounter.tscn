@@ -129,6 +129,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="GMScreen/VBoxContainer/GameLog/GameLog"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Game Log"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="GMScreen/VBoxContainer/GameLog/GameLog"]
