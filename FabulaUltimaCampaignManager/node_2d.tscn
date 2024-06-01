@@ -142,10 +142,8 @@ layout_mode = 2
 [node name="CampaignManager" type="TabContainer" parent="HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-current_tab = 1
 
 [node name="Campaign" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
-visible = false
 layout_mode = 2
 script = ExtResource("3_tscfl")
 CampaignData = ExtResource("4_wujyf")
@@ -182,7 +180,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EncounterList" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer"]
+[node name="EncounterList" type="VFlowContainer" parent="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer"]
 layout_mode = 2
 script = ExtResource("7_275cp")
 PackedEncounter = ExtResource("3_eceqq")
@@ -213,6 +211,7 @@ layout_mode = 2
 SlotIndex = 3
 
 [node name="Beastiary" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
+visible = false
 layout_mode = 2
 
 [node name="FilteredSearch" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary"]
@@ -293,11 +292,11 @@ fit_content = true
 [connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" method="OnTextChanged"]
 [connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/RunEncounterButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup" method="OnRunButton"]
 [connection signal="item_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" to="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" method="OnSelection"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot2" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot3" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot4" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="UpdateEncounter"]
 [connection signal="AddEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CampaignManager/Campaign" method="AddEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter" method="HandleUpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" method="UpdateEncounter"]
