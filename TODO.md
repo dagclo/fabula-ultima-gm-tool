@@ -6,6 +6,7 @@ Project Description
 
 ### Backlog
 
+- [ ] Fix Beastiary UI being too wide  
 - [ ] Fix Cockatrice's Petrifying Peck  
 - [ ] Implement Filtering by species, and level  
 - [ ] Block adding equipment with the same name  
