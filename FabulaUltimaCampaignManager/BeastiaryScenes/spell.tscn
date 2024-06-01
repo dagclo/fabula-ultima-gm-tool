@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://l57ucy852qf2"]
+[gd_scene load_steps=9 format=3 uid="uid://l57ucy852qf2"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/SpellNode.cs" id="1_8ob2u"]
-[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_ytrmg"]
 [ext_resource type="Script" path="res://SpellScripts/SpellTitle.cs" id="2_a0dvv"]
 [ext_resource type="Script" path="res://SpellScripts/SpellOffensive.cs" id="3_ass7v"]
 [ext_resource type="Script" path="res://SpellScripts/SpellCastRoll.cs" id="4_obmq7"]
-[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="4_sq4gv"]
 [ext_resource type="Script" path="res://SpellScripts/SpellCost.cs" id="5_nr4ad"]
 [ext_resource type="Script" path="res://SpellScripts/SpellTarget.cs" id="6_5wnrd"]
 [ext_resource type="Script" path="res://SpellScripts/SpellDuration.cs" id="7_lv5yf"]
@@ -13,7 +11,6 @@
 
 [node name="Spell" type="PanelContainer"]
 size_flags_horizontal = 3
-theme = ExtResource("1_ytrmg")
 script = ExtResource("1_8ob2u")
 
 [node name="SpellDetails" type="VBoxContainer" parent="."]
@@ -29,7 +26,6 @@ script = ExtResource("2_a0dvv")
 
 [node name="IsOffensive" type="Label" parent="SpellDetails/HBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_sq4gv")
 text = "Offensive"
 script = ExtResource("3_ass7v")
 
@@ -57,7 +53,6 @@ script = ExtResource("7_lv5yf")
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("4_sq4gv")
 text = "The target suffers (choose one: dazed, shaken, slow, weak)."
 autowrap_mode = 2
 script = ExtResource("8_6qtqp")

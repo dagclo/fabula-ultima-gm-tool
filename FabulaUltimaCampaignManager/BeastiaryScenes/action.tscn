@@ -1,16 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddx26ghe36o0p"]
+[gd_scene load_steps=4 format=3 uid="uid://ddx26ghe36o0p"]
 
 [ext_resource type="Script" path="res://Skills/BeastSkills.cs" id="1_j213b"]
-[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_vdkwc"]
 [ext_resource type="Script" path="res://Skills/SkillName.cs" id="2_lf4jy"]
 [ext_resource type="Script" path="res://Skills/SkillDescription.cs" id="3_i774f"]
-[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="4_jnjin"]
 
 [node name="Skill" type="PanelContainer"]
 offset_right = 585.0
 offset_bottom = 23.0
 size_flags_horizontal = 3
-theme = ExtResource("1_vdkwc")
 script = ExtResource("1_j213b")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -25,7 +22,6 @@ script = ExtResource("2_lf4jy")
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("4_jnjin")
 text = "As long as it is in Crisis, the rat gains a +3 bonus to all Checks."
 autowrap_mode = 2
 script = ExtResource("3_i774f")

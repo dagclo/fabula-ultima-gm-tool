@@ -56,7 +56,6 @@ dragger_visibility = 2
 
 [node name="CurrentEncounter" type="PanelContainer" parent="HSplitContainer"]
 layout_mode = 2
-theme = ExtResource("1_f3kj6")
 script = ExtResource("2_w6myd")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/CurrentEncounter"]
@@ -68,7 +67,6 @@ text = "Current Encounter"
 
 [node name="EncounterTitle" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("1_f3kj6")
 placeholder_text = "Encounter Name"
 script = ExtResource("3_3pve8")
 
@@ -91,11 +89,9 @@ offset_left = 4.0
 offset_top = 4.0
 offset_right = 246.0
 offset_bottom = 144.0
-theme = ExtResource("1_f3kj6")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("1_f3kj6")
 
 [node name="Title" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -108,13 +104,11 @@ script = ExtResource("7_nprtx")
 
 [node name="GroupCheck" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("1_f3kj6")
 placeholder_text = "Enter Group Initiative"
 script = ExtResource("8_vnw2q")
 
 [node name="RunEncounterButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("1_f3kj6")
 disabled = true
 text = "Run"
 script = ExtResource("9_buhfi")
@@ -130,7 +124,6 @@ script = ExtResource("11_5ov2a")
 [node name="NPCPanel" type="PanelContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme = ExtResource("1_f3kj6")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel"]
 layout_mode = 2
@@ -139,7 +132,6 @@ horizontal_scroll_mode = 0
 [node name="NPCList" type="VBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("1_f3kj6")
 script = ExtResource("3_5rnrb")
 EntryScene = ExtResource("2_vysl0")
 
@@ -149,7 +141,6 @@ layout_mode = 2
 [node name="CampaignManager" type="TabContainer" parent="HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("1_f3kj6")
 current_tab = 1
 
 [node name="Campaign" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
@@ -271,16 +262,15 @@ layout_mode = 2
 
 [node name="AboutPanel" type="PopupPanel" parent="."]
 initial_position = 1
-size = Vector2i(309, 134)
+size = Vector2i(309, 390)
 borderless = false
 keep_title_visible = true
-theme = ExtResource("1_f3kj6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AboutPanel"]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 305.0
-offset_bottom = 386.0
+offset_bottom = 398.0
 
 [node name="Title" type="Label" parent="AboutPanel/VBoxContainer"]
 layout_mode = 2

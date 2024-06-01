@@ -1,6 +1,5 @@
-[gd_scene load_steps=44 format=3 uid="uid://dvrc1lde82y6f"]
+[gd_scene load_steps=42 format=3 uid="uid://dvrc1lde82y6f"]
 
-[ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_8xl3l"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_t4gi0"]
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="2_6f5hl"]
 [ext_resource type="Texture2D" uid="uid://i7qlj5i8k4cu" path="res://Battle/Monster Unknown.png" id="2_g8s5x"]
@@ -10,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://cwsegr0yegay2" path="res://BeastiaryScenes/attack.tscn" id="4_716ij"]
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedHealthLabel.cs" id="5_f5oe2"]
 [ext_resource type="Script" path="res://BeastiaryScenes/FileDialog.cs" id="5_i30y8"]
-[ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="6_8ebfp"]
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedMagicPointsLabel.cs" id="6_x4de1"]
 [ext_resource type="Script" path="res://BeastiaryScenes/UseDiceSizeLabel.cs" id="7_g4asi"]
 [ext_resource type="Texture2D" uid="uid://841utmxt0qwh" path="res://ResistanceImages/fire.png" id="9_7ggv3"]
@@ -50,7 +48,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_8xl3l")
 script = ExtResource("1_t4gi0")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -106,7 +103,6 @@ AttributeName = "Species"
 
 [node name="Details" type="Label" parent="VBoxContainer/Description/DescriptionText"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_8ebfp")
 text = "Fires from on high with the eyes of an eagle."
 script = ExtResource("3_nqrqn")
 AttributeName = "Description"
@@ -317,7 +313,6 @@ text = "Equipment: "
 
 [node name="EquipmentList" type="Label" parent="VBoxContainer/Equipment/HBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_8ebfp")
 text = "Bow, travel garb"
 script = ExtResource("28_ful48")
 
@@ -388,7 +383,7 @@ size = Vector2i(444, 100)
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 440.0
-offset_bottom = 96.0
+offset_bottom = 97.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer"]
 layout_mode = 2
