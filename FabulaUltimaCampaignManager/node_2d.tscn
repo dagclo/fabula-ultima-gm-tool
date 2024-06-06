@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=28 format=3 uid="uid://ec56818wobea"]
 
 [ext_resource type="Script" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Encounters/EncounterTitleEdit.cs" id="3_3pve8"]
 [ext_resource type="Script" path="res://Encounters/NPCList.cs" id="3_5rnrb"]
 [ext_resource type="PackedScene" uid="uid://3eqvokisi6o7" path="res://Encounters/encounterEntry.tscn" id="3_eceqq"]
+[ext_resource type="Script" path="res://Settings.cs" id="3_f7bcp"]
 [ext_resource type="Script" path="res://Campaign/Campaign.cs" id="3_tscfl"]
 [ext_resource type="PackedScene" uid="uid://cxbt82uyb2oo7" path="res://Encounters/player_slot.tscn" id="4_6fi46"]
 [ext_resource type="Script" path="res://Encounters/StartEncounterButton.cs" id="4_t2e78"]
@@ -40,6 +41,19 @@ script = ExtResource("1_5rpfd")
 
 [node name="MenuBar" type="MenuBar" parent="."]
 layout_mode = 2
+
+[node name="File" type="PopupMenu" parent="MenuBar"]
+
+[node name="Settings" type="PopupMenu" parent="MenuBar"]
+size = Vector2i(201, 100)
+hide_on_item_selection = false
+hide_on_checkable_item_selection = false
+item_count = 1
+item_0/text = "Play Background Music"
+item_0/checkable = 1
+item_0/id = 0
+script = ExtResource("3_f7bcp")
+_configuration = ExtResource("8_qwns5")
 
 [node name="Help" type="PopupMenu" parent="MenuBar" node_paths=PackedStringArray("AboutPanel")]
 title = "Help"
@@ -285,6 +299,7 @@ bbcode_enabled = true
 text = "[b]Monster Art:[/b] Aekashics"
 fit_content = true
 
+[connection signal="id_pressed" from="MenuBar/Settings" to="MenuBar/Settings" method="OnOptionPressed"]
 [connection signal="id_pressed" from="MenuBar/Help" to="MenuBar/Help" method="OnOptionPressed"]
 [connection signal="UpdateEncounter" from="HSplitContainer/CurrentEncounter" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
 [connection signal="text_submitted" from="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" to="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" method="OnTextSubmitted"]

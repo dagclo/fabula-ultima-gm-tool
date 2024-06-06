@@ -11,6 +11,9 @@ namespace FirstProject
         [Export]
         public string DatabaseFilePath { get; set; }
 
+        [Export]
+        public bool BackgroundMusicEnabled { get; set; }
+
         internal void MakeDirectories()
         {
             DirAccess.MakeDirRecursiveAbsolute(CampaignFolder);
