@@ -1,6 +1,7 @@
 using FabulaUltimaNpc;
 using Godot;
 using System;
+using System.IO;
 
 public partial class DescriptionImage : TextureRect, IBeastAttribute
 {
@@ -12,7 +13,24 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
     {
         _beastTemplate = beastTemplate;
         if (string.IsNullOrWhiteSpace(_beastTemplate.ImageFile)) return;
-		var image = Image.LoadFromFile(_beastTemplate.ImageFile);
+        const string RES = "res://";
+        
+        if (!_beastTemplate.ImageFile.StartsWith(RES))
+        {
+            const string targetFolder = "Database/Images/";
+            var fileName = Path.GetFileName(_beastTemplate.ImageFile);
+            var targetpath = $"{RES}{targetFolder}{fileName}";
+            string targetPathAbsolute;
+            using (var godotFile = Godot.FileAccess.Open(targetpath, Godot.FileAccess.ModeFlags.WriteRead))
+            {
+                targetPathAbsolute = godotFile.GetPathAbsolute();
+            }
+            
+            File.Copy(_beastTemplate.ImageFile, targetPathAbsolute, true);
+            HandleImageSet(targetpath);
+            return;
+        }
+		var image = Image.LoadFromFile(_beastTemplate.ImageFile);        
 		var texture = ImageTexture.CreateFromImage(image);
 		this.Texture = texture;
     }
