@@ -13,32 +13,45 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
     {
         _beastTemplate = beastTemplate;
         if (string.IsNullOrWhiteSpace(_beastTemplate.ImageFile)) return;
-        const string RES = "res://";
-        
-        if (!_beastTemplate.ImageFile.StartsWith(RES))
+
+        if (CopyToResourceFolder(_beastTemplate.ImageFile, out var newPath))
         {
-            const string targetFolder = "Database/Images/";
-            var fileName = Path.GetFileName(_beastTemplate.ImageFile);
-            var targetpath = $"{RES}{targetFolder}{fileName}";
-            string targetPathAbsolute;
-            using (var godotFile = Godot.FileAccess.Open(targetpath, Godot.FileAccess.ModeFlags.WriteRead))
-            {
-                targetPathAbsolute = godotFile.GetPathAbsolute();
-            }
-            
-            File.Copy(_beastTemplate.ImageFile, targetPathAbsolute, true);
-            HandleImageSet(targetpath);
+            HandleImageSet(newPath);
             return;
         }
+       
 		var image = Image.LoadFromFile(_beastTemplate.ImageFile);        
 		var texture = ImageTexture.CreateFromImage(image);
 		this.Texture = texture;
     }
 
+    private static bool CopyToResourceFolder(string originalFile, out string targetpath)
+    {
+        const string RES = "res://";
+        targetpath = string.Empty;
+
+        if (originalFile.StartsWith(RES)) return false; // file is already copied presumably
+        if (!File.Exists(originalFile)) return true; // set image file path to empty if we can't find the file
+
+        const string targetFolder = "Database/Images/";
+        var fileName = Path.GetFileName(originalFile);
+        targetpath = $"{RES}{targetFolder}{fileName}";
+        string targetPathAbsolute;
+        using (var godotFile = Godot.FileAccess.Open(targetpath, Godot.FileAccess.ModeFlags.WriteRead))
+        {
+            targetPathAbsolute = godotFile.GetPathAbsolute(); // get the actual file path
+        }
+
+        File.Copy(originalFile, targetPathAbsolute, true);
+         
+        return true;
+    }
+
 	public void HandleImageSet(string imageFileName)
 	{
         if (string.IsNullOrWhiteSpace(imageFileName)) return;
-        _beastTemplate.ImageFile = imageFileName;
+        CopyToResourceFolder(imageFileName, out var newPath);
+        _beastTemplate.ImageFile = newPath;
         Save?.Invoke(false);
     }
 }

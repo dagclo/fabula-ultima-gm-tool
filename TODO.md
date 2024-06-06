@@ -37,10 +37,10 @@ Project Description
 
 ### In Progress
 
-- [ ] Condense DB and images  
 
 ### Done ✓
 
+- [x] Condense DB and images  
 - [x] Fix Magitech Trooper. improved damage is off by 1  
 - [x] pg 343 Drake - add magic accuracy skill  
 - [x] Fix Chaos Shard - book is wrong  
