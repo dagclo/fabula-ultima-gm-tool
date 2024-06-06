@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://bg3ltcjdoik1"
+path="res://.godot/imported/BoldBlocks.fnt-b6d98f5df7c057df86027a42bff13766.fontdata"
+
+[deps]
+
+source_file="res://Font/BoldBlocks.fnt"
+dest_files=["res://.godot/imported/BoldBlocks.fnt-b6d98f5df7c057df86027a42bff13766.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

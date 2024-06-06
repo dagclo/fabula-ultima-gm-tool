@@ -153,5 +153,5 @@ mono_crash.*.json
 *.vs
 /FabulaUltimaDataImporter/FabulaUltimaDataImporter/test.sqlite
 /Resources/*
-*.sqlite
+
 /ImageFolder

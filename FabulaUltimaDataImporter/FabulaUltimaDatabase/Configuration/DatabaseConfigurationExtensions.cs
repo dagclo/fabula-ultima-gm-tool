@@ -16,8 +16,10 @@ namespace FabulaUltimaDatabase.Configuration
         }
 
         public static void InitializeDatabase(this DatabaseConfiguration configuration)
-        {   
+        {               
+            
             if (File.Exists(configuration.FileName)) return; //todo: verify db has tables in it
+
 
             if (configuration.Mode == SqliteOpenMode.ReadWriteCreate)
             {

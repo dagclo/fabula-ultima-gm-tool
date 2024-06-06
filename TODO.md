@@ -6,6 +6,7 @@ Project Description
 
 ### Backlog
 
+- [ ] Fix Beastiary UI being too wide  
 - [ ] Fix Cockatrice's Petrifying Peck  
 - [ ] Implement Filtering by species, and level  
 - [ ] Block adding equipment with the same name  
@@ -40,7 +41,6 @@ Project Description
 
 ### Done ✓
 
-- [x] Fix Beastiary UI being too wide  
 - [x] Fix Magitech Trooper. improved damage is off by 1  
 - [x] pg 343 Drake - add magic accuracy skill  
 - [x] Fix Chaos Shard - book is wrong  
