@@ -170,7 +170,7 @@
 
         public int MagicCheckModifier => LevelAccuracyModifier;
 
-
+        public bool Immutable => true;
 
         public Die GetDie(string attributeName)
         {

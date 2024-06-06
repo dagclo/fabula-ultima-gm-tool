@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://dn3nwxahhysgn"]
+[gd_scene load_steps=9 format=3 uid="uid://dn3nwxahhysgn"]
 
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="1_3dubo"]
 [ext_resource type="Script" path="res://Encounters/NPCShortEntry.cs" id="1_cbp4a"]
 [ext_resource type="Script" path="res://Npc/NpcName.cs" id="3_eb1qw"]
 [ext_resource type="Script" path="res://Npc/NpcType.cs" id="4_w2gt0"]
 [ext_resource type="Script" path="res://Npc/NpcLevel.cs" id="5_o07c8"]
+[ext_resource type="Script" path="res://Encounters/ShowStats.cs" id="7_23fly"]
 [ext_resource type="Script" path="res://Npc/NpcRank.cs" id="7_b5hw3"]
+[ext_resource type="PackedScene" uid="uid://c8y0lhlyoaa45" path="res://Encounters/NpcStatWindow.tscn" id="8_dgv5w"]
 
 [node name="NPCShortEntry" type="VBoxContainer"]
 anchors_preset = 15
@@ -62,7 +64,14 @@ text = "Rank:"
 text = "Soldier"
 script = ExtResource("7_b5hw3")
 
+[node name="ShowStats" type="Button" parent="."]
+layout_mode = 2
+text = "Show"
+script = ExtResource("7_23fly")
+StatWindowScene = ExtResource("8_dgv5w")
+
 [connection signal="text_submitted" from="Name/HBoxContainer/NameEdit" to="Name/HBoxContainer/NameEdit" method="OnTextSubmitted"]
+[connection signal="pressed" from="ShowStats" to="ShowStats" method="OnPressed"]
 
 [editable path="Type"]
 [editable path="Level"]

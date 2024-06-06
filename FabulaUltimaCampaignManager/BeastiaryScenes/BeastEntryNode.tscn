@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dvrc1lde82y6f"]
+[gd_scene load_steps=44 format=3 uid="uid://dvrc1lde82y6f"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_t4gi0"]
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="2_6f5hl"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/AttributeLabel.cs" id="3_nqrqn"]
 [ext_resource type="PackedScene" uid="uid://c8bw0vtfllsa1" path="res://BeastiaryScenes/ResistancePanel.tscn" id="3_vhcs2"]
 [ext_resource type="PackedScene" uid="uid://cwsegr0yegay2" path="res://BeastiaryScenes/attack.tscn" id="4_716ij"]
+[ext_resource type="Script" path="res://BeastiaryScenes/UpdateImageButton.cs" id="4_fyidg"]
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedHealthLabel.cs" id="5_f5oe2"]
 [ext_resource type="Script" path="res://BeastiaryScenes/FileDialog.cs" id="5_i30y8"]
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedMagicPointsLabel.cs" id="6_x4de1"]
@@ -37,17 +38,18 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/OtherActions.cs" id="33_icnde"]
 [ext_resource type="PackedScene" uid="uid://ddx26ghe36o0p" path="res://BeastiaryScenes/action.tscn" id="33_ma2ky"]
 [ext_resource type="PackedScene" uid="uid://b6kwc80e1vqp1" path="res://BeastiaryScenes/other_action.tscn" id="34_mp60j"]
+[ext_resource type="Script" path="res://BeastiaryScenes/AddToEncounterButton.cs" id="39_l5v3b"]
 [ext_resource type="Script" path="res://BeastiaryScenes/DeleteButton.cs" id="40_1wrog"]
 [ext_resource type="Script" path="res://BeastiaryScenes/DeleteQuestion.cs" id="41_kbchb"]
 [ext_resource type="Script" path="res://BeastiaryScenes/DeleteConfirmButton.cs" id="42_nml4d"]
 [ext_resource type="Script" path="res://BeastiaryScenes/CancelDeleteButton.cs" id="43_jbvkn"]
 
 [node name="BeastEntryNode" type="PanelContainer"]
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
+offset_bottom = 790.0
 grow_horizontal = 2
-grow_vertical = 2
+size_flags_horizontal = 3
 script = ExtResource("1_t4gi0")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -69,6 +71,7 @@ script = ExtResource("3_bbr3a")
 layout_mode = 2
 size_flags_vertical = 8
 text = "Update"
+script = ExtResource("4_fyidg")
 
 [node name="FileDialog" type="FileDialog" parent="VBoxContainer/Description/PanelContainer"]
 title = "Open a File"
@@ -373,6 +376,7 @@ layout_mode = 2
 [node name="AddToEncounterButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Add To Current Encounter"
+script = ExtResource("39_l5v3b")
 
 [node name="DeleteButton" type="Button" parent="VBoxContainer" node_paths=PackedStringArray("DeleteDialog")]
 layout_mode = 2

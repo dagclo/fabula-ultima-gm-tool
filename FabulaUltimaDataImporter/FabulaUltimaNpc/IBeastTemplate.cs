@@ -30,6 +30,7 @@
         IReadOnlyCollection<SpellTemplate> Spells { get; }
         string Traits { get; set; }
         Die WillPower { get; set; }
+        bool Immutable { get; }
 
         Die GetDie(string attributeName);
     }

@@ -288,6 +288,8 @@ namespace FabulaUltimaSkillLibrary.Models
 
         public int MagicCheckModifier => ResolveMagicCheckModifier(_beastTemplate.MagicCheckModifier);
 
+        public bool Immutable { get; set; }
+
         private int ResolveMagicCheckModifier(int magicCheckModifier)
         {
             var checkMod = magicCheckModifier;

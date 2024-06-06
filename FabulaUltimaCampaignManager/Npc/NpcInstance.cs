@@ -10,7 +10,10 @@ namespace FirstProject.Npc
 {
     public partial class NpcInstance : Resource
     {
-        public IBeastTemplate Template => new SkilledBeastTemplateWrapper(new BeastTemplate(Model));
+        public IBeastTemplate Template => new SkilledBeastTemplateWrapper(new BeastTemplate(Model))
+        {
+            Immutable = true
+        };
         public NpcInstance()
         {
             Id = Guid.NewGuid().ToString();            
