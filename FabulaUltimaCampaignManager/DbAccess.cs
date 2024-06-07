@@ -14,13 +14,21 @@ namespace FirstProject
             var configuration = ResourceExtensions.Load<Configuration>("res://configuration.tres");
             using var dbfile = FileAccess.Open(configuration.DatabaseFilePath, FileAccess.ModeFlags.Read);            
             var databaseFilePath = dbfile.GetPathAbsolute();
+
             var databaseConfiguration = new DatabaseConfiguration
             {
                 FileName = databaseFilePath,
                 Mode = Microsoft.Data.Sqlite.SqliteOpenMode.ReadWrite
             };
-            var instance = new Instance(databaseConfiguration);
-            Repository = new BeastiaryRepository(instance);
+            try
+            {
+                var instance = new Instance(databaseConfiguration);
+                Repository = new BeastiaryRepository(instance);
+            }
+            catch(NoDatabaseFileException)
+            {
+                throw new System.Exception($"can't find {configuration.DatabaseFilePath} {dbfile.GetPath()}");
+            }            
         }
     }
 }

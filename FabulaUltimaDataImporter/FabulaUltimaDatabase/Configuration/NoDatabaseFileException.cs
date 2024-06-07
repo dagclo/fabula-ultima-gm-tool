@@ -3,7 +3,7 @@
 namespace FabulaUltimaDatabase.Configuration
 {
     [Serializable]
-    internal class NoDatabaseFileException : Exception
+    public class NoDatabaseFileException : Exception
     {
         public string? MissingFile { get; }
 

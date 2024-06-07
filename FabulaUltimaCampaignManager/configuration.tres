@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=2 format=3]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bwfobx7pek8br"]
 
 [ext_resource type="Script" path="res://Configuration.cs" id="1_d73sm"]
 

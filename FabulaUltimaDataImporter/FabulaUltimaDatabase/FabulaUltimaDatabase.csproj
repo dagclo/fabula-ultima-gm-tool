@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="BeastiaryDB.sqlite" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.24" />
     <PackageReference Include="Dapper.SqlBuilder" Version="2.0.78" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0" />
@@ -38,11 +42,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
+    <ProjectReference Include="..\FabulaUltimaNpc\FabulaUltimaNpc.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FabulaUltimaNpc\FabulaUltimaNpc.csproj" />
+    <Resource Include="BeastiaryDB.sqlite">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
