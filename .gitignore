@@ -155,4 +155,3 @@ mono_crash.*.json
 /Resources/*
 
 /ImageFolder
-*.sqlite

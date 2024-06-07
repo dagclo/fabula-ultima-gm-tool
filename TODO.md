@@ -37,6 +37,7 @@ Project Description
 
 ### In Progress
 
+- [ ] Download Database If Missing  
 
 ### Done ✓
 
