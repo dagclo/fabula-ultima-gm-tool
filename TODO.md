@@ -37,7 +37,7 @@ Project Description
 
 ### In Progress
 
-- [ ] Download Database If Missing  
+- [ ] Download Database If Missing using url https://github.com/dagclo/fabula-ultima-gm-tool/raw/main/BeastiaryDB.sqlite  
 
 ### Done ✓
 

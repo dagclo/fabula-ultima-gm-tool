@@ -6,6 +6,10 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Database\**" />
+    <EmbeddedResource Remove="Database\**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\FabulaUltimaDataImporter\FabulaUltimaDatabase\FabulaUltimaDatabase.csproj" />
     <ProjectReference Include="..\FabulaUltimaDataImporter\FabulaUltimaSkillLibrary\FabulaUltimaSkillLibrary.csproj" />
   </ItemGroup>
