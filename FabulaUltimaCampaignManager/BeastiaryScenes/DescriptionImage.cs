@@ -14,7 +14,7 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
         _beastTemplate = beastTemplate;
         if (string.IsNullOrWhiteSpace(_beastTemplate.ImageFile)) return;
 
-        if (CopyToResourceFolder(_beastTemplate.ImageFile, out var newPath))
+        if (_beastTemplate.ImageFile.CopyToResourceFolder(out var newPath))
         {
             HandleImageSet(newPath);
             return;
@@ -25,7 +25,20 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
 		this.Texture = texture;
     }
 
-    private static bool CopyToResourceFolder(string originalFile, out string targetpath)
+   
+
+	public void HandleImageSet(string imageFileName)
+	{
+        if (string.IsNullOrWhiteSpace(imageFileName)) return;
+        imageFileName.CopyToResourceFolder(out var newPath);
+        _beastTemplate.ImageFile = newPath;
+        Save?.Invoke(false);
+    }
+}
+
+public static class FileExtensions
+{
+    public static bool CopyToResourceFolder(this string originalFile, out string targetpath)
     {
         const string RES = "res://";
         targetpath = string.Empty;
@@ -40,13 +53,5 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
         directory.Copy(originalFile, targetpath);       
          
         return true;
-    }
-
-	public void HandleImageSet(string imageFileName)
-	{
-        if (string.IsNullOrWhiteSpace(imageFileName)) return;
-        CopyToResourceFolder(imageFileName, out var newPath);
-        _beastTemplate.ImageFile = newPath;
-        Save?.Invoke(false);
     }
 }

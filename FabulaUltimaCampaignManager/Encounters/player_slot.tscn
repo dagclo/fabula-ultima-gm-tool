@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxbt82uyb2oo7"]
+[gd_scene load_steps=9 format=3 uid="uid://cxbt82uyb2oo7"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_3wx5j"]
 [ext_resource type="Script" path="res://Player/PlayerSlot.cs" id="1_alfyt"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://b3gf3s0ufse2n" path="res://Player/Portrait_Placeholder.png" id="3_pxksc"]
 [ext_resource type="Script" path="res://Player/CharacterNameEdit.cs" id="3_qclik"]
 [ext_resource type="Script" path="res://Player/CharacterTitleEdit.cs" id="4_laftu"]
+[ext_resource type="Script" path="res://Player/PortraitTexture.cs" id="4_wr4x0"]
+[ext_resource type="Script" path="res://Player/PortraitFileDialog.cs" id="5_tiwgs"]
 
 [node name="PlayerSlot" type="VBoxContainer"]
 offset_right = 315.0
@@ -25,12 +27,24 @@ layout_mode = 2
 texture = ExtResource("3_pxksc")
 expand_mode = 2
 stretch_mode = 4
+script = ExtResource("4_wr4x0")
 
 [node name="UpdateButton" type="Button" parent="HBoxContainer/Portrait"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Update"
+
+[node name="PortraitFileDialog" type="FileDialog" parent="HBoxContainer/Portrait"]
+title = "Open a File"
+initial_position = 1
+size = Vector2i(378, 188)
+content_scale_size = Vector2i(2, 2)
+content_scale_mode = 1
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+script = ExtResource("5_tiwgs")
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -73,6 +87,8 @@ size_flags_vertical = 4
 placeholder_text = "title"
 script = ExtResource("4_laftu")
 
+[connection signal="pressed" from="HBoxContainer/Portrait/UpdateButton" to="HBoxContainer/Portrait/PortraitFileDialog" method="HandleSelectImageFile"]
+[connection signal="file_selected" from="HBoxContainer/Portrait/PortraitFileDialog" to="HBoxContainer/Portrait/PortraitTexture" method="HandleImageSet"]
 [connection signal="text_submitted" from="HBoxContainer/GridContainer/PlayerNameInput" to="HBoxContainer/GridContainer/PlayerNameInput" method="OnTextSubmitted"]
 [connection signal="text_submitted" from="HBoxContainer/GridContainer/CharacterNameEdit" to="HBoxContainer/GridContainer/CharacterNameEdit" method="OnTextSubmitted"]
 [connection signal="text_submitted" from="HBoxContainer/GridContainer/CharacterTitleEdit" to="HBoxContainer/GridContainer/CharacterTitleEdit" method="OnTextSubmitted"]

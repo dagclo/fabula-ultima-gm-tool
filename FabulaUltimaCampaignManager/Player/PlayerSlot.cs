@@ -25,11 +25,6 @@ public partial class PlayerSlot : VBoxContainer
         if (_player != null) _onUpdatePlayer?.Invoke(_player);
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-	{
-	}
-
     public void UpdateEncounter(SignalWrapper<CampaignData> signalWrapper)
     {
 		var campaign = signalWrapper.Value;
