@@ -11,8 +11,9 @@ size_flags_horizontal = 3
 theme = ExtResource("1_3wx5j")
 script = ExtResource("1_alfyt")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="GridContainer" parent="."]
 layout_mode = 2
+columns = 2
 
 [node name="PlayerName" type="Label" parent="HBoxContainer"]
 layout_mode = 2
