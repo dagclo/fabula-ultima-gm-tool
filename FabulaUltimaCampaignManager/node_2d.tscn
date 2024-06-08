@@ -55,13 +55,14 @@ item_0/id = 0
 script = ExtResource("3_f7bcp")
 _configuration = ExtResource("8_qwns5")
 
-[node name="Help" type="PopupMenu" parent="MenuBar" node_paths=PackedStringArray("AboutPanel")]
+[node name="Help" type="PopupMenu" parent="MenuBar"]
 title = "Help"
 item_count = 1
 item_0/text = "About"
 item_0/id = 0
 script = ExtResource("2_iyeul")
-AboutPanel = NodePath("../../AboutPanel")
+AboutPanel = Object(PopupPanel,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","disable_3d":false,"use_xr":false,"own_world_3d":false,"world_3d":null,"transparent_bg":false,"handle_input_locally":true,"snap_2d_transforms_to_pixel":false,"snap_2d_vertices_to_pixel":false,"msaa_2d":0,"msaa_3d":0,"screen_space_aa":0,"use_taa":false,"use_debanding":false,"use_occlusion_culling":false,"mesh_lod_threshold":1.0,"debug_draw":0,"use_hdr_2d":false,"scaling_3d_mode":0,"scaling_3d_scale":1.0,"texture_mipmap_bias":0.0,"fsr_sharpness":0.2,"vrs_mode":0,"vrs_texture":null,"canvas_item_default_texture_filter":1,"canvas_item_default_texture_repeat":0,"audio_listener_enable_2d":false,"audio_listener_enable_3d":false,"physics_object_picking":false,"physics_object_picking_sort":false,"gui_disable_input":false,"gui_snap_controls_to_pixels":true,"gui_embed_subwindows":false,"sdf_oversize":1,"sdf_scale":1,"positional_shadow_atlas_size":2048,"positional_shadow_atlas_16_bits":true,"positional_shadow_atlas_quad_0":2,"positional_shadow_atlas_quad_1":2,"positional_shadow_atlas_quad_2":3,"positional_shadow_atlas_quad_3":4,"canvas_cull_mask":4294967295,"mode":0,"title":"","initial_position":1,"size":Vector2i(309, 390),"mouse_passthrough_polygon":PackedVector2Array(),"visible":false,"wrap_controls":true,"transient":true,"exclusive":false,"unresizable":true,"borderless":false,"always_on_top":false,"transparent":false,"unfocusable":false,"popup_window":true,"extend_to_title":false,"mouse_passthrough":false,"min_size":Vector2i(0, 0),"max_size":Vector2i(32768, 32768),"keep_title_visible":true,"content_scale_size":Vector2i(0, 0),"content_scale_mode":0,"content_scale_aspect":0,"content_scale_stretch":0,"content_scale_factor":1.0,"auto_translate":true,"theme":null,"theme_type_variation":&"","script":null)
+
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 2

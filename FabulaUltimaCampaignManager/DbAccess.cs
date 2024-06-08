@@ -12,6 +12,13 @@ namespace FirstProject
         public DbAccess() 
         {
             var configuration = ResourceExtensions.Load<Configuration>("res://configuration.tres");
+            if(!FileAccess.FileExists(configuration.DatabaseFilePath))
+            {
+                const string packedBeastiaryDBPath = "res://Database/BeastiaryDB.sqlite";
+                using var directory = DirAccess.Open("res://Database");
+                directory.Copy(packedBeastiaryDBPath, configuration.DatabaseFilePath);
+            }
+
             using var dbfile = FileAccess.Open(configuration.DatabaseFilePath, FileAccess.ModeFlags.Read);            
             var databaseFilePath = dbfile.GetPathAbsolute();
 
