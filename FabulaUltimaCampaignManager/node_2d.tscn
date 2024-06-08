@@ -181,13 +181,10 @@ script = ExtResource("6_ful6c")
 
 [node name="Label" type="Label" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
 layout_mode = 2
-theme = ExtResource("1_f3kj6")
+theme_type_variation = &"BoldLabel"
 text = "Encounters"
-
-[node name="AddEncounterButton" type="Button" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
-layout_mode = 2
-theme = ExtResource("1_f3kj6")
-text = "Add Encounter"
+horizontal_alignment = 1
+uppercase = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
 layout_mode = 2
@@ -202,12 +199,19 @@ PackedEncounter = ExtResource("3_eceqq")
 [node name="Encounter" parent="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" instance=ExtResource("3_eceqq")]
 layout_mode = 2
 
+[node name="AddEncounterButton" type="Button" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
+layout_mode = 2
+text = "Add Encounter"
+
 [node name="Players" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
 layout_mode = 2
 
 [node name="PlayerTitle" type="Label" parent="HSplitContainer/CampaignManager/Campaign/Players"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Player Slots"
+horizontal_alignment = 1
+uppercase = true
 
 [node name="PlayerSlot" parent="HSplitContainer/CampaignManager/Campaign/Players" instance=ExtResource("4_6fi46")]
 layout_mode = 2
@@ -317,7 +321,7 @@ fit_content = true
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
-[connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Encounters/AddEncounterButton" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnAddEncounterButtonPressed"]
 [connection signal="DeleteEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CurrentEncounter" method="HideEncounterIfDeleted"]
 [connection signal="LoadEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnLoadEncounter"]
+[connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Encounters/AddEncounterButton" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnAddEncounterButtonPressed"]
 [connection signal="AddBeastToEncounter" from="HSplitContainer/CampaignManager/Beastiary/BeastList/VBoxContainer" to="HSplitContainer/CurrentEncounter" method="AddNpcToEncounter"]
