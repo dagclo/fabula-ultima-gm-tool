@@ -1,7 +1,6 @@
 using FabulaUltimaNpc;
 using Godot;
 using System;
-using System.IO;
 
 public partial class DescriptionImage : TextureRect, IBeastAttribute
 {
@@ -19,13 +18,17 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
             HandleImageSet(newPath);
             return;
         }
-       
-		var image = Image.LoadFromFile(_beastTemplate.ImageFile);        
-		var texture = ImageTexture.CreateFromImage(image);
+        Texture2D texture = 
+            FirstProject.ResourceExtensions.Load<Texture2D>(_beastTemplate.ImageFile) ?? 
+            LoadFromFile(_beastTemplate.ImageFile);
 		this.Texture = texture;
     }
 
-   
+    private static ImageTexture LoadFromFile(string filePath)
+    {
+        var image = Image.LoadFromFile(filePath);        
+		return ImageTexture.CreateFromImage(image);
+    }
 
 	public void HandleImageSet(string imageFileName)
 	{
@@ -33,25 +36,5 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
         imageFileName.CopyToResourceFolder(out var newPath);
         _beastTemplate.ImageFile = newPath;
         Save?.Invoke(false);
-    }
-}
-
-public static class FileExtensions
-{
-    public static bool CopyToResourceFolder(this string originalFile, out string targetpath)
-    {
-        const string RES = "res://";
-        targetpath = string.Empty;
-
-        if (originalFile.StartsWith(RES)) return false; // file is already copied presumably
-        if (!File.Exists(originalFile)) return true; // set image file path to empty if we can't find the file
-
-        string targetFolder = $"{RES}Database/Images";
-        var fileName = Path.GetFileName(originalFile);
-        targetpath = $"{targetFolder}/{fileName}";
-        using var directory = DirAccess.Open(targetFolder);
-        directory.Copy(originalFile, targetpath);       
-         
-        return true;
     }
 }

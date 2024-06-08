@@ -30,7 +30,7 @@ public partial class PortraitTexture : TextureRect, IPlayerAttribute
 	public void HandleImageSet(string imageFileName)
 	{
         if (string.IsNullOrWhiteSpace(imageFileName)) return;
-        imageFileName.CopyToResourceFolder(out var newPath);
+        imageFileName.CopyToUserFolder(out var newPath);
         _player.PortraitFile= newPath;
 		LoadTexture();
 		_messagePublisher.Publish((new SaveMessage()).AsMessage());
