@@ -1,0 +1,7 @@
+# ignore any new images put here
+*.png
+*.jpg
+*.jpeg
+*.png.import
+*.jpg.import
+*.jpeg.import
