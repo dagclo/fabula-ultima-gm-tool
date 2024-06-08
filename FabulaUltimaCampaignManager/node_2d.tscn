@@ -157,8 +157,10 @@ layout_mode = 2
 
 [node name="CampaignManager" type="TabContainer" parent="HSplitContainer"]
 layout_mode = 2
+current_tab = 1
 
 [node name="Campaign" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
+visible = false
 layout_mode = 2
 script = ExtResource("3_tscfl")
 CampaignData = ExtResource("4_wujyf")
@@ -188,8 +190,9 @@ script = ExtResource("6_ful6c")
 
 [node name="Label" type="Label" parent="HSplitContainer/CampaignManager/Campaign/HBoxContainer/Encounters"]
 layout_mode = 2
-theme = ExtResource("1_f3kj6")
+theme_type_variation = &"BoldLabel"
 text = "Encounters"
+horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/HBoxContainer/Encounters"]
 layout_mode = 2
@@ -215,7 +218,9 @@ size_flags_horizontal = 3
 
 [node name="PlayerTitle" type="Label" parent="HSplitContainer/CampaignManager/Campaign/HBoxContainer/Players"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Player Slots"
+horizontal_alignment = 1
 
 [node name="PlayerSlot" parent="HSplitContainer/CampaignManager/Campaign/HBoxContainer/Players" instance=ExtResource("4_6fi46")]
 layout_mode = 2
@@ -233,7 +238,6 @@ layout_mode = 2
 SlotIndex = 3
 
 [node name="Beastiary" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
-visible = false
 layout_mode = 2
 
 [node name="FilteredSearch" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary"]
