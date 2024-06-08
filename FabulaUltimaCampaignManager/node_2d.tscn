@@ -56,13 +56,12 @@ item_0/id = 0
 script = ExtResource("3_f7bcp")
 _configuration = ExtResource("8_qwns5")
 
-[node name="Help" type="PopupMenu" parent="MenuBar" node_paths=PackedStringArray("AboutPanel")]
+[node name="Help" type="PopupMenu" parent="MenuBar"]
 title = "Help"
 item_count = 1
 item_0/text = "About"
 item_0/id = 0
 script = ExtResource("2_iyeul")
-AboutPanel = NodePath("")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 2
@@ -157,10 +156,8 @@ layout_mode = 2
 
 [node name="CampaignManager" type="TabContainer" parent="HSplitContainer"]
 layout_mode = 2
-current_tab = 1
 
 [node name="Campaign" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
-visible = false
 layout_mode = 2
 script = ExtResource("3_tscfl")
 CampaignData = ExtResource("4_wujyf")
@@ -228,6 +225,7 @@ layout_mode = 2
 SlotIndex = 3
 
 [node name="Beastiary" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
+visible = false
 layout_mode = 2
 
 [node name="FilteredSearch" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary"]
@@ -268,7 +266,7 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/BeastList"]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 0
 script = ExtResource("1_4mhff")
 BeastEntryScene = ExtResource("1_4uxgl")
 NpcWizard = ExtResource("23_hlpai")
