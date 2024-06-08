@@ -1,12 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxbt82uyb2oo7"]
+[gd_scene load_steps=7 format=3 uid="uid://cxbt82uyb2oo7"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_3wx5j"]
 [ext_resource type="Script" path="res://Player/PlayerSlot.cs" id="1_alfyt"]
 [ext_resource type="Script" path="res://Player/PlayerNameInput.cs" id="2_xsw1t"]
+[ext_resource type="Texture2D" uid="uid://b3gf3s0ufse2n" path="res://Player/Portrait_Placeholder.png" id="3_pxksc"]
 [ext_resource type="Script" path="res://Player/CharacterNameEdit.cs" id="3_qclik"]
 [ext_resource type="Script" path="res://Player/CharacterTitleEdit.cs" id="4_laftu"]
 
 [node name="PlayerSlot" type="VBoxContainer"]
+offset_right = 315.0
+offset_bottom = 137.0
 size_flags_horizontal = 3
 theme = ExtResource("1_3wx5j")
 script = ExtResource("1_alfyt")
@@ -14,39 +17,62 @@ script = ExtResource("1_alfyt")
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="PlayerName" type="Label" parent="HBoxContainer"]
+[node name="Portrait" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="PortraitTexture" type="TextureRect" parent="HBoxContainer/Portrait"]
+layout_mode = 2
+texture = ExtResource("3_pxksc")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="UpdateButton" type="Button" parent="HBoxContainer/Portrait"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Update"
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 2
+
+[node name="PlayerName" type="Label" parent="HBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"BoldLabel"
 text = "Name:"
 
-[node name="PlayerNameInput" type="LineEdit" parent="HBoxContainer"]
+[node name="PlayerNameInput" type="LineEdit" parent="HBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 placeholder_text = "name"
 script = ExtResource("2_xsw1t")
 
-[node name="CharacterName" type="Label" parent="HBoxContainer"]
+[node name="CharacterName" type="Label" parent="HBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"BoldLabel"
 text = "Character Name:"
 
-[node name="CharacterNameEdit" type="LineEdit" parent="HBoxContainer"]
+[node name="CharacterNameEdit" type="LineEdit" parent="HBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 placeholder_text = "name"
 script = ExtResource("3_qclik")
 
-[node name="CharacterTitle" type="Label" parent="HBoxContainer"]
+[node name="CharacterTitle" type="Label" parent="HBoxContainer/GridContainer"]
 layout_mode = 2
 theme_type_variation = &"BoldLabel"
 text = "Character Title:"
 
-[node name="CharacterTitleEdit" type="LineEdit" parent="HBoxContainer"]
+[node name="CharacterTitleEdit" type="LineEdit" parent="HBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 placeholder_text = "title"
 script = ExtResource("4_laftu")
 
-[connection signal="text_submitted" from="HBoxContainer/PlayerNameInput" to="HBoxContainer/PlayerNameInput" method="OnTextSubmitted"]
-[connection signal="text_submitted" from="HBoxContainer/CharacterNameEdit" to="HBoxContainer/CharacterNameEdit" method="OnTextSubmitted"]
-[connection signal="text_submitted" from="HBoxContainer/CharacterTitleEdit" to="HBoxContainer/CharacterTitleEdit" method="OnTextSubmitted"]
+[connection signal="text_submitted" from="HBoxContainer/GridContainer/PlayerNameInput" to="HBoxContainer/GridContainer/PlayerNameInput" method="OnTextSubmitted"]
+[connection signal="text_submitted" from="HBoxContainer/GridContainer/CharacterNameEdit" to="HBoxContainer/GridContainer/CharacterNameEdit" method="OnTextSubmitted"]
+[connection signal="text_submitted" from="HBoxContainer/GridContainer/CharacterTitleEdit" to="HBoxContainer/GridContainer/CharacterTitleEdit" method="OnTextSubmitted"]
