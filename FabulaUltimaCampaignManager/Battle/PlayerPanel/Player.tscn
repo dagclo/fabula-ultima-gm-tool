@@ -1,10 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtsiqen0mcy4f"]
+[gd_scene load_steps=10 format=3 uid="uid://dtsiqen0mcy4f"]
 
 [ext_resource type="Theme" uid="uid://dtpbrs518fimv" path="res://Battle/battle_theme.tres" id="1_y6t83"]
 [ext_resource type="Script" path="res://Battle/PlayerPanel/BattlePlayer.cs" id="2_k75ct"]
+[ext_resource type="Texture2D" uid="uid://b3gf3s0ufse2n" path="res://Player/Portrait_Placeholder.png" id="3_0fvvd"]
 [ext_resource type="Script" path="res://Battle/PlayerPanel/BattleCharacterName.cs" id="3_ab1mh"]
+[ext_resource type="Script" path="res://Battle/PlayerPanel/PortraitPanel.cs" id="3_ixuxb"]
 [ext_resource type="Script" path="res://Battle/PlayerPanel/BattleCharacterTitle.cs" id="4_re6ki"]
 [ext_resource type="Script" path="res://Battle/PlayerPanel/BattlePlayerName.cs" id="5_s3ntj"]
+[ext_resource type="Script" path="res://Battle/PlayerPanel/PlayerPortraitTexture.cs" id="5_xjvkr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_foytl"]
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
 
 [node name="Player" type="HBoxContainer"]
 size_flags_horizontal = 3
@@ -12,7 +22,22 @@ size_flags_vertical = 3
 theme = ExtResource("1_y6t83")
 script = ExtResource("2_k75ct")
 
-[node name="CharacterName" type="Label" parent="."]
+[node name="PortraitPanel" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_foytl")
+script = ExtResource("3_ixuxb")
+
+[node name="PortraitTexture" type="TextureRect" parent="PortraitPanel"]
+layout_mode = 2
+texture = ExtResource("3_0fvvd")
+expand_mode = 2
+script = ExtResource("5_xjvkr")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="CharacterName" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"BoldLabel"
 text = "Character Name"
@@ -20,24 +45,22 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_ab1mh")
 
-[node name="CharacterTitle" type="Label" parent="."]
+[node name="CharacterTitle" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_y6t83")
 text = "Character Title"
-horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("4_re6ki")
 
-[node name="PlayerName" type="Label" parent="."]
+[node name="PlayerName" type="Label" parent="HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 6
 theme = ExtResource("1_y6t83")
 text = "Player Name"
-horizontal_alignment = 2
-vertical_alignment = 1
 script = ExtResource("5_s3ntj")
 
-[connection signal="PlayerUpdated" from="." to="CharacterName" method="ReadPlayer"]
-[connection signal="PlayerUpdated" from="." to="CharacterTitle" method="ReadPlayer"]
-[connection signal="PlayerUpdated" from="." to="PlayerName" method="ReadPlayer"]
+[connection signal="PlayerUpdated" from="." to="HBoxContainer/CharacterName" method="ReadPlayer"]
+[connection signal="PlayerUpdated" from="." to="HBoxContainer/CharacterTitle" method="ReadPlayer"]
+[connection signal="PlayerUpdated" from="." to="HBoxContainer/PlayerName" method="ReadPlayer"]
+[connection signal="PlayerUpdated" from="." to="PortraitPanel/PortraitTexture" method="ReadPlayer"]
+[connection signal="PlayerUpdated" from="." to="PortraitPanel" method="ReadPlayer"]
