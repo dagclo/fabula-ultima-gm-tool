@@ -38,7 +38,10 @@ text = "Update"
 [node name="PortraitFileDialog" type="FileDialog" parent="HBoxContainer/Portrait"]
 title = "Open a File"
 initial_position = 1
-size = Vector2i(378, 188)
+size = Vector2i(500, 500)
+visible = true
+min_size = Vector2i(500, 500)
+content_scale_mode = 1
 ok_button_text = "Open"
 file_mode = 0
 access = 2
