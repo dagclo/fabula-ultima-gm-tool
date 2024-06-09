@@ -39,7 +39,6 @@ text = "Update"
 title = "Open a File"
 initial_position = 1
 size = Vector2i(500, 500)
-visible = true
 min_size = Vector2i(500, 500)
 content_scale_mode = 1
 ok_button_text = "Open"
