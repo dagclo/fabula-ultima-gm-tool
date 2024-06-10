@@ -14,11 +14,6 @@ public partial class PlayerNameInput : LineEdit, IPlayerAttribute
         _messagePublisher = messageRouter.GetPublisher<SaveMessage>();
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
     public void SetPlayer(PlayerData player)
     {
         _player = player;

@@ -15,6 +15,9 @@ namespace FirstProject.Campaign
         [Export]
         public string CharacterTitle { get; set; }
 
+        [Export]
+        public string PortraitFile { get; set; }
+
         public Action<bool> ActiveChanged { get; set; }
         private bool _isActive = true;
         public bool IsActive

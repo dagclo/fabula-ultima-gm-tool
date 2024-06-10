@@ -1,7 +1,6 @@
 using FabulaUltimaNpc;
 using Godot;
 using System;
-using System.IO;
 
 public partial class DescriptionImage : TextureRect, IBeastAttribute
 {
@@ -14,38 +13,27 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
         _beastTemplate = beastTemplate;
         if (string.IsNullOrWhiteSpace(_beastTemplate.ImageFile)) return;
 
-        if (CopyToResourceFolder(_beastTemplate.ImageFile, out var newPath))
+        if (_beastTemplate.ImageFile.CopyToResourceFolder(out var newPath))
         {
             HandleImageSet(newPath);
             return;
         }
-       
-		var image = Image.LoadFromFile(_beastTemplate.ImageFile);        
-		var texture = ImageTexture.CreateFromImage(image);
+        Texture2D texture = 
+            FirstProject.ResourceExtensions.Load<Texture2D>(_beastTemplate.ImageFile) ?? 
+            LoadFromFile(_beastTemplate.ImageFile);
 		this.Texture = texture;
     }
 
-    private static bool CopyToResourceFolder(string originalFile, out string targetpath)
+    private static ImageTexture LoadFromFile(string filePath)
     {
-        const string RES = "res://";
-        targetpath = string.Empty;
-
-        if (originalFile.StartsWith(RES)) return false; // file is already copied presumably
-        if (!File.Exists(originalFile)) return true; // set image file path to empty if we can't find the file
-
-        string targetFolder = $"{RES}Database/Images";
-        var fileName = Path.GetFileName(originalFile);
-        targetpath = $"{targetFolder}/{fileName}";
-        using var directory = DirAccess.Open(targetFolder);
-        directory.Copy(originalFile, targetpath);       
-         
-        return true;
+        var image = Image.LoadFromFile(filePath);        
+		return ImageTexture.CreateFromImage(image);
     }
 
 	public void HandleImageSet(string imageFileName)
 	{
         if (string.IsNullOrWhiteSpace(imageFileName)) return;
-        CopyToResourceFolder(imageFileName, out var newPath);
+        imageFileName.CopyToResourceFolder(out var newPath);
         _beastTemplate.ImageFile = newPath;
         Save?.Invoke(false);
     }
