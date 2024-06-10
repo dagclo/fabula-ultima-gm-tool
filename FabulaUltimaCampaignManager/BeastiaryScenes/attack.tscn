@@ -9,7 +9,13 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/SpecialAttackLabel.cs" id="8_l2u61"]
 
 [node name="Attack" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 script = ExtResource("1_c5yaq")
 
 [node name="Type" type="Label" parent="."]
@@ -57,5 +63,6 @@ text = "damage"
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+text = "This is a special attack!!!!"
 autowrap_mode = 2
 script = ExtResource("8_l2u61")

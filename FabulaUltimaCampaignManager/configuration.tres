@@ -5,5 +5,4 @@
 [resource]
 script = ExtResource("1_d73sm")
 CampaignFolder = "user://campaignData/"
-DatabaseFilePath = "res://Database/BeastiaryDB.sqlite"
-BackgroundMusicEnabled = true
+DatabaseFilePath = "user://BeastiaryDB.sqlite"

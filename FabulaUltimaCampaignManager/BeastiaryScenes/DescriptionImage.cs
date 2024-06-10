@@ -33,16 +33,11 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
         if (originalFile.StartsWith(RES)) return false; // file is already copied presumably
         if (!File.Exists(originalFile)) return true; // set image file path to empty if we can't find the file
 
-        const string targetFolder = "Database/Images/";
+        string targetFolder = $"{RES}Database/Images";
         var fileName = Path.GetFileName(originalFile);
-        targetpath = $"{RES}{targetFolder}{fileName}";
-        string targetPathAbsolute;
-        using (var godotFile = Godot.FileAccess.Open(targetpath, Godot.FileAccess.ModeFlags.WriteRead))
-        {
-            targetPathAbsolute = godotFile.GetPathAbsolute(); // get the actual file path
-        }
-
-        File.Copy(originalFile, targetPathAbsolute, true);
+        targetpath = $"{targetFolder}/{fileName}";
+        using var directory = DirAccess.Open(targetFolder);
+        directory.Copy(originalFile, targetpath);       
          
         return true;
     }

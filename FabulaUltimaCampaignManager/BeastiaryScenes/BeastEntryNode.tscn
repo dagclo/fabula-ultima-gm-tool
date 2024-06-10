@@ -47,9 +47,9 @@
 [node name="BeastEntryNode" type="PanelContainer"]
 anchors_preset = 10
 anchor_right = 1.0
+offset_right = -863.0
 offset_bottom = 790.0
 grow_horizontal = 2
-size_flags_horizontal = 3
 script = ExtResource("1_t4gi0")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -105,8 +105,11 @@ script = ExtResource("3_nqrqn")
 AttributeName = "Species"
 
 [node name="Details" type="Label" parent="VBoxContainer/Description/DescriptionText"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+size_flags_vertical = 3
 text = "Fires from on high with the eyes of an eagle."
+autowrap_mode = 2
 script = ExtResource("3_nqrqn")
 AttributeName = "Description"
 

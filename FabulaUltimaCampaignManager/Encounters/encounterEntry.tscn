@@ -17,7 +17,6 @@ layout_mode = 2
 text = "Name: "
 
 [node name="Text" parent="Name/HBoxContainer" index="1"]
-theme_override_fonts/font = ExtResource("3_cvxr5")
 text = "Made up Encounter"
 script = ExtResource("3_d5kal")
 

@@ -16,6 +16,7 @@ layout_mode = 2
 
 [node name="PlayerName" type="Label" parent="HBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Name:"
 
 [node name="PlayerNameInput" type="LineEdit" parent="HBoxContainer"]
@@ -26,6 +27,7 @@ script = ExtResource("2_xsw1t")
 
 [node name="CharacterName" type="Label" parent="HBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Character Name:"
 
 [node name="CharacterNameEdit" type="LineEdit" parent="HBoxContainer"]
@@ -36,6 +38,7 @@ script = ExtResource("3_qclik")
 
 [node name="CharacterTitle" type="Label" parent="HBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "Character Title:"
 
 [node name="CharacterTitleEdit" type="LineEdit" parent="HBoxContainer"]

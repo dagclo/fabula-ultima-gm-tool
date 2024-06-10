@@ -28,7 +28,8 @@ DbAccess="*res://DbAccess.cs"
 window/size/viewport_width=1600
 window/size/viewport_height=550
 window/subwindows/embed_subwindows=false
-window/stretch/aspect="ignore"
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 
