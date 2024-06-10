@@ -56,12 +56,13 @@ item_0/id = 0
 script = ExtResource("3_f7bcp")
 _configuration = ExtResource("8_qwns5")
 
-[node name="Help" type="PopupMenu" parent="MenuBar"]
+[node name="Help" type="PopupMenu" parent="MenuBar" node_paths=PackedStringArray("AboutPanel")]
 title = "Help"
 item_count = 1
 item_0/text = "About"
 item_0/id = 0
 script = ExtResource("2_iyeul")
+AboutPanel = NodePath("../../AboutPanel")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 2
