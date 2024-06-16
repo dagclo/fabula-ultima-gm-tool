@@ -56,4 +56,8 @@ public partial class RankIcon : TextureRect, INpcReader
                 break;
         }
     }
+    public void StudyLevelChanged(BattleStatus newStatus)
+    {
+        this.Visible = newStatus.StudyLevel >= BattleStatus.StudyLevelEnum.SOME_INFO;
+    }
 }
