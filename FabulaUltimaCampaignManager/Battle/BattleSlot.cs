@@ -11,6 +11,10 @@ public partial class BattleSlot : Node2D, INpcInstanceReader
 
     [Signal]
     public delegate void BattleStatusChangedEventHandler(BattleStatus status);
+
+    [Signal]
+    public delegate void NpcStudyLevelChangedEventHandler(BattleStatus status);
+
     private Action<NpcInstance> NpcChanged { get; set; }
 
     private Sprite2D _sprite;
@@ -38,6 +42,13 @@ public partial class BattleSlot : Node2D, INpcInstanceReader
         this.Visible = true;
         NpcChanged?.Invoke(instance);
         battleStatus.StatusChanged += this.StatusChanged;
+        battleStatus.StudyLevelChanged += this.HandleStudyLevelChanged;
+        EmitSignal(SignalName.NpcStudyLevelChanged, battleStatus);
+    }
+
+    private void HandleStudyLevelChanged(BattleStatus newStatus)
+    {
+        EmitSignal(SignalName.NpcStudyLevelChanged, newStatus);
     }
 
     private void StatusChanged(BattleStatus newStatus)

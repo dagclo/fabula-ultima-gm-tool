@@ -14,17 +14,6 @@ public partial class HpProgressBar : TextureProgressBar, INpcReader
     [Signal]
     public delegate void HpChangedEventHandler(SignalWrapper<ISet<HpState>> signalWrapper);
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-        
-    }
-
     public void HandleNpcChanged(NpcInstance npc)
     {
 		this.MaxValue = npc.Template.HealthPoints;
@@ -32,10 +21,8 @@ public partial class HpProgressBar : TextureProgressBar, INpcReader
     }
 
     private Tween _runningTween;
-    private void StatusChanged(BattleStatus newStatus)
-    {
-        // _targetValue = newStatus.CurrentHP;
-        // this.Visible = newStatus.IsVisible(StatusVisibility.HP); //todo: handle visibility
+    public void StatusChanged(BattleStatus newStatus)
+    {        
         if (Value == newStatus.CurrentHP) return;
         if (_runningTween != null) _runningTween.Kill();
         var stateList = new HashSet<HpState>();
@@ -54,5 +41,10 @@ public partial class HpProgressBar : TextureProgressBar, INpcReader
         _runningTween = CreateTween();
         _runningTween.TweenProperty(this, "value", newStatus.CurrentHP, SecondsToChange)
             .SetEase(Tween.EaseType.Out);
+    }
+
+    public void StudyLevelChanged(BattleStatus newStatus)
+    {
+        this.Visible = newStatus.StudyLevel >= BattleStatus.StudyLevelEnum.SOME_INFO;
     }
 }

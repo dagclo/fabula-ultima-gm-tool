@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bsxr63lu04kga"]
+[gd_scene load_steps=28 format=3 uid="uid://bsxr63lu04kga"]
 
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="1_1ptjk"]
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_83a5u"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Battle/NpcPanel/DeadToggle.cs" id="6_4n0rd"]
 [ext_resource type="PackedScene" uid="uid://cerx6ejkwe1tc" path="res://Battle/attack_panel.tscn" id="7_mbs67"]
 [ext_resource type="Script" path="res://Battle/SpellList.cs" id="8_l6g8q"]
+[ext_resource type="Script" path="res://Battle/CurrentStudyLevel.cs" id="8_qsjpw"]
 [ext_resource type="PackedScene" uid="uid://dywmh38jaem58" path="res://Battle/spell_panel.tscn" id="9_4q14p"]
 [ext_resource type="Script" path="res://Battle/OtherActionList.cs" id="10_ttwg6"]
 [ext_resource type="Script" path="res://Battle/RollButton.cs" id="12_h1pac"]
@@ -144,6 +145,30 @@ Status = 4
 layout_mode = 2
 text = "Weak"
 Status = 5
+
+[node name="StudyLevelBar" type="HBoxContainer" parent="NpcStatus"]
+layout_mode = 2
+
+[node name="StudyLevelLabel" type="Label" parent="NpcStatus/StudyLevelBar"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "Study Level:"
+
+[node name="StudyLevelSlider" type="HSlider" parent="NpcStatus/StudyLevelBar"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 1
+min_value = 1.0
+max_value = 4.0
+value = 1.0
+scrollable = false
+tick_count = 4
+ticks_on_borders = true
+
+[node name="CurrentStudyLevel" type="Label" parent="NpcStatus/StudyLevelBar"]
+layout_mode = 2
+text = "No Info"
+script = ExtResource("8_qsjpw")
 
 [node name="Attacks" type="VBoxContainer" parent="NpcStatus"]
 layout_mode = 2
@@ -327,6 +352,7 @@ script = ExtResource("15_6xvc4")
 
 [connection signal="TurnChanged" from="." to="NpcStatus/FinishTurnButton" method="OnTurnChanged"]
 [connection signal="toggled" from="NpcStatus/Statuses/DeadToggle" to="NpcStatus/Statuses/DeadToggle" method="OnToggleDeath"]
+[connection signal="value_changed" from="NpcStatus/StudyLevelBar/StudyLevelSlider" to="NpcStatus/StudyLevelBar/CurrentStudyLevel" method="OnSliderValueChanged"]
 [connection signal="ActionSet" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/Attribute1Options" method="OnActionSet"]
 [connection signal="ActionSet" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/Attribute2Options" method="OnActionSet"]
 [connection signal="ActionSet" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/AccuracyMod" method="OnActionSet"]

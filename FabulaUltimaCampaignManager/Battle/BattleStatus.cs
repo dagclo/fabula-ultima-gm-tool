@@ -22,6 +22,7 @@ public partial class BattleStatus : Resource
     }
 
     public Action<BattleStatus> StatusChanged { get; set; }
+    public Action<BattleStatus> StudyLevelChanged { get; set; }
     public bool IsFirst { get; set; } = false;
     public void Kill() => CurrentHP = 0;
 
@@ -50,6 +51,20 @@ public partial class BattleStatus : Resource
             {
                 _currentMP = value;
                 StatusChanged?.Invoke(this);
+            }
+        }
+    }
+
+    private StudyLevelEnum _currentStudyLevel;
+    public StudyLevelEnum StudyLevel
+    {
+        get => _currentStudyLevel;
+        set
+        {
+            if (_currentStudyLevel != value)
+            {
+                _currentStudyLevel = value;
+                StudyLevelChanged?.Invoke(this);
             }
         }
     }
@@ -93,5 +108,13 @@ public partial class BattleStatus : Resource
             result = Die.Downgrade(attributeDie);
         }
         return result;
+    }
+
+    public enum StudyLevelEnum
+    {
+        NO_INFO = 1,
+        SOME_INFO,
+        MOST_INFO,
+        ALL_INFO,
     }
 }

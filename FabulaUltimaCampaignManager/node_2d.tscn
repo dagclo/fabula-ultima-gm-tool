@@ -111,7 +111,7 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "InitiativeCheck:"
+text = "Initiative Check:"
 
 [node name="InitiativeDifficulty" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/HBoxContainer"]
 layout_mode = 2

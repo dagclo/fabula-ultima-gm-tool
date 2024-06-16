@@ -266,6 +266,7 @@ script = ExtResource("7_4m4uy")
 Target = 3
 
 [node name="Hp" type="TextureProgressBar" parent="."]
+visible = false
 offset_left = -78.0
 offset_top = -175.0
 offset_right = 322.0
@@ -318,4 +319,5 @@ UberChampion = ExtResource("22_k5na8")
 [connection signal="BattleStatusChanged" from="." to="StatusList/Poisoned" method="StatusChanged"]
 [connection signal="BattleStatusChanged" from="." to="StatusList/Shaken" method="StatusChanged"]
 [connection signal="BattleStatusChanged" from="." to="Hp" method="StatusChanged"]
+[connection signal="NpcStudyLevelChanged" from="." to="Hp" method="StudyLevelChanged"]
 [connection signal="HpChanged" from="Hp" to="BeastSprite" method="OnHpChanged"]
