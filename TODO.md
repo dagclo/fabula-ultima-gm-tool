@@ -36,10 +36,10 @@ Project Description
 
 ### In Progress
 
-- [ ] Implement Study  
 
 ### Done ✓
 
+- [x] Implement Study  
 - [x] Fix Beastiary UI being too wide  
 - [x] Condense DB and images  
 - [x] Fix Magitech Trooper. improved damage is off by 1  

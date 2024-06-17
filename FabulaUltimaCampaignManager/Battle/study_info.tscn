@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://pu4lsn15c8yk"]
+[gd_scene load_steps=14 format=3 uid="uid://pu4lsn15c8yk"]
 
 [ext_resource type="Script" path="res://Battle/StudyInfo.cs" id="2_x6ob7"]
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="3_q73lu"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://Battle/TraitsValue.cs" id="5_o5k84"]
 [ext_resource type="Script" path="res://Battle/DefenseValue.cs" id="6_luya3"]
 [ext_resource type="Script" path="res://Battle/MDefValue.cs" id="7_21845"]
+[ext_resource type="Script" path="res://Battle/BasicAttackList.cs" id="8_4rju4"]
+[ext_resource type="Script" path="res://Battle/SpellsInfo.cs" id="9_wwnva"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2gb1y"]
 
@@ -74,16 +76,48 @@ text = "MDef: "
 [node name="Text" parent="MagicDefense/HBoxContainer" index="1"]
 script = ExtResource("7_21845")
 
+[node name="BasicAttacks" parent="." instance=ExtResource("3_q73lu")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_27dyq")
+script = ExtResource("4_jfs26")
+
+[node name="Label" parent="BasicAttacks/HBoxContainer" index="0"]
+text = "Basic Attacks: "
+
+[node name="Text" parent="BasicAttacks/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(150, 0)
+autowrap_mode = 3
+script = ExtResource("8_4rju4")
+
+[node name="Spells" parent="." instance=ExtResource("3_q73lu")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_27dyq")
+script = ExtResource("4_jfs26")
+
+[node name="Label" parent="Spells/HBoxContainer" index="0"]
+text = "Spells: "
+
+[node name="Text" parent="Spells/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(150, 0)
+autowrap_mode = 3
+script = ExtResource("9_wwnva")
+
 [connection signal="NpcChanged" from="." to="Traits/HBoxContainer/Text" method="HandleNpcChanged"]
 [connection signal="NpcChanged" from="." to="Attributes/HBoxContainer/Text" method="HandleNpcChanged"]
 [connection signal="NpcChanged" from="." to="Defense/HBoxContainer/Text" method="HandleNpcChanged"]
 [connection signal="NpcChanged" from="." to="MagicDefense/HBoxContainer/Text" method="HandleNpcChanged"]
+[connection signal="NpcChanged" from="." to="Spells/HBoxContainer/Text" method="HandleNpcChanged"]
+[connection signal="NpcChanged" from="." to="BasicAttacks/HBoxContainer/Text" method="HandleNpcChanged"]
 [connection signal="StudyLevelChanged" from="." to="Traits" method="HandleStudyLevelChanged"]
 [connection signal="StudyLevelChanged" from="." to="Attributes" method="HandleStudyLevelChanged"]
 [connection signal="StudyLevelChanged" from="." to="Defense" method="HandleStudyLevelChanged"]
 [connection signal="StudyLevelChanged" from="." to="MagicDefense" method="HandleStudyLevelChanged"]
+[connection signal="StudyLevelChanged" from="." to="Spells" method="HandleStudyLevelChanged"]
+[connection signal="StudyLevelChanged" from="." to="BasicAttacks" method="HandleStudyLevelChanged"]
 
 [editable path="Traits"]
 [editable path="Attributes"]
 [editable path="Defense"]
 [editable path="MagicDefense"]
+[editable path="BasicAttacks"]
+[editable path="Spells"]
