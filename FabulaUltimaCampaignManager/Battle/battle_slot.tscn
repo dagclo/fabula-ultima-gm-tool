@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b54cktmhcq4dq"]
+[gd_scene load_steps=49 format=3 uid="uid://b54cktmhcq4dq"]
 
 [ext_resource type="Script" path="res://Battle/BattleSlot.cs" id="1_q5xa3"]
 [ext_resource type="Texture2D" uid="uid://i7qlj5i8k4cu" path="res://Battle/Monster Unknown.png" id="2_icy35"]
@@ -22,14 +22,25 @@
 [ext_resource type="Script" path="res://Battle/BattleSlot/RankIcon.cs" id="17_xmcw2"]
 [ext_resource type="Texture2D" uid="uid://bv6hlum4nideo" path="res://Battle/Resources/shield-wood-1.png" id="18_5yvjv"]
 [ext_resource type="Texture2D" uid="uid://b44piog8ba1go" path="res://Battle/Resources/shield-silver-2.png" id="19_gy17o"]
+[ext_resource type="Script" path="res://Battle/NpcInfo.cs" id="19_oqi14"]
 [ext_resource type="Texture2D" uid="uid://dhjos7mj8pftp" path="res://Battle/Resources/shield-platinum-4.png" id="20_7621w"]
 [ext_resource type="Script" path="res://Battle/SpeciesLabel.cs" id="20_hm40t"]
+[ext_resource type="PackedScene" uid="uid://pu4lsn15c8yk" path="res://Battle/study_info.tscn" id="20_hq4hi"]
 [ext_resource type="Texture2D" uid="uid://csn2i0kg01qfw" path="res://Battle/Resources/shield-sapphire-3.png" id="21_pk6ic"]
 [ext_resource type="Texture2D" uid="uid://dsmn0g2p50jw2" path="res://Battle/Resources/shield-master-12.png" id="22_k5na8"]
 [ext_resource type="Script" path="res://Battle/MaxMPContainer.cs" id="26_xw66u"]
 [ext_resource type="Script" path="res://Battle/MaxMPValue.cs" id="27_cqtnf"]
 [ext_resource type="Script" path="res://Battle/BattleStats.cs" id="29_lw6im"]
 [ext_resource type="PackedScene" uid="uid://r4bkkg4opyj3" path="res://Battle/Affinity/affinity_entry.tscn" id="30_46tcf"]
+[ext_resource type="Texture2D" uid="uid://dn022obe4wsvv" path="res://ResistanceImages/Physical.png" id="31_erew7"]
+[ext_resource type="Texture2D" uid="uid://bx3difes0s0f8" path="res://ResistanceImages/Air.png" id="32_njy8x"]
+[ext_resource type="Texture2D" uid="uid://bua57wksv3bbq" path="res://ResistanceImages/Bolt.png" id="33_ht5uv"]
+[ext_resource type="Texture2D" uid="uid://dkb2h3smqxjwn" path="res://ResistanceImages/Dark.png" id="34_qauhf"]
+[ext_resource type="Texture2D" uid="uid://bd6kwo67yuncp" path="res://ResistanceImages/Earth.png" id="35_r7dum"]
+[ext_resource type="Texture2D" uid="uid://841utmxt0qwh" path="res://ResistanceImages/fire.png" id="36_wskk7"]
+[ext_resource type="Texture2D" uid="uid://bq2tr0ndgiijs" path="res://ResistanceImages/Ice.png" id="37_jq5a1"]
+[ext_resource type="Texture2D" uid="uid://dtj00b1kbtyrq" path="res://ResistanceImages/Light.png" id="38_lwefa"]
+[ext_resource type="Texture2D" uid="uid://dyyns8miuhia7" path="res://ResistanceImages/Poison.png" id="39_yysij"]
 
 [sub_resource type="Animation" id="Animation_16v3y"]
 length = 0.001
@@ -294,7 +305,10 @@ offset_right = 135.0
 offset_bottom = -116.0
 grow_horizontal = 2
 grow_vertical = 2
+tooltip_text = "testing"
 theme = ExtResource("7_yxys7")
+script = ExtResource("19_oqi14")
+ToolTip = ExtResource("20_hq4hi")
 
 [node name="Species" type="Label" parent="NpcInfo"]
 layout_mode = 2
@@ -334,16 +348,75 @@ layout_mode = 2
 text = "10"
 script = ExtResource("27_cqtnf")
 
-[node name="Stats" type="HBoxContainer" parent="."]
+[node name="Affinities" type="HFlowContainer" parent="."]
 offset_left = -105.0
-offset_top = 83.0
+offset_top = 155.0
 offset_right = 167.0
-offset_bottom = 123.0
+offset_bottom = 195.0
 theme = ExtResource("7_yxys7")
 script = ExtResource("29_lw6im")
 
-[node name="AffinityEntry" parent="Stats" instance=ExtResource("30_46tcf")]
+[node name="Physical" parent="Affinities" instance=ExtResource("30_46tcf")]
 layout_mode = 2
+TargetDamageType = "Physical"
+
+[node name="AffinityTexture" parent="Affinities/Physical" index="0"]
+texture = ExtResource("31_erew7")
+
+[node name="Air" parent="Affinities" instance=ExtResource("30_46tcf")]
+layout_mode = 2
+TargetDamageType = "Air"
+
+[node name="AffinityTexture" parent="Affinities/Air" index="0"]
+texture = ExtResource("32_njy8x")
+
+[node name="Bolt" parent="Affinities" instance=ExtResource("30_46tcf")]
+layout_mode = 2
+TargetDamageType = "Bolt"
+
+[node name="AffinityTexture" parent="Affinities/Bolt" index="0"]
+texture = ExtResource("33_ht5uv")
+
+[node name="Dark" parent="Affinities" instance=ExtResource("30_46tcf")]
+layout_mode = 2
+
+[node name="AffinityTexture" parent="Affinities/Dark" index="0"]
+texture = ExtResource("34_qauhf")
+
+[node name="Earth" parent="Affinities" instance=ExtResource("30_46tcf")]
+layout_mode = 2
+TargetDamageType = "Earth"
+
+[node name="AffinityTexture" parent="Affinities/Earth" index="0"]
+texture = ExtResource("35_r7dum")
+
+[node name="Fire" parent="Affinities" instance=ExtResource("30_46tcf")]
+layout_mode = 2
+TargetDamageType = "Fire"
+
+[node name="AffinityTexture" parent="Affinities/Fire" index="0"]
+texture = ExtResource("36_wskk7")
+
+[node name="Ice" parent="Affinities" instance=ExtResource("30_46tcf")]
+layout_mode = 2
+TargetDamageType = "Ice"
+
+[node name="AffinityTexture" parent="Affinities/Ice" index="0"]
+texture = ExtResource("37_jq5a1")
+
+[node name="Light" parent="Affinities" instance=ExtResource("30_46tcf")]
+layout_mode = 2
+TargetDamageType = "Light"
+
+[node name="AffinityTexture" parent="Affinities/Light" index="0"]
+texture = ExtResource("38_lwefa")
+
+[node name="Poison" parent="Affinities" instance=ExtResource("30_46tcf")]
+layout_mode = 2
+TargetDamageType = "Poison"
+
+[node name="AffinityTexture" parent="Affinities/Poison" index="0"]
+texture = ExtResource("39_yysij")
 
 [connection signal="BattleStatusChanged" from="." to="BeastSprite" method="HandleStatusChanged"]
 [connection signal="BattleStatusChanged" from="." to="StatusList/Enraged" method="StatusChanged"]
@@ -354,8 +427,19 @@ layout_mode = 2
 [connection signal="BattleStatusChanged" from="." to="StatusList/Shaken" method="StatusChanged"]
 [connection signal="BattleStatusChanged" from="." to="Hp" method="StatusChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="Hp" method="StudyLevelChanged"]
+[connection signal="NpcStudyLevelChanged" from="." to="NpcInfo" method="HandleStudyLevelChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="NpcInfo/Species" method="StudyLevelChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="NpcInfo/RankIcon" method="StudyLevelChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="NpcInfo/MaxMPContainer" method="StudyLevelChanged"]
-[connection signal="NpcStudyLevelChanged" from="." to="Stats" method="StudyLevelChanged"]
+[connection signal="NpcStudyLevelChanged" from="." to="Affinities" method="StudyLevelChanged"]
 [connection signal="HpChanged" from="Hp" to="BeastSprite" method="OnHpChanged"]
+
+[editable path="Affinities/Physical"]
+[editable path="Affinities/Air"]
+[editable path="Affinities/Bolt"]
+[editable path="Affinities/Dark"]
+[editable path="Affinities/Earth"]
+[editable path="Affinities/Fire"]
+[editable path="Affinities/Ice"]
+[editable path="Affinities/Light"]
+[editable path="Affinities/Poison"]

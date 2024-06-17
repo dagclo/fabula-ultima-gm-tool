@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://r4bkkg4opyj3"]
 
 [ext_resource type="Script" path="res://Battle/Affinity/AffinityEntry.cs" id="1_1pxjd"]
-[ext_resource type="Texture2D" uid="uid://dkb2h3smqxjwn" path="res://ResistanceImages/Dark.png" id="1_605og"]
+[ext_resource type="Texture2D" uid="uid://cugh3k4c43aya" path="res://ResistanceImages/default.png" id="2_nixt0"]
 
 [node name="AffinityEntry" type="HBoxContainer"]
 script = ExtResource("1_1pxjd")
 
 [node name="AffinityTexture" type="TextureRect" parent="."]
 layout_mode = 2
-texture = ExtResource("1_605og")
+texture = ExtResource("2_nixt0")
 expand_mode = 2
 
 [node name="AffinityValue" type="Label" parent="."]

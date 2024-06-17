@@ -6,7 +6,6 @@ Project Description
 
 ### Backlog
 
-- [ ] Fix Beastiary UI being too wide  
 - [ ] Fix Cockatrice's Petrifying Peck  
 - [ ] Implement Filtering by species, and level  
 - [ ] Block adding equipment with the same name  
@@ -37,10 +36,11 @@ Project Description
 
 ### In Progress
 
-- [ ] Download Database If Missing using url https://github.com/dagclo/fabula-ultima-gm-tool/raw/main/BeastiaryDB.sqlite  
+- [ ] Implement Study  
 
 ### Done ✓
 
+- [x] Fix Beastiary UI being too wide  
 - [x] Condense DB and images  
 - [x] Fix Magitech Trooper. improved damage is off by 1  
 - [x] pg 343 Drake - add magic accuracy skill  

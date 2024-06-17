@@ -1,0 +1,89 @@
+[gd_scene load_steps=12 format=3 uid="uid://pu4lsn15c8yk"]
+
+[ext_resource type="Script" path="res://Battle/StudyInfo.cs" id="2_x6ob7"]
+[ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="3_q73lu"]
+[ext_resource type="Script" path="res://Battle/StudyPanel.cs" id="4_jfs26"]
+[ext_resource type="Script" path="res://Battle/AttributesText.cs" id="5_getc7"]
+[ext_resource type="Script" path="res://Battle/TraitsValue.cs" id="5_o5k84"]
+[ext_resource type="Script" path="res://Battle/DefenseValue.cs" id="6_luya3"]
+[ext_resource type="Script" path="res://Battle/MDefValue.cs" id="7_21845"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2gb1y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ka8bp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boup8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_27dyq"]
+
+[node name="StudyInfo" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_x6ob7")
+
+[node name="Traits" parent="." instance=ExtResource("3_q73lu")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2gb1y")
+script = ExtResource("4_jfs26")
+VisibleStudyLevel = 3
+
+[node name="Label" parent="Traits/HBoxContainer" index="0"]
+text = "Traits: "
+
+[node name="Text" parent="Traits/HBoxContainer" index="1"]
+script = ExtResource("5_o5k84")
+
+[node name="Attributes" parent="." instance=ExtResource("3_q73lu")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ka8bp")
+script = ExtResource("4_jfs26")
+VisibleStudyLevel = 3
+
+[node name="Label" parent="Attributes/HBoxContainer" index="0"]
+text = "Attributes: "
+
+[node name="Text" parent="Attributes/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(100, 0)
+autowrap_mode = 2
+script = ExtResource("5_getc7")
+
+[node name="Defense" parent="." instance=ExtResource("3_q73lu")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_boup8")
+script = ExtResource("4_jfs26")
+VisibleStudyLevel = 3
+
+[node name="Label" parent="Defense/HBoxContainer" index="0"]
+text = "Def: "
+
+[node name="Text" parent="Defense/HBoxContainer" index="1"]
+script = ExtResource("6_luya3")
+
+[node name="MagicDefense" parent="." instance=ExtResource("3_q73lu")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_27dyq")
+script = ExtResource("4_jfs26")
+VisibleStudyLevel = 3
+
+[node name="Label" parent="MagicDefense/HBoxContainer" index="0"]
+text = "MDef: "
+
+[node name="Text" parent="MagicDefense/HBoxContainer" index="1"]
+script = ExtResource("7_21845")
+
+[connection signal="NpcChanged" from="." to="Traits/HBoxContainer/Text" method="HandleNpcChanged"]
+[connection signal="NpcChanged" from="." to="Attributes/HBoxContainer/Text" method="HandleNpcChanged"]
+[connection signal="NpcChanged" from="." to="Defense/HBoxContainer/Text" method="HandleNpcChanged"]
+[connection signal="NpcChanged" from="." to="MagicDefense/HBoxContainer/Text" method="HandleNpcChanged"]
+[connection signal="StudyLevelChanged" from="." to="Traits" method="HandleStudyLevelChanged"]
+[connection signal="StudyLevelChanged" from="." to="Attributes" method="HandleStudyLevelChanged"]
+[connection signal="StudyLevelChanged" from="." to="Defense" method="HandleStudyLevelChanged"]
+[connection signal="StudyLevelChanged" from="." to="MagicDefense" method="HandleStudyLevelChanged"]
+
+[editable path="Traits"]
+[editable path="Attributes"]
+[editable path="Defense"]
+[editable path="MagicDefense"]

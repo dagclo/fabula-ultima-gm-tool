@@ -25,10 +25,10 @@ public partial class BattleSlot : Node2D, INpcInstanceReader
 	{
         this.Visible = false;
         foreach (var child in this.FindChildren("*")
-           .Where(l => l is INpcReader))
+           .Where(c => c is INpcReader))
         {   
-            var sprite = child as INpcReader;
-            this.NpcChanged += sprite.HandleNpcChanged;
+            var npcReader = child as INpcReader;
+            this.NpcChanged += npcReader.HandleNpcChanged;
         }
     }
 
