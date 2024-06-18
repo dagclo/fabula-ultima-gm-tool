@@ -8,7 +8,7 @@ public partial class ImportNpcPanel : PopupPanel
 		this.Visible = true;
 	}
 
-    public void HandleImportButtonClicked()
+    public void HandleBeastTemplateCreated()
     {
         this.Visible = false;
     }

@@ -60,14 +60,14 @@ namespace FabulaUltimaGMTool.Beastiary.Import.Fultimator
         public List<Spell> spells { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
-        [JsonProperty("name")]
+        [JsonProperty("uid")]
         public string uid { get; set; }
         [JsonProperty("villain")]
         public string villain { get; set; }
         [JsonProperty("lvl")]
         public int Level { get; set; }
         [JsonProperty("attacks")]
-        public List<Attack> attacks { get; set; }
+        public List<Attack> Attacks { get; set; }
         [JsonProperty("species")]
         public string Species { get; set; }
         [JsonProperty("attributes")]

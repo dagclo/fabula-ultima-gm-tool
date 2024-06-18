@@ -16,6 +16,6 @@ namespace FabulaUltimaGMTool.Beastiary.Import.Fultimator
         [JsonProperty("type")]
         public string type { get; set; }
         [JsonProperty("special")]
-        public List<object> special { get; set; }
+        public List<string> Special { get; set; }
     }
 }

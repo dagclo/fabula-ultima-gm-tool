@@ -262,7 +262,6 @@ text = "Import"
 [node name="ImportNpcPanel" type="PopupPanel" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton"]
 initial_position = 1
 size = Vector2i(844, 300)
-visible = true
 script = ExtResource("23_7lh0e")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton/ImportNpcPanel"]
@@ -376,7 +375,8 @@ fit_content = true
 [connection signal="LoadEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnLoadEncounter"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Encounters/AddEncounterButton" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnAddEncounterButtonPressed"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton/ImportNpcPanel" method="HandleStartImportButtonClicked"]
+[connection signal="BeastTemplateAdded" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton/ImportNpcPanel/VBoxContainer/Json" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton/ImportNpcPanel" method="HandleBeastTemplateCreated"]
+[connection signal="BeastTemplateAdded" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton/ImportNpcPanel/VBoxContainer/Json" to="HSplitContainer/CampaignManager/Beastiary/BeastList/VBoxContainer" method="HandleBeastTemplateCreated"]
 [connection signal="JsonError" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton/ImportNpcPanel/VBoxContainer/Json" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton/ImportNpcPanel/VBoxContainer/ErrorLabel" method="HandleErrorFound"]
-[connection signal="pressed" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton/ImportNpcPanel/VBoxContainer/ImportButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton/ImportNpcPanel" method="HandleImportButtonClicked"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton/ImportNpcPanel/VBoxContainer/ImportButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/StartImportButton/ImportNpcPanel/VBoxContainer/Json" method="HandleImportButtonClicked"]
 [connection signal="AddBeastToEncounter" from="HSplitContainer/CampaignManager/Beastiary/BeastList/VBoxContainer" to="HSplitContainer/CurrentEncounter" method="AddNpcToEncounter"]

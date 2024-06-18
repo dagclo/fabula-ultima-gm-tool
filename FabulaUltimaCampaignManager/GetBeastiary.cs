@@ -84,8 +84,9 @@ public partial class GetBeastiary : VBoxContainer
         npcWizard.QueueFree();
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-	{
-	}
+    public void HandleBeastTemplateCreated()
+    {
+        // reload
+        CallDeferred(MethodName.Setup);
+    }
 }
