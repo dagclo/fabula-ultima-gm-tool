@@ -1,0 +1,1 @@
+﻿This code was generated using https://json2csharp.com/ and https://fabula-ultima-helper.web.app/

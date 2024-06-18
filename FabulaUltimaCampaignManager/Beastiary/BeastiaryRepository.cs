@@ -59,5 +59,10 @@ namespace FirstProject.Beastiary
         {
             _database.RemoveBeast(id);
         }
+
+        internal void AddBeastTemplate(IBeastTemplate beastTemplate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

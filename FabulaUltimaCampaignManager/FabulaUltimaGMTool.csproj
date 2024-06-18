@@ -10,6 +10,9 @@
     <EmbeddedResource Remove="Database\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Beastiary\Import\Fultimator\README.md" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\FabulaUltimaDataImporter\FabulaUltimaDatabase\FabulaUltimaDatabase.csproj" />
     <ProjectReference Include="..\FabulaUltimaDataImporter\FabulaUltimaSkillLibrary\FabulaUltimaSkillLibrary.csproj" />
   </ItemGroup>
