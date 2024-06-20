@@ -77,7 +77,7 @@ namespace FabulaUltimaSkillLibraryTests
                     { Guid.Parse("69711547-14c6-4a01-af94-f5d5117a6bae"), 3 }, // Humanoid
                     { Guid.Parse("23e74a9c-8413-497f-b098-f541b43884c0"), 4 }, // Monster
                     { Guid.Parse("d608585c-32ff-4d10-88b9-b4df66364195"), 3 }, // Plant
-                    { Guid.Parse("3e35bbec-d713-4efc-af8a-3d5e01403885"), 2 }, // Undead
+                    { Guid.Parse("3e35bbec-d713-4efc-af8a-3d5e01403885"), 1 }, // Undead - extra skill point granted by vulnerability
                 };
 
         private static IDictionary<Guid, int> SkillBonusMap = new Dictionary<Guid, int>
@@ -192,20 +192,6 @@ namespace FabulaUltimaSkillLibraryTests
                         };
                     }
 
-                    if (speciesType.Id == Constants.UNDEAD.Id)
-                    {
-                        return new SpeciesBuiltInAffinities
-                        {
-                            NumVulnerabilityChoices = 1,
-                            VulnerabilityChoices = new[]
-                            {
-                                new Resistance()
-                                {
-                                    DamageTypeId = Constants.LIGHT.Id,
-                                },                                
-                            }
-                        };
-                    }
                     return new SpeciesBuiltInAffinities
                     {
                         NumVulnerabilityChoices = 0,

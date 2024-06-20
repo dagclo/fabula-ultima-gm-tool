@@ -43,7 +43,7 @@ public partial class NpcSheet : Window
         };
         var skills = _skillResolver.ResolveSkills(template, input);
 
-        editableBeastModel.Skills = skills.SkillSlots.Select(s => s?.skill).ToArray();
+        editableBeastModel.Skills = skills.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToArray();
         this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });
     }
 
