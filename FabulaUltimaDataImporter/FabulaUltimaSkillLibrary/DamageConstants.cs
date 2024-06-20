@@ -33,5 +33,26 @@
         public const string LIGHT_NAME = "light";
         public const string POISON_NAME = "poison";
 
+        public static IDictionary<Guid, string> AffinityMap { get; } = new Dictionary<Guid, string>()
+        {
+            { NO_AFFINITY, "" },
+            { VULNERABLE, "VU" },
+            { RESISTANT, "RS" },
+            { IMMUNE, "IM" },
+            { ABSORBS, "AB" },
+        };
+
+        public static IDictionary<string, Guid> DamageTypeMap { get; } = new Dictionary<string, Guid>()
+        {
+            { DARK_NAME, DARK_DAMAGE_TYPE },
+            { EARTH_NAME, EARTH_DAMAGE_TYPE },
+            { FIRE_NAME, FIRE_DAMAGE_TYPE },
+            { ICE_NAME, ICE_DAMAGE_TYPE },
+            { AIR_NAME, AIR_DAMAGE_TYPE },
+            { PHYSICAL_NAME, PHYSICAL_DAMAGE_TYPE },
+            { BOLT_NAME, BOLT_DAMAGE_TYPE },
+            { LIGHT_NAME, LIGHT_DAMAGE_TYPE },
+            { POISON_NAME, POISON_DAMAGE_TYPE },
+        };
     }
 }

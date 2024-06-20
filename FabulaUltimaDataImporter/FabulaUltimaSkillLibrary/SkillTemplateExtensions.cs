@@ -40,5 +40,19 @@ namespace FabulaUltimaSkillLibrary
             if (skillTemplate.OtherAttributes.IsSpecialAttack == true) return true;
             return skillTemplate.OtherAttributes.ContainsKey(DamageConstants.DAMAGE_BOOST);
         }
+
+        public static BeastResistance ToBeastResistance(this SkillTemplate skillTemplate)
+        {
+            if (!IsResistanceSkill(skillTemplate)) throw new ArgumentException("not a resistance skill");
+            var affinityId = Guid.Parse(skillTemplate.OtherAttributes[DamageConstants.AFFINITY_ID]);
+            var damageType = skillTemplate.OtherAttributes[DamageConstants.DAMAGE_TYPE_NAME];
+            return new BeastResistance
+            {
+                AffinityId = affinityId,               
+                Affinity = DamageConstants.AffinityMap[affinityId],
+                DamageType = damageType,
+                DamageTypeId = DamageConstants.DamageTypeMap[damageType.ToLowerInvariant()]
+            };
+        }
     }
 }

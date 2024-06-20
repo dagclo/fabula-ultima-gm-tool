@@ -25,17 +25,16 @@ public partial class NpcSheet : Window
             var node = child as BeastEntryNode;
             var beast = new BeastModel();
             beast.Id = Guid.NewGuid();
-            node.Beast = new BeastTemplate(beast);
+            node.Beast = new SkilledBeastTemplateWrapper(new BeastTemplate(beast));
             node.OnTrigger += HandleTrigger;
             this.OnBeastChanged = node.ActionTemplate;
         }
     }
 
     private void HandleTrigger(IBeastTemplate template)
-    {
-        
-        var editableBeastTemplate = template as BeastTemplate;
-        var editableBeastModel = editableBeastTemplate.Model as BeastModel;
+    {        
+        var editableBeastTemplate = template as SkilledBeastTemplateWrapper;
+        var editableBeastModel = editableBeastTemplate?.Model as BeastModel;
         if (editableBeastModel == null) return;
         var input = new SkillInputData
         {
@@ -45,6 +44,7 @@ public partial class NpcSheet : Window
         var skills = _skillResolver.ResolveSkills(template, input);
 
         editableBeastModel.Skills = skills.SkillSlots.Select(s => s?.skill).ToArray();
+        this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -4,6 +4,7 @@ using FirstProject.Beastiary;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 public partial class SpeciesSelect : OptionButton, IBeastAttribute
 {
@@ -16,19 +17,24 @@ public partial class SpeciesSelect : OptionButton, IBeastAttribute
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-        RemoveItem(0);
         foreach (var val in new[] { "Beast", "Construct", "Demon", "Elemental", "Humanoid", "Monster", "Plant", "Undead" })
         {
             AddItem(val);
         }
+        this.Selected = -1;
     }
 
     public void HandleItemSelect(int index)
     {
         if (_beastTemplate == null) return;
+        GetSpecies(index);
+    }
+
+    private void GetSpecies(int index)
+    {
         var species = GetItemText(index);
         _beastTemplate.Species = new SpeciesType(SpeciesConstants.FromString(species), species);
-        BeastTemplateAction.Invoke(new HashSet<BeastEntryNode.Action>() { BeastEntryNode.Action.TRIGGER});
+        BeastTemplateAction.Invoke(new HashSet<BeastEntryNode.Action>() { BeastEntryNode.Action.TRIGGER });
     }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
