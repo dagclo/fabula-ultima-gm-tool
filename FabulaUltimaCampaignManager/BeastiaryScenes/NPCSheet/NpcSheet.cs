@@ -16,6 +16,7 @@ public partial class NpcSheet : Window
         {
             var label = child as BeastEntryNode;
             var beast = new BeastModel();
+            beast.Id = Guid.NewGuid();
             label.Beast = new BeastTemplate(beast);
         }
     }
