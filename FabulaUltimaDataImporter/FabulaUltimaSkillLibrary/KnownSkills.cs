@@ -391,6 +391,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = RESISTANT.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = DARK_NAME,
                 }
@@ -406,6 +407,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = RESISTANT.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString() }),
                     [FREE_SPECIES] = CONSTRUCT.ToString(),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = EARTH_NAME,
@@ -422,6 +424,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = RESISTANT.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = ICE_NAME,
                 }
@@ -437,6 +440,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = RESISTANT.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = AIR_NAME,
                 }
@@ -453,6 +457,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = RESISTANT.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = FIRE_NAME,
                 }
@@ -468,6 +473,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = RESISTANT.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = PHYSICAL_NAME,
                 }
@@ -483,6 +489,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = RESISTANT.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = BOLT_NAME,
                 }
@@ -498,6 +505,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = RESISTANT.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = LIGHT_NAME,
                 }
@@ -513,6 +521,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = RESISTANT.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = POISON_NAME,
                 }
@@ -547,6 +556,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = IMMUNE.ToString() ,
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     FreeSpecies = new[] { CONSTRUCT, ELEMENTAL, UNDEAD },
                     [DAMAGE_TYPE_NAME] = POISON_NAME,
@@ -563,6 +573,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = IMMUNE.ToString() ,
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = FIRE_NAME,
                 }
@@ -576,12 +587,13 @@ namespace FabulaUltimaSkillLibrary
                 IsSpecialRule = false,
                 Keywords = new HashSet<string> { "dark", "immunity" },
                 OtherAttributes = new SkillAttributeCollection
-                        {
-                            [AFFINITY_ID] = IMMUNE.ToString() ,
+                {
+                    [AFFINITY_ID] = IMMUNE.ToString() ,
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = DARK_NAME,
                     FreeSpecies = new[] { UNDEAD }
-                        }
+                }
             };
         public static readonly SkillTemplate EarthImmunity =
             new SkillTemplate(Guid.Parse("da113fa6-544e-4b0c-af71-ef6f77f395a6"))
@@ -591,8 +603,9 @@ namespace FabulaUltimaSkillLibrary
                 IsSpecialRule = false,
                 Keywords = new HashSet<string> { "earth", "immunity" },
                 OtherAttributes = new SkillAttributeCollection
-                        {
-                             [AFFINITY_ID] = IMMUNE.ToString() ,
+                {
+                    [AFFINITY_ID] = IMMUNE.ToString() ,
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = EARTH_NAME,
                 }
@@ -605,8 +618,9 @@ namespace FabulaUltimaSkillLibrary
                 IsSpecialRule = false,
                 Keywords = new HashSet<string> { "ice", "immunity" },
                 OtherAttributes = new SkillAttributeCollection
-                        {
-                             [AFFINITY_ID] = IMMUNE.ToString() ,
+                {
+                    [AFFINITY_ID] = IMMUNE.ToString() ,
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = ICE_NAME,
                 }
@@ -619,8 +633,9 @@ namespace FabulaUltimaSkillLibrary
                 IsSpecialRule = false,
                 Keywords = new HashSet<string> { "air", "immunity" },
                 OtherAttributes = new SkillAttributeCollection
-                        {
-                             [AFFINITY_ID] = IMMUNE.ToString() ,
+                {
+                    [AFFINITY_ID] = IMMUNE.ToString() ,
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = AIR_NAME,
                 }
@@ -633,8 +648,9 @@ namespace FabulaUltimaSkillLibrary
                 IsSpecialRule = false,
                 Keywords = new HashSet<string> { "bolt", "immunity" },
                 OtherAttributes = new SkillAttributeCollection
-                        {
-                             [AFFINITY_ID] = IMMUNE.ToString() ,
+                {
+                    [AFFINITY_ID] = IMMUNE.ToString() ,
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = BOLT_NAME,
                 }
@@ -647,8 +663,9 @@ namespace FabulaUltimaSkillLibrary
                 IsSpecialRule = false,
                 Keywords = new HashSet<string> { "Physical", "immunity" },
                 OtherAttributes = new SkillAttributeCollection
-                        {
-                             [AFFINITY_ID] = IMMUNE.ToString() ,
+                {
+                    [AFFINITY_ID] = IMMUNE.ToString() ,
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = PHYSICAL_NAME,
                 }
@@ -661,8 +678,9 @@ namespace FabulaUltimaSkillLibrary
                 IsSpecialRule = false,
                 Keywords = new HashSet<string> { "light", "immunity" },
                 OtherAttributes = new SkillAttributeCollection
-                        {
-                             [AFFINITY_ID] = IMMUNE.ToString() ,
+                {
+                    [AFFINITY_ID] = IMMUNE.ToString() ,
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = LIGHT_NAME,
                 }
@@ -698,6 +716,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = ABSORBS.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString(), IMMUNE.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = DARK_NAME,
                     OtherKnownSkillsRequired = new[] { KnownSkills.DarkResistance.Id, KnownSkills.DarkImmunity.Id }
@@ -713,6 +732,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = ABSORBS.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString(), IMMUNE.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = EARTH_NAME,
                     OtherKnownSkillsRequired = new[] { KnownSkills.EarthImmunity.Id, KnownSkills.EarthResistance.Id }
@@ -728,6 +748,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = ABSORBS.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString(), IMMUNE.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = ICE_NAME,
                     OtherKnownSkillsRequired = new[] { KnownSkills.IceImmunity.Id, KnownSkills.IceResistance.Id }
@@ -743,6 +764,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = ABSORBS.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString(), IMMUNE.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = AIR_NAME,
                     OtherKnownSkillsRequired = new[] { KnownSkills.AirImmunity.Id, KnownSkills.AirResistance.Id }
@@ -758,6 +780,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = ABSORBS.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString(), IMMUNE.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = BOLT_NAME,
                     OtherKnownSkillsRequired = new[] { KnownSkills.BoltImmunity.Id, KnownSkills.BoltResistance.Id }
@@ -774,6 +797,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = ABSORBS.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString(), IMMUNE.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = PHYSICAL_NAME,
                     OtherKnownSkillsRequired = new[] { KnownSkills.PhysicalImmunity.Id, KnownSkills.PhysicalResistance.Id }
@@ -789,6 +813,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = ABSORBS.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString(), IMMUNE.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = LIGHT_NAME,
                     OtherKnownSkillsRequired = new[] { KnownSkills.LightImmunity.Id, KnownSkills.LightResistance.Id }
@@ -804,6 +829,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = ABSORBS.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString(), IMMUNE.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = FIRE_NAME,
                     OtherKnownSkillsRequired = new[] { KnownSkills.FireImmunity.Id, KnownSkills.FireResistance.Id }
@@ -819,6 +845,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = ABSORBS.ToString(),
+                    [AFFINITY_TRUMPS] = string.Join(',', new string[] { VULNERABLE.ToString(), NO_AFFINITY.ToString(), RESISTANT.ToString(), IMMUNE.ToString() }),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = POISON_NAME,
                     OtherKnownSkillsRequired = new[] { KnownSkills.PoisonImmunity.Id, KnownSkills.PoisonResistance.Id }

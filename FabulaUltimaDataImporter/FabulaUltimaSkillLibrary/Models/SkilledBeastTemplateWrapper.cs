@@ -247,13 +247,31 @@ namespace FabulaUltimaSkillLibrary.Models
 
         private IReadOnlyDictionary<string, BeastResistance> ResolveResistances()
         {
-            var skillAffinities = _beastTemplate.Skills
-                .Where(s => s.IsResistanceSkill())
-                .Select(s => s.ToBeastResistance())
-                .ToDictionary(s => s.DamageType, s => s);
+            var damageTypes = DamageConstants.DamageTypeMap.Keys;
+
+            Dictionary<string, BeastResistance> skillAffinities = new Dictionary<string, BeastResistance>();
+
+            bool AffinityTrumps(SkillTemplate skill, BeastResistance beastResistance)
+            {
+                var trumps = skill.OtherAttributes?[DamageConstants.AFFINITY_TRUMPS].Split(',').Select(i => Guid.Parse(i)).ToHashSet<Guid>();
+                return trumps?.Contains(beastResistance.AffinityId) ?? throw new ArgumentException("Skill has no trumps");
+            }
+
+            foreach (var skill in _beastTemplate.Skills.Where(s => s.IsResistanceSkill()))
+            {
+                var affinity = skill.ToBeastResistance();
+                if (skillAffinities.ContainsKey(affinity.DamageType) && !AffinityTrumps(skill, skillAffinities[affinity.DamageType])) continue;
+                skillAffinities[affinity.DamageType] = affinity;
+            }
+
+
+            foreach(var damageType in damageTypes.Where(k => !skillAffinities.ContainsKey(k)))
+            {
+                skillAffinities[damageType] = SkillTemplateExtensions.GetNoAffinitySkill(damageType).ToBeastResistance();
+            }
+            return skillAffinities;
         }
-
-
+        
         public IReadOnlyCollection<SkillTemplate> Skills => _beastTemplate.Skills;
 
         public SpeciesType Species

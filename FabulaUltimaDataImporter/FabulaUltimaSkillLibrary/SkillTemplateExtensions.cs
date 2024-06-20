@@ -1,4 +1,5 @@
-﻿using FabulaUltimaNpc;
+﻿using FabulaUltimaDatabase.Models;
+using FabulaUltimaNpc;
 
 namespace FabulaUltimaSkillLibrary
 {
@@ -54,5 +55,23 @@ namespace FabulaUltimaSkillLibrary
                 DamageTypeId = DamageConstants.DamageTypeMap[damageType.ToLowerInvariant()]
             };
         }
+
+        public static SkillTemplate GetNoAffinitySkill(string damageType)
+        {
+            return
+                new SkillTemplate(Guid.Parse("0599471f-6102-428b-9577-f72835db5e0d"))
+                {
+                    Name = "Vulnerability: Fire",
+                    TargetType = typeof(BeastResistance),
+                    IsSpecialRule = false,
+                    Keywords = new HashSet<string> { "fire", "vulnerability" },
+                    OtherAttributes = new SkillAttributeCollection
+                    {
+                        [DamageConstants.AFFINITY_ID] = DamageConstants.NO_AFFINITY.ToString(),
+                        [DamageConstants.AFFINITY_TRUMPS] = string.Join(',', new string[] { DamageConstants.VULNERABLE.ToString() }),
+                        [DamageConstants.DAMAGE_TYPE_NAME] = damageType,
+                    }
+                };
+    }
     }
 }

@@ -751,7 +751,6 @@ namespace FabulaUltimaDatabase
             using var connection = _configuration.GetConnection();
             connection.Open();
 
-            // todo: delete old stuff
             var deleteSql = @"DELETE FROM Skills WHERE json_extract(OtherAttributes, '$.IsKnownSkill') LIKE 'True'";
             var deletedRows = connection.Execute(deleteSql);
 

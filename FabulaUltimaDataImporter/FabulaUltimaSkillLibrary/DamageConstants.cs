@@ -3,6 +3,7 @@
     public static class DamageConstants
     {
         public const string AFFINITY_ID = "AffinityId";
+        public const string AFFINITY_TRUMPS = "AffinityTrumpList";
         public readonly static Guid NO_AFFINITY = Guid.Parse("77a9c176-4ddb-46ef-a945-0023bf7a6f6b");
         public readonly static Guid VULNERABLE = Guid.Parse("fc15b76a-6505-46f4-81ad-da4a5bf1bd42");
         public readonly static Guid RESISTANT = Guid.Parse("75059ae9-e6c7-4d45-a1f1-18bf617b0d2a");
