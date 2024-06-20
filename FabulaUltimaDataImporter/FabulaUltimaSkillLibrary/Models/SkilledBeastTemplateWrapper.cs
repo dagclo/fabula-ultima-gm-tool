@@ -325,5 +325,10 @@ namespace FabulaUltimaSkillLibrary.Models
         }
 
         public Die GetDie(string attributeName) => _beastTemplate.GetDie(attributeName);
+
+        public void AddSkill(SkillTemplate skill)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
