@@ -6,7 +6,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using static Godot.WebSocketPeer;
 
 public partial class Sprite : Sprite2D, INpcReader
 {

@@ -1,6 +1,5 @@
 using FirstProject.Beastiary;
 using Godot;
-using System;
 
 public partial class HighRollMod : LineEdit
 {

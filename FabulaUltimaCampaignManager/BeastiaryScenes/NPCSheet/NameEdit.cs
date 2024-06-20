@@ -7,7 +7,7 @@ public partial class NameEdit : LineEdit, IBeastAttribute
     [Export]
     public string AttributeName { get; set; }
 
-    public Action<bool> Save { get; set; }
+    public Action<System.Collections.Generic.ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {

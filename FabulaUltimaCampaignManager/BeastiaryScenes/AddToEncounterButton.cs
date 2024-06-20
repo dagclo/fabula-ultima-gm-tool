@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public partial class AddToEncounterButton : Button, IBeastAttribute
 {
-    Action<ISet<BeastEntryNode.Action>> Save { get; set; }
+    public Action<ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {

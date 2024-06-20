@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FabulaUltimaNpc
+﻿namespace FabulaUltimaNpc
 {
     public enum Rank
     {

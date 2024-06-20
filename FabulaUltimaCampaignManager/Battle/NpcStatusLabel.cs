@@ -1,6 +1,5 @@
 ﻿using FirstProject.Encounters;
 using Godot;
-using System;
 
 public partial class NpcStatusLabel : PanelContainer, INpcStatusReader
 {

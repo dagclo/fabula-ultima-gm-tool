@@ -1,7 +1,4 @@
-using FirstProject.Encounters;
-using FirstProject.Npc;
 using Godot;
-using System;
 
 namespace FabulaUltima.Encounters.NpcWizard.SkillDetail;
 

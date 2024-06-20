@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Concurrent;
-using System.Linq;
 using System.Threading.Tasks;
 
 public partial class AnnouncementPanel : PanelContainer

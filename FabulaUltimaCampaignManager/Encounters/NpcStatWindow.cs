@@ -1,5 +1,4 @@
 using FabulaUltimaNpc;
-using FirstProject.Encounters;
 using Godot;
 using System;
 using System.Linq;

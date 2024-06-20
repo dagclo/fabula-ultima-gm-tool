@@ -1,6 +1,5 @@
 using FirstProject.Npc;
 using Godot;
-using System;
 
 public partial class TraitsValue : Label
 {

@@ -10,19 +10,19 @@ namespace FirstProject.Beastiary
 {
     public class BeastiaryRepository
     {
-        private readonly Instance _database;        
+        public Instance Database { get; }
 
         public BeastiaryRepository(Instance instance)
         {     
-            _database = instance;
+            Database = instance;
             
-            _damageTypes = new Lazy<IEnumerable<FabulaUltimaDatabase.Models.DamageTypeEntry>>(() => _database.GetDamageTypes().OrderBy(t => t.Name).ToArray());
-            _skills = new Lazy<IEnumerable<SkillTemplate>>(() => _database.GetSkills());
+            _damageTypes = new Lazy<IEnumerable<FabulaUltimaDatabase.Models.DamageTypeEntry>>(() => Database.GetDamageTypes().OrderBy(t => t.Name).ToArray());
+            _skills = new Lazy<IEnumerable<SkillTemplate>>(() => Database.GetSkills());
         }
 
         public IEnumerable<IBeastTemplate> GetBeasts()
         {
-            return _database.GetBeasts().Select(b => new SkilledBeastTemplateWrapper(b)).OrderBy(sb => sb.Name);
+            return Database.GetBeasts().Select(b => new SkilledBeastTemplateWrapper(b)).OrderBy(sb => sb.Name);
         }
 
         private Lazy<IEnumerable<FabulaUltimaDatabase.Models.DamageTypeEntry>> _damageTypes;
@@ -52,12 +52,12 @@ namespace FirstProject.Beastiary
 
         internal void UpdateBeastTemplate(IBeastTemplate template)
         {
-            _database.UpdateBeast(template);
+            Database.UpdateBeast(template);
         }
 
         internal void DeleteBeastTemplate(Guid id)
         {
-            _database.RemoveBeast(id);
+            Database.RemoveBeast(id);
         }
     }
 }

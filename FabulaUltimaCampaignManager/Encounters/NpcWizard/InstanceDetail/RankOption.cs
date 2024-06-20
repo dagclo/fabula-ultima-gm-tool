@@ -1,9 +1,7 @@
-using FabulaUltimaNpc;
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
 using System;
-using System.Linq;
 
 public partial class RankOption : OptionButton, INpcReader
 {
