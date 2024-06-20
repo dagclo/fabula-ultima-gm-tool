@@ -3,6 +3,7 @@ using FirstProject;
 using FirstProject.Beastiary;
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class BeastEntryNode : PanelContainer
@@ -42,21 +43,31 @@ public partial class BeastEntryNode : PanelContainer
         if(_template != null) this.BeastChanged?.Invoke(_template);
     }
 
-    private void SaveTemplate(bool delete)
+    private void SaveTemplate(ISet<Action> actions)
     {
-        if (delete)
+        if (actions.Contains(Action.DELETE))
         {
             this.OnDeleteBeast?.Invoke(_template);
+            return;
         }
-        else
+        
+        if(actions.Contains(Action.SAVE))
         {
-            _beastRepository?.UpdateBeastTemplate(_template);
-            this.BeastChanged?.Invoke(_template);
-        }       
+            _beastRepository?.UpdateBeastTemplate(_template);            
+        }
+
+        if(actions.Contains(Action.TRIGGER)) this.BeastChanged?.Invoke(_template);
     }
 
     public void OnAddToEncounterButtonPressed()
     {
         if (_template != null) OnAddToEncounter?.Invoke(_template);
+    }
+
+    public enum Action
+    {
+        SAVE,
+        TRIGGER,
+        DELETE,
     }
 }

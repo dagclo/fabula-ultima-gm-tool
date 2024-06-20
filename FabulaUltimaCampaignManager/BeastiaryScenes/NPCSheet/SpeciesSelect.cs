@@ -29,8 +29,7 @@ public partial class SpeciesSelect : OptionButton, IBeastAttribute
     {
         if (_beastTemplate == null) return;
         var species = GetItemText(index);
-        _beastTemplate.Species = new SpeciesType(SpeciesConstants.FromString(species), species);
-        Save?.Invoke(false);
+        _beastTemplate.Species = new SpeciesType(SpeciesConstants.FromString(species), species);        
     }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
