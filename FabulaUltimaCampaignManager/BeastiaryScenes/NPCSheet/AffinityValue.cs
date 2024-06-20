@@ -13,7 +13,8 @@ public partial class AffinityValue : OptionButton
     }
 
     public void HandleUpdateAffinity(string affinity)
-    {        
+    {
+        if (affinity == string.Empty) return;
         for(var index = 0; index < this.ItemCount; index++)
         {            
             string itemName = this.GetItemText(index);
