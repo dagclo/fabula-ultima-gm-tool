@@ -14,8 +14,7 @@ public partial class LevelEdit : OptionButton
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
-	{
-        RemoveItem(0);
+	{   
         foreach (var level in Enumerable.Range(Min, (Max - Min) + 1).Where(i => i % 5 == 0))
         {
             AddItem(level.ToString(), level);

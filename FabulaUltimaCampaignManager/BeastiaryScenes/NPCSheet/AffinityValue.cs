@@ -18,11 +18,11 @@ public partial class AffinityValue : OptionButton
         {            
             string itemName = this.GetItemText(index);
             if (itemName == affinity)
-            {
-                this.Select(index);
+            {   
+                CallDeferred(MethodName.Select, index);
+                if(affinity != string.Empty) CallDeferred(MethodName.SetDisabled, true);
                 break;
             }
-        }
-        
+        }        
     }
 }

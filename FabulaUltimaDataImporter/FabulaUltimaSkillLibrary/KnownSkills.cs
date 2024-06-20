@@ -342,7 +342,7 @@ namespace FabulaUltimaSkillLibrary
                 OtherAttributes = new SkillAttributeCollection
                 {
                     [AFFINITY_ID] = VULNERABLE.ToString(),
-                    [SPECIES_VULNERABILITY_CHOICE] = UNDEAD.ToString(),
+                    [FREE_SPECIES] = UNDEAD.ToString(),
                     [IS_KNOWN_SKILL] = true.ToString(),
                     [DAMAGE_TYPE_NAME] = LIGHT_NAME,
                 }

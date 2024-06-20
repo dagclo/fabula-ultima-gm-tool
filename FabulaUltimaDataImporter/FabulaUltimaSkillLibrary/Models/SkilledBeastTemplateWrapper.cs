@@ -244,7 +244,6 @@ namespace FabulaUltimaSkillLibrary.Models
 
         public IReadOnlyDictionary<string, BeastResistance> Resistances => ResolveResistances();
            
-
         private IReadOnlyDictionary<string, BeastResistance> ResolveResistances()
         {
             var damageTypes = DamageConstants.DamageTypeMap.Keys;
@@ -263,7 +262,6 @@ namespace FabulaUltimaSkillLibrary.Models
                 if (skillAffinities.ContainsKey(affinity.DamageType) && !AffinityTrumps(skill, skillAffinities[affinity.DamageType])) continue;
                 skillAffinities[affinity.DamageType] = affinity;
             }
-
 
             foreach(var damageType in damageTypes.Where(k => !skillAffinities.ContainsKey(k)))
             {

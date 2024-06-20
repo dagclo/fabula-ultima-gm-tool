@@ -57,14 +57,13 @@ namespace FabulaUltimaSkillLibrary
             var equipmentSkills = ResolveEquipmentSkills(npc);
             var spellSkills = ResolveSpellSkills(npc, inputData.MaxMP);
             var resistanceSkills = ResolveResistances(npc.Species, npc.Resistances.Values);
-            var vulnerbilitySkills = ResolveVulnerbilities(npc.Resistances.Values.Where(r => r.AffinityId == DamageConstants.VULNERABLE));
+            var vulnerbilitySkills = ResolveVulnerbilities(npc.Resistances.Values.Where(r => r.AffinityId == DamageConstants.VULNERABLE)).ToArray();
             var immunitySkills = ResolveImmunities(npc.Species, npc.Resistances.Values.Where(r => r.AffinityId == DamageConstants.IMMUNE));
             var absorptionSkills = ResolveAbsorption(npc.Species, npc.Resistances.Values.Where(r => r.AffinityId == DamageConstants.ABSORBS));
             var checkSkills = ResolveChecks(npc, inputData);
-            var speciesSkills = ResolveSpecies(npc);
 
-            return statsSkills
-                .Concat(specialAttacks)                
+            var result = statsSkills
+                .Concat(specialAttacks)
                 .Concat(spellSkills)
                 .Concat(resistanceSkills)
                 .Concat(checkSkills)
@@ -72,6 +71,11 @@ namespace FabulaUltimaSkillLibrary
                 .Concat(immunitySkills)
                 .Concat(absorptionSkills)
                 .Concat(equipmentSkills)
+                .ToArray();
+
+            var speciesSkills = ResolveSpecies(npc, result.Where(s => s?.skill != null).Select(s => s.Value.skill.Id).ToHashSet()); // don't apply skills twice
+
+            return result              
                 .Concat(speciesSkills); 
         }
 
@@ -107,11 +111,12 @@ namespace FabulaUltimaSkillLibrary
             }
         }
 
-        private IEnumerable<(SkillTemplate skill, Guid? targetId)?> ResolveSpecies(IBeastTemplate npc)
+        private IEnumerable<(SkillTemplate skill, Guid? targetId)?> ResolveSpecies(IBeastTemplate npc, ICollection<Guid> alreadyAssignedSkillIds)
         {
             foreach(var freeSkill in KnownSkills.GetAllKnownSkills()
                                 .Where(s => 
-                                { 
+                                {                                     
+                                    if(alreadyAssignedSkillIds.Contains(s.Id)) return false;
                                     return s.OtherAttributes?.FreeSpecies?.Contains(npc.Species.Id) == true;
                                 }))
             {

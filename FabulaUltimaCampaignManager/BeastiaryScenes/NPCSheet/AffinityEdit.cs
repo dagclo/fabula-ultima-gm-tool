@@ -28,6 +28,6 @@ public partial class AffinityEdit : Control, IBeastAttribute
     {
         if (beastTemplate == null) return;
         _beastTemplate = beastTemplate;
-        EmitSignal(SignalName.UpdateAffinity, _beastTemplate.Resistances.TryGetValue(AffinityName.FirstCharToUpper(), out var resistance) ? resistance.Affinity : string.Empty);
+        EmitSignal(SignalName.UpdateAffinity, _beastTemplate.Resistances.TryGetValue(AffinityName.ToLowerInvariant(), out var resistance) ? resistance.Affinity : string.Empty);
     }
 }
