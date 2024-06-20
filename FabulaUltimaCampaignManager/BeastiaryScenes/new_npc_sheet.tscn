@@ -80,6 +80,7 @@ text = "Name:"
 layout_mode = 2
 placeholder_text = "Archer"
 script = ExtResource("6_7xana")
+AttributeName = "Name"
 
 [node name="LevelLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
 layout_mode = 2
@@ -304,6 +305,7 @@ layout_mode = 2
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="BeastEntryNode/VBoxContainer/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/VBoxContainer/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="BeastEntryNode/VBoxContainer/Description/PanelContainer/FileDialog" to="BeastEntryNode/VBoxContainer/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
+[connection signal="item_selected" from="BeastEntryNode/VBoxContainer/Description/DescriptionText/SpeciesSelect" to="BeastEntryNode/VBoxContainer/Description/DescriptionText/SpeciesSelect" method="HandleItemSelect"]
 
 [editable path="BeastEntryNode/VBoxContainer/Stats/HealthPoints"]
 [editable path="BeastEntryNode/VBoxContainer/Stats/MagicPoints"]

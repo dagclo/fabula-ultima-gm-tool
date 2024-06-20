@@ -26,6 +26,6 @@ namespace FabulaUltimaDatabase.Models
 
         public IReadOnlyCollection<SkillTemplate> Skills { get; set; } = new List<SkillTemplate>();
         public IReadOnlyCollection<ActionTemplate> Actions { get; set; } = new List<ActionTemplate>();
-        public Rank Rank => Rank.Soldier;
+        public Rank Rank { get; set; } = Rank.Soldier;
     }
 }

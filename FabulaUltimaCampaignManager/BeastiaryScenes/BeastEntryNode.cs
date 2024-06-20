@@ -32,11 +32,11 @@ public partial class BeastEntryNode : PanelContainer
 	{
         _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;
         foreach (var child in this.FindChildren("*")            
-            .Where(l => l is IBeastAttribute))
+            .Where(c => c is IBeastAttribute))
         {
-            var label = child as IBeastAttribute;
-            this.BeastChanged += label.HandleBeastChanged;
-            label.Save += this.SaveTemplate;
+            var beastAttr = child as IBeastAttribute;
+            this.BeastChanged += beastAttr.HandleBeastChanged;
+            beastAttr.Save += this.SaveTemplate;
         }
 
         if(_template != null) this.BeastChanged?.Invoke(_template);
