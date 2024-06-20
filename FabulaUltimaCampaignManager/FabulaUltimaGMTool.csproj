@@ -13,4 +13,7 @@
     <ProjectReference Include="..\FabulaUltimaDataImporter\FabulaUltimaDatabase\FabulaUltimaDatabase.csproj" />
     <ProjectReference Include="..\FabulaUltimaDataImporter\FabulaUltimaSkillLibrary\FabulaUltimaSkillLibrary.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BeastiaryScenes\NPCSheet\" />
+  </ItemGroup>
 </Project>

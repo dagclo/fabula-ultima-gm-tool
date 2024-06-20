@@ -1,0 +1,67 @@
+[gd_scene load_steps=22 format=3 uid="uid://dyorgxiwguhn3"]
+
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/AffinityEdit.cs" id="1_bm3ue"]
+[ext_resource type="Texture2D" uid="uid://dn022obe4wsvv" path="res://ResistanceImages/Physical.png" id="1_dd6uo"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/AffinityValue.cs" id="2_lgm64"]
+[ext_resource type="Texture2D" uid="uid://cugh3k4c43aya" path="res://ResistanceImages/default.png" id="2_mpcq3"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/AffinityImage.cs" id="3_tn82f"]
+[ext_resource type="Texture2D" uid="uid://bx3difes0s0f8" path="res://ResistanceImages/Air.png" id="4_r0did"]
+[ext_resource type="Texture2D" uid="uid://bua57wksv3bbq" path="res://ResistanceImages/Bolt.png" id="5_f305s"]
+[ext_resource type="Texture2D" uid="uid://dkb2h3smqxjwn" path="res://ResistanceImages/Dark.png" id="6_k1m2d"]
+[ext_resource type="Texture2D" uid="uid://bd6kwo67yuncp" path="res://ResistanceImages/Earth.png" id="7_v7etv"]
+[ext_resource type="Texture2D" uid="uid://841utmxt0qwh" path="res://ResistanceImages/fire.png" id="8_yllpr"]
+[ext_resource type="Texture2D" uid="uid://bq2tr0ndgiijs" path="res://ResistanceImages/Ice.png" id="9_t8oee"]
+[ext_resource type="Texture2D" uid="uid://dtj00b1kbtyrq" path="res://ResistanceImages/Light.png" id="10_t3g8s"]
+[ext_resource type="Texture2D" uid="uid://dyyns8miuhia7" path="res://ResistanceImages/Poison.png" id="11_x7ujw"]
+[ext_resource type="Texture2D" uid="uid://yi8c5x5mup3" path="res://ResistanceImages/Physical_Gray.png" id="12_h2uwa"]
+[ext_resource type="Texture2D" uid="uid://dxrjc70qtd7c6" path="res://ResistanceImages/Air_Gray.png" id="13_kinko"]
+[ext_resource type="Texture2D" uid="uid://c5nkgvrnujjs2" path="res://ResistanceImages/Bolt_Gray.png" id="14_082b5"]
+[ext_resource type="Texture2D" uid="uid://cve4d1yt4inqo" path="res://ResistanceImages/Earth_Gray.png" id="15_su4o4"]
+[ext_resource type="Texture2D" uid="uid://b8unp67ejg4g8" path="res://ResistanceImages/fire_gray.png" id="16_1l5j5"]
+[ext_resource type="Texture2D" uid="uid://ca0116gfhcsbt" path="res://ResistanceImages/Ice_Gray.png" id="17_1ursv"]
+[ext_resource type="Texture2D" uid="uid://b3erp4ynwlnuf" path="res://ResistanceImages/Light_Gray.png" id="18_6n5gy"]
+[ext_resource type="Texture2D" uid="uid://c5dpdbuy6wbb6" path="res://ResistanceImages/Poison_Gray.png" id="19_7oyj5"]
+
+[node name="AffinityEdit" type="PanelContainer"]
+script = ExtResource("1_bm3ue")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Image" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_mpcq3")
+expand_mode = 2
+script = ExtResource("3_tn82f")
+Images = {
+"air": ExtResource("4_r0did"),
+"bolt": ExtResource("5_f305s"),
+"dark": ExtResource("6_k1m2d"),
+"earth": ExtResource("7_v7etv"),
+"fire": ExtResource("8_yllpr"),
+"ice": ExtResource("9_t8oee"),
+"light": ExtResource("10_t3g8s"),
+"physical": ExtResource("1_dd6uo"),
+"poison": ExtResource("11_x7ujw")
+}
+GrayImages = {
+"air": ExtResource("13_kinko"),
+"bolt": ExtResource("14_082b5"),
+"dark": ExtResource("15_su4o4"),
+"fire": ExtResource("16_1l5j5"),
+"ice": ExtResource("17_1ursv"),
+"light": ExtResource("18_6n5gy"),
+"physical": ExtResource("12_h2uwa"),
+"poison": ExtResource("19_7oyj5")
+}
+
+[node name="Value" type="OptionButton" parent="VBoxContainer"]
+layout_mode = 2
+item_count = 1
+selected = 0
+popup/item_0/text = "00"
+popup/item_0/id = 0
+script = ExtResource("2_lgm64")
+
+[connection signal="UpdateAffinity" from="." to="VBoxContainer/Value" method="HandleUpdateAffinity"]
+[connection signal="UpdateElement" from="." to="VBoxContainer/Image" method="HandleAffinityUpdate"]
