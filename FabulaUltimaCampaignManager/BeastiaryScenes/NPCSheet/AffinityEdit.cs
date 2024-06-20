@@ -1,11 +1,13 @@
 using FabulaUltimaNpc;
+using FabulaUltimaSkillLibrary;
+using FabulaUltimaSkillLibrary.Models;
 using Godot;
 using System;
 using System.Collections.Generic;
 
 public partial class AffinityEdit : Control, IBeastAttribute
 {
-    private IBeastTemplate _beastTemplate;
+    private SkilledBeastTemplateWrapper _beastTemplate;
 
     [Signal]
     public delegate void UpdateAffinityEventHandler(string affinityValue);
@@ -27,7 +29,35 @@ public partial class AffinityEdit : Control, IBeastAttribute
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         if (beastTemplate == null) return;
-        _beastTemplate = beastTemplate;
+        if (!(beastTemplate is SkilledBeastTemplateWrapper skilledBeast)) return;
+        _beastTemplate = skilledBeast;
         EmitSignal(SignalName.UpdateAffinity, _beastTemplate.Resistances.TryGetValue(AffinityName.ToLowerInvariant(), out var resistance) ? resistance.Affinity : string.Empty);
+    }
+
+    public void HandleAffinitySelected(string affinity)
+    {
+        SkillTemplate skill = null;
+        var skillKey = AffinityName.ToLowerInvariant();
+        switch(affinity)
+        {
+            case "VU":
+                skill = KnownSkills.VulnerabilitySkills[DamageConstants.DamageTypeMap[skillKey]]; 
+                break;
+            case "AB":
+                skill = KnownSkills.AbsorptionSkills[DamageConstants.DamageTypeMap[skillKey]];
+                break;
+            case "IM":
+                skill = KnownSkills.ImmunitySkills[DamageConstants.DamageTypeMap[skillKey]];
+                break;
+            case "RS":
+                skill = KnownSkills.ResistanceSkills[DamageConstants.DamageTypeMap[skillKey]];
+                break;           
+        }
+        if (skill == null)
+        {
+            _beastTemplate.RemoveAffinitySkill(skillKey);
+            return;
+        }
+        _beastTemplate.AddSkill(skill);
     }
 }
