@@ -17,7 +17,7 @@ public partial class LevelEdit : OptionButton
     public override void _Ready()
 	{
         RemoveItem(0);
-        foreach (var level in Enumerable.Range(Min, Max + 1).Where(i => i % 5 == 0))
+        foreach (var level in Enumerable.Range(Min, (Max - Min) + 1).Where(i => i % 5 == 0))
         {
             AddItem(level.ToString(), level);
         }

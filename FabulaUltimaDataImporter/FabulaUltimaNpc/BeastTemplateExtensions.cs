@@ -39,7 +39,7 @@ namespace FabulaUltimaNpc
                 case nameof(IBeastTemplate.Defense):
                     return template.Defense.ToString();
                 default:
-                    throw new ArgumentException($"unknown attribute {attributeName}", nameof(attributeName));
+                    throw new ArgumentException($"unknown attribute '{attributeName}'", nameof(attributeName));
             }
         }
     }

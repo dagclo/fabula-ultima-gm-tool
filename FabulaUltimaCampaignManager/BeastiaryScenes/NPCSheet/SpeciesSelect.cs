@@ -1,12 +1,19 @@
 using FabulaUltimaNpc;
+using FabulaUltimaSkillLibrary;
+using FirstProject.Beastiary;
+using FirstProject.Npc;
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class SpeciesSelect : OptionButton, IBeastAttribute
 {
+    [Signal]
+    public delegate void SpeciesUpdateEncounterEventHandler(SignalWrapper<IEnumerable<SkillTemplate>> speciesSkills);
     private IBeastTemplate _beastTemplate;
 
-    public Action<bool> Save { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public Action<bool> Save { get; set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -18,10 +25,13 @@ public partial class SpeciesSelect : OptionButton, IBeastAttribute
         }
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    public void HandleItemSelect(int index)
+    {
+        if (_beastTemplate == null) return;
+        var species = GetItemText(index);
+        _beastTemplate.Species = new SpeciesType(SpeciesConstants.FromString(species), species);
+        Save?.Invoke(false);
+    }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
