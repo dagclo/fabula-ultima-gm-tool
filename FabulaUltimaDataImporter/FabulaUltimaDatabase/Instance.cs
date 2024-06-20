@@ -4,7 +4,6 @@ using FabulaUltimaDatabase.Models;
 using FabulaUltimaNpc;
 using Microsoft.Data.Sqlite;
 using Newtonsoft.Json;
-using static Dapper.SqlBuilder;
 
 namespace FabulaUltimaDatabase
 {

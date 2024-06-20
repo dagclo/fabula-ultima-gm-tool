@@ -26,7 +26,8 @@ public partial class BeastEntryNode : PanelContainer
 
     public Action<IBeastTemplate> OnAddToEncounter { get; set; }
     public Action<IBeastTemplate> OnDeleteBeast { get; set; }
-    
+    public Action<IBeastTemplate> OnTrigger { get; set; }
+
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -37,13 +38,13 @@ public partial class BeastEntryNode : PanelContainer
         {
             var beastAttr = child as IBeastAttribute;
             this.BeastChanged += beastAttr.HandleBeastChanged;
-            beastAttr.Save += this.SaveTemplate;
+            beastAttr.BeastTemplateAction += this.ActionTemplate;
         }
 
         if(_template != null) this.BeastChanged?.Invoke(_template);
     }
 
-    private void SaveTemplate(ISet<Action> actions)
+    public void ActionTemplate(ISet<Action> actions)
     {
         if (actions.Contains(Action.DELETE))
         {
@@ -56,7 +57,8 @@ public partial class BeastEntryNode : PanelContainer
             _beastRepository?.UpdateBeastTemplate(_template);            
         }
 
-        if(actions.Contains(Action.TRIGGER)) this.BeastChanged?.Invoke(_template);
+        if(actions.Contains(Action.CHANGED)) this.BeastChanged?.Invoke(_template);
+        if(actions.Contains(Action.TRIGGER)) this.OnTrigger?.Invoke(_template);
     }
 
     public void OnAddToEncounterButtonPressed()
@@ -67,7 +69,8 @@ public partial class BeastEntryNode : PanelContainer
     public enum Action
     {
         SAVE,
-        TRIGGER,
+        CHANGED,
         DELETE,
+        TRIGGER
     }
 }

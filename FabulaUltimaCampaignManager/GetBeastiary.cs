@@ -2,8 +2,6 @@ using FabulaUltimaNpc;
 using FirstProject;
 using FirstProject.Npc;
 using Godot;
-using System;
-using System.Linq;
 
 public partial class GetBeastiary : VBoxContainer
 {

@@ -2,7 +2,6 @@ using FabulaUltimaNpc;
 using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
-using System;
 using System.Linq;
 
 public partial class SpellPanel : PanelContainer

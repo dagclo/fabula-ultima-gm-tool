@@ -1,28 +1,54 @@
 using FabulaUltimaDatabase.Models;
+using FabulaUltimaGMTool;
 using FabulaUltimaNpc;
+using FabulaUltimaSkillLibrary;
+using FabulaUltimaSkillLibrary.Models;
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class NpcSheet : Window
 {
+    private Resolver _skillResolver;
+
     public Action Closing { get; internal set; }
+    public Action<ISet<BeastEntryNode.Action>> OnBeastChanged { get; private set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
+        _skillResolver = GetNode<SkillResolver>("/root/SkillResolver").Instance;
         foreach (var child in this.FindChildren("*", recursive: false)
            .Where(l => l is BeastEntryNode))
         {
-            var label = child as BeastEntryNode;
+            var node = child as BeastEntryNode;
             var beast = new BeastModel();
             beast.Id = Guid.NewGuid();
-            label.Beast = new BeastTemplate(beast);
+            node.Beast = new BeastTemplate(beast);
+            node.OnTrigger += HandleTrigger;
+            this.OnBeastChanged = node.ActionTemplate;
         }
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+    private void HandleTrigger(IBeastTemplate template)
+    {
+        
+        var editableBeastTemplate = template as BeastTemplate;
+        var editableBeastModel = editableBeastTemplate.Model as BeastModel;
+        if (editableBeastModel == null) return;
+        var input = new SkillInputData
+        {
+            MaxMP = template.MagicPoints,
+            MaxHP = template.HealthPoints,
+        };
+        var skills = _skillResolver.ResolveSkills(template, input);
+
+        editableBeastModel.Skills = skills.SkillSlots.Select(s => s?.skill).ToArray();
+    }
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
 	{
 	}
 

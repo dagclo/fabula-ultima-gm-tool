@@ -3,10 +3,7 @@ using FirstProject.Beastiary;
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
 
 public partial class ActionOptions : OptionButton, INpcReader, INpcStatusReader
 {

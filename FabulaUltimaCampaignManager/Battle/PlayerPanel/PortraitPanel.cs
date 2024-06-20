@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using FirstProject.Campaign;
 
 public partial class PortraitPanel : PanelContainer

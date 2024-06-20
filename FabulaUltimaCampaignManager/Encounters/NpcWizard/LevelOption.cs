@@ -1,8 +1,6 @@
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
-using System;
-using System.Diagnostics.Metrics;
 using System.Linq;
 
 public partial class LevelOption : OptionButton, INpcReader

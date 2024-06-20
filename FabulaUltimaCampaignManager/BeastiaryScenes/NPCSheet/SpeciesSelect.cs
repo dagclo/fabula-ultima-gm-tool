@@ -1,11 +1,9 @@
 using FabulaUltimaNpc;
 using FabulaUltimaSkillLibrary;
 using FirstProject.Beastiary;
-using FirstProject.Npc;
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public partial class SpeciesSelect : OptionButton, IBeastAttribute
 {
@@ -13,7 +11,7 @@ public partial class SpeciesSelect : OptionButton, IBeastAttribute
     public delegate void SpeciesUpdateEncounterEventHandler(SignalWrapper<IEnumerable<SkillTemplate>> speciesSkills);
     private IBeastTemplate _beastTemplate;
 
-    public Action<bool> Save { get; set; }
+    public Action<System.Collections.Generic.ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -29,7 +27,8 @@ public partial class SpeciesSelect : OptionButton, IBeastAttribute
     {
         if (_beastTemplate == null) return;
         var species = GetItemText(index);
-        _beastTemplate.Species = new SpeciesType(SpeciesConstants.FromString(species), species);        
+        _beastTemplate.Species = new SpeciesType(SpeciesConstants.FromString(species), species);
+        BeastTemplateAction.Invoke(new HashSet<BeastEntryNode.Action>() { BeastEntryNode.Action.TRIGGER});
     }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
