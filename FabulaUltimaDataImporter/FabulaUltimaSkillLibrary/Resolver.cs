@@ -122,7 +122,8 @@ namespace FabulaUltimaSkillLibrary
 
         private IEnumerable<(SkillTemplate skill, Guid? targetId)?> ResolveChecks(IBeastTemplate npc, SkillInputData inputData)
         {
-            var basicAttack = npc.AllAttacks.First();
+            var basicAttack = npc.AllAttacks?.FirstOrDefault();
+            if (basicAttack == null) yield break;
             var firstAttackMod = basicAttack.AttackMod;
             var levelAttackMod = npc.LevelAccuracyModifier;
             var totalAttackMod = firstAttackMod + levelAttackMod;

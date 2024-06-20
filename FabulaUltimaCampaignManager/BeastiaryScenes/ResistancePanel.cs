@@ -28,7 +28,7 @@ public partial class ResistancePanel : PanelContainer, IBeastAttribute
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         if (ResistanceName == null) return;
-        var resistance = beastTemplate.Resistances[ResistanceName];        
+        var resistance = beastTemplate.Resistances[ResistanceName.ToLowerInvariant()];        
         ResistanceChanged?.Invoke(resistance.Affinity);
     }
 }

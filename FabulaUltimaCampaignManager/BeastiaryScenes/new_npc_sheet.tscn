@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=17 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -16,15 +16,6 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedMagicPointsLabel.cs" id="10_uy26j"]
 [ext_resource type="Script" path="res://BeastiaryScenes/UseDiceSizeLabel.cs" id="11_ytpva"]
 [ext_resource type="PackedScene" uid="uid://dyorgxiwguhn3" path="res://BeastiaryScenes/NPCSheet/affinity_edit.tscn" id="13_hryoq"]
-[ext_resource type="Script" path="res://Equipment/EquipmentList.cs" id="31_jwtm2"]
-[ext_resource type="Script" path="res://BeastiaryScenes/Attacks.cs" id="32_6cqwb"]
-[ext_resource type="PackedScene" uid="uid://cwsegr0yegay2" path="res://BeastiaryScenes/attack.tscn" id="33_53dgi"]
-[ext_resource type="Script" path="res://BeastiaryScenes/GetSpells.cs" id="34_thwtj"]
-[ext_resource type="PackedScene" uid="uid://l57ucy852qf2" path="res://BeastiaryScenes/spell.tscn" id="35_hkncx"]
-[ext_resource type="Script" path="res://BeastiaryScenes/OtherActions.cs" id="36_d2713"]
-[ext_resource type="PackedScene" uid="uid://b6kwc80e1vqp1" path="res://BeastiaryScenes/other_action.tscn" id="37_3ktw5"]
-[ext_resource type="Script" path="res://Skills/SpecialRules.cs" id="38_1ghwb"]
-[ext_resource type="PackedScene" uid="uid://ddx26ghe36o0p" path="res://BeastiaryScenes/action.tscn" id="39_da04n"]
 
 [node name="NewNpcSheet" type="Window"]
 initial_position = 1
@@ -88,9 +79,6 @@ text = "Level:"
 
 [node name="LevelEdit" type="OptionButton" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
 layout_mode = 2
-item_count = 1
-popup/item_0/text = "5"
-popup/item_0/id = 5
 script = ExtResource("8_j4tkl")
 
 [node name="SpeciesLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
@@ -99,10 +87,6 @@ text = "Species:"
 
 [node name="SpeciesSelect" type="OptionButton" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
 layout_mode = 2
-item_count = 1
-selected = 0
-popup/item_0/text = "Humanoid"
-popup/item_0/id = 0
 script = ExtResource("8_o3w12")
 
 [node name="DetailsLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
@@ -232,75 +216,6 @@ AffinityName = "Light"
 [node name="PoisonAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
 layout_mode = 2
 AffinityName = "Poison"
-
-[node name="Equipment" type="PanelContainer" parent="BeastEntryNode/VBoxContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="BeastEntryNode/VBoxContainer/Equipment"]
-layout_mode = 2
-
-[node name="Title" type="Label" parent="BeastEntryNode/VBoxContainer/Equipment/HBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"BoldLabel"
-text = "Equipment: "
-
-[node name="EquipmentList" type="Label" parent="BeastEntryNode/VBoxContainer/Equipment/HBoxContainer"]
-layout_mode = 2
-text = "Bow, travel garb"
-script = ExtResource("31_jwtm2")
-
-[node name="Attacks" type="VBoxContainer" parent="BeastEntryNode/VBoxContainer"]
-layout_mode = 2
-script = ExtResource("32_6cqwb")
-AttackNodeScene = ExtResource("33_53dgi")
-
-[node name="Label" type="Label" parent="BeastEntryNode/VBoxContainer/Attacks"]
-layout_mode = 2
-theme_type_variation = &"BoldLabel"
-text = "BASIC ATTACKS"
-
-[node name="Attack" parent="BeastEntryNode/VBoxContainer/Attacks" instance=ExtResource("33_53dgi")]
-layout_mode = 2
-
-[node name="Spells" type="VBoxContainer" parent="BeastEntryNode/VBoxContainer"]
-layout_mode = 2
-script = ExtResource("34_thwtj")
-SpellScene = ExtResource("35_hkncx")
-
-[node name="Label" type="Label" parent="BeastEntryNode/VBoxContainer/Spells"]
-layout_mode = 2
-theme_type_variation = &"BoldLabel"
-text = "SPELLS"
-
-[node name="Spell" parent="BeastEntryNode/VBoxContainer/Spells" instance=ExtResource("35_hkncx")]
-layout_mode = 2
-
-[node name="OtherActions" type="VBoxContainer" parent="BeastEntryNode/VBoxContainer"]
-layout_mode = 2
-script = ExtResource("36_d2713")
-ActionScene = ExtResource("37_3ktw5")
-
-[node name="Label" type="Label" parent="BeastEntryNode/VBoxContainer/OtherActions"]
-layout_mode = 2
-theme_type_variation = &"BoldLabel"
-text = "OTHER ACTIONS"
-
-[node name="OtherAction" parent="BeastEntryNode/VBoxContainer/OtherActions" instance=ExtResource("37_3ktw5")]
-layout_mode = 2
-
-[node name="SpecialRules" type="VBoxContainer" parent="BeastEntryNode/VBoxContainer"]
-layout_mode = 2
-script = ExtResource("38_1ghwb")
-OnlySpecialRules = true
-SkillNodeScene = ExtResource("39_da04n")
-
-[node name="Label" type="Label" parent="BeastEntryNode/VBoxContainer/SpecialRules"]
-layout_mode = 2
-theme_type_variation = &"BoldLabel"
-text = "SPECIAL RULES"
-
-[node name="Action" parent="BeastEntryNode/VBoxContainer/SpecialRules" instance=ExtResource("39_da04n")]
-layout_mode = 2
 
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="BeastEntryNode/VBoxContainer/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/VBoxContainer/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]

@@ -242,10 +242,17 @@ namespace FabulaUltimaSkillLibrary.Models
             }
         }
 
-        /// <summary>
-        /// todo: generate these from the skills instead of the resistances
-        /// </summary>
-        public IReadOnlyDictionary<string, BeastResistance> Resistances => _beastTemplate.Resistances;
+        public IReadOnlyDictionary<string, BeastResistance> Resistances => ResolveResistances();
+           
+
+        private IReadOnlyDictionary<string, BeastResistance> ResolveResistances()
+        {
+            var skillAffinities = _beastTemplate.Skills
+                .Where(s => s.IsResistanceSkill())
+                .Select(s => s.ToBeastResistance())
+                .ToDictionary(s => s.DamageType, s => s);
+        }
+
 
         public IReadOnlyCollection<SkillTemplate> Skills => _beastTemplate.Skills;
 
