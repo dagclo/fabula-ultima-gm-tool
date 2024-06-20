@@ -1,0 +1,312 @@
+[gd_scene load_steps=26 format=3 uid="uid://7xtkfi8kp6pg"]
+
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
+[ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
+[ext_resource type="Texture2D" uid="uid://i7qlj5i8k4cu" path="res://Battle/Monster Unknown.png" id="2_pl67v"]
+[ext_resource type="Script" path="res://BeastiaryScenes/DescriptionImage.cs" id="3_v0pp1"]
+[ext_resource type="Script" path="res://BeastiaryScenes/UpdateImageButton.cs" id="4_4podo"]
+[ext_resource type="Script" path="res://BeastiaryScenes/FileDialog.cs" id="5_rvk4d"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NameEdit.cs" id="6_7xana"]
+[ext_resource type="PackedScene" uid="uid://l34wimyfig21" path="res://BeastiaryScenes/NPCSheet/attributeEdit.tscn" id="7_8kck5"]
+[ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="7_s3ls8"]
+[ext_resource type="Script" path="res://BeastiaryScenes/AttributeLabel.cs" id="8_46qyh"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/LevelEdit.cs" id="8_j4tkl"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/SpeciesSelect.cs" id="8_o3w12"]
+[ext_resource type="Script" path="res://BeastiaryScenes/ComputedHealthLabel.cs" id="9_1jn2a"]
+[ext_resource type="Script" path="res://BeastiaryScenes/ComputedMagicPointsLabel.cs" id="10_uy26j"]
+[ext_resource type="Script" path="res://BeastiaryScenes/UseDiceSizeLabel.cs" id="11_ytpva"]
+[ext_resource type="PackedScene" uid="uid://dyorgxiwguhn3" path="res://BeastiaryScenes/NPCSheet/affinity_edit.tscn" id="13_hryoq"]
+[ext_resource type="Script" path="res://Equipment/EquipmentList.cs" id="31_jwtm2"]
+[ext_resource type="Script" path="res://BeastiaryScenes/Attacks.cs" id="32_6cqwb"]
+[ext_resource type="PackedScene" uid="uid://cwsegr0yegay2" path="res://BeastiaryScenes/attack.tscn" id="33_53dgi"]
+[ext_resource type="Script" path="res://BeastiaryScenes/GetSpells.cs" id="34_thwtj"]
+[ext_resource type="PackedScene" uid="uid://l57ucy852qf2" path="res://BeastiaryScenes/spell.tscn" id="35_hkncx"]
+[ext_resource type="Script" path="res://BeastiaryScenes/OtherActions.cs" id="36_d2713"]
+[ext_resource type="PackedScene" uid="uid://b6kwc80e1vqp1" path="res://BeastiaryScenes/other_action.tscn" id="37_3ktw5"]
+[ext_resource type="Script" path="res://Skills/SpecialRules.cs" id="38_1ghwb"]
+[ext_resource type="PackedScene" uid="uid://ddx26ghe36o0p" path="res://BeastiaryScenes/action.tscn" id="39_da04n"]
+
+[node name="NewNpcSheet" type="Window"]
+initial_position = 1
+size = Vector2i(1000, 800)
+script = ExtResource("1_3svqs")
+
+[node name="BeastEntryNode" type="PanelContainer" parent="."]
+offset_right = 988.0
+offset_bottom = 720.0
+script = ExtResource("1_f0gy2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BeastEntryNode"]
+layout_mode = 2
+
+[node name="Description" type="HBoxContainer" parent="BeastEntryNode/VBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="BeastEntryNode/VBoxContainer/Description"]
+layout_mode = 2
+
+[node name="DescriptionImage" type="TextureRect" parent="BeastEntryNode/VBoxContainer/Description/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("2_pl67v")
+expand_mode = 3
+script = ExtResource("3_v0pp1")
+
+[node name="UpdateImageButton" type="Button" parent="BeastEntryNode/VBoxContainer/Description/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Update"
+script = ExtResource("4_4podo")
+
+[node name="FileDialog" type="FileDialog" parent="BeastEntryNode/VBoxContainer/Description/PanelContainer"]
+title = "Open a File"
+initial_position = 1
+size = Vector2i(800, 400)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png ; PNG Images", "*.jpg; JPG Images")
+script = ExtResource("5_rvk4d")
+
+[node name="DescriptionText" type="GridContainer" parent="BeastEntryNode/VBoxContainer/Description"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 2
+
+[node name="NameLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+text = "Name:"
+
+[node name="NameEdit" type="LineEdit" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+placeholder_text = "Archer"
+script = ExtResource("6_7xana")
+
+[node name="LevelLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+text = "Level:"
+
+[node name="LevelEdit" type="OptionButton" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+item_count = 1
+popup/item_0/text = "5"
+popup/item_0/id = 5
+script = ExtResource("8_j4tkl")
+
+[node name="SpeciesLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+text = "Species:"
+
+[node name="SpeciesSelect" type="OptionButton" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+item_count = 1
+selected = 0
+popup/item_0/text = "Humanoid"
+popup/item_0/id = 0
+script = ExtResource("8_o3w12")
+
+[node name="DetailsLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+text = "Description:"
+
+[node name="DetailsEdit" type="LineEdit" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "Fires from on high with the eyes of an eagle."
+
+[node name="TraitsLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+text = "Traits:"
+
+[node name="TraitsEdit" type="LineEdit" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+layout_mode = 2
+placeholder_text = "happy, fast, clever"
+
+[node name="Stats" type="GridContainer" parent="BeastEntryNode/VBoxContainer"]
+layout_mode = 2
+columns = 9
+
+[node name="Dexterity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_8kck5")]
+layout_mode = 2
+AttributeName = "Dexterity"
+
+[node name="Insight" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_8kck5")]
+layout_mode = 2
+AttributeName = "Insight"
+
+[node name="Might" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_8kck5")]
+layout_mode = 2
+AttributeName = "Might"
+
+[node name="Willpower" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_8kck5")]
+layout_mode = 2
+AttributeName = "Willpower"
+
+[node name="HealthPoints" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_s3ls8")]
+layout_mode = 2
+
+[node name="Label" parent="BeastEntryNode/VBoxContainer/Stats/HealthPoints/HBoxContainer" index="0"]
+text = "HP:"
+
+[node name="Text" parent="BeastEntryNode/VBoxContainer/Stats/HealthPoints/HBoxContainer" index="1"]
+text = "60 | 30"
+script = ExtResource("9_1jn2a")
+
+[node name="MagicPoints" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_s3ls8")]
+layout_mode = 2
+
+[node name="Label" parent="BeastEntryNode/VBoxContainer/Stats/MagicPoints/HBoxContainer" index="0"]
+text = "MP:"
+
+[node name="Text" parent="BeastEntryNode/VBoxContainer/Stats/MagicPoints/HBoxContainer" index="1"]
+text = "45"
+script = ExtResource("10_uy26j")
+
+[node name="Initiative" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_s3ls8")]
+layout_mode = 2
+
+[node name="Label" parent="BeastEntryNode/VBoxContainer/Stats/Initiative/HBoxContainer" index="0"]
+text = "INIT:"
+
+[node name="Text" parent="BeastEntryNode/VBoxContainer/Stats/Initiative/HBoxContainer" index="1"]
+text = "10"
+script = ExtResource("8_46qyh")
+AttributeName = "Initiative"
+
+[node name="Defense" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_s3ls8")]
+layout_mode = 2
+
+[node name="Label" parent="BeastEntryNode/VBoxContainer/Stats/Defense/HBoxContainer" index="0"]
+text = "DEF:"
+
+[node name="Text" parent="BeastEntryNode/VBoxContainer/Stats/Defense/HBoxContainer" index="1"]
+text = "+3"
+script = ExtResource("11_ytpva")
+AttributeDice = "Defense"
+
+[node name="MagicDefense" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_s3ls8")]
+layout_mode = 2
+
+[node name="Label" parent="BeastEntryNode/VBoxContainer/Stats/MagicDefense/HBoxContainer" index="0"]
+text = "M. DEF:"
+
+[node name="Text" parent="BeastEntryNode/VBoxContainer/Stats/MagicDefense/HBoxContainer" index="1"]
+text = "+1"
+script = ExtResource("11_ytpva")
+AttributeDice = "Defense"
+
+[node name="PhysicalAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+layout_mode = 2
+AffinityName = "Physical"
+
+[node name="AirAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+layout_mode = 2
+AffinityName = "Air"
+
+[node name="BoltAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+layout_mode = 2
+AffinityName = "Bolt"
+
+[node name="DarkAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+layout_mode = 2
+AffinityName = "Dark"
+
+[node name="EarthAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+layout_mode = 2
+AffinityName = "Earth"
+
+[node name="FireAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+layout_mode = 2
+AffinityName = "Fire"
+
+[node name="IceAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+layout_mode = 2
+AffinityName = "Ice"
+
+[node name="LightAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+layout_mode = 2
+AffinityName = "Light"
+
+[node name="PoisonAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+layout_mode = 2
+AffinityName = "Poison"
+
+[node name="Equipment" type="PanelContainer" parent="BeastEntryNode/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BeastEntryNode/VBoxContainer/Equipment"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="BeastEntryNode/VBoxContainer/Equipment/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "Equipment: "
+
+[node name="EquipmentList" type="Label" parent="BeastEntryNode/VBoxContainer/Equipment/HBoxContainer"]
+layout_mode = 2
+text = "Bow, travel garb"
+script = ExtResource("31_jwtm2")
+
+[node name="Attacks" type="VBoxContainer" parent="BeastEntryNode/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("32_6cqwb")
+AttackNodeScene = ExtResource("33_53dgi")
+
+[node name="Label" type="Label" parent="BeastEntryNode/VBoxContainer/Attacks"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "BASIC ATTACKS"
+
+[node name="Attack" parent="BeastEntryNode/VBoxContainer/Attacks" instance=ExtResource("33_53dgi")]
+layout_mode = 2
+
+[node name="Spells" type="VBoxContainer" parent="BeastEntryNode/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("34_thwtj")
+SpellScene = ExtResource("35_hkncx")
+
+[node name="Label" type="Label" parent="BeastEntryNode/VBoxContainer/Spells"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "SPELLS"
+
+[node name="Spell" parent="BeastEntryNode/VBoxContainer/Spells" instance=ExtResource("35_hkncx")]
+layout_mode = 2
+
+[node name="OtherActions" type="VBoxContainer" parent="BeastEntryNode/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("36_d2713")
+ActionScene = ExtResource("37_3ktw5")
+
+[node name="Label" type="Label" parent="BeastEntryNode/VBoxContainer/OtherActions"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "OTHER ACTIONS"
+
+[node name="OtherAction" parent="BeastEntryNode/VBoxContainer/OtherActions" instance=ExtResource("37_3ktw5")]
+layout_mode = 2
+
+[node name="SpecialRules" type="VBoxContainer" parent="BeastEntryNode/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("38_1ghwb")
+OnlySpecialRules = true
+SkillNodeScene = ExtResource("39_da04n")
+
+[node name="Label" type="Label" parent="BeastEntryNode/VBoxContainer/SpecialRules"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "SPECIAL RULES"
+
+[node name="Action" parent="BeastEntryNode/VBoxContainer/SpecialRules" instance=ExtResource("39_da04n")]
+layout_mode = 2
+
+[connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
+[connection signal="pressed" from="BeastEntryNode/VBoxContainer/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/VBoxContainer/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
+[connection signal="file_selected" from="BeastEntryNode/VBoxContainer/Description/PanelContainer/FileDialog" to="BeastEntryNode/VBoxContainer/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
+
+[editable path="BeastEntryNode/VBoxContainer/Stats/HealthPoints"]
+[editable path="BeastEntryNode/VBoxContainer/Stats/MagicPoints"]
+[editable path="BeastEntryNode/VBoxContainer/Stats/Initiative"]
+[editable path="BeastEntryNode/VBoxContainer/Stats/Defense"]
+[editable path="BeastEntryNode/VBoxContainer/Stats/MagicDefense"]
