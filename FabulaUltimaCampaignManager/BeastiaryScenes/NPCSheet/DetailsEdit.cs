@@ -2,7 +2,7 @@ using FabulaUltimaNpc;
 using Godot;
 using System;
 
-public partial class NameEdit : LineEdit, IBeastAttribute
+public partial class DetailsEdit : LineEdit, IBeastAttribute
 {
     private IBeastTemplate _beastTemplate;
 
@@ -16,6 +16,6 @@ public partial class NameEdit : LineEdit, IBeastAttribute
 
     public void OnTextSubmitted(string newText)
     {
-        _beastTemplate.Name = newText;
+        _beastTemplate.Description = newText;
     }
 }

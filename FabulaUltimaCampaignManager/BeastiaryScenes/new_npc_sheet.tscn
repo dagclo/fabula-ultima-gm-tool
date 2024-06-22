@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=19 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -13,7 +13,9 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/LevelEdit.cs" id="8_j4tkl"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/SpeciesSelect.cs" id="8_o3w12"]
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedHealthLabel.cs" id="9_1jn2a"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/DetailsEdit.cs" id="10_bxjsn"]
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedMagicPointsLabel.cs" id="10_uy26j"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/TraitsEdit.cs" id="11_klrkd"]
 [ext_resource type="Script" path="res://BeastiaryScenes/UseDiceSizeLabel.cs" id="11_ytpva"]
 [ext_resource type="PackedScene" uid="uid://dyorgxiwguhn3" path="res://BeastiaryScenes/NPCSheet/affinity_edit.tscn" id="13_hryoq"]
 
@@ -71,7 +73,6 @@ text = "Name:"
 layout_mode = 2
 placeholder_text = "Archer"
 script = ExtResource("6_7xana")
-AttributeName = "Name"
 
 [node name="LevelLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
 layout_mode = 2
@@ -99,6 +100,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 placeholder_text = "Fires from on high with the eyes of an eagle."
+script = ExtResource("10_bxjsn")
 
 [node name="TraitsLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
 layout_mode = 2
@@ -107,6 +109,7 @@ text = "Traits:"
 [node name="TraitsEdit" type="LineEdit" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
 layout_mode = 2
 placeholder_text = "happy, fast, clever"
+script = ExtResource("11_klrkd")
 
 [node name="Stats" type="GridContainer" parent="BeastEntryNode/VBoxContainer"]
 layout_mode = 2
@@ -220,7 +223,11 @@ AffinityName = "Poison"
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="BeastEntryNode/VBoxContainer/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/VBoxContainer/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="BeastEntryNode/VBoxContainer/Description/PanelContainer/FileDialog" to="BeastEntryNode/VBoxContainer/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
+[connection signal="text_submitted" from="BeastEntryNode/VBoxContainer/Description/DescriptionText/NameEdit" to="BeastEntryNode/VBoxContainer/Description/DescriptionText/NameEdit" method="OnTextSubmitted"]
+[connection signal="item_selected" from="BeastEntryNode/VBoxContainer/Description/DescriptionText/LevelEdit" to="BeastEntryNode/VBoxContainer/Description/DescriptionText/LevelEdit" method="OnItemSelected"]
 [connection signal="item_selected" from="BeastEntryNode/VBoxContainer/Description/DescriptionText/SpeciesSelect" to="BeastEntryNode/VBoxContainer/Description/DescriptionText/SpeciesSelect" method="HandleItemSelect"]
+[connection signal="text_submitted" from="BeastEntryNode/VBoxContainer/Description/DescriptionText/DetailsEdit" to="BeastEntryNode/VBoxContainer/Description/DescriptionText/DetailsEdit" method="OnTextSubmitted"]
+[connection signal="text_submitted" from="BeastEntryNode/VBoxContainer/Description/DescriptionText/TraitsEdit" to="BeastEntryNode/VBoxContainer/Description/DescriptionText/TraitsEdit" method="OnTextSubmitted"]
 
 [editable path="BeastEntryNode/VBoxContainer/Stats/HealthPoints"]
 [editable path="BeastEntryNode/VBoxContainer/Stats/MagicPoints"]
