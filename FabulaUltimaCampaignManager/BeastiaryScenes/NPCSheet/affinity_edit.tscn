@@ -65,3 +65,5 @@ script = ExtResource("2_lgm64")
 
 [connection signal="UpdateAffinity" from="." to="VBoxContainer/Value" method="HandleUpdateAffinity"]
 [connection signal="UpdateElement" from="." to="VBoxContainer/Image" method="HandleAffinityUpdate"]
+[connection signal="AffinitySelected" from="VBoxContainer/Value" to="." method="HandleAffinitySelected"]
+[connection signal="item_selected" from="VBoxContainer/Value" to="VBoxContainer/Value" method="HandleItemSelected"]

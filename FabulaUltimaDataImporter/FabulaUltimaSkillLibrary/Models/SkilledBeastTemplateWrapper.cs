@@ -328,7 +328,16 @@ namespace FabulaUltimaSkillLibrary.Models
 
         public void AddSkill(SkillTemplate skill)
         {
-            throw new NotImplementedException();
+            if (this.Skills is not ICollection<SkillTemplate> skillCollection) return;
+            if (skillCollection.Any(s => s.Id == skill.Id)) return;
+            skillCollection.Add(skill);
+        }
+
+        public void RemoveAffinitySkill(Guid skillId)
+        {
+            if (this.Skills is not ICollection<SkillTemplate> skillCollection) return;
+            if (!skillCollection.Any(s => s.Id == skillId)) return;
+            skillCollection.Remove(skillCollection.Single(s => s.Id == skillId));
         }
     }
 }

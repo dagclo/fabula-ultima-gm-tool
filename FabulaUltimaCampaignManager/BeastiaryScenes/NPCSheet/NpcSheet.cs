@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class NpcSheet : Window
+public partial class NpcSheet : Node
 {
     private Resolver _skillResolver;
 
@@ -43,7 +43,7 @@ public partial class NpcSheet : Window
         };
         var skills = _skillResolver.ResolveSkills(template, input);
 
-        editableBeastModel.Skills = skills.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToArray();
+        editableBeastModel.Skills = skills.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToList();
         this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });
     }
 
