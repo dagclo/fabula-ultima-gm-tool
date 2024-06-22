@@ -1,8 +1,9 @@
 using FabulaUltimaNpc;
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public partial class NameEdit : LineEdit, IBeastAttribute
+public partial class TraitsEdit : LineEdit, IBeastAttribute
 {
     private IBeastTemplate _beastTemplate;
 
@@ -10,12 +11,11 @@ public partial class NameEdit : LineEdit, IBeastAttribute
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
-        if (beastTemplate == null) return;
-        _beastTemplate = beastTemplate;        
+        _beastTemplate = beastTemplate;
     }
 
     public void OnTextSubmitted(string newText)
     {
-        _beastTemplate.Name = newText;
+        _beastTemplate.Traits = newText;
     }
 }

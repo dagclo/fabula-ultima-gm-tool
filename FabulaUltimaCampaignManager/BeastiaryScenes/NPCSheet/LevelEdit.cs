@@ -1,8 +1,13 @@
+using FabulaUltimaNpc;
 using Godot;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
-public partial class LevelEdit : OptionButton
+public partial class LevelEdit : OptionButton, IBeastAttribute
 {
+    private IBeastTemplate _beastTemplate;
+
     [Export]
     public int Min { get; set; } = 5;
 
@@ -11,6 +16,7 @@ public partial class LevelEdit : OptionButton
 
     [Export]
     public int Multiple { get; set; } = 5;
+    public Action<System.Collections.Generic.ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -21,8 +27,15 @@ public partial class LevelEdit : OptionButton
         }
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    public void OnItemSelected(int index)
+    {
+        var level = GetItemId(index);
+        _beastTemplate.Level = level;
+        BeastTemplateAction.Invoke(new HashSet<BeastEntryNode.Action>() { BeastEntryNode.Action.TRIGGER });
+    }
+
+    public void HandleBeastChanged(IBeastTemplate beastTemplate)
+    {
+        _beastTemplate = beastTemplate;
+    }
 }
