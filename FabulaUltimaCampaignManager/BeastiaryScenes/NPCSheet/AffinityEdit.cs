@@ -4,6 +4,7 @@ using FabulaUltimaSkillLibrary.Models;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class AffinityEdit : Control, IBeastAttribute
 {
@@ -29,9 +30,14 @@ public partial class AffinityEdit : Control, IBeastAttribute
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         if (beastTemplate == null) return;
-        if (!(beastTemplate is SkilledBeastTemplateWrapper skilledBeast)) return;
+        if (beastTemplate is not SkilledBeastTemplateWrapper skilledBeast) return;
         _beastTemplate = skilledBeast;
-        EmitSignal(SignalName.UpdateAffinity, _beastTemplate.Resistances.TryGetValue(AffinityName.ToLowerInvariant(), out var resistance) ? resistance.Affinity : string.Empty);
+        string affinity = string.Empty;
+        if(_beastTemplate.Resistances.TryGetValue(AffinityName.ToLowerInvariant(), out var resistance))
+        {
+            affinity = resistance.Affinity;
+        }        
+        if(resistance.Resolved == true) EmitSignal(SignalName.UpdateAffinity, affinity);
     }
 
     public void HandleAffinitySelected(string affinity)
@@ -53,11 +59,9 @@ public partial class AffinityEdit : Control, IBeastAttribute
                 skill = KnownSkills.ResistanceSkills[DamageConstants.DamageTypeMap[skillKey]];
                 break;           
         }
-        if (skill == null)
-        {
-            _beastTemplate.RemoveAffinitySkill(skillKey);
-            return;
-        }
+        var skillId = _beastTemplate.Resistances[AffinityName.ToLowerInvariant()].SkillId ?? throw new Exception("unset skill id");
+        _beastTemplate.RemoveAffinitySkill(skillId);
+        if (skill == null) return;
         _beastTemplate.AddSkill(skill);
     }
 }

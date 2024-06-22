@@ -5,10 +5,10 @@
         public const string AFFINITY_ID = "AffinityId";
         public const string AFFINITY_TRUMPS = "AffinityTrumpList";
         public readonly static Guid NO_AFFINITY = Guid.Parse("77a9c176-4ddb-46ef-a945-0023bf7a6f6b");
-        public readonly static Guid VULNERABLE = Guid.Parse("fc15b76a-6505-46f4-81ad-da4a5bf1bd42");
-        public readonly static Guid RESISTANT = Guid.Parse("75059ae9-e6c7-4d45-a1f1-18bf617b0d2a");
-        public readonly static Guid IMMUNE = Guid.Parse("1d843905-9d75-4c57-84c2-07dc7d179d3b");
-        public readonly static Guid ABSORBS = Guid.Parse("40058e84-b555-4943-bf4d-5c7381272749");
+        public readonly static Guid VULNERABLE  = Guid.Parse("fc15b76a-6505-46f4-81ad-da4a5bf1bd42");
+        public readonly static Guid RESISTANT   = Guid.Parse("75059ae9-e6c7-4d45-a1f1-18bf617b0d2a");
+        public readonly static Guid IMMUNE      = Guid.Parse("1d843905-9d75-4c57-84c2-07dc7d179d3b");
+        public readonly static Guid ABSORBS     = Guid.Parse("40058e84-b555-4943-bf4d-5c7381272749");
 
         public const string DAMAGE_TYPE_ID = "DamageTypeId";
         public static readonly Guid DARK_DAMAGE_TYPE     = Guid.Parse("c635cee1-fcbc-44cd-98c9-fe55c7084806");

@@ -8,7 +8,7 @@ namespace FabulaUltimaSkillLibrary
     {
         private readonly Instance _instance;
         private readonly SpecialAttackIndex _specialAttackIndex;
-
+        public const string ASSIGNED_BY_RESOLVER = "AssignedByResolver";
         public Resolver(Instance instance, SpecialAttackIndex specialAttackIndex) 
         { 
             _instance = instance;
@@ -38,8 +38,8 @@ namespace FabulaUltimaSkillLibrary
             {   
                 if (totalSkillSlots[index] != null) continue;
                 if (!skillQueue.Any()) break;
-                var skill = skillQueue.Dequeue();
-                totalSkillSlots[index] = skill;
+                var skillSlot = skillQueue.Dequeue();                
+                totalSkillSlots[index] = skillSlot;
             }
 
             return new SkillOutputData
@@ -120,6 +120,7 @@ namespace FabulaUltimaSkillLibrary
                                     return s.OtherAttributes?.FreeSpecies?.Contains(npc.Species.Id) == true;
                                 }))
             {
+                freeSkill.OtherAttributes[ASSIGNED_BY_RESOLVER] = true.ToString();
                 yield return (freeSkill, null);
                 yield return null;
             }            
