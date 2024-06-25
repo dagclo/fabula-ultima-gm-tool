@@ -224,7 +224,7 @@ text = "M. DEF:"
 [node name="Text" parent="VBoxContainer/Stats/MagicDefense/HBoxContainer" index="1"]
 text = "+1"
 script = ExtResource("7_g4asi")
-AttributeDice = "Defense"
+AttributeDice = "MagicalDefense"
 
 [node name="PhysicalResistance" parent="VBoxContainer/Stats" instance=ExtResource("3_vhcs2")]
 layout_mode = 2
