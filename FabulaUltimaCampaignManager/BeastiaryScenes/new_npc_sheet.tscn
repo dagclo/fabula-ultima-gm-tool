@@ -29,28 +29,28 @@ offset_right = 988.0
 offset_bottom = 720.0
 script = ExtResource("1_f0gy2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BeastEntryNode"]
+[node name="Attributes" type="VBoxContainer" parent="BeastEntryNode"]
 layout_mode = 2
 
-[node name="Description" type="HBoxContainer" parent="BeastEntryNode/VBoxContainer"]
+[node name="Description" type="HBoxContainer" parent="BeastEntryNode/Attributes"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="BeastEntryNode/VBoxContainer/Description"]
+[node name="PanelContainer" type="PanelContainer" parent="BeastEntryNode/Attributes/Description"]
 layout_mode = 2
 
-[node name="DescriptionImage" type="TextureRect" parent="BeastEntryNode/VBoxContainer/Description/PanelContainer"]
+[node name="DescriptionImage" type="TextureRect" parent="BeastEntryNode/Attributes/Description/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("2_pl67v")
 expand_mode = 3
 script = ExtResource("3_v0pp1")
 
-[node name="UpdateImageButton" type="Button" parent="BeastEntryNode/VBoxContainer/Description/PanelContainer"]
+[node name="UpdateImageButton" type="Button" parent="BeastEntryNode/Attributes/Description/PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Update"
 script = ExtResource("4_4podo")
 
-[node name="FileDialog" type="FileDialog" parent="BeastEntryNode/VBoxContainer/Description/PanelContainer"]
+[node name="FileDialog" type="FileDialog" parent="BeastEntryNode/Attributes/Description/PanelContainer"]
 title = "Open a File"
 initial_position = 1
 size = Vector2i(800, 400)
@@ -60,41 +60,41 @@ access = 2
 filters = PackedStringArray("*.png ; PNG Images", "*.jpg; JPG Images")
 script = ExtResource("5_rvk4d")
 
-[node name="DescriptionText" type="GridContainer" parent="BeastEntryNode/VBoxContainer/Description"]
+[node name="DescriptionText" type="GridContainer" parent="BeastEntryNode/Attributes/Description"]
 layout_mode = 2
 size_flags_horizontal = 3
 columns = 2
 
-[node name="NameLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+[node name="NameLabel" type="Label" parent="BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
 text = "Name:"
 
-[node name="NameEdit" type="LineEdit" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+[node name="NameEdit" type="LineEdit" parent="BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
 placeholder_text = "Archer"
 script = ExtResource("6_7xana")
 
-[node name="LevelLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+[node name="LevelLabel" type="Label" parent="BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
 text = "Level:"
 
-[node name="LevelEdit" type="OptionButton" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+[node name="LevelEdit" type="OptionButton" parent="BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
 script = ExtResource("8_j4tkl")
 
-[node name="SpeciesLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+[node name="SpeciesLabel" type="Label" parent="BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
 text = "Species:"
 
-[node name="SpeciesSelect" type="OptionButton" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+[node name="SpeciesSelect" type="OptionButton" parent="BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
 script = ExtResource("8_o3w12")
 
-[node name="DetailsLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+[node name="DetailsLabel" type="Label" parent="BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
 text = "Description:"
 
-[node name="DetailsEdit" type="LineEdit" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+[node name="DetailsEdit" type="LineEdit" parent="BeastEntryNode/Attributes/Description/DescriptionText"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -102,135 +102,135 @@ size_flags_vertical = 3
 placeholder_text = "Fires from on high with the eyes of an eagle."
 script = ExtResource("10_bxjsn")
 
-[node name="TraitsLabel" type="Label" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+[node name="TraitsLabel" type="Label" parent="BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
 text = "Traits:"
 
-[node name="TraitsEdit" type="LineEdit" parent="BeastEntryNode/VBoxContainer/Description/DescriptionText"]
+[node name="TraitsEdit" type="LineEdit" parent="BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
 placeholder_text = "happy, fast, clever"
 script = ExtResource("11_klrkd")
 
-[node name="Stats" type="GridContainer" parent="BeastEntryNode/VBoxContainer"]
+[node name="Stats" type="GridContainer" parent="BeastEntryNode/Attributes"]
 layout_mode = 2
 columns = 9
 
-[node name="Dexterity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_8kck5")]
+[node name="Dexterity" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("7_8kck5")]
 layout_mode = 2
 AttributeName = "Dexterity"
 
-[node name="Insight" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_8kck5")]
+[node name="Insight" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("7_8kck5")]
 layout_mode = 2
 AttributeName = "Insight"
 
-[node name="Might" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_8kck5")]
+[node name="Might" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("7_8kck5")]
 layout_mode = 2
 AttributeName = "Might"
 
-[node name="Willpower" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_8kck5")]
+[node name="Willpower" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("7_8kck5")]
 layout_mode = 2
 AttributeName = "Willpower"
 
-[node name="HealthPoints" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_s3ls8")]
+[node name="HealthPoints" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("7_s3ls8")]
 layout_mode = 2
 
-[node name="Label" parent="BeastEntryNode/VBoxContainer/Stats/HealthPoints/HBoxContainer" index="0"]
+[node name="Label" parent="BeastEntryNode/Attributes/Stats/HealthPoints/HBoxContainer" index="0"]
 text = "HP:"
 
-[node name="Text" parent="BeastEntryNode/VBoxContainer/Stats/HealthPoints/HBoxContainer" index="1"]
+[node name="Text" parent="BeastEntryNode/Attributes/Stats/HealthPoints/HBoxContainer" index="1"]
 text = "60 | 30"
 script = ExtResource("9_1jn2a")
 
-[node name="MagicPoints" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_s3ls8")]
+[node name="MagicPoints" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("7_s3ls8")]
 layout_mode = 2
 
-[node name="Label" parent="BeastEntryNode/VBoxContainer/Stats/MagicPoints/HBoxContainer" index="0"]
+[node name="Label" parent="BeastEntryNode/Attributes/Stats/MagicPoints/HBoxContainer" index="0"]
 text = "MP:"
 
-[node name="Text" parent="BeastEntryNode/VBoxContainer/Stats/MagicPoints/HBoxContainer" index="1"]
+[node name="Text" parent="BeastEntryNode/Attributes/Stats/MagicPoints/HBoxContainer" index="1"]
 text = "45"
 script = ExtResource("10_uy26j")
 
-[node name="Initiative" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_s3ls8")]
+[node name="Initiative" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("7_s3ls8")]
 layout_mode = 2
 
-[node name="Label" parent="BeastEntryNode/VBoxContainer/Stats/Initiative/HBoxContainer" index="0"]
+[node name="Label" parent="BeastEntryNode/Attributes/Stats/Initiative/HBoxContainer" index="0"]
 text = "INIT:"
 
-[node name="Text" parent="BeastEntryNode/VBoxContainer/Stats/Initiative/HBoxContainer" index="1"]
+[node name="Text" parent="BeastEntryNode/Attributes/Stats/Initiative/HBoxContainer" index="1"]
 text = "10"
 script = ExtResource("8_46qyh")
 AttributeName = "Initiative"
 
-[node name="Defense" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_s3ls8")]
+[node name="Defense" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("7_s3ls8")]
 layout_mode = 2
 
-[node name="Label" parent="BeastEntryNode/VBoxContainer/Stats/Defense/HBoxContainer" index="0"]
+[node name="Label" parent="BeastEntryNode/Attributes/Stats/Defense/HBoxContainer" index="0"]
 text = "DEF:"
 
-[node name="Text" parent="BeastEntryNode/VBoxContainer/Stats/Defense/HBoxContainer" index="1"]
+[node name="Text" parent="BeastEntryNode/Attributes/Stats/Defense/HBoxContainer" index="1"]
 text = "+3"
 script = ExtResource("11_ytpva")
 AttributeDice = "Defense"
 
-[node name="MagicDefense" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("7_s3ls8")]
+[node name="MagicDefense" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("7_s3ls8")]
 layout_mode = 2
 
-[node name="Label" parent="BeastEntryNode/VBoxContainer/Stats/MagicDefense/HBoxContainer" index="0"]
+[node name="Label" parent="BeastEntryNode/Attributes/Stats/MagicDefense/HBoxContainer" index="0"]
 text = "M. DEF:"
 
-[node name="Text" parent="BeastEntryNode/VBoxContainer/Stats/MagicDefense/HBoxContainer" index="1"]
+[node name="Text" parent="BeastEntryNode/Attributes/Stats/MagicDefense/HBoxContainer" index="1"]
 text = "+1"
 script = ExtResource("11_ytpva")
 AttributeDice = "Defense"
 
-[node name="PhysicalAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+[node name="PhysicalAffinity" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("13_hryoq")]
 layout_mode = 2
 AffinityName = "Physical"
 
-[node name="AirAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+[node name="AirAffinity" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("13_hryoq")]
 layout_mode = 2
 AffinityName = "Air"
 
-[node name="BoltAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+[node name="BoltAffinity" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("13_hryoq")]
 layout_mode = 2
 AffinityName = "Bolt"
 
-[node name="DarkAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+[node name="DarkAffinity" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("13_hryoq")]
 layout_mode = 2
 AffinityName = "Dark"
 
-[node name="EarthAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+[node name="EarthAffinity" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("13_hryoq")]
 layout_mode = 2
 AffinityName = "Earth"
 
-[node name="FireAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+[node name="FireAffinity" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("13_hryoq")]
 layout_mode = 2
 AffinityName = "Fire"
 
-[node name="IceAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+[node name="IceAffinity" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("13_hryoq")]
 layout_mode = 2
 AffinityName = "Ice"
 
-[node name="LightAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+[node name="LightAffinity" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("13_hryoq")]
 layout_mode = 2
 AffinityName = "Light"
 
-[node name="PoisonAffinity" parent="BeastEntryNode/VBoxContainer/Stats" instance=ExtResource("13_hryoq")]
+[node name="PoisonAffinity" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("13_hryoq")]
 layout_mode = 2
 AffinityName = "Poison"
 
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
-[connection signal="pressed" from="BeastEntryNode/VBoxContainer/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/VBoxContainer/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
-[connection signal="file_selected" from="BeastEntryNode/VBoxContainer/Description/PanelContainer/FileDialog" to="BeastEntryNode/VBoxContainer/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
-[connection signal="text_submitted" from="BeastEntryNode/VBoxContainer/Description/DescriptionText/NameEdit" to="BeastEntryNode/VBoxContainer/Description/DescriptionText/NameEdit" method="OnTextSubmitted"]
-[connection signal="item_selected" from="BeastEntryNode/VBoxContainer/Description/DescriptionText/LevelEdit" to="BeastEntryNode/VBoxContainer/Description/DescriptionText/LevelEdit" method="OnItemSelected"]
-[connection signal="item_selected" from="BeastEntryNode/VBoxContainer/Description/DescriptionText/SpeciesSelect" to="BeastEntryNode/VBoxContainer/Description/DescriptionText/SpeciesSelect" method="HandleItemSelect"]
-[connection signal="text_submitted" from="BeastEntryNode/VBoxContainer/Description/DescriptionText/DetailsEdit" to="BeastEntryNode/VBoxContainer/Description/DescriptionText/DetailsEdit" method="OnTextSubmitted"]
-[connection signal="text_submitted" from="BeastEntryNode/VBoxContainer/Description/DescriptionText/TraitsEdit" to="BeastEntryNode/VBoxContainer/Description/DescriptionText/TraitsEdit" method="OnTextSubmitted"]
+[connection signal="pressed" from="BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
+[connection signal="file_selected" from="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" to="BeastEntryNode/Attributes/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
+[connection signal="text_submitted" from="BeastEntryNode/Attributes/Description/DescriptionText/NameEdit" to="BeastEntryNode/Attributes/Description/DescriptionText/NameEdit" method="OnTextSubmitted"]
+[connection signal="item_selected" from="BeastEntryNode/Attributes/Description/DescriptionText/LevelEdit" to="BeastEntryNode/Attributes/Description/DescriptionText/LevelEdit" method="OnItemSelected"]
+[connection signal="item_selected" from="BeastEntryNode/Attributes/Description/DescriptionText/SpeciesSelect" to="BeastEntryNode/Attributes/Description/DescriptionText/SpeciesSelect" method="HandleItemSelect"]
+[connection signal="text_submitted" from="BeastEntryNode/Attributes/Description/DescriptionText/DetailsEdit" to="BeastEntryNode/Attributes/Description/DescriptionText/DetailsEdit" method="OnTextSubmitted"]
+[connection signal="text_submitted" from="BeastEntryNode/Attributes/Description/DescriptionText/TraitsEdit" to="BeastEntryNode/Attributes/Description/DescriptionText/TraitsEdit" method="OnTextSubmitted"]
 
-[editable path="BeastEntryNode/VBoxContainer/Stats/HealthPoints"]
-[editable path="BeastEntryNode/VBoxContainer/Stats/MagicPoints"]
-[editable path="BeastEntryNode/VBoxContainer/Stats/Initiative"]
-[editable path="BeastEntryNode/VBoxContainer/Stats/Defense"]
-[editable path="BeastEntryNode/VBoxContainer/Stats/MagicDefense"]
+[editable path="BeastEntryNode/Attributes/Stats/HealthPoints"]
+[editable path="BeastEntryNode/Attributes/Stats/MagicPoints"]
+[editable path="BeastEntryNode/Attributes/Stats/Initiative"]
+[editable path="BeastEntryNode/Attributes/Stats/Defense"]
+[editable path="BeastEntryNode/Attributes/Stats/MagicDefense"]
