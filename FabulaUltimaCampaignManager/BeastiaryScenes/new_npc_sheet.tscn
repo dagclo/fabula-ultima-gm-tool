@@ -182,7 +182,7 @@ text = "M. DEF:"
 [node name="Text" parent="BeastEntryNode/Attributes/Stats/MagicDefense/HBoxContainer" index="1"]
 text = "+1"
 script = ExtResource("11_ytpva")
-AttributeDice = "Defense"
+AttributeDice = "MagicalDefense"
 
 [node name="PhysicalAffinity" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("13_hryoq")]
 layout_mode = 2

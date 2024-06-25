@@ -11,6 +11,6 @@ public partial class UseDiceSizeLabel : Label, IBeastAttribute
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         var diceSize = beastTemplate.GetAttributeValue(AttributeDice);
-		this.Text = $"+{diceSize.Substring(1)}";
+		this.Text = $"+{diceSize}";
     }
 }
