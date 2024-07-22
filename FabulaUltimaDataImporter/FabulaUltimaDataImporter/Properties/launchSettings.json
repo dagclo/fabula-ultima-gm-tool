@@ -15,6 +15,10 @@
     "Update Current DB": {
       "commandName": "Project",
       "commandLineArgs": "--filename \"..\\..\\..\\..\\..\\BeastiaryDB.sqlite\""
+    },
+    "Update AppData DB": {
+      "commandName": "Project",
+      "commandLineArgs": "--filename \"%APPDATA%\\Godot\\app_userdata\\FabulaUltimaCampaignManager\\BeastiaryDB.sqlite\""
     }
   }
 }
