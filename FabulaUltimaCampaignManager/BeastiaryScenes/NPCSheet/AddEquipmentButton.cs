@@ -34,6 +34,6 @@ public partial class AddEquipmentButton : Button, IBeastAttribute
 
     public void HandlePressed()
     {
-
+        
     }
 }
