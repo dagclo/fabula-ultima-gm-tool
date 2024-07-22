@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class BeastEntryNode : PanelContainer
+public partial class BeastEntryNode : Container
 {
 	public delegate void BeastChangedEventHandler(IBeastTemplate beastTemplate);
 

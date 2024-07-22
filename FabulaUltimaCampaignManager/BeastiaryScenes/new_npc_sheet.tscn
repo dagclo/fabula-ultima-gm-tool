@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=20 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -18,13 +18,14 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/TraitsEdit.cs" id="11_klrkd"]
 [ext_resource type="Script" path="res://BeastiaryScenes/UseDiceSizeLabel.cs" id="11_ytpva"]
 [ext_resource type="PackedScene" uid="uid://dyorgxiwguhn3" path="res://BeastiaryScenes/NPCSheet/affinity_edit.tscn" id="13_hryoq"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/EquipmentOptions.cs" id="19_n08he"]
 
 [node name="NewNpcSheet" type="Window"]
 initial_position = 1
 size = Vector2i(1000, 800)
 script = ExtResource("1_3svqs")
 
-[node name="BeastEntryNode" type="PanelContainer" parent="."]
+[node name="BeastEntryNode" type="VBoxContainer" parent="."]
 offset_right = 988.0
 offset_bottom = 720.0
 script = ExtResource("1_f0gy2")
@@ -219,6 +220,29 @@ AffinityName = "Light"
 [node name="PoisonAffinity" parent="BeastEntryNode/Attributes/Stats" instance=ExtResource("13_hryoq")]
 layout_mode = 2
 AffinityName = "Poison"
+
+[node name="Equipment" type="HBoxContainer" parent="BeastEntryNode"]
+layout_mode = 2
+
+[node name="SelectEquipment" type="Label" parent="BeastEntryNode/Equipment"]
+layout_mode = 2
+text = "Choose Equipment:"
+
+[node name="EquipmentOptions" type="OptionButton" parent="BeastEntryNode/Equipment"]
+layout_mode = 2
+item_count = 1
+selected = 0
+popup/item_0/text = "Sword"
+popup/item_0/id = 0
+script = ExtResource("19_n08he")
+
+[node name="AddEquipmentButton" type="Button" parent="BeastEntryNode/Equipment"]
+layout_mode = 2
+text = "Add"
+
+[node name="EquipmentList" type="Label" parent="BeastEntryNode/Equipment"]
+layout_mode = 2
+text = "Sword, Shield"
 
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
