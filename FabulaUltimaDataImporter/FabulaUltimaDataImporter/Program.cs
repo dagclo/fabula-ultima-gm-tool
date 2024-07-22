@@ -26,7 +26,7 @@ if (result.Value == null)
 
 var options = result.Value;
 
-Console.WriteLine("starting import");
+Console.WriteLine($"starting import into {options.Filename}");
 
 var databaseConfiguration = new DatabaseConfiguration()
 {
