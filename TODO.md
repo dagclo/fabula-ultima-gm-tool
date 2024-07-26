@@ -6,6 +6,11 @@ Project Description
 
 ### Backlog
 
+- [ ] Add Loading Page for switch back to main page
+- [ ] Add Size Modifiers to creatures
+- [ ] Implement basic search
+- [ ] added special attacks don't show up on instances
+- [ ] Add way to remove npcs from encounter without completely deleting encounter
 - [ ] Fix Cockatrice's Petrifying Peck  
 - [ ] Implement Filtering by species, and level  
 - [ ] Block adding equipment with the same name  
