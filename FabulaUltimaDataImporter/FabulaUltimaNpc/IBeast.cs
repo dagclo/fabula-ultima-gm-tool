@@ -17,11 +17,11 @@
 
         public Rank Rank { get; }
 
-        public IReadOnlyDictionary<string, BeastResistance> Resistances { get; }
-        public IReadOnlyCollection<BasicAttackTemplate> BasicAttacks { get; }
-        public IReadOnlyCollection<SpellTemplate> Spells { get; }
-        public IReadOnlyCollection<EquipmentTemplate> Equipment { get; }
-        public IReadOnlyCollection<SkillTemplate> Skills { get; }
-        public IReadOnlyCollection<ActionTemplate> Actions { get; }
+        public IDictionary<string, BeastResistance> Resistances { get; }
+        public ICollection<BasicAttackTemplate> BasicAttacks { get; }
+        public ICollection<SpellTemplate> Spells { get; }
+        public ICollection<EquipmentTemplate> Equipment { get; }
+        public ICollection<SkillTemplate> Skills { get; }
+        public ICollection<ActionTemplate> Actions { get; }
     }
 }

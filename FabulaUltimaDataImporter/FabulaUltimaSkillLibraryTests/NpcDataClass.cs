@@ -23,7 +23,7 @@ namespace FabulaUltimaSkillLibraryTests
 
         
 
-        public static IReadOnlyDictionary<string, BeastResistance> GetResistances(
+        public static IDictionary<string, BeastResistance> GetResistances(
                 string physical = "",
                 string air = "",
                 string bolt = "",
