@@ -8,9 +8,12 @@ using System.Collections.Generic;
 public partial class AddEquipmentButton : Button, IBeastAttribute
 {
     private IBeastTemplate _beastTemplate;
-    private EquipmentEntry _equipmentEntry;
+    private FabulaUltimaDatabase.Models.EquipmentEntry _equipmentEntry;
 
     public Action<System.Collections.Generic.ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
+
+    [Signal]
+    public delegate void AddEquipmentEventHandler(SignalWrapper<FabulaUltimaDatabase.Models.EquipmentEntry> equipment);
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -27,13 +30,14 @@ public partial class AddEquipmentButton : Button, IBeastAttribute
         _beastTemplate = beastTemplate;
     }
 
-    public void HandleEquipmentSelected(SignalWrapper<EquipmentEntry> signalWrapper)
+    public void HandleEquipmentSelected(SignalWrapper<FabulaUltimaDatabase.Models.EquipmentEntry> signalWrapper)
     {
         _equipmentEntry = signalWrapper.Value;
     }
 
     public void HandlePressed()
     {
-        
+        if (_equipmentEntry == null) return;
+        EmitSignal(SignalName.AddEquipment, new SignalWrapper<FabulaUltimaDatabase.Models.EquipmentEntry>(_equipmentEntry));
     }
 }

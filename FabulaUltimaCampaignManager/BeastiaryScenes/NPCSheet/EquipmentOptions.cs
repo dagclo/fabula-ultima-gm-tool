@@ -9,10 +9,10 @@ using System.Linq;
 
 public partial class EquipmentOptions : OptionButton
 {   
-    private IDictionary<int, EquipmentEntry> _equipmentMap;
+    private IDictionary<int, FabulaUltimaDatabase.Models.EquipmentEntry> _equipmentMap;
 
     [Signal]
-    public delegate void EquipmentSelectedEventHandler(SignalWrapper<EquipmentEntry> equipment);
+    public delegate void EquipmentSelectedEventHandler(SignalWrapper<FabulaUltimaDatabase.Models.EquipmentEntry> equipment);
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -21,7 +21,7 @@ public partial class EquipmentOptions : OptionButton
         var beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;
         var equipmentCategory = beastRepository.Database.GetEquipmentCategories().ToDictionary(c => c.Id, c => c);
         var index = 0;
-        _equipmentMap = new Dictionary<int, EquipmentEntry>();
+        _equipmentMap = new Dictionary<int, FabulaUltimaDatabase.Models.EquipmentEntry>();
         foreach (var equipmentGroupedByCategory in beastRepository.Database.GetEquipment().GroupBy(e => e.CategoryId))
         {
             var category = equipmentCategory[equipmentGroupedByCategory.Key.Value];
@@ -40,6 +40,6 @@ public partial class EquipmentOptions : OptionButton
 
     public void HandleEquipmentSelected(int index)
     {
-        EmitSignal(SignalName.EquipmentSelected, new SignalWrapper<EquipmentEntry>(_equipmentMap[index]));
+        EmitSignal(SignalName.EquipmentSelected, new SignalWrapper<FabulaUltimaDatabase.Models.EquipmentEntry>(_equipmentMap[index]));
     }
 }

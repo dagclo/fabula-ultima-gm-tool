@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuswrbfikeimv"]
+
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/EquipmentEntry.cs" id="1_nl3nm"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/EquipmentEntry/EquipmentLabel.cs" id="2_i5g8i"]
+[ext_resource type="Texture2D" uid="uid://dg2847af7baoe" path="res://Icon/x-mark-16.png" id="2_le0tu"]
+
+[node name="EquipmentEntryPanel" type="PanelContainer"]
+script = ExtResource("1_nl3nm")
+
+[node name="EquipmentEntryHbox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="EquipmentLabel" type="Label" parent="EquipmentEntryHbox"]
+layout_mode = 2
+text = "Sword"
+script = ExtResource("2_i5g8i")
+
+[node name="RemoveButton" type="Button" parent="EquipmentEntryHbox"]
+layout_mode = 2
+icon = ExtResource("2_le0tu")
+
+[connection signal="EquipmentSet" from="." to="EquipmentEntryHbox/EquipmentLabel" method="HandleEquipmentSelected"]

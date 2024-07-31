@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=23 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -20,6 +20,8 @@
 [ext_resource type="PackedScene" uid="uid://dyorgxiwguhn3" path="res://BeastiaryScenes/NPCSheet/affinity_edit.tscn" id="13_hryoq"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/EquipmentOptions.cs" id="19_n08he"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/AddEquipmentButton.cs" id="20_5vdr4"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcEquipmentList.cs" id="21_towcn"]
+[ext_resource type="PackedScene" uid="uid://cuswrbfikeimv" path="res://BeastiaryScenes/NPCSheet/equipment_entry_panel.tscn" id="22_ryekk"]
 
 [node name="NewNpcSheet" type="Window"]
 initial_position = 1
@@ -242,9 +244,14 @@ layout_mode = 2
 text = "Add"
 script = ExtResource("20_5vdr4")
 
-[node name="EquipmentList" type="Label" parent="BeastEntryNode/Equipment"]
+[node name="EquipmentList" type="VFlowContainer" parent="BeastEntryNode/Equipment"]
 layout_mode = 2
-text = "Sword, Shield"
+script = ExtResource("21_towcn")
+EquipmentEntryScene = ExtResource("22_ryekk")
+
+[node name="EquipmentEntryPanel" parent="BeastEntryNode/Equipment/EquipmentList" instance=ExtResource("22_ryekk")]
+visible = false
+layout_mode = 2
 
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
@@ -256,6 +263,7 @@ text = "Sword, Shield"
 [connection signal="text_submitted" from="BeastEntryNode/Attributes/Description/DescriptionText/TraitsEdit" to="BeastEntryNode/Attributes/Description/DescriptionText/TraitsEdit" method="OnTextSubmitted"]
 [connection signal="EquipmentSelected" from="BeastEntryNode/Equipment/EquipmentOptions" to="BeastEntryNode/Equipment/AddEquipmentButton" method="HandleEquipmentSelected"]
 [connection signal="item_selected" from="BeastEntryNode/Equipment/EquipmentOptions" to="BeastEntryNode/Equipment/EquipmentOptions" method="HandleEquipmentSelected"]
+[connection signal="AddEquipment" from="BeastEntryNode/Equipment/AddEquipmentButton" to="BeastEntryNode/Equipment/EquipmentList" method="HandleEquipmentSelected"]
 [connection signal="pressed" from="BeastEntryNode/Equipment/AddEquipmentButton" to="BeastEntryNode/Equipment/AddEquipmentButton" method="HandlePressed"]
 
 [editable path="BeastEntryNode/Attributes/Stats/HealthPoints"]
