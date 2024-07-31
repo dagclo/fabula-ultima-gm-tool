@@ -912,5 +912,44 @@ namespace FabulaUltimaDatabase
                 
             }
         }
+
+        public IEnumerable<EquipmentTemplate> GetEquipmentTemplates()
+        {
+            var equipmentCategories = GetEquipmentCategories().ToDictionary(ec => ec.Id, ec => ec);
+            var damageTypes = GetDamageTypes().ToDictionary(d => d.Id, d => d);
+            foreach (var equipment in GetEquipment())
+            {
+                yield return new EquipmentTemplate
+                {
+                    Id = equipment.Id,
+                    Name = equipment.Name,
+                    Category = equipmentCategories[equipment.CategoryId.Value],
+                    IsMartial = equipment.IsMartial.Value,
+                    Quality = equipment.Quality,
+                    NumHands = equipment.NumHands,
+                    BasicAttack = equipmentCategories[equipment.CategoryId.Value].IsWeapon ? new BasicAttackTemplate()
+                    {
+                        Id = equipment.Id.Value,
+                        Name = equipment.Name,
+                        AttackMod = equipment.AttackMod.Value,
+                        Attribute1 = equipment.Attribute1,
+                        Attribute2 = equipment.Attribute2,
+                        DamageMod = equipment.DamageMod.Value,
+                        DamageType = damageTypes[equipment.DamageType.Value].ToDamageType(),
+                        IsRanged = equipmentCategories[equipment.CategoryId.Value].IsRanged,
+                        //AttackSkills = specialAttacks.Where(s => s.BasicAttackId == equipment.Id.Value).Select(s => skillMap[s.SkillId]).ToArray() // no attack skills
+                    } : null,
+                    StatsModifier = equipmentCategories[equipment.CategoryId.Value].IsArmor ?
+                 new StatsModifications
+                 {
+                     InitiativeModifier = -equipment.InitiativeModification.Value,
+                     MagicDefenseModifier = equipment.MagicDefenceModification.Value,
+                     DefenseModifier = equipment.DefenseOverride ?? equipment.DefenseModification.Value,
+                     DefenseOverrides = equipment.DefenseOverride.HasValue
+
+                 } : null,
+                };
+            }            
+        }
     }
 }

@@ -2,40 +2,32 @@ using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class AddEquipmentButton : Button, IBeastAttribute
-{
-    private IBeastTemplate _beastTemplate;
-    private FabulaUltimaDatabase.Models.EquipmentEntry _equipmentEntry;
+{   
+    private ICollection<EquipmentTemplate> _equipmentList;
+    private EquipmentTemplate _equipmentTemplate;
 
-    public Action<System.Collections.Generic.ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
+    public Action<ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
 
     [Signal]
-    public delegate void AddEquipmentEventHandler(SignalWrapper<FabulaUltimaDatabase.Models.EquipmentEntry> equipment);
-
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    public delegate void AddEquipmentEventHandler(SignalWrapper<EquipmentTemplate> equipment);
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
-    {
-        _beastTemplate = beastTemplate;
+    {   
+        _equipmentList = beastTemplate.Model.Equipment;
     }
 
-    public void HandleEquipmentSelected(SignalWrapper<FabulaUltimaDatabase.Models.EquipmentEntry> signalWrapper)
+    public void HandleEquipmentSelected(SignalWrapper<EquipmentTemplate> signalWrapper)
     {
-        _equipmentEntry = signalWrapper.Value;
+        _equipmentTemplate = signalWrapper.Value;
     }
 
     public void HandlePressed()
     {
-        if (_equipmentEntry == null) return;
-        EmitSignal(SignalName.AddEquipment, new SignalWrapper<FabulaUltimaDatabase.Models.EquipmentEntry>(_equipmentEntry));
+        if (_equipmentTemplate == null) return;
+        _equipmentList.Add(_equipmentTemplate);
+        EmitSignal(SignalName.AddEquipment, new SignalWrapper<EquipmentTemplate>(_equipmentTemplate));
     }
 }

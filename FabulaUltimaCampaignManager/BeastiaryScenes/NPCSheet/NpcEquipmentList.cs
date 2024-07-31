@@ -23,13 +23,20 @@ public partial class NpcEquipmentList : Container, IBeastAttribute
 	{
 	}
 
-    public void HandleEquipmentSelected(SignalWrapper<FabulaUltimaDatabase.Models.EquipmentEntry> signalWrapper)
+    public void HandleEquipmentSelected(SignalWrapper<EquipmentTemplate> signalWrapper)
     {
         var equipmentEntry = signalWrapper.Value;
         var scene = EquipmentEntryScene.Instantiate<EquipmentEntry>();
         scene.SetEquipment( equipmentEntry);
         scene.SetBeastTemplate(_beastTemplate);
+        scene.OnRemoveEquipment += HandleRemoveEquipment;
         AddChild(scene);
+    }
+
+    private void HandleRemoveEquipment(EquipmentEntry entry)
+    {
+        this.RemoveChild(entry);
+        entry.QueueFree();
     }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)

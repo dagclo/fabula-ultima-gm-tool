@@ -1,3 +1,4 @@
+using FabulaUltimaNpc;
 using FirstProject;
 using FirstProject.Beastiary;
 using Godot;
@@ -6,22 +7,22 @@ using System.Linq;
 
 public partial class EquipmentOptions : OptionButton
 {   
-    private IDictionary<int, FabulaUltimaDatabase.Models.EquipmentEntry> _equipmentMap;
+    private IDictionary<int, EquipmentTemplate> _equipmentMap;
 
     [Signal]
-    public delegate void EquipmentSelectedEventHandler(SignalWrapper<FabulaUltimaDatabase.Models.EquipmentEntry> equipment);
+    public delegate void EquipmentSelectedEventHandler(SignalWrapper<EquipmentTemplate> equipment);
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
         RemoveItem(0); // remove unused item
         var beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;
-        var equipmentCategory = beastRepository.Database.GetEquipmentCategories().ToDictionary(c => c.Id, c => c);
+        
         var index = 0;
-        _equipmentMap = new Dictionary<int, FabulaUltimaDatabase.Models.EquipmentEntry>();
-        foreach (var equipmentGroupedByCategory in beastRepository.Database.GetEquipment().GroupBy(e => e.CategoryId))
+        _equipmentMap = new Dictionary<int, EquipmentTemplate>();
+        foreach (var equipmentGroupedByCategory in beastRepository.Database.GetEquipmentTemplates().GroupBy(e => e.Category.Id))
         {
-            var category = equipmentCategory[equipmentGroupedByCategory.Key.Value];
+            var category = equipmentGroupedByCategory.First().Category;
             AddItem($"===={category.Name}====", index);
             SetItemDisabled(index, true);
             index++;
@@ -37,6 +38,6 @@ public partial class EquipmentOptions : OptionButton
 
     public void HandleEquipmentSelected(int index)
     {
-        EmitSignal(SignalName.EquipmentSelected, new SignalWrapper<FabulaUltimaDatabase.Models.EquipmentEntry>(_equipmentMap[index]));
+        EmitSignal(SignalName.EquipmentSelected, new SignalWrapper<EquipmentTemplate>(_equipmentMap[index]));
     }
 }

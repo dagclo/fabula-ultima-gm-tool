@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cuswrbfikeimv"]
+[gd_scene load_steps=5 format=3 uid="uid://cuswrbfikeimv"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/EquipmentEntry.cs" id="1_nl3nm"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/EquipmentEntry/EquipmentLabel.cs" id="2_i5g8i"]
 [ext_resource type="Texture2D" uid="uid://dg2847af7baoe" path="res://Icon/x-mark-16.png" id="2_le0tu"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/EquipmentEntry/RemoveEquipmentButton.cs" id="4_f6ais"]
 
 [node name="EquipmentEntryPanel" type="PanelContainer"]
 script = ExtResource("1_nl3nm")
@@ -12,11 +13,16 @@ layout_mode = 2
 
 [node name="EquipmentLabel" type="Label" parent="EquipmentEntryHbox"]
 layout_mode = 2
-text = "Sword"
+text = "<unset>"
 script = ExtResource("2_i5g8i")
 
 [node name="RemoveButton" type="Button" parent="EquipmentEntryHbox"]
 layout_mode = 2
 icon = ExtResource("2_le0tu")
+script = ExtResource("4_f6ais")
 
+[connection signal="BeastSet" from="." to="EquipmentEntryHbox/RemoveButton" method="HandleBeastChanged"]
 [connection signal="EquipmentSet" from="." to="EquipmentEntryHbox/EquipmentLabel" method="HandleEquipmentSelected"]
+[connection signal="EquipmentSet" from="." to="EquipmentEntryHbox/RemoveButton" method="HandleEquipmentSelected"]
+[connection signal="EquipmentRemoved" from="EquipmentEntryHbox/RemoveButton" to="." method="HandleEquipmentRemoved"]
+[connection signal="pressed" from="EquipmentEntryHbox/RemoveButton" to="EquipmentEntryHbox/RemoveButton" method="HandlePressed"]

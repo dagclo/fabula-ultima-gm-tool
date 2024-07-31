@@ -249,10 +249,6 @@ layout_mode = 2
 script = ExtResource("21_towcn")
 EquipmentEntryScene = ExtResource("22_ryekk")
 
-[node name="EquipmentEntryPanel" parent="BeastEntryNode/Equipment/EquipmentList" instance=ExtResource("22_ryekk")]
-visible = false
-layout_mode = 2
-
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" to="BeastEntryNode/Attributes/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
