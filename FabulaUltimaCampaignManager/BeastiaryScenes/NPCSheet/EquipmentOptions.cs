@@ -1,9 +1,6 @@
-using FabulaUltimaDatabase.Models;
-using FabulaUltimaNpc;
 using FirstProject;
 using FirstProject.Beastiary;
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -1,5 +1,4 @@
-﻿using FabulaUltimaDatabase.Models;
-using FabulaUltimaNpc;
+﻿using FabulaUltimaNpc;
 
 namespace FabulaUltimaSkillLibrary
 {

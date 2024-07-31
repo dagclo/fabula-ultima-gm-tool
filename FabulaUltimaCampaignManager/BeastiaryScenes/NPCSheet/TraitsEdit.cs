@@ -1,7 +1,6 @@
 using FabulaUltimaNpc;
 using Godot;
 using System;
-using System.Collections.Generic;
 
 public partial class TraitsEdit : LineEdit, IBeastAttribute
 {

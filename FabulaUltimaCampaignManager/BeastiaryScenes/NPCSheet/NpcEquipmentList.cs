@@ -1,4 +1,3 @@
-using FabulaUltimaDatabase.Models;
 using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using Godot;

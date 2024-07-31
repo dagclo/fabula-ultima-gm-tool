@@ -1,8 +1,6 @@
-using FabulaUltimaDatabase.Models;
 using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using Godot;
-using System;
 
 public partial class EquipmentEntry : PanelContainer
 {
