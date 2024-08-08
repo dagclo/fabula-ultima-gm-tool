@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=26 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcEquipmentList.cs" id="21_towcn"]
 [ext_resource type="PackedScene" uid="uid://cuswrbfikeimv" path="res://BeastiaryScenes/NPCSheet/equipment_entry_panel.tscn" id="22_ryekk"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/EquipmentAttacks.cs" id="23_q2wre"]
+[ext_resource type="PackedScene" uid="uid://ddx26ghe36o0p" path="res://BeastiaryScenes/action.tscn" id="25_pund1"]
 
 [node name="NewNpcSheet" type="Window"]
 initial_position = 1
@@ -258,6 +259,7 @@ layout_mode = 2
 [node name="EquipmentAttacks" type="VBoxContainer" parent="BeastEntryNode/Attacks"]
 layout_mode = 2
 script = ExtResource("23_q2wre")
+BasicAttackScene = ExtResource("25_pund1")
 
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]

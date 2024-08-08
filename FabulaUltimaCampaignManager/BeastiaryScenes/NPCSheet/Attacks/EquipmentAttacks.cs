@@ -1,15 +1,20 @@
+using FabulaUltimaNpc;
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-public partial class EquipmentAttacks : VBoxContainer
+public partial class EquipmentAttacks : VBoxContainer, IBeastAttribute
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+    [Export]
+    public PackedScene BasicAttackScene { get; set; }
+    public Action<ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    public void HandleBeastChanged(IBeastTemplate beastTemplate)
+    {
+        foreach(var attack in beastTemplate.AllAttacks.Where(a => a.e)
+        {
+
+        }
+    }
 }
