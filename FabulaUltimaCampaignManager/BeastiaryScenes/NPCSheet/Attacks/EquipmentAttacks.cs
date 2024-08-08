@@ -12,10 +12,17 @@ public partial class EquipmentAttacks : VBoxContainer, IBeastAttribute
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
-        // get set of weapon ids
-        foreach(var attack in beastTemplate.AllAttacks.Where(a => a.e) // use weapon ids to detect equipment attacks
+        var children = this.GetChildren();
+        foreach (var child in children)
         {
-
+            this.RemoveChild(child);
+            child.QueueFree();
+        }
+        foreach(var attack in beastTemplate.AllAttacks.Where(a => a.IsEquipmentAttack))
+        {
+            var attackScene = BasicAttackScene.Instantiate<BasicAttack>();
+            attackScene.BasicAttackObject = attack;
+            this.AddChild(attackScene);
         }
     }
 }

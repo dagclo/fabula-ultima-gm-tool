@@ -133,7 +133,7 @@ namespace FabulaUltimaSkillLibrary
             var firstAttackMod = basicAttack.AttackMod;
             var levelAttackMod = npc.LevelAccuracyModifier;
             var totalAttackMod = firstAttackMod + levelAttackMod;
-            var givenAttackMod = inputData.AttackModifiers[basicAttack.Id].AtkMod;
+            var givenAttackMod = inputData.AttackModifiers.TryGetValue(basicAttack.Id, out var atkMod) ? atkMod.AtkMod : 0;
             var modDiff = givenAttackMod - totalAttackMod;
 
             var accuracySpecializedSkill = KnownSkills.SpecializedAccuracyCheck;
@@ -259,7 +259,7 @@ namespace FabulaUltimaSkillLibrary
                 var damageMod = attack.DamageMod;
                 var levelMod = npc.LevelDamageModifier;
                 var totalCalcMod = damageMod + levelMod;
-                var givenDamageMod = attackModifiers[attack.Id].DamMod;
+                var givenDamageMod = attackModifiers.TryGetValue(attack.Id, out var mod) ? mod.DamMod : 0;
 
                 var damModDiff = givenDamageMod - totalCalcMod;
                 if(damModDiff == int.Parse(improvedDamageSkill.OtherAttributes[DamageConstants.DAMAGE_BOOST]))

@@ -18,6 +18,7 @@ public partial class SpecialAttackLabel : Label, IAttackReader
 
     public void ReadAttack(BasicAttackTemplate attack)
     {
+		if (attack.AttackSkills == null) return;
 		var stringBuilder = new StringBuilder();
 		
 		foreach(var skill in attack.AttackSkills.Where(s => s.OtherAttributes?.IsSpecialAttack == true))

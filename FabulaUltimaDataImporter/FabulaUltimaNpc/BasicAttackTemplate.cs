@@ -12,6 +12,8 @@
         public bool IsRanged { get; set; }
         public ICollection<SkillTemplate> AttackSkills { get; set; }
 
+        public bool IsEquipmentAttack { init; get; } = false;
+
         public BasicAttackTemplate Clone()
         {
             return new BasicAttackTemplate
@@ -25,6 +27,7 @@
                 DamageMod = DamageMod,
                 IsRanged = IsRanged,
                 AttackSkills = AttackSkills,
+                IsEquipmentAttack = IsEquipmentAttack,
             };
         }
     }
