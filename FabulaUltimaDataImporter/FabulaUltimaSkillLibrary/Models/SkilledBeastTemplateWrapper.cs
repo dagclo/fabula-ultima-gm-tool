@@ -38,6 +38,8 @@ namespace FabulaUltimaSkillLibrary.Models
                 }
                 return damageMod;
             }
+            var weaponIds = _beastTemplate.Equipment where weapons; // deliberate break
+            var validAttacks = KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) ? attacks: attacks.Where(a => a.Is)
 
             foreach (var attack in attacks) 
             {
