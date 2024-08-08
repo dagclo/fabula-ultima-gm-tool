@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=28 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -25,6 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://cuswrbfikeimv" path="res://BeastiaryScenes/NPCSheet/equipment_entry_panel.tscn" id="22_ryekk"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/EquipmentAttacks.cs" id="23_q2wre"]
 [ext_resource type="PackedScene" uid="uid://cwsegr0yegay2" path="res://BeastiaryScenes/attack.tscn" id="25_t270h"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/BasicAttackInputs.cs" id="26_lbb3y"]
+[ext_resource type="PackedScene" uid="uid://dqmmki2gbsr2q" path="res://BeastiaryScenes/NPCSheet/Attacks/basic_attack_input.tscn" id="27_gkqmd"]
 
 [node name="NewNpcSheet" type="Window"]
 initial_position = 1
@@ -256,10 +258,30 @@ EquipmentEntryScene = ExtResource("22_ryekk")
 [node name="Attacks" type="VBoxContainer" parent="BeastEntryNode"]
 layout_mode = 2
 
+[node name="Label" type="Label" parent="BeastEntryNode/Attacks"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "Attacks"
+
 [node name="EquipmentAttacks" type="VBoxContainer" parent="BeastEntryNode/Attacks"]
 layout_mode = 2
 script = ExtResource("23_q2wre")
 BasicAttackScene = ExtResource("25_t270h")
+
+[node name="BasicAttackSection" type="VBoxContainer" parent="BeastEntryNode/Attacks"]
+layout_mode = 2
+
+[node name="AddBasicAttack" type="Button" parent="BeastEntryNode/Attacks/BasicAttackSection"]
+layout_mode = 2
+text = "Add Basic Attack"
+
+[node name="BasicAttacks" type="VBoxContainer" parent="BeastEntryNode/Attacks/BasicAttackSection"]
+layout_mode = 2
+script = ExtResource("26_lbb3y")
+BasicAttackInputScene = ExtResource("27_gkqmd")
+
+[node name="BasicAttackInput" parent="BeastEntryNode/Attacks/BasicAttackSection/BasicAttacks" instance=ExtResource("27_gkqmd")]
+layout_mode = 2
 
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]

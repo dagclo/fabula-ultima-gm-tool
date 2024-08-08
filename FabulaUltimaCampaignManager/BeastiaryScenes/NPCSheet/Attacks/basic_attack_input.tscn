@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dqmmki2gbsr2q"]
+
+[node name="BasicAttackInput" type="HBoxContainer"]
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Name:"
+
+[node name="AccuracyRollLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Accuracy Roll:"
+
+[node name="AccuracyModLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Accuracy Mod:"
+
+[node name="DamageRollLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Damage Roll:"
+
+[node name="DamageTypeLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Damage Type:"
+
+[node name="SpecialAttacklabel" type="Label" parent="."]
+layout_mode = 2
+text = "Special Attack:"
