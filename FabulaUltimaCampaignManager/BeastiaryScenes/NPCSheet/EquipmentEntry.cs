@@ -5,11 +5,16 @@ using System;
 
 public partial class EquipmentEntry : PanelContainer
 {
+    private bool? _canUseEquipment = null;
+
     [Signal]
     public delegate void EquipmentSetEventHandler(SignalWrapper<EquipmentTemplate> equipment);
 
     [Signal]
     public delegate void BeastSetEventHandler(SignalWrapper<EquipmentTemplate> equipment);
+
+    [Signal]
+    public delegate void CanBeastUseEquipmentEventHandler(bool useEquipment);
 
     public void SetEquipment(EquipmentTemplate equipmentEntry)
     {
@@ -28,5 +33,12 @@ public partial class EquipmentEntry : PanelContainer
     public void HandleEquipmentRemoved()
     {
         OnRemoveEquipment?.Invoke(this);
+    }
+
+    internal void HandleEquipmentSkillChanged(bool enable)
+    {
+        if (enable == _canUseEquipment) return; // only emit signal if things have changed
+        EmitSignal(SignalName.CanBeastUseEquipment, enable);
+        _canUseEquipment = enable;
     }
 }

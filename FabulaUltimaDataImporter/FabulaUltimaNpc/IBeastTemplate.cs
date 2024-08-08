@@ -31,6 +31,7 @@
         string Traits { get; set; }
         Die WillPower { get; set; }
         bool Immutable { get; }
+        bool HasDefenseOverride { get; }
 
         Die GetDie(string attributeName);
     }

@@ -22,6 +22,7 @@ icon = ExtResource("2_le0tu")
 script = ExtResource("4_f6ais")
 
 [connection signal="BeastSet" from="." to="EquipmentEntryHbox/RemoveButton" method="HandleBeastChanged"]
+[connection signal="CanBeastUseEquipment" from="." to="EquipmentEntryHbox/RemoveButton" method="HandleEquipmentEnable"]
 [connection signal="EquipmentSet" from="." to="EquipmentEntryHbox/EquipmentLabel" method="HandleEquipmentSelected"]
 [connection signal="EquipmentSet" from="." to="EquipmentEntryHbox/RemoveButton" method="HandleEquipmentSelected"]
 [connection signal="EquipmentRemoved" from="EquipmentEntryHbox/RemoveButton" to="." method="HandleEquipmentRemoved"]

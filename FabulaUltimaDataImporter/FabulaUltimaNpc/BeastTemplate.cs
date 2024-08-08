@@ -172,6 +172,8 @@
 
         public bool Immutable => true;
 
+        public bool HasDefenseOverride => false;
+
         public Die GetDie(string attributeName)
         {
             switch (attributeName)

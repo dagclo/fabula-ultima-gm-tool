@@ -18,6 +18,7 @@ namespace FabulaUltimaSkillLibrary
 
         public static bool SpeciesCanUse(this SkillTemplate skillTemplate, IBeastTemplate template)
         {
+            if (template.Species == null) return false;
             if (skillTemplate.OtherAttributes == null) return true;
             return skillTemplate.OtherAttributes.TryGetValue(SpeciesConstants.BLOCKED_SPECIES, out var value) ? value != template.Species.Id.ToString() : true;
         }
@@ -63,10 +64,10 @@ namespace FabulaUltimaSkillLibrary
             return
                 new SkillTemplate(Guid.Parse("0599471f-6102-428b-9577-f72835db5e0d"))
                 {
-                    Name = "Vulnerability: Fire",
+                    Name = $"No {damageType} Affinity",
                     TargetType = typeof(BeastResistance),
                     IsSpecialRule = false,
-                    Keywords = new HashSet<string> { "fire", "vulnerability" },
+                    Keywords = new HashSet<string> { "no", "damageType", "affinity" },
                     OtherAttributes = new SkillAttributeCollection
                     {
                         [DamageConstants.AFFINITY_ID] = DamageConstants.NO_AFFINITY.ToString(),

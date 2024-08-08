@@ -1,4 +1,5 @@
 using FabulaUltimaNpc;
+using FabulaUltimaSkillLibrary;
 using FirstProject.Beastiary;
 using Godot;
 using System;
@@ -11,6 +12,7 @@ public partial class NpcEquipmentList : Container, IBeastAttribute
     [Export]
     public PackedScene EquipmentEntryScene { get; set; }
     public Action<ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
+    public Action<bool> OnEquipmentSkillChanged { get; set; }
 
 
     // Called when the node enters the scene tree for the first time.
@@ -30,17 +32,21 @@ public partial class NpcEquipmentList : Container, IBeastAttribute
         scene.SetEquipment( equipmentEntry);
         scene.SetBeastTemplate(_beastTemplate);
         scene.OnRemoveEquipment += HandleRemoveEquipment;
+        OnEquipmentSkillChanged += scene.HandleEquipmentSkillChanged;
         AddChild(scene);
+        BeastTemplateAction?.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.TRIGGER });
     }
 
     private void HandleRemoveEquipment(EquipmentEntry entry)
     {
         this.RemoveChild(entry);
         entry.QueueFree();
+        BeastTemplateAction?.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.TRIGGER });
     }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
-        _beastTemplate = beastTemplate;
-    }
+        _beastTemplate = beastTemplate;        
+        OnEquipmentSkillChanged?.Invoke(KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate));
+    }    
 }

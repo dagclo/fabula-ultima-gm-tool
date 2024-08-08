@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=25 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -19,9 +19,11 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/UseDiceSizeLabel.cs" id="11_ytpva"]
 [ext_resource type="PackedScene" uid="uid://dyorgxiwguhn3" path="res://BeastiaryScenes/NPCSheet/affinity_edit.tscn" id="13_hryoq"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/EquipmentOptions.cs" id="19_n08he"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/EquipmentEntry/EquipmentContainer.cs" id="19_vn6ad"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/AddEquipmentButton.cs" id="20_5vdr4"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcEquipmentList.cs" id="21_towcn"]
 [ext_resource type="PackedScene" uid="uid://cuswrbfikeimv" path="res://BeastiaryScenes/NPCSheet/equipment_entry_panel.tscn" id="22_ryekk"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/EquipmentAttacks.cs" id="23_q2wre"]
 
 [node name="NewNpcSheet" type="Window"]
 initial_position = 1
@@ -226,6 +228,7 @@ AffinityName = "Poison"
 
 [node name="Equipment" type="HBoxContainer" parent="BeastEntryNode"]
 layout_mode = 2
+script = ExtResource("19_vn6ad")
 
 [node name="SelectEquipment" type="Label" parent="BeastEntryNode/Equipment"]
 layout_mode = 2
@@ -248,6 +251,13 @@ script = ExtResource("20_5vdr4")
 layout_mode = 2
 script = ExtResource("21_towcn")
 EquipmentEntryScene = ExtResource("22_ryekk")
+
+[node name="Attacks" type="VBoxContainer" parent="BeastEntryNode"]
+layout_mode = 2
+
+[node name="EquipmentAttacks" type="VBoxContainer" parent="BeastEntryNode/Attacks"]
+layout_mode = 2
+script = ExtResource("23_q2wre")
 
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]

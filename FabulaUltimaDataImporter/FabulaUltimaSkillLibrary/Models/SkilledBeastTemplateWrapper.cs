@@ -52,25 +52,50 @@ namespace FabulaUltimaSkillLibrary.Models
 
         public int Crisis => _beastTemplate.Crisis;
 
-        public int Defense => ResolveDefense(_beastTemplate.Defense);
-
-        private int ResolveDefense(int defense)
+        public int Defense => ResolveDefense();
+        private ICollection<EquipmentTemplate> Armor => _beastTemplate.Equipment.Where(e => e.Category.IsArmor).ToArray();
+        private int ResolveDefense()
         {
-            var result = defense;
-            var pDefSkillId = KnownSkills.ImprovedDefensesPhysical.Id;
-            if (_skillCountMap.TryGetValue(pDefSkillId, out var numPDefTimesApplied))
+            var defense = _beastTemplate.Defense;
+            var armor = Armor;
+            bool overrides = false;
+            if (KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) && armor.Any())
             {
-                var targetSkill = _skillMap[pDefSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST]) * numPDefTimesApplied);
+                var overrideArmor = armor.Where(a => a.StatsModifier?.DefenseOverrides ?? false)
+                        .OrderByDescending(a => a.StatsModifier?.DefenseModifier ?? int.MinValue)
+                        .FirstOrDefault();
+                if(overrideArmor != null)
+                {
+                    defense = overrideArmor.StatsModifier.DefenseModifier;
+                    overrides = true;
+                }
+                else
+                {
+                    var bestArmor = armor
+                        .OrderByDescending(a => a.StatsModifier?.DefenseModifier ?? int.MinValue)
+                        .First();
+                    defense += bestArmor.StatsModifier.DefenseModifier;
+                }
             }
 
-            var mDefSkillId = KnownSkills.ImprovedDefensesMagical.Id;
-            if (_skillCountMap.TryGetValue(mDefSkillId, out var numMDefTimesApplied))
+            if(!overrides)
             {
-                var targetSkill = _skillMap[mDefSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST]) * numMDefTimesApplied);
+                var pDefSkillId = KnownSkills.ImprovedDefensesPhysical.Id;
+                if (_skillCountMap.TryGetValue(pDefSkillId, out var numPDefTimesApplied))
+                {
+                    var targetSkill = _skillMap[pDefSkillId];
+                    defense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST]) * numPDefTimesApplied);
+                }
+
+                var mDefSkillId = KnownSkills.ImprovedDefensesMagical.Id;
+                if (_skillCountMap.TryGetValue(mDefSkillId, out var numMDefTimesApplied))
+                {
+                    var targetSkill = _skillMap[mDefSkillId];
+                    defense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST]) * numMDefTimesApplied);
+                }
             }
-            return result;
+           
+            return defense;
         }
 
         public string Description 
@@ -96,7 +121,7 @@ namespace FabulaUltimaSkillLibrary.Models
             }
         }
 
-        public IReadOnlyCollection<EquipmentTemplate> Equipment => _beastTemplate.Equipment;
+        public IReadOnlyCollection<EquipmentTemplate> Equipment => KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) ? _beastTemplate.Equipment : Array.Empty<EquipmentTemplate>();
 
         public int HealthPoints => ResolveHP(_beastTemplate.HealthPoints);
 
@@ -175,25 +200,35 @@ namespace FabulaUltimaSkillLibrary.Models
 
         public int LevelDamageModifier => _beastTemplate.LevelDamageModifier;
 
-        public int MagicalDefense => ResolveMagicalDefense(_beastTemplate.MagicalDefense);
+        public int MagicalDefense => ResolveMagicalDefense();
 
-        private int ResolveMagicalDefense(int magicalDefense)
+        private int ResolveMagicalDefense()
         {
-            var result = magicalDefense;
+            var magicalDefense = _beastTemplate.MagicalDefense;
+
+            var armor = Armor;
+            if (KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) && armor.Any())
+            {
+                var bestArmor = armor
+                        .OrderByDescending(a => a.StatsModifier?.MagicDefenseModifier ?? int.MinValue)
+                        .First();
+                magicalDefense += bestArmor.StatsModifier.MagicDefenseModifier;
+            }
+
             var pDefSkillId = KnownSkills.ImprovedDefensesPhysical.Id;
             if (_skillCountMap.TryGetValue(pDefSkillId, out var numPDefTimesApplied))
             {
                 var targetSkill = _skillMap[pDefSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numPDefTimesApplied);
+                magicalDefense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numPDefTimesApplied);
             }
 
             var mDefSkillId = KnownSkills.ImprovedDefensesMagical.Id;
             if (_skillCountMap.TryGetValue(mDefSkillId, out var numMDefTimesApplied))
             {
                 var targetSkill = _skillMap[mDefSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numMDefTimesApplied);
+                magicalDefense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numMDefTimesApplied);
             }
-            return result;
+            return magicalDefense;
         }
 
         public int MagicPoints => ResolveMP(_beastTemplate.MagicPoints);
@@ -312,6 +347,8 @@ namespace FabulaUltimaSkillLibrary.Models
         public int MagicCheckModifier => ResolveMagicCheckModifier(_beastTemplate.MagicCheckModifier);
 
         public bool Immutable { get; set; }
+
+        public bool HasDefenseOverride => KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) ? Armor.Any(a => a.StatsModifier?.DefenseOverrides ?? false) : false;
 
         private int ResolveMagicCheckModifier(int magicCheckModifier)
         {
