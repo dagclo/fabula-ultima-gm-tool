@@ -44,7 +44,7 @@ namespace FabulaUltimaSkillLibrary.Models
             foreach (var attack in attacks) 
             {
                 var updatedAttack = attack.Clone(); // want to preserve original value
-                updatedAttack.AttackMod += accuracyMod;
+                updatedAttack.AccuracyMod += accuracyMod;
                 updatedAttack.DamageMod += ResolveDamageMod(attack.AttackSkills);
                 yield return updatedAttack;
             }

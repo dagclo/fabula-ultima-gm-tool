@@ -4,7 +4,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class BasicAttackSettings : HBoxContainer
+public partial class BasicAttackSettings : Container
 {
     public BasicAttackTemplate BasicAttack { get; set; }
 

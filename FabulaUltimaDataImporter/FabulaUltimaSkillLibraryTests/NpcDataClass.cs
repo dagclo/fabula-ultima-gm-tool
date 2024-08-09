@@ -160,7 +160,7 @@ namespace FabulaUltimaSkillLibraryTests
                             new BasicAttackTemplate
                             {
                                 DamageMod = 5,
-                                AttackMod = 0,
+                                AccuracyMod = 0,
                                 Name = "Mandible Slash",
                                 DamageType = POISON,
                                 Attribute1 = DEXTERITY,
@@ -171,7 +171,7 @@ namespace FabulaUltimaSkillLibraryTests
                             new BasicAttackTemplate
                             {
                                 DamageMod = 5,
-                                AttackMod = 0,
+                                AccuracyMod = 0,
                                 Name = "Cutter ball",
                                 DamageType = PHYSICAL,
                                 Attribute1 = DEXTERITY,
@@ -230,7 +230,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "White Maw",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -314,7 +314,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Elemental Discharge",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -387,7 +387,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Razor Dive",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -398,7 +398,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Gatling Gun",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -409,7 +409,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Scorch Rocket",
                                             DamageType = FIRE,
                                             Attribute1 = DEXTERITY,
@@ -499,7 +499,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Sharp Turn",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -573,7 +573,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Tangle of Vipers",
                                             DamageType = POISON,
                                             Attribute1 = DEXTERITY,
@@ -584,7 +584,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Cold Glare",
                                             DamageType = ICE,
                                             Attribute1 = DEXTERITY,
@@ -671,7 +671,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Sharp Needle",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -750,7 +750,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Seasonal Touch",
                                             DamageType = AIR,
                                             Attribute1 = DEXTERITY,
@@ -848,7 +848,7 @@ namespace FabulaUltimaSkillLibraryTests
                                             BasicAttack =  new BasicAttackTemplate
                                             {
                                                 DamageMod = 12,
-                                                AttackMod = 0,
+                                                AccuracyMod = 0,
                                                 Name = "Heavy Spear",
                                                 DamageType = PHYSICAL,
                                                 Attribute1 = DEXTERITY,
@@ -872,7 +872,7 @@ namespace FabulaUltimaSkillLibraryTests
                                             BasicAttack =  new BasicAttackTemplate
                                             {
                                                 DamageMod = 8,
-                                                AttackMod = 0,
+                                                AccuracyMod = 0,
                                                 Name = "Crossbow",
                                                 DamageType = PHYSICAL,
                                                 Attribute1 = DEXTERITY,
@@ -982,7 +982,7 @@ namespace FabulaUltimaSkillLibraryTests
                                             BasicAttack =  new BasicAttackTemplate
                                             {
                                                 DamageMod = 10,
-                                                AttackMod = 1,
+                                                AccuracyMod = 1,
                                                 Name = "Hiveblade",
                                                 DamageType = PHYSICAL,
                                                 Attribute1 = DEXTERITY,
@@ -1051,7 +1051,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Scratch",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -1062,7 +1062,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Ghostfire",
                                             DamageType = FIRE,
                                             Attribute1 = DEXTERITY,
@@ -1147,7 +1147,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Petrifying Peck",
                                             DamageType = NO_DAMAGE,
                                             Attribute1 = DEXTERITY,
@@ -1158,7 +1158,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Toxic Peck",
                                             DamageType = FIRE,
                                             Attribute1 = DEXTERITY,
@@ -1236,7 +1236,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Vine Slap",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -1247,7 +1247,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Alraune Scream",
                                             DamageType = NO_DAMAGE,
                                             Attribute1 = WILLPOWER,
@@ -1329,7 +1329,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Dragoneater",
                                             DamageType = PHYSICAL,
                                             Attribute1 = MIGHT,
@@ -1340,7 +1340,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Lashing Vines",
                                             DamageType = AIR,
                                             Attribute1 = DEXTERITY,
@@ -1474,7 +1474,7 @@ namespace FabulaUltimaSkillLibraryTests
                                             BasicAttack =  new BasicAttackTemplate
                                             {
                                                 DamageMod = 6,
-                                                AttackMod = 0,
+                                                AccuracyMod = 0,
                                                 Name = "Staff",
                                                 DamageType = PHYSICAL,
                                                 Attribute1 = WILLPOWER,
@@ -1544,7 +1544,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Fury Claw",
                                             DamageType = PHYSICAL,
                                             Attribute1 = MIGHT,
@@ -1638,7 +1638,7 @@ namespace FabulaUltimaSkillLibraryTests
                                     Name = "Mercy's Blade",
                                     DamageMod = 0,
                                     DamageType = PHYSICAL,
-                                    AttackMod = 0,
+                                    AccuracyMod = 0,
                                     Attribute1 = DEXTERITY,
                                     Attribute2 = DEXTERITY,
                                     IsRanged = false
@@ -1661,7 +1661,7 @@ namespace FabulaUltimaSkillLibraryTests
                                     Name = "Justice's Club",
                                     DamageMod = 0,
                                     DamageType = PHYSICAL,
-                                    AttackMod = 0,
+                                    AccuracyMod = 0,
                                     Attribute1 = MIGHT,
                                     Attribute2 = MIGHT,
                                     IsRanged = false
@@ -1694,7 +1694,7 @@ namespace FabulaUltimaSkillLibraryTests
                             {
                                 Id = bumRushID,
                                 DamageMod = 5,
-                                AttackMod = 0,
+                                AccuracyMod = 0,
                                 Name = "Bum Rush",
                                 DamageType = PHYSICAL,
                                 Attribute1 = DEXTERITY,
@@ -1787,7 +1787,7 @@ namespace FabulaUltimaSkillLibraryTests
                             {
                                 Id = piercingHugId,
                                 DamageMod = 5,
-                                AttackMod = 0,
+                                AccuracyMod = 0,
                                 Name = "Piercing Hug",
                                 DamageType = PHYSICAL,
                                 Attribute1 = MIGHT,
@@ -1798,7 +1798,7 @@ namespace FabulaUltimaSkillLibraryTests
                             {
                                 Id = thornBarrageId,
                                 DamageMod = 5,
-                                AttackMod = 0,
+                                AccuracyMod = 0,
                                 Name = "Thorn Barrage",
                                 DamageType = PHYSICAL,
                                 Attribute1 = DEXTERITY,
@@ -1885,7 +1885,7 @@ namespace FabulaUltimaSkillLibraryTests
                             {
                                 Id = bearHugId,
                                 DamageMod = 5,
-                                AttackMod = 0,
+                                AccuracyMod = 0,
                                 Name = "Bear Hug",
                                 DamageType = PHYSICAL,
                                 Attribute1 = DEXTERITY,

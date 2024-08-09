@@ -17,9 +17,9 @@ public partial class AttackRoll : Label, IAttackReader
     public void ReadAttack(BasicAttackTemplate attack)
     {
 		var attackText = $"[{attack.Attribute1.ShortenAttribute()} + {attack.Attribute2.ShortenAttribute()}]";
-		if(attack.AttackMod > 0)
+		if(attack.AccuracyMod > 0)
 		{
-			attackText = $"{attackText} + {attack.AttackMod}";
+			attackText = $"{attackText} + {attack.AccuracyMod}";
 		}
 		this.Text = attackText;
     }

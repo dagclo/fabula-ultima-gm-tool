@@ -362,7 +362,7 @@ namespace FabulaUltimaSkillLibraryTests
             var templateMock = Substitute.For<IBeastTemplate>();
             var attack = new BasicAttackTemplate
             {
-                AttackMod = 0
+                AccuracyMod = 0
             };
             templateMock.AllAttacks.Returns(
                 new[]
@@ -387,8 +387,8 @@ namespace FabulaUltimaSkillLibraryTests
             var improvedAttackFromBasic = skilledBeast.BasicAttacks.Single();
 
             // Assert
-            Assert.That(improvedAttackFromAll.AttackMod, Is.EqualTo(attack.AttackMod + accMod));
-            Assert.That(improvedAttackFromBasic.AttackMod, Is.EqualTo(attack.AttackMod + accMod));
+            Assert.That(improvedAttackFromAll.AccuracyMod, Is.EqualTo(attack.AccuracyMod + accMod));
+            Assert.That(improvedAttackFromBasic.AccuracyMod, Is.EqualTo(attack.AccuracyMod + accMod));
         }
 
 
@@ -536,8 +536,8 @@ namespace FabulaUltimaSkillLibraryTests
             var improvedAttackFromBasic = skilledBeast.BasicAttacks.Single();
 
             // Assert
-            Assert.That(improvedAttackFromAll.AttackMod, Is.EqualTo(attack.AttackMod + accuracyModifer));
-            Assert.That(improvedAttackFromBasic.AttackMod, Is.EqualTo(attack.AttackMod + accuracyModifer));
+            Assert.That(improvedAttackFromAll.AccuracyMod, Is.EqualTo(attack.AccuracyMod + accuracyModifer));
+            Assert.That(improvedAttackFromBasic.AccuracyMod, Is.EqualTo(attack.AccuracyMod + accuracyModifer));
         }
     }
 }

@@ -130,7 +130,7 @@ namespace FabulaUltimaSkillLibrary
         {
             var basicAttack = npc.AllAttacks?.FirstOrDefault();
             if (basicAttack == null) yield break;
-            var firstAttackMod = basicAttack.AttackMod;
+            var firstAttackMod = basicAttack.AccuracyMod;
             var levelAttackMod = npc.LevelAccuracyModifier;
             var totalAttackMod = firstAttackMod + levelAttackMod;
             var givenAttackMod = inputData.AttackModifiers.TryGetValue(basicAttack.Id, out var atkMod) ? atkMod.AtkMod : 0;

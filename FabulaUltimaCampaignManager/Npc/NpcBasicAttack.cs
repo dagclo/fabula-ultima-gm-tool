@@ -105,11 +105,11 @@ namespace FirstProject.Npc
         {
             get
             {
-                return BasicAttackTemplate.AttackMod;
+                return BasicAttackTemplate.AccuracyMod;
             }
             set
             {
-                BasicAttackTemplate.AttackMod = value;
+                BasicAttackTemplate.AccuracyMod = value;
             }
         }
 

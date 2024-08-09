@@ -1,3 +1,4 @@
+using FabulaUltimaNpc;
 using FabulaUltimaSkillLibrary;
 using FirstProject.Beastiary;
 using Godot;
@@ -6,11 +7,10 @@ using System.Linq;
 
 public partial class ChooseDamageTypeOptions : OptionButton
 {
+    private BasicAttackTemplate _basicAttack;
+
     [Export]
     public Godot.Collections.Array<string> DamageTypes { get; set; } = new Godot.Collections.Array<string>(DamageConstants.DamageTypes);
-
-    [Signal]
-    public delegate void DamageTypeChangedEventHandler(string attribute);
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -19,13 +19,23 @@ public partial class ChooseDamageTypeOptions : OptionButton
         {
             AddItem(val, index);
         }
-        Select(0);
+        Select(-1);
     }
 
     public void OnSelected(int index)
     {
-        var attrName = DamageTypes[GetItemId(index)];
+        if(_basicAttack == null) return;
+        var damageTypeName = DamageTypes[GetItemId(index)];
+        _basicAttack.DamageType = new FabulaUltimaNpc.DamageType
+        {
+            Id = DamageConstants.DamageTypeMap[damageTypeName],
+            Name = damageTypeName,
+        };        
+    }
 
-        EmitSignal(SignalName.DamageTypeChanged, attrName);
+    public void HandleAttackChanged(SignalWrapper<BasicAttackTemplate> signal)
+    {
+        var attack = signal.Value;
+        _basicAttack = attack;
     }
 }

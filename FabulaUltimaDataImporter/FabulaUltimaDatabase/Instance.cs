@@ -270,7 +270,7 @@ namespace FabulaUltimaDatabase
                     {
                         Id = e.Id.Value,
                         Name = e.Name,
-                        AttackMod = e.AttackMod.Value,
+                        AccuracyMod = e.AttackMod.Value,
                         Attribute1 = e.Attribute1,
                         Attribute2 = e.Attribute2,
                         DamageMod = e.DamageMod.Value,
@@ -388,7 +388,7 @@ namespace FabulaUltimaDatabase
                     Name = a.Name,
                     Attribute1 = a.Attribute1,
                     Attribute2 = a.Attribute2,
-                    AttackMod = a.AttackMod,
+                    AccuracyMod = a.AttackMod,
                     DamageMod = a.DamageMod.Value,
                     IsRanged = a.IsRanged.Value,
                     AttackSkills = specialAttacks.Where(s => s.BasicAttackId == a.Id.Value).Select(s => skillMap[s.SkillId]).ToArray()
@@ -932,7 +932,7 @@ namespace FabulaUltimaDatabase
                     {
                         Id = equipment.Id.Value,
                         Name = equipment.Name,
-                        AttackMod = equipment.AttackMod.Value,
+                        AccuracyMod = equipment.AttackMod.Value,
                         Attribute1 = equipment.Attribute1,
                         Attribute2 = equipment.Attribute2,
                         DamageMod = equipment.DamageMod.Value,
