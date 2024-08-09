@@ -41,10 +41,11 @@ Project Description
 
 ### In Progress
 
-- [ ] Add Configuring Attacks to New Npc Page  
+- [ ] implement adding skills to new npc page  
 
 ### Done ✓
 
+- [x] Add Configuring Attacks to New Npc Page  
 - [x] Implement Study  
 - [x] Fix Beastiary UI being too wide  
 - [x] Condense DB and images  
