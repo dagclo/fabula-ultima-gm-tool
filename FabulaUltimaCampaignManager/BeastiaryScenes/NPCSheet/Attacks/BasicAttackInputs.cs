@@ -27,6 +27,7 @@ public partial class BasicAttackInputs : VBoxContainer, IBeastAttribute
             DamageMod = 5,
             AccuracyMod = 0,
         };
+        _basicAttacks.Add(newAttack);
         scene.BasicAttack = newAttack;
         scene.OnRemoveAttack += HandleAttackRemove;
         OnBeastUpdate += scene.HandleBeastUpdate;

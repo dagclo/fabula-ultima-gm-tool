@@ -24,4 +24,9 @@ public partial class BasicAttackSettings : Container
         if (BasicAttack == null) return;
         EmitSignal(SignalName.AttackUpdate, new SignalWrapper<BasicAttackTemplate>(BasicAttack));
     }
+
+    public void HandleAttackRemove()
+    {
+        OnRemoveAttack?.Invoke(this);
+    }
 }

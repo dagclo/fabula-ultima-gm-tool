@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqmmki2gbsr2q"]
+[gd_scene load_steps=8 format=3 uid="uid://dqmmki2gbsr2q"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/BasicAttackSettings.cs" id="1_jggre"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/AttributeRollAttributeOption.cs" id="1_mp1sv"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/AttackNameLineEdit.cs" id="2_rbxsr"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/ChooseDamageTypeOptions.cs" id="3_cei0r"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/IsRangedCheckButton.cs" id="3_d8id1"]
 [ext_resource type="Texture2D" uid="uid://dg2847af7baoe" path="res://Icon/x-mark-16.png" id="4_d4cmd"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/SpecialAttackDetailLabel.cs" id="6_yrp14"]
 
@@ -22,6 +23,7 @@ script = ExtResource("2_rbxsr")
 [node name="IsRangedCheckButton" type="CheckButton" parent="Section1"]
 layout_mode = 2
 text = "Is Ranged"
+script = ExtResource("3_d8id1")
 
 [node name="AccuracyRollLabel" type="Label" parent="Section1"]
 layout_mode = 2
@@ -73,8 +75,11 @@ script = ExtResource("6_yrp14")
 [connection signal="AttackUpdate" from="." to="Section1/DamageOptions" method="HandleAttackChanged"]
 [connection signal="AttackUpdate" from="." to="Section1/AttributeRoll2" method="HandleAttackChanged"]
 [connection signal="AttackUpdate" from="." to="Section1/AttributeRoll1" method="HandleAttackChanged"]
+[connection signal="AttackUpdate" from="." to="Section1/IsRangedCheckButton" method="HandleAttackChanged"]
 [connection signal="AttackUpdate" from="." to="SpecialAttackSection/SpecialAttackDetailLabel" method="HandleAttackChanged"]
 [connection signal="text_changed" from="Section1/AttackNameLineEdit" to="Section1/AttackNameLineEdit" method="HandleTextChanged"]
+[connection signal="toggled" from="Section1/IsRangedCheckButton" to="Section1/IsRangedCheckButton" method="HandleToggle"]
 [connection signal="item_selected" from="Section1/AttributeRoll1" to="Section1/AttributeRoll1" method="OnSelected"]
 [connection signal="item_selected" from="Section1/AttributeRoll2" to="Section1/AttributeRoll2" method="OnSelected"]
 [connection signal="item_selected" from="Section1/DamageOptions" to="Section1/DamageOptions" method="OnSelected"]
+[connection signal="pressed" from="Section1/RemoveAttackButton" to="." method="HandleAttackRemove"]
