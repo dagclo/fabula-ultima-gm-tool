@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqmmki2gbsr2q"]
+[gd_scene load_steps=10 format=3 uid="uid://dqmmki2gbsr2q"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/BasicAttackSettings.cs" id="1_jggre"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/AttributeRollAttributeOption.cs" id="1_mp1sv"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/ChooseDamageTypeOptions.cs" id="3_cei0r"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/IsRangedCheckButton.cs" id="3_d8id1"]
 [ext_resource type="Texture2D" uid="uid://dg2847af7baoe" path="res://Icon/x-mark-16.png" id="4_d4cmd"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/AttackDamageRollLabel.cs" id="5_djfy1"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/AttackAccuracyModLabel.cs" id="5_pfexc"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/SpecialAttackDetailLabel.cs" id="6_yrp14"]
 
 [node name="BasicAttackInput" type="VBoxContainer"]
@@ -40,11 +42,13 @@ Index = 1
 
 [node name="AccuracyModLabel" type="Label" parent="Section1"]
 layout_mode = 2
-text = "Accuracy Mod:"
+text = "Accuracy Mod: <unset>"
+script = ExtResource("5_pfexc")
 
 [node name="DamageRollLabel" type="Label" parent="Section1"]
 layout_mode = 2
-text = "Damage Roll:"
+text = "Damage Roll: <unset>"
+script = ExtResource("5_djfy1")
 
 [node name="DamageTypeLabel" type="Label" parent="Section1"]
 layout_mode = 2
@@ -71,6 +75,8 @@ size_flags_horizontal = 3
 fit_content = true
 script = ExtResource("6_yrp14")
 
+[connection signal="AttackUpdate" from="." to="Section1/AccuracyModLabel" method="HandleAttackChanged"]
+[connection signal="AttackUpdate" from="." to="Section1/DamageRollLabel" method="HandleAttackChanged"]
 [connection signal="AttackUpdate" from="." to="Section1/AttackNameLineEdit" method="HandleAttackChanged"]
 [connection signal="AttackUpdate" from="." to="Section1/DamageOptions" method="HandleAttackChanged"]
 [connection signal="AttackUpdate" from="." to="Section1/AttributeRoll2" method="HandleAttackChanged"]
