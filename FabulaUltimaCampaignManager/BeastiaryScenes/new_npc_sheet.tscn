@@ -280,6 +280,27 @@ layout_mode = 2
 script = ExtResource("26_lbb3y")
 BasicAttackInputScene = ExtResource("27_gkqmd")
 
+[node name="Skills" type="VBoxContainer" parent="BeastEntryNode"]
+layout_mode = 2
+
+[node name="SkillsLabel" type="Label" parent="BeastEntryNode/Skills"]
+layout_mode = 2
+text = "Skills
+"
+
+[node name="OptionsSection" type="HBoxContainer" parent="BeastEntryNode/Skills"]
+layout_mode = 2
+
+[node name="SkillOptionButton" type="OptionButton" parent="BeastEntryNode/Skills/OptionsSection"]
+layout_mode = 2
+
+[node name="AddSkillButton" type="Button" parent="BeastEntryNode/Skills/OptionsSection"]
+layout_mode = 2
+text = "Add Skill"
+
+[node name="SkillsList" type="VBoxContainer" parent="BeastEntryNode/Skills"]
+layout_mode = 2
+
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" to="BeastEntryNode/Attributes/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
