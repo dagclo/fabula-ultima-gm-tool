@@ -1,27 +1,83 @@
-[gd_scene format=3 uid="uid://dqmmki2gbsr2q"]
+[gd_scene load_steps=6 format=3 uid="uid://dqmmki2gbsr2q"]
+
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/BasicAttackSettings.cs" id="1_jggre"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/AttributeRollAttributeOption.cs" id="1_mp1sv"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/AttackNameLineEdit.cs" id="2_rbxsr"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Attacks/ChooseDamageTypeOptions.cs" id="3_cei0r"]
+[ext_resource type="Texture2D" uid="uid://dg2847af7baoe" path="res://Icon/x-mark-16.png" id="4_d4cmd"]
 
 [node name="BasicAttackInput" type="HBoxContainer"]
+script = ExtResource("1_jggre")
 
-[node name="NameLabel" type="Label" parent="."]
+[node name="AttackNameLineEdit" type="LineEdit" parent="."]
 layout_mode = 2
-text = "Name:"
+placeholder_text = "Name of Attack"
+expand_to_text_length = true
+script = ExtResource("2_rbxsr")
 
 [node name="AccuracyRollLabel" type="Label" parent="."]
 layout_mode = 2
 text = "Accuracy Roll:"
 
+[node name="AttributeRoll1" type="OptionButton" parent="."]
+layout_mode = 2
+script = ExtResource("1_mp1sv")
+
+[node name="AttributeRoll2" type="OptionButton" parent="."]
+layout_mode = 2
+script = ExtResource("1_mp1sv")
+Index = 1
+
 [node name="AccuracyModLabel" type="Label" parent="."]
 layout_mode = 2
 text = "Accuracy Mod:"
+
+[node name="AccuracyRollOptions" type="OptionButton" parent="."]
+layout_mode = 2
+item_count = 4
+selected = 0
+popup/item_0/text = "0"
+popup/item_0/id = 0
+popup/item_1/text = "5"
+popup/item_1/id = 5
+popup/item_2/text = "10"
+popup/item_2/id = 10
+popup/item_3/text = "15"
+popup/item_3/id = 15
 
 [node name="DamageRollLabel" type="Label" parent="."]
 layout_mode = 2
 text = "Damage Roll:"
 
+[node name="DamageRollOptions" type="OptionButton" parent="."]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "5"
+popup/item_0/id = 5
+popup/item_1/text = "10"
+popup/item_1/id = 10
+popup/item_2/text = "15"
+popup/item_2/id = 15
+
 [node name="DamageTypeLabel" type="Label" parent="."]
 layout_mode = 2
 text = "Damage Type:"
 
-[node name="SpecialAttacklabel" type="Label" parent="."]
+[node name="DamageOptions" type="OptionButton" parent="."]
+layout_mode = 2
+script = ExtResource("3_cei0r")
+
+[node name="SpecialAttackLabel" type="Label" parent="."]
 layout_mode = 2
 text = "Special Attack:"
+
+[node name="SpecialAttackDetailLabel" type="Label" parent="."]
+layout_mode = 2
+
+[node name="RemoveAttackButton" type="Button" parent="."]
+layout_mode = 2
+icon = ExtResource("4_d4cmd")
+
+[connection signal="AttackUpdate" from="." to="AttackNameLineEdit" method="HandleAttackChanged"]
+[connection signal="text_changed" from="AttackNameLineEdit" to="AttackNameLineEdit" method="HandleTextChanged"]

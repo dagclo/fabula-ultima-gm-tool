@@ -30,7 +30,7 @@
 
 [node name="NewNpcSheet" type="Window"]
 initial_position = 1
-size = Vector2i(1000, 800)
+size = Vector2i(1000, 1000)
 script = ExtResource("1_3svqs")
 
 [node name="BeastEntryNode" type="VBoxContainer" parent="."]
@@ -280,9 +280,6 @@ layout_mode = 2
 script = ExtResource("26_lbb3y")
 BasicAttackInputScene = ExtResource("27_gkqmd")
 
-[node name="BasicAttackInput" parent="BeastEntryNode/Attacks/BasicAttackSection/BasicAttacks" instance=ExtResource("27_gkqmd")]
-layout_mode = 2
-
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" to="BeastEntryNode/Attributes/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
@@ -295,6 +292,7 @@ layout_mode = 2
 [connection signal="item_selected" from="BeastEntryNode/Equipment/EquipmentOptions" to="BeastEntryNode/Equipment/EquipmentOptions" method="HandleEquipmentSelected"]
 [connection signal="AddEquipment" from="BeastEntryNode/Equipment/AddEquipmentButton" to="BeastEntryNode/Equipment/EquipmentList" method="HandleEquipmentSelected"]
 [connection signal="pressed" from="BeastEntryNode/Equipment/AddEquipmentButton" to="BeastEntryNode/Equipment/AddEquipmentButton" method="HandlePressed"]
+[connection signal="pressed" from="BeastEntryNode/Attacks/BasicAttackSection/AddBasicAttack" to="BeastEntryNode/Attacks/BasicAttackSection/BasicAttacks" method="HandleAddAttack"]
 
 [editable path="BeastEntryNode/Attributes/Stats/HealthPoints"]
 [editable path="BeastEntryNode/Attributes/Stats/MagicPoints"]

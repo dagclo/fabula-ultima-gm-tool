@@ -55,5 +55,6 @@
             { LIGHT_NAME, LIGHT_DAMAGE_TYPE },
             { POISON_NAME, POISON_DAMAGE_TYPE },
         };
+        public static IEnumerable<string> DamageTypes => DamageTypeMap.Keys.OrderBy(k => k);
     }
 }
