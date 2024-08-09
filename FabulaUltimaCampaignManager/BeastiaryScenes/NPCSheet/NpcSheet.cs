@@ -36,6 +36,7 @@ public partial class NpcSheet : Node
         var editableBeastTemplate = template as SkilledBeastTemplateWrapper;
         var editableBeastModel = editableBeastTemplate?.Model as BeastModel;
         if (editableBeastModel == null) return;
+        if (editableBeastModel.Species == null) return; // no point in resolving without species
         var input = new SkillInputData
         {
             MaxMP = template.MagicPoints,
