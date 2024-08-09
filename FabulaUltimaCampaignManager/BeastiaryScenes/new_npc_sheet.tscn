@@ -30,7 +30,7 @@
 
 [node name="NewNpcSheet" type="Window"]
 initial_position = 1
-size = Vector2i(1000, 1000)
+size = Vector2i(1000, 800)
 script = ExtResource("1_3svqs")
 
 [node name="BeastEntryNode" type="VBoxContainer" parent="."]

@@ -15,6 +15,10 @@ placeholder_text = "Name of Attack"
 expand_to_text_length = true
 script = ExtResource("2_rbxsr")
 
+[node name="IsRangedCheckButton" type="CheckButton" parent="."]
+layout_mode = 2
+text = "Is Ranged"
+
 [node name="AccuracyRollLabel" type="Label" parent="."]
 layout_mode = 2
 text = "Accuracy Roll:"
@@ -80,4 +84,8 @@ layout_mode = 2
 icon = ExtResource("4_d4cmd")
 
 [connection signal="AttackUpdate" from="." to="AttackNameLineEdit" method="HandleAttackChanged"]
+[connection signal="AttackUpdate" from="." to="AttributeRoll2" method="HandleAttackChanged"]
+[connection signal="AttackUpdate" from="." to="AttributeRoll1" method="HandleAttackChanged"]
 [connection signal="text_changed" from="AttackNameLineEdit" to="AttackNameLineEdit" method="HandleTextChanged"]
+[connection signal="item_selected" from="AttributeRoll1" to="AttributeRoll1" method="OnSelected"]
+[connection signal="item_selected" from="AttributeRoll2" to="AttributeRoll2" method="OnSelected"]

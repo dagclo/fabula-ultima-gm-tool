@@ -21,7 +21,10 @@ public partial class BasicAttackInputs : VBoxContainer, IBeastAttribute
     public void HandleAddAttack()
     {
         var scene = BasicAttackInputScene.Instantiate<BasicAttackSettings>();
-        var newAttack = new BasicAttackTemplate();
+        var newAttack = new BasicAttackTemplate
+        {
+            Id = Guid.NewGuid(),
+        };
         scene.BasicAttack = newAttack;
         scene.OnRemoveAttack += HandleAttackRemove;
         OnBeastUpdate += scene.HandleBeastUpdate;
