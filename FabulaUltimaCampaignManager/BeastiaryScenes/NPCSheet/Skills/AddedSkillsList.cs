@@ -40,6 +40,7 @@ public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
         OnBeastChanged += scene.HandleBeastChanged;        
         AddChild(scene);
         scene.HandleBeastChanged(_beastTemplate);
+        BeastTemplateAction?.Invoke(new HashSet<BeastEntryNode.Action>(new[] { BeastEntryNode.Action.TRIGGER }));
     }
 
     private void HandleUpdateBeast()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=36 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -30,6 +30,11 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/AddedSkillsList.cs" id="28_hi7v6"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/ListSkillOptionButton.cs" id="28_sjni1"]
 [ext_resource type="PackedScene" uid="uid://baj8gvo8qh8e5" path="res://BeastiaryScenes/NPCSheet/Skills/added_skill.tscn" id="29_221r3"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/AddSpellList.cs" id="31_hoffq"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellOptionButton.cs" id="32_fiuif"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/CurrentSpellList.cs" id="32_joy7r"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellCount.cs" id="33_aq4t6"]
+[ext_resource type="PackedScene" uid="uid://cqtoubns32l31" path="res://BeastiaryScenes/NPCSheet/Spells/added_spell.tscn" id="33_xf15o"]
 
 [node name="NewNpcSheet" type="Window"]
 initial_position = 1
@@ -297,14 +302,14 @@ layout_mode = 2
 text = "Skills
 "
 
-[node name="OptionsSection" type="HBoxContainer" parent="ScrollContainer/BeastEntryNode/Skills"]
+[node name="SkillOptionsSection" type="HBoxContainer" parent="ScrollContainer/BeastEntryNode/Skills"]
 layout_mode = 2
 
-[node name="SkillOptionButton" type="OptionButton" parent="ScrollContainer/BeastEntryNode/Skills/OptionsSection"]
+[node name="SkillOptionButton" type="OptionButton" parent="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection"]
 layout_mode = 2
 script = ExtResource("28_sjni1")
 
-[node name="AddSkillButton" type="Button" parent="ScrollContainer/BeastEntryNode/Skills/OptionsSection"]
+[node name="AddSkillButton" type="Button" parent="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection"]
 layout_mode = 2
 text = "Add Skill"
 
@@ -312,6 +317,36 @@ text = "Add Skill"
 layout_mode = 2
 script = ExtResource("28_hi7v6")
 AddSkillScene = ExtResource("29_221r3")
+
+[node name="Spells" type="VBoxContainer" parent="ScrollContainer/BeastEntryNode"]
+layout_mode = 2
+script = ExtResource("31_hoffq")
+
+[node name="SpellListLabel" type="Label" parent="ScrollContainer/BeastEntryNode/Spells"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Spells"
+
+[node name="SpellOptionsSection" type="HBoxContainer" parent="ScrollContainer/BeastEntryNode/Spells"]
+layout_mode = 2
+
+[node name="SpellOptionButton" type="OptionButton" parent="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection"]
+layout_mode = 2
+script = ExtResource("32_fiuif")
+
+[node name="AddSpellButton" type="Button" parent="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection"]
+layout_mode = 2
+text = "Add Spell"
+
+[node name="SpellCount" type="Label" parent="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection"]
+layout_mode = 2
+text = "Num Spells Left:"
+script = ExtResource("33_aq4t6")
+
+[node name="SpellList" type="VBoxContainer" parent="ScrollContainer/BeastEntryNode/Spells"]
+layout_mode = 2
+script = ExtResource("32_joy7r")
+AddSpellScene = ExtResource("33_xf15o")
 
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
@@ -326,9 +361,9 @@ AddSkillScene = ExtResource("29_221r3")
 [connection signal="AddEquipment" from="ScrollContainer/BeastEntryNode/Equipment/AddEquipmentButton" to="ScrollContainer/BeastEntryNode/Equipment/EquipmentList" method="HandleEquipmentSelected"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Equipment/AddEquipmentButton" to="ScrollContainer/BeastEntryNode/Equipment/AddEquipmentButton" method="HandlePressed"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Attacks/BasicAttackSection/AddBasicAttack" to="ScrollContainer/BeastEntryNode/Attacks/BasicAttackSection/BasicAttacks" method="HandleAddAttack"]
-[connection signal="SkillSelected" from="ScrollContainer/BeastEntryNode/Skills/OptionsSection/SkillOptionButton" to="ScrollContainer/BeastEntryNode/Skills/SkillsList" method="HandleSkillSelect"]
-[connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Skills/OptionsSection/SkillOptionButton" to="ScrollContainer/BeastEntryNode/Skills/OptionsSection/SkillOptionButton" method="HandleSelected"]
-[connection signal="pressed" from="ScrollContainer/BeastEntryNode/Skills/OptionsSection/AddSkillButton" to="ScrollContainer/BeastEntryNode/Skills/SkillsList" method="HandleAddSkill"]
+[connection signal="SkillSelected" from="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillOptionButton" to="ScrollContainer/BeastEntryNode/Skills/SkillsList" method="HandleSkillSelect"]
+[connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillOptionButton" to="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillOptionButton" method="HandleSelected"]
+[connection signal="pressed" from="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/AddSkillButton" to="ScrollContainer/BeastEntryNode/Skills/SkillsList" method="HandleAddSkill"]
 
 [editable path="ScrollContainer/BeastEntryNode/Attributes/Stats/HealthPoints"]
 [editable path="ScrollContainer/BeastEntryNode/Attributes/Stats/MagicPoints"]

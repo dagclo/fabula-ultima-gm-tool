@@ -953,5 +953,21 @@ namespace FabulaUltimaDatabase
                 };
             }            
         }
+
+        public IEnumerable<SpellTemplate> GetSpellTemplates()
+        {
+            return GetSpells().Select(s => new SpellTemplate
+            {
+                Id = s.Id.Value,
+                Name = s.Name,
+                Attribute1 = s.Attribute1,
+                Attribute2 = s.Attribute2,
+                Description = s.Description,
+                Duration = s.Duration,
+                IsOffensive = s.IsOffensive ?? false,
+                MagicPointCost = s.MagicPointCost,
+                Target = s.Target,
+            });
+        }
     }
 }

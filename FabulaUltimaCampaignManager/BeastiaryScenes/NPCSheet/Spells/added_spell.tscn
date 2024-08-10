@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://cqtoubns32l31"]
+
+[node name="Spell" type="VBoxContainer"]
+
+[node name="SpellAttributes" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SpellName" type="LineEdit" parent="SpellAttributes"]
+layout_mode = 2
+placeholder_text = "Spell Name"
+editable = false
+expand_to_text_length = true
+
+[node name="CheckButton" type="CheckButton" parent="SpellAttributes"]
+layout_mode = 2
+disabled = true
+text = "Is Offensive"
+
+[node name="MPLabel" type="Label" parent="SpellAttributes"]
+layout_mode = 2
+text = "MP:"
+
+[node name="MpCostEdit" type="LineEdit" parent="SpellAttributes"]
+layout_mode = 2
+placeholder_text = "<unset>"
+editable = false
+expand_to_text_length = true
+
+[node name="AttributeRoll1" type="OptionButton" parent="SpellAttributes"]
+layout_mode = 2
+disabled = true
+
+[node name="AttributeRoll2" type="OptionButton" parent="SpellAttributes"]
+layout_mode = 2
+disabled = true
+
+[node name="TargetEdit" type="LineEdit" parent="SpellAttributes"]
+layout_mode = 2
+placeholder_text = "<unset>"
+editable = false
+expand_to_text_length = true
+
+[node name="DurationEdit" type="LineEdit" parent="SpellAttributes"]
+layout_mode = 2
+placeholder_text = "<unset>"
+editable = false
+expand_to_text_length = true
+
+[node name="TextEdit" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+editable = false
+
+[connection signal="item_selected" from="SpellAttributes/AttributeRoll1" to="SpellAttributes/AttributeRoll1" method="OnSelected"]
+[connection signal="item_selected" from="SpellAttributes/AttributeRoll2" to="SpellAttributes/AttributeRoll2" method="OnSelected"]

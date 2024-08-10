@@ -6,6 +6,8 @@ Project Description
 
 ### Backlog
 
+- [ ] Implement Other Actions  
+- [ ] Save all results  
 - [ ] Add Loading Page for switch back to main page  
 - [ ] Add Size Modifiers to creatures  
 - [ ] Implement basic search  
@@ -41,10 +43,11 @@ Project Description
 
 ### In Progress
 
-- [ ] implement adding skills to new npc page  
+- [ ] Add Implementing Spells  
 
 ### Done ✓
 
+- [x] implement adding skills to new npc page  
 - [x] Add Configuring Attacks to New Npc Page  
 - [x] Implement Study  
 - [x] Fix Beastiary UI being too wide  

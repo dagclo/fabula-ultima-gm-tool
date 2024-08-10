@@ -36,18 +36,21 @@ public partial class NpcSheet : Node
         var editableBeastTemplate = template as SkilledBeastTemplateWrapper;
         var editableBeastModel = editableBeastTemplate?.Model as BeastModel;
         if (editableBeastModel == null) return;
-        if (editableBeastModel.Species == null) return; // no point in resolving without species
-        var input = new SkillInputData
+        if (editableBeastModel.Species != null) // no point in resolving without species
         {
-            MaxMP = template.MagicPoints,
-            MaxHP = template.HealthPoints,
-            MDefMod = template.MagicalDefense,
-            DefMod = template.HasDefenseOverride ? 0 : template.Defense,
-            DefOverride = template.HasDefenseOverride ? template.Defense : null,
-        };
-        var skills = _skillResolver.ResolveSkills(template, input);
+            var input = new SkillInputData
+            {
+                MaxMP = template.MagicPoints,
+                MaxHP = template.HealthPoints,
+                MDefMod = template.MagicalDefense,
+                DefMod = template.HasDefenseOverride ? 0 : template.Defense,
+                DefOverride = template.HasDefenseOverride ? template.Defense : null,
+            };
+            var skills = _skillResolver.ResolveSkills(template, input);
 
-        editableBeastModel.Skills = skills.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToList();
+            editableBeastModel.Skills = skills.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToList();
+        }        
+      
         this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });
     }
 
