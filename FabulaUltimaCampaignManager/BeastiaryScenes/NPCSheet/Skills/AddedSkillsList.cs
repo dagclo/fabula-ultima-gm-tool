@@ -8,6 +8,7 @@ public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
 {
     private ICollection<SkillTemplate> _skillsList;
     private SkillTemplate _nextSkillToAdd;
+    private IBeastTemplate _beastTemplate;
 
     [Export]
     public PackedScene AddSkillScene { get; set; }
@@ -17,6 +18,7 @@ public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
     {
         _skillsList = beastTemplate.Model.Skills;
         OnBeastChanged?.Invoke(beastTemplate);
+        _beastTemplate = beastTemplate;
     }
 
     public void HandleSkillSelect(SignalWrapper<SkillTemplate> signalWrapper)
@@ -32,8 +34,9 @@ public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
         var scene = AddSkillScene.Instantiate<AddedSkillEntry>();
         scene.Skill = skillClone;
         scene.OnRemoveSkill += HandleRemoveSkill;
-        OnBeastChanged += scene.HandleBeastChanged;
+        OnBeastChanged += scene.HandleBeastChanged;        
         AddChild(scene);
+        scene.HandleBeastChanged(_beastTemplate);
     }
 
     private void HandleRemoveSkill(AddedSkillEntry entry)
