@@ -26,10 +26,10 @@ text = "Choose Attack:"
 layout_mode = 2
 
 [node name="SpecialAttackTextEdit" type="TextEdit" parent="."]
-custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 placeholder_text = "Special Attack Text"
 editable = false
+scroll_fit_content_height = true
 script = ExtResource("4_qnffj")
 
 [node name="RemoveSkillButton" type="Button" parent="."]
@@ -38,3 +38,4 @@ text = "Remove"
 
 [connection signal="SkillSet" from="." to="SkillNameEdit" method="HandleSkillSet"]
 [connection signal="SkillSet" from="." to="SpecialAttack" method="HandleSkillSet"]
+[connection signal="SkillSet" from="." to="SpecialAttackTextEdit" method="HandleSkillSet"]
