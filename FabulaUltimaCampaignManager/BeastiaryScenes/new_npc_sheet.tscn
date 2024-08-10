@@ -320,6 +320,8 @@ AddSkillScene = ExtResource("29_221r3")
 [connection signal="AddEquipment" from="BeastEntryNode/Equipment/AddEquipmentButton" to="BeastEntryNode/Equipment/EquipmentList" method="HandleEquipmentSelected"]
 [connection signal="pressed" from="BeastEntryNode/Equipment/AddEquipmentButton" to="BeastEntryNode/Equipment/AddEquipmentButton" method="HandlePressed"]
 [connection signal="pressed" from="BeastEntryNode/Attacks/BasicAttackSection/AddBasicAttack" to="BeastEntryNode/Attacks/BasicAttackSection/BasicAttacks" method="HandleAddAttack"]
+[connection signal="SkillSelected" from="BeastEntryNode/Skills/OptionsSection/SkillOptionButton" to="BeastEntryNode/Skills/SkillsList" method="HandleSkillSelect"]
+[connection signal="pressed" from="BeastEntryNode/Skills/OptionsSection/AddSkillButton" to="BeastEntryNode/Skills/SkillsList" method="HandleAddSkill"]
 
 [editable path="BeastEntryNode/Attributes/Stats/HealthPoints"]
 [editable path="BeastEntryNode/Attributes/Stats/MagicPoints"]

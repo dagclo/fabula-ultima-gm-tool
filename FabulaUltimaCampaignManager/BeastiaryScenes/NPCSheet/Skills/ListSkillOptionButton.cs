@@ -1,6 +1,7 @@
 using FabulaUltimaNpc;
 using FabulaUltimaSkillLibrary;
 using FirstProject;
+using FirstProject.Beastiary;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,9 @@ using System.Linq;
 public partial class ListSkillOptionButton : OptionButton
 {
     private IDictionary<int, SkillTemplate> _skillMap;
+
+    [Signal]
+    public delegate void SkillSelectedEventHandler(SignalWrapper<SkillTemplate> skill);
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -29,7 +33,7 @@ public partial class ListSkillOptionButton : OptionButton
             SetItemDisabled(index, true);
             index++;
 
-            foreach (var skill in skillGroup)
+            foreach (var skill in skillGroup.OrderBy(s => s.Name))
             {
                 AddItem(skill.Name, index);
                 _skillMap[index] = skill;
@@ -37,6 +41,11 @@ public partial class ListSkillOptionButton : OptionButton
             }            
         }
         this.Selected = -1;
+    }
+
+    public void HandleSelected(int index)
+    {
+        EmitSignal(SignalName.SkillSelected, new SignalWrapper<SkillTemplate>(_skillMap[index]));
     }
 	
 }
