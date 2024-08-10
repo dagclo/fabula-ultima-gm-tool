@@ -1,5 +1,4 @@
-﻿using FabulaUltimaDatabase.Models;
-using FabulaUltimaNpc;
+﻿using FabulaUltimaNpc;
 using FabulaUltimaSkillLibrary;
 using FabulaUltimaSkillLibrary.Models;
 using NSubstitute;

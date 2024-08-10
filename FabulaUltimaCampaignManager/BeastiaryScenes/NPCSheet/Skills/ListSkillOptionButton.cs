@@ -2,7 +2,6 @@ using FabulaUltimaNpc;
 using FabulaUltimaSkillLibrary;
 using FirstProject;
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,15 +16,25 @@ public partial class ListSkillOptionButton : OptionButton
 
         var index = 0;
         _skillMap = new Dictionary<int, SkillTemplate>();
-        var validSkills = beastRepository.Database.GetSkills()
+        var validSkillGroupedBySpecialAttack = beastRepository.Database.GetSkills()
                             .Where(s => !(s.IsSpeciesSkill() || s.IsResistanceSkill()))
-                            .OrderBy(s => s.Name);
+                            .Where(s => s.Id != KnownSkills.UseEquipment.Id)
+                            .GroupBy(s => s.OtherAttributes?.IsSpecialAttack ?? false);
 
-        foreach (var skill in validSkills)
+        foreach (var skillGroup in validSkillGroupedBySpecialAttack)
         {
-            AddItem(skill.Name, index);
-            _skillMap[index] = skill;
+            var isSpecialAttack = skillGroup.Key;
+            var text = isSpecialAttack ? "Special Attack" : "Other";
+            AddItem($"===={text}====", index);
+            SetItemDisabled(index, true);
             index++;
+
+            foreach (var skill in skillGroup)
+            {
+                AddItem(skill.Name, index);
+                _skillMap[index] = skill;
+                index++;
+            }            
         }
         this.Selected = -1;
     }
