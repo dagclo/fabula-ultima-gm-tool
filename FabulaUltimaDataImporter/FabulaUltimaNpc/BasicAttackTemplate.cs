@@ -26,7 +26,7 @@
                 AccuracyMod = AccuracyMod,
                 DamageMod = DamageMod,
                 IsRanged = IsRanged,
-                AttackSkills = AttackSkills,
+                AttackSkills = AttackSkills?.Select(s => s.Clone()).ToList() ?? new List<SkillTemplate>(),
                 IsEquipmentAttack = IsEquipmentAttack,
             };
         }

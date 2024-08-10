@@ -19,7 +19,7 @@ namespace FabulaUltimaSkillLibrary.Models
 
         public IEnumerable<BasicAttackTemplate> AllAttacks => ResolveAttacks(this._beastTemplate.AllAttacks).ToArray();
 
-        public IEnumerable<BasicAttackTemplate> ResolveAttacks(IEnumerable<BasicAttackTemplate> attacks)
+        private IEnumerable<BasicAttackTemplate> ResolveAttacks(IEnumerable<BasicAttackTemplate> attacks)
         {
             int accuracyMod = LevelAccuracyModifier;
             if(_skillMap.TryGetValue(KnownSkills.SpecializedAccuracyCheck.Id, out var accuracySkill))

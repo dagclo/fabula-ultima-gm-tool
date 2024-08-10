@@ -20,5 +20,18 @@
         {
             return $"{Id} : {Name}";
         }
+
+        internal SkillTemplate Clone()
+        {
+            return new SkillTemplate(Id)
+            {
+                Name = Name,
+                TargetType = TargetType,
+                Text = Text,
+                IsSpecialRule = IsSpecialRule,
+                OtherAttributes = OtherAttributes, // clone in the future
+                Keywords = Keywords.ToHashSet(),
+            };
+        }
     }
 }
