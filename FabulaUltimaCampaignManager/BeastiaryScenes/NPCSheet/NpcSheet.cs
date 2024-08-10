@@ -19,7 +19,7 @@ public partial class NpcSheet : Node
     public override void _Ready()
 	{
         _skillResolver = GetNode<SkillResolver>("/root/SkillResolver").Instance;
-        foreach (var child in this.FindChildren("*", recursive: false)
+        foreach (var child in this.FindChildren("*", recursive: true)
            .Where(l => l is BeastEntryNode))
         {
             var node = child as BeastEntryNode;

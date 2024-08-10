@@ -20,6 +20,7 @@ public partial class BasicAttackInputs : VBoxContainer, IBeastAttribute
 
     public void HandleAddAttack()
     {
+        if (_basicAttacks == null) return;
         var scene = BasicAttackInputScene.Instantiate<BasicAttackSettings>();
         var newAttack = new BasicAttackTemplate
         {
