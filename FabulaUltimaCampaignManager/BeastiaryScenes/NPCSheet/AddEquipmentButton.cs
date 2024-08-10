@@ -27,7 +27,8 @@ public partial class AddEquipmentButton : Button, IBeastAttribute
     public void HandlePressed()
     {
         if (_equipmentTemplate == null) return;
-        _equipmentList.Add(_equipmentTemplate);
-        EmitSignal(SignalName.AddEquipment, new SignalWrapper<EquipmentTemplate>(_equipmentTemplate));
+        var clone = _equipmentTemplate.Clone();
+        _equipmentList.Add(clone);
+        EmitSignal(SignalName.AddEquipment, new SignalWrapper<EquipmentTemplate>(clone));
     }
 }

@@ -38,6 +38,6 @@ public partial class EquipmentOptions : OptionButton
 
     public void HandleEquipmentSelected(int index)
     {
-        EmitSignal(SignalName.EquipmentSelected, new SignalWrapper<EquipmentTemplate>(_equipmentMap[index].Clone()));
+        EmitSignal(SignalName.EquipmentSelected, new SignalWrapper<EquipmentTemplate>(_equipmentMap[index]));
     }
 }

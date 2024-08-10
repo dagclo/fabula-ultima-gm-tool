@@ -43,4 +43,6 @@ text = "Remove"
 [connection signal="SkillSet" from="." to="SpecialAttack" method="HandleSkillSet"]
 [connection signal="SkillSet" from="." to="SpecialAttack/AttackOptionButton" method="HandleSkillSet"]
 [connection signal="SkillSet" from="." to="SpecialAttackTextEdit" method="HandleSkillSet"]
+[connection signal="RemoveSkill" from="SpecialAttack/AttackOptionButton" to="." method="HandleRemoveSkill"]
 [connection signal="item_selected" from="SpecialAttack/AttackOptionButton" to="SpecialAttack/AttackOptionButton" method="HandleAttackSelected"]
+[connection signal="pressed" from="RemoveSkillButton" to="." method="HandleRemoveSkill"]

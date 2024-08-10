@@ -13,13 +13,14 @@
 
         public EquipmentTemplate Clone()
         {
+            var id = Guid.NewGuid();
             return new EquipmentTemplate
             {
-                Id = Id,
+                Id = id,
                 Name = Name,
                 Category = Category,
                 IsMartial = IsMartial,
-                BasicAttack = BasicAttack?.Clone(),
+                BasicAttack = BasicAttack?.Clone(id),
                 StatsModifier = StatsModifier?.Clone(),
                 Quality = Quality,
                 NumHands = NumHands,

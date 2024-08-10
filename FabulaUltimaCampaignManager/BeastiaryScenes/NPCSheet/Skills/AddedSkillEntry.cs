@@ -24,4 +24,9 @@ public partial class AddedSkillEntry : VBoxContainer
     {        
         EmitSignal(SignalName.BeastSet, new SignalWrapper<IBeastTemplate>(beastTemplate));
     }
+
+    public void HandleRemoveSkill()
+    {
+        OnRemoveSkill?.Invoke(this);
+    }
 }
