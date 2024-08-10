@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://baj8gvo8qh8e5"]
+[gd_scene load_steps=6 format=3 uid="uid://baj8gvo8qh8e5"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/AddedSkillEntry.cs" id="1_swdhj"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/SkillNameEdit.cs" id="2_fpeto"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/SpecialAttackAttachEdit.cs" id="3_3tj5w"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/SpecialAttackTextEdit.cs" id="4_qnffj"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/AttackOptionButton.cs" id="4_ufr2p"]
 
 [node name="Skill" type="VBoxContainer"]
 script = ExtResource("1_swdhj")
@@ -24,6 +25,7 @@ text = "Choose Attack:"
 
 [node name="AttackOptionButton" type="OptionButton" parent="SpecialAttack"]
 layout_mode = 2
+script = ExtResource("4_ufr2p")
 
 [node name="SpecialAttackTextEdit" type="TextEdit" parent="."]
 layout_mode = 2
@@ -36,6 +38,7 @@ script = ExtResource("4_qnffj")
 layout_mode = 2
 text = "Remove"
 
+[connection signal="BeastSet" from="." to="SpecialAttack/AttackOptionButton" method="HandleBeastChanged"]
 [connection signal="SkillSet" from="." to="SkillNameEdit" method="HandleSkillSet"]
 [connection signal="SkillSet" from="." to="SpecialAttack" method="HandleSkillSet"]
 [connection signal="SkillSet" from="." to="SpecialAttackTextEdit" method="HandleSkillSet"]

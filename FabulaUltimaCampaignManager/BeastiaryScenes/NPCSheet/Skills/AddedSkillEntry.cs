@@ -4,11 +4,13 @@ using Godot;
 using System;
 
 public partial class AddedSkillEntry : VBoxContainer
-{
-    private IBeastTemplate _beastTemplate;
+{  
 
     [Signal]
     public delegate void SkillSetEventHandler(SignalWrapper<SkillTemplate> skill);
+
+    [Signal]
+    public delegate void BeastSetEventHandler(SignalWrapper<IBeastTemplate> skill);
     public SkillTemplate Skill { get; internal set; }
 	public Action<AddedSkillEntry> OnRemoveSkill { get; set; }
 
@@ -19,7 +21,7 @@ public partial class AddedSkillEntry : VBoxContainer
     }
 
     internal void HandleBeastChanged(IBeastTemplate beastTemplate)
-    {
-        _beastTemplate = beastTemplate;
+    {        
+        EmitSignal(SignalName.BeastSet, new SignalWrapper<IBeastTemplate>(beastTemplate));
     }
 }
