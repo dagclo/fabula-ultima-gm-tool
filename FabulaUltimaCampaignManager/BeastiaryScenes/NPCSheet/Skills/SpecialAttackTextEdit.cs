@@ -7,6 +7,6 @@ public partial class SpecialAttackTextEdit : TextEdit
 {
     public void HandleSkillSet(SignalWrapper<SkillTemplate> signal)
     {
-        this.Text = signal.Value.Text;
+        this.Text = string.IsNullOrWhiteSpace(signal.Value.Text) ? signal.Value.Name : signal.Value.Text;
     }
 }
