@@ -2,6 +2,7 @@ using FabulaUltimaNpc;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class BasicAttackInputs : VBoxContainer, IBeastAttribute
 {
@@ -27,18 +28,31 @@ public partial class BasicAttackInputs : VBoxContainer, IBeastAttribute
             Id = Guid.NewGuid(),
             DamageMod = 5,
             AccuracyMod = 0,
+            AttackSkills = new List<SkillTemplate>()
         };
         _basicAttacks.Add(newAttack);
         scene.BasicAttack = newAttack;
         scene.OnRemoveAttack += HandleAttackRemove;
         OnBeastUpdate += scene.HandleBeastUpdate;
         this.AddChild(scene);
+        BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.CHANGED }.ToHashSet());
     }
 
-    private void HandleAttackRemove(BasicAttackSettings settings)
+    private void HandleAttackRemove(BasicAttackSettings scene)
     {
-        _basicAttacks.Remove(settings.BasicAttack);
-        RemoveChild(settings);
-        settings.QueueFree();
+        var attack = scene.BasicAttack;
+        _basicAttacks.Remove(attack);
+        OnBeastUpdate -= scene.HandleBeastUpdate;
+        RemoveChild(scene);
+        scene.QueueFree();
+        if (attack.AttackSkills.Any())
+        {
+            BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.TRIGGER }.ToHashSet());
+        }
+        else
+        {
+            BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.CHANGED }.ToHashSet());
+        }
+        
     }
 }
