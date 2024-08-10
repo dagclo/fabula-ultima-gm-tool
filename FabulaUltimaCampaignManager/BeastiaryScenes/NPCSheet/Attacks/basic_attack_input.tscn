@@ -75,13 +75,13 @@ size_flags_horizontal = 3
 fit_content = true
 script = ExtResource("6_yrp14")
 
+[connection signal="AttackUpdate" from="." to="Section1/AttackNameLineEdit" method="HandleAttackChanged"]
+[connection signal="AttackUpdate" from="." to="Section1/IsRangedCheckButton" method="HandleAttackChanged"]
+[connection signal="AttackUpdate" from="." to="Section1/AttributeRoll1" method="HandleAttackChanged"]
+[connection signal="AttackUpdate" from="." to="Section1/AttributeRoll2" method="HandleAttackChanged"]
 [connection signal="AttackUpdate" from="." to="Section1/AccuracyModLabel" method="HandleAttackChanged"]
 [connection signal="AttackUpdate" from="." to="Section1/DamageRollLabel" method="HandleAttackChanged"]
-[connection signal="AttackUpdate" from="." to="Section1/AttackNameLineEdit" method="HandleAttackChanged"]
 [connection signal="AttackUpdate" from="." to="Section1/DamageOptions" method="HandleAttackChanged"]
-[connection signal="AttackUpdate" from="." to="Section1/AttributeRoll2" method="HandleAttackChanged"]
-[connection signal="AttackUpdate" from="." to="Section1/AttributeRoll1" method="HandleAttackChanged"]
-[connection signal="AttackUpdate" from="." to="Section1/IsRangedCheckButton" method="HandleAttackChanged"]
 [connection signal="AttackUpdate" from="." to="SpecialAttackSection/SpecialAttackDetailLabel" method="HandleAttackChanged"]
 [connection signal="text_changed" from="Section1/AttackNameLineEdit" to="Section1/AttackNameLineEdit" method="HandleTextChanged"]
 [connection signal="toggled" from="Section1/IsRangedCheckButton" to="Section1/IsRangedCheckButton" method="HandleToggle"]
