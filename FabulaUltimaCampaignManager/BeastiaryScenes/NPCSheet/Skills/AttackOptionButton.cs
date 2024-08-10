@@ -15,6 +15,9 @@ public partial class AttackOptionButton : OptionButton
     [Signal]
     public delegate void RemoveSkillEventHandler();
 
+    [Signal]
+    public delegate void AttackSkillSetEventHandler();
+
     public void HandleBeastChanged(SignalWrapper<IBeastTemplate> signal)
     {
         var beastTemplate = signal.Value;
@@ -80,5 +83,13 @@ public partial class AttackOptionButton : OptionButton
         }
         _currentAttack = attack;
         _currentAttack.AttackSkills.Add(_skill);
+        EmitSignal(SignalName.AttackSkillSet);
+    }
+
+    public void HandleRemoveSkill()
+    {
+        if( _skill == null) return;
+        _currentAttack?.AttackSkills.Remove(_skill);
+        EmitSignal(SignalName.RemoveSkill);
     }
 }

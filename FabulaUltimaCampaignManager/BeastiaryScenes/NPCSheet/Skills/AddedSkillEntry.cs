@@ -13,6 +13,7 @@ public partial class AddedSkillEntry : VBoxContainer
     public delegate void BeastSetEventHandler(SignalWrapper<IBeastTemplate> skill);
     public SkillTemplate Skill { get; internal set; }
 	public Action<AddedSkillEntry> OnRemoveSkill { get; set; }
+    public Action OnUpdateBeast { get; set; }
 
     public override void _Ready()
     {
@@ -27,6 +28,11 @@ public partial class AddedSkillEntry : VBoxContainer
 
     public void HandleRemoveSkill()
     {
-        OnRemoveSkill?.Invoke(this);
+        OnRemoveSkill?.Invoke(this);        
+    }
+
+    public void HandleUpdateBeast()
+    {
+        OnUpdateBeast?.Invoke();
     }
 }
