@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=37 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -34,6 +34,7 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellOptionButton.cs" id="32_fiuif"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/CurrentSpellList.cs" id="32_joy7r"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellCount.cs" id="33_aq4t6"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/AddSpellButton.cs" id="33_v2hss"]
 [ext_resource type="PackedScene" uid="uid://cqtoubns32l31" path="res://BeastiaryScenes/NPCSheet/Spells/added_spell.tscn" id="33_xf15o"]
 
 [node name="NewNpcSheet" type="Window"]
@@ -337,6 +338,7 @@ script = ExtResource("32_fiuif")
 [node name="AddSpellButton" type="Button" parent="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection"]
 layout_mode = 2
 text = "Add Spell"
+script = ExtResource("33_v2hss")
 
 [node name="SpellCount" type="Label" parent="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection"]
 layout_mode = 2
@@ -364,6 +366,10 @@ AddSpellScene = ExtResource("33_xf15o")
 [connection signal="SkillSelected" from="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillOptionButton" to="ScrollContainer/BeastEntryNode/Skills/SkillsList" method="HandleSkillSelect"]
 [connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillOptionButton" to="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillOptionButton" method="HandleSelected"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/AddSkillButton" to="ScrollContainer/BeastEntryNode/Skills/SkillsList" method="HandleAddSkill"]
+[connection signal="SpellSelected" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellOptionButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandleSpellSelected"]
+[connection signal="AddSpell" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" to="ScrollContainer/BeastEntryNode/Spells/SpellList" method="HandleAddSpell"]
+[connection signal="pressed" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandlePressed"]
+[connection signal="UpdateSpellEnabled" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellCount" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandleSpellSlotsAvailable"]
 
 [editable path="ScrollContainer/BeastEntryNode/Attributes/Stats/HealthPoints"]
 [editable path="ScrollContainer/BeastEntryNode/Attributes/Stats/MagicPoints"]

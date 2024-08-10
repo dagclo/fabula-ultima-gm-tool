@@ -1,5 +1,6 @@
 using FabulaUltimaNpc;
 using FirstProject;
+using FirstProject.Beastiary;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,9 @@ using System.Linq;
 public partial class SpellOptionButton : OptionButton
 {
     private IDictionary<int, SpellTemplate> _spellMap;
+
+    [Signal]
+    public delegate void SpellSelectedEventHandler(SignalWrapper<SpellTemplate> equipment);
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -22,5 +26,10 @@ public partial class SpellOptionButton : OptionButton
             index++;
         }
         this.Selected = -1;
-    }	
+    }
+
+    public void HandleSpellSelected(int index)
+    {
+        EmitSignal(SignalName.SpellSelected, new SignalWrapper<SpellTemplate>(_spellMap[index]));
+    }
 }
