@@ -367,6 +367,7 @@ AddSpellScene = ExtResource("33_xf15o")
 [connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillOptionButton" to="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillOptionButton" method="HandleSelected"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/AddSkillButton" to="ScrollContainer/BeastEntryNode/Skills/SkillsList" method="HandleAddSkill"]
 [connection signal="SpellSelected" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellOptionButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandleSpellSelected"]
+[connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellOptionButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellOptionButton" method="HandleSpellSelected"]
 [connection signal="AddSpell" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" to="ScrollContainer/BeastEntryNode/Spells/SpellList" method="HandleAddSpell"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandlePressed"]
 [connection signal="UpdateSpellEnabled" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellCount" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandleSpellSlotsAvailable"]
