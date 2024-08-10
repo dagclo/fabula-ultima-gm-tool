@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://cqtoubns32l31"]
+[gd_scene load_steps=2 format=3 uid="uid://cqtoubns32l31"]
+
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/AddedSpellEntry.cs" id="1_s3fmt"]
 
 [node name="Spell" type="VBoxContainer"]
+script = ExtResource("1_s3fmt")
 
 [node name="SpellAttributes" type="HBoxContainer" parent="."]
 layout_mode = 2
