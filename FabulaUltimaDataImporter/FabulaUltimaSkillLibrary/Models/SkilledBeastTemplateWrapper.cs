@@ -5,14 +5,13 @@ namespace FabulaUltimaSkillLibrary.Models
     public class SkilledBeastTemplateWrapper : IBeastTemplate
     {
         private readonly IBeastTemplate _beastTemplate;
-        private readonly IReadOnlyDictionary<Guid, int> _skillCountMap;
-        private readonly IReadOnlyDictionary<Guid, SkillTemplate> _skillMap;        
+        private IReadOnlyDictionary<Guid, int> _skillCountMap;
+        private IReadOnlyDictionary<Guid, SkillTemplate> _skillMap;        
 
         public SkilledBeastTemplateWrapper(IBeastTemplate beastTemplate)
         {
             _beastTemplate = beastTemplate;
-            _skillCountMap = beastTemplate.Skills.GroupBy(s => s.Id).ToDictionary(g => g.Key, g => g.Count());
-            _skillMap = beastTemplate.Skills.GroupBy(s => s.Id).ToDictionary(g => g.Key, g => g.First());
+            UpdateSkills();
         }
 
         public IReadOnlyCollection<ActionTemplate> Actions => _beastTemplate.Actions;
@@ -382,6 +381,12 @@ namespace FabulaUltimaSkillLibrary.Models
             if (this.Skills is not ICollection<SkillTemplate> skillCollection) return;
             if (!skillCollection.Any(s => s.Id == skillId)) return;
             skillCollection.Remove(skillCollection.Single(s => s.Id == skillId));
+        }
+
+        public void UpdateSkills()
+        {
+            _skillCountMap = _beastTemplate.Skills.GroupBy(s => s.Id).ToDictionary(g => g.Key, g => g.Count());
+            _skillMap = _beastTemplate.Skills.GroupBy(s => s.Id).ToDictionary(g => g.Key, g => g.First());
         }
     }
 }

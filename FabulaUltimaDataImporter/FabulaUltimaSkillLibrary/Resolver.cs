@@ -15,13 +15,22 @@ namespace FabulaUltimaSkillLibrary
             _specialAttackIndex = specialAttackIndex;
         }
 
+        private (SkillTemplate skill, Guid? targetId)? MarkResolved((SkillTemplate skill, Guid? targetId)? s)
+        {
+            if (s == null) return s;
+            SkillTemplate? clonedSkill = s.Value.skill.Clone();
+            clonedSkill.OtherAttributes[SkillTemplateExtensions.RESOLVED] = $"{true}";
+
+            return (clonedSkill, s.Value.targetId);
+        }
+
         public SkillOutputData ResolveSkills(IBeastTemplate npc, SkillInputData inputData)
         {
             var speciesSkillSlots = GetSkillSlotsFromSpecies(npc.Species);
             var levelSkillSlots = GetSkillsSlotsFromLevel(npc.Level);
             var vulnerabilitySkillSlots = GetSkillsSlotsFromVulnerabilities(npc);
 
-            var resolvedSkills = ResolveSkillsInternal(npc, inputData).ToArray();
+            var resolvedSkills = ResolveSkillsInternal(npc, inputData).Select(s => MarkResolved(s)).ToArray();
 
             var grantedSkillSlots = resolvedSkills.Where(s => s == null);
 

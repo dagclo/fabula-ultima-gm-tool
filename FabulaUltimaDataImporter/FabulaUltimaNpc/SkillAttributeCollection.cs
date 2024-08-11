@@ -129,5 +129,16 @@ namespace FabulaUltimaNpc
             }
             return false;
         }
+
+        public SkillAttributeCollection Clone()
+        {
+            return new SkillAttributeCollection(DataDictionary)
+            {
+                OtherKnownSkillsRequired = OtherKnownSkillsRequired,
+                IsSpecialAttack = IsSpecialAttack,
+                FreeSpecies = FreeSpecies,
+                Ordering = Ordering,
+            };
+        }
     }
 }

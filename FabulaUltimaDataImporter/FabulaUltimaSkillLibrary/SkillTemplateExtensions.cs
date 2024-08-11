@@ -35,6 +35,13 @@ namespace FabulaUltimaSkillLibrary
             return skillTemplate.OtherAttributes.ContainsKey(StatsConstants.NUM_SPELLS);
         }
 
+        public const string RESOLVED = "Resolved";
+        public static bool IsResolved(this SkillTemplate skillTemplate)
+        {
+            if (skillTemplate.OtherAttributes == null) return false;
+            return bool.TryParse(skillTemplate.OtherAttributes[RESOLVED], out var resolved) ? resolved: false;
+        }
+
         public static bool ModifiesAttack(this SkillTemplate skillTemplate)
         {
             if (skillTemplate.OtherAttributes == null) return false;
@@ -75,6 +82,19 @@ namespace FabulaUltimaSkillLibrary
                         [DamageConstants.DAMAGE_TYPE_NAME] = damageType,
                     }
                 };
-    }
+        }
+
+        public static SkillTemplate Clone(this SkillTemplate skillTemplate)
+        {
+            return new SkillTemplate(skillTemplate.Id)
+            {
+                Name = skillTemplate.Name,
+                TargetType = skillTemplate.TargetType,
+                IsSpecialRule = skillTemplate.IsSpecialRule,
+                Keywords = skillTemplate.Keywords,
+                Text = skillTemplate.Text,
+                OtherAttributes = skillTemplate.OtherAttributes?.Clone()
+            };
+        }
     }
 }

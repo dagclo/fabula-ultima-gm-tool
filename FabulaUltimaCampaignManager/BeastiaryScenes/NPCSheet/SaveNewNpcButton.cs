@@ -23,8 +23,12 @@ public partial class SaveNewNpcButton : Button, IBeastAttribute
 	}
 
 	public void HandlePressed()
-	{
-        //todo: save when there are no errors
-        BeastTemplateAction?.Invoke(new[] { BeastEntryNode.Action.CHANGED }.ToHashSet());
+    {
+        var actions = new HashSet<BeastEntryNode.Action>
+        {
+            BeastEntryNode.Action.CHANGED
+        };
+        if (_errorCount == 0) actions.Add(BeastEntryNode.Action.SAVE);
+        BeastTemplateAction?.Invoke(actions);
 	}
 }

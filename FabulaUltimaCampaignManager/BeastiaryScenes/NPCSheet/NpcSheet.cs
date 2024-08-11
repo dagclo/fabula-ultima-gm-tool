@@ -38,6 +38,7 @@ public partial class NpcSheet : Node
         if (editableBeastModel == null) return;
         if (editableBeastModel.Species != null) // no point in resolving without species
         {
+            editableBeastTemplate.UpdateSkills();
             var input = new SkillInputData
             {
                 MaxMP = template.MagicPoints,
@@ -46,9 +47,18 @@ public partial class NpcSheet : Node
                 DefMod = template.HasDefenseOverride ? 0 : editableBeastTemplate.DefenseModifier,
                 DefOverride = template.HasDefenseOverride ? template.Defense : null,
             };
-            var skills = _skillResolver.ResolveSkills(template, input);
+            var resolverResults = _skillResolver.ResolveSkills(template, input);
+            var resolvedSkills = resolverResults.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToList();
+            var oldResolvedSkills = editableBeastModel.Skills.Where(s => s.IsResolved());
+            foreach(var oldSkill in oldResolvedSkills)
+            {
+                editableBeastModel.Skills.Remove(oldSkill);
+            }
 
-            editableBeastModel.Skills = skills.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToList();
+            foreach(var newResolvedSkills in resolvedSkills)
+            {
+                editableBeastModel.Skills.Add(newResolvedSkills);
+            }            
         }        
       
         this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });
