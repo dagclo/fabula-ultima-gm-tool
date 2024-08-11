@@ -6,7 +6,6 @@ Project Description
 
 ### Backlog
 
-- [ ] Implement Other Actions  
 - [ ] Save all results  
 - [ ] Add Loading Page for switch back to main page  
 - [ ] Add Size Modifiers to creatures  
@@ -43,10 +42,11 @@ Project Description
 
 ### In Progress
 
-- [ ] Implement Removing Spells  
+- [ ] Implement Other Actions  
 
 ### Done ✓
 
+- [x] Implement Removing Spells  
 - [x] Add Implementing Spells  
 - [x] implement adding skills to new npc page  
 - [x] Add Configuring Attacks to New Npc Page  

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=39 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -36,6 +36,8 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellCount.cs" id="33_aq4t6"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/AddSpellButton.cs" id="33_v2hss"]
 [ext_resource type="PackedScene" uid="uid://cqtoubns32l31" path="res://BeastiaryScenes/NPCSheet/Spells/added_spell.tscn" id="33_xf15o"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/OtherActions/AddedOtherActionList.cs" id="37_s8pb1"]
+[ext_resource type="PackedScene" uid="uid://bnvvg1obx5wff" path="res://BeastiaryScenes/NPCSheet/OtherActions/other_action.tscn" id="38_8lbek"]
 
 [node name="NewNpcSheet" type="Window"]
 initial_position = 1
@@ -350,6 +352,22 @@ layout_mode = 2
 script = ExtResource("32_joy7r")
 AddSpellScene = ExtResource("33_xf15o")
 
+[node name="OtherActions" type="VBoxContainer" parent="ScrollContainer/BeastEntryNode"]
+layout_mode = 2
+
+[node name="OtherActionLabel" type="Label" parent="ScrollContainer/BeastEntryNode/OtherActions"]
+layout_mode = 2
+text = "Other Actions:"
+
+[node name="AddOtherActionButton" type="Button" parent="ScrollContainer/BeastEntryNode/OtherActions"]
+layout_mode = 2
+text = "Add Additional Action"
+
+[node name="OtherActionList" type="VBoxContainer" parent="ScrollContainer/BeastEntryNode/OtherActions"]
+layout_mode = 2
+script = ExtResource("37_s8pb1")
+AddActionScene = ExtResource("38_8lbek")
+
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" to="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
@@ -371,6 +389,7 @@ AddSpellScene = ExtResource("33_xf15o")
 [connection signal="AddSpell" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" to="ScrollContainer/BeastEntryNode/Spells/SpellList" method="HandleAddSpell"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandlePressed"]
 [connection signal="UpdateSpellEnabled" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellCount" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandleSpellSlotsAvailable"]
+[connection signal="pressed" from="ScrollContainer/BeastEntryNode/OtherActions/AddOtherActionButton" to="ScrollContainer/BeastEntryNode/OtherActions/OtherActionList" method="HandleAddAction"]
 
 [editable path="ScrollContainer/BeastEntryNode/Attributes/Stats/HealthPoints"]
 [editable path="ScrollContainer/BeastEntryNode/Attributes/Stats/MagicPoints"]

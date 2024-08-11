@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnvvg1obx5wff"]
+
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/OtherActions/AddedActionEntry.cs" id="1_yf32p"]
+
+[node name="OtherAction" type="VBoxContainer"]
+script = ExtResource("1_yf32p")
+
+[node name="ActionDescription" type="VFlowContainer" parent="."]
+layout_mode = 2
+
+[node name="ActionNameEdit" type="LineEdit" parent="ActionDescription"]
+layout_mode = 2
+placeholder_text = "Action Name"
+expand_to_text_length = true
+
+[node name="DescriptionEdit" type="LineEdit" parent="ActionDescription"]
+layout_mode = 2
+placeholder_text = "Enter Description"
+expand_to_text_length = true
+
+[node name="RemoveActionButton" type="Button" parent="."]
+layout_mode = 2
+text = "Remove"
