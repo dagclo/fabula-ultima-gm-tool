@@ -14,7 +14,7 @@ public partial class ValidationsList : VBoxContainer, IBeastAttribute
     public string StartNodePath { get; set; }
 
     [Signal]
-    public delegate void IsBeastValidEventHandler(bool isBeastValid);
+    public delegate void IsBeastValidEventHandler(int errorCount, int warningCount);
 
     public Action<ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
 
@@ -26,6 +26,7 @@ public partial class ValidationsList : VBoxContainer, IBeastAttribute
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
+        // clear prior validations
         var children = this.FindChildren("*", recursive: false);
         foreach (var child in children)
         {
@@ -33,7 +34,8 @@ public partial class ValidationsList : VBoxContainer, IBeastAttribute
             child.QueueFree();
         }
 
-        // clear prior validations
+        int errors = 0;
+        int warnings = 0;
         foreach(var validatable in _npcSheet.FindChildren("*", owned: false).Where(c => c is IValidatable).Select(c => c as IValidatable))
         {
             foreach(var validation in validatable.Validate())
@@ -44,7 +46,10 @@ public partial class ValidationsList : VBoxContainer, IBeastAttribute
                 };
                 AddChild(validationLabel);
                 validationLabel.Owner = this;
+                if (validation.Level == ValidationLevel.ERROR) errors++;
+                if (validation.Level == ValidationLevel.WARNING) warnings++;
             }           
         }
+        EmitSignal(SignalName.IsBeastValid, errors, warnings);
     }
 }

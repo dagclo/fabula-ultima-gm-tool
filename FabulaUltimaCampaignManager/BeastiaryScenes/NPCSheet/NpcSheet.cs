@@ -42,8 +42,8 @@ public partial class NpcSheet : Node
             {
                 MaxMP = template.MagicPoints,
                 MaxHP = template.HealthPoints,
-                MDefMod = template.MagicalDefense,
-                DefMod = template.HasDefenseOverride ? 0 : template.Defense,
+                MDefMod = editableBeastTemplate.MagicalDefenseModifier,
+                DefMod = template.HasDefenseOverride ? 0 : editableBeastTemplate.DefenseModifier,
                 DefOverride = template.HasDefenseOverride ? template.Defense : null,
             };
             var skills = _skillResolver.ResolveSkills(template, input);

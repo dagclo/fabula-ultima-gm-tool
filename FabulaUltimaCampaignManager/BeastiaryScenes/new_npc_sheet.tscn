@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=41 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -39,6 +39,7 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/OtherActions/AddedOtherActionList.cs" id="37_s8pb1"]
 [ext_resource type="PackedScene" uid="uid://bnvvg1obx5wff" path="res://BeastiaryScenes/NPCSheet/OtherActions/other_action.tscn" id="38_8lbek"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Validations/ValidationsList.cs" id="39_2f2qb"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/SaveNewNpcButton.cs" id="40_y6vnr"]
 
 [node name="NewNpcSheet" type="Window"]
 initial_position = 1
@@ -381,14 +382,19 @@ layout_mode = 2
 script = ExtResource("39_2f2qb")
 StartNodePath = "../../../../../NewNpcSheet"
 
+[node name="SaveButton" type="Button" parent="ScrollContainer/BeastEntryNode"]
+layout_mode = 2
+text = "Save"
+script = ExtResource("40_y6vnr")
+
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" to="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
-[connection signal="text_submitted" from="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/NameEdit" to="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/NameEdit" method="OnTextSubmitted"]
+[connection signal="text_changed" from="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/NameEdit" to="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/NameEdit" method="OnTextSubmitted"]
 [connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/LevelEdit" to="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/LevelEdit" method="OnItemSelected"]
 [connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/SpeciesSelect" to="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/SpeciesSelect" method="HandleItemSelect"]
-[connection signal="text_submitted" from="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/DetailsEdit" to="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/DetailsEdit" method="OnTextSubmitted"]
-[connection signal="text_submitted" from="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/TraitsEdit" to="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/TraitsEdit" method="OnTextSubmitted"]
+[connection signal="text_changed" from="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/DetailsEdit" to="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/DetailsEdit" method="OnTextSubmitted"]
+[connection signal="text_changed" from="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/TraitsEdit" to="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/TraitsEdit" method="OnTextSubmitted"]
 [connection signal="EquipmentSelected" from="ScrollContainer/BeastEntryNode/Equipment/EquipmentOptions" to="ScrollContainer/BeastEntryNode/Equipment/AddEquipmentButton" method="HandleEquipmentSelected"]
 [connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Equipment/EquipmentOptions" to="ScrollContainer/BeastEntryNode/Equipment/EquipmentOptions" method="HandleEquipmentSelected"]
 [connection signal="AddEquipment" from="ScrollContainer/BeastEntryNode/Equipment/AddEquipmentButton" to="ScrollContainer/BeastEntryNode/Equipment/EquipmentList" method="HandleEquipmentSelected"]
@@ -403,6 +409,8 @@ StartNodePath = "../../../../../NewNpcSheet"
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandlePressed"]
 [connection signal="UpdateSpellEnabled" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellCount" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandleSpellSlotsAvailable"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/OtherActions/AddOtherActionButton" to="ScrollContainer/BeastEntryNode/OtherActions/OtherActionList" method="HandleAddAction"]
+[connection signal="IsBeastValid" from="ScrollContainer/BeastEntryNode/Validations/ValidationsList" to="ScrollContainer/BeastEntryNode/SaveButton" method="HandleErrorsAndWarnings"]
+[connection signal="pressed" from="ScrollContainer/BeastEntryNode/SaveButton" to="ScrollContainer/BeastEntryNode/SaveButton" method="HandlePressed"]
 
 [editable path="ScrollContainer/BeastEntryNode/Attributes/Stats/HealthPoints"]
 [editable path="ScrollContainer/BeastEntryNode/Attributes/Stats/MagicPoints"]

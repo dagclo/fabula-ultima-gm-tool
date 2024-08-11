@@ -96,7 +96,7 @@ public partial class AttackOptionButton : OptionButton, IValidatable
     public IEnumerable<TemplateValidation> Validate()
     {
         if (_skill == null) yield break;
-        if(_skill.OtherAttributes?.IsSpecialAttack == false) yield break;
+        if(_skill.OtherAttributes?.IsSpecialAttack != true) yield break;
         if (_currentAttack == null) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = $"Special Attack '{_skill.Name}' not assigned to attack " };
     }
 }

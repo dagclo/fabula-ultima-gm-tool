@@ -55,6 +55,7 @@ namespace FabulaUltimaSkillLibrary.Models
         public int Crisis => _beastTemplate.Crisis;
 
         public int Defense => ResolveDefense();
+        public int DefenseModifier => Defense - _beastTemplate.Defense;
         private ICollection<EquipmentTemplate> Armor => _beastTemplate.Equipment.Where(e => e.Category.IsArmor).ToArray();
         private int ResolveDefense()
         {
@@ -203,6 +204,7 @@ namespace FabulaUltimaSkillLibrary.Models
         public int LevelDamageModifier => _beastTemplate.LevelDamageModifier;
 
         public int MagicalDefense => ResolveMagicalDefense();
+        public int MagicalDefenseModifier => MagicalDefense - _beastTemplate.MagicalDefense;
 
         private int ResolveMagicalDefense()
         {
@@ -351,6 +353,9 @@ namespace FabulaUltimaSkillLibrary.Models
         public bool Immutable { get; set; }
 
         public bool HasDefenseOverride => KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) ? Armor.Any(a => a.StatsModifier?.DefenseOverrides ?? false) : false;
+
+        
+        
 
         private int ResolveMagicCheckModifier(int magicCheckModifier)
         {
