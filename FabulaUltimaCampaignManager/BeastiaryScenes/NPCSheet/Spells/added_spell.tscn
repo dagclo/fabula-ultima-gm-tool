@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqtoubns32l31"]
+[gd_scene load_steps=9 format=3 uid="uid://cqtoubns32l31"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/AddedSpellEntry.cs" id="1_s3fmt"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellNameEdit.cs" id="2_2m218"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/IsOffensiveCheckButton.cs" id="3_c1575"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/MpCostEdit.cs" id="4_f5nyv"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellAttributeRollOptions.cs" id="5_1uyss"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellTargetEdit.cs" id="5_k5812"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellDurationEdit.cs" id="6_8o3ct"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellTextEdit.cs" id="7_8ixf4"]
 
 [node name="Spell" type="VBoxContainer"]
 script = ExtResource("1_s3fmt")
@@ -13,11 +20,13 @@ layout_mode = 2
 placeholder_text = "Spell Name"
 editable = false
 expand_to_text_length = true
+script = ExtResource("2_2m218")
 
-[node name="CheckButton" type="CheckButton" parent="SpellAttributes"]
+[node name="IsOffensiveCheckButton" type="CheckButton" parent="SpellAttributes"]
 layout_mode = 2
 disabled = true
 text = "Is Offensive"
+script = ExtResource("3_c1575")
 
 [node name="MPLabel" type="Label" parent="SpellAttributes"]
 layout_mode = 2
@@ -28,31 +37,44 @@ layout_mode = 2
 placeholder_text = "<unset>"
 editable = false
 expand_to_text_length = true
+script = ExtResource("4_f5nyv")
 
 [node name="AttributeRoll1" type="OptionButton" parent="SpellAttributes"]
 layout_mode = 2
 disabled = true
+script = ExtResource("5_1uyss")
 
 [node name="AttributeRoll2" type="OptionButton" parent="SpellAttributes"]
 layout_mode = 2
 disabled = true
+script = ExtResource("5_1uyss")
+Index = 1
 
 [node name="TargetEdit" type="LineEdit" parent="SpellAttributes"]
 layout_mode = 2
 placeholder_text = "<unset>"
 editable = false
 expand_to_text_length = true
+script = ExtResource("5_k5812")
 
 [node name="DurationEdit" type="LineEdit" parent="SpellAttributes"]
 layout_mode = 2
 placeholder_text = "<unset>"
 editable = false
 expand_to_text_length = true
+script = ExtResource("6_8o3ct")
 
 [node name="TextEdit" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 editable = false
+script = ExtResource("7_8ixf4")
 
-[connection signal="item_selected" from="SpellAttributes/AttributeRoll1" to="SpellAttributes/AttributeRoll1" method="OnSelected"]
-[connection signal="item_selected" from="SpellAttributes/AttributeRoll2" to="SpellAttributes/AttributeRoll2" method="OnSelected"]
+[connection signal="SpellSet" from="." to="SpellAttributes/SpellName" method="HandleSkillSet"]
+[connection signal="SpellSet" from="." to="SpellAttributes/IsOffensiveCheckButton" method="HandleSpellSet"]
+[connection signal="SpellSet" from="." to="SpellAttributes/MpCostEdit" method="HandleSpellSet"]
+[connection signal="SpellSet" from="." to="SpellAttributes/AttributeRoll1" method="HandleSpellSet"]
+[connection signal="SpellSet" from="." to="SpellAttributes/AttributeRoll2" method="HandleSpellSet"]
+[connection signal="SpellSet" from="." to="SpellAttributes/TargetEdit" method="HandleSpellSet"]
+[connection signal="SpellSet" from="." to="SpellAttributes/DurationEdit" method="HandleSpellSet"]
+[connection signal="SpellSet" from="." to="TextEdit" method="HandleSpellSet"]

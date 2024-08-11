@@ -10,7 +10,7 @@ public partial class AddedSkillEntry : VBoxContainer
     public delegate void SkillSetEventHandler(SignalWrapper<SkillTemplate> skill);
 
     [Signal]
-    public delegate void BeastSetEventHandler(SignalWrapper<IBeastTemplate> skill);
+    public delegate void BeastSetEventHandler(SignalWrapper<IBeastTemplate> beast);
     public SkillTemplate Skill { get; internal set; }
 	public Action<AddedSkillEntry> OnRemoveSkill { get; set; }
     public Action OnUpdateBeast { get; set; }
