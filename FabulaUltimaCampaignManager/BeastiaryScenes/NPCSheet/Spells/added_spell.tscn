@@ -70,6 +70,10 @@ layout_mode = 2
 editable = false
 script = ExtResource("7_8ixf4")
 
+[node name="RemoveSkillButton" type="Button" parent="."]
+layout_mode = 2
+text = "Remove"
+
 [connection signal="SpellSet" from="." to="SpellAttributes/SpellName" method="HandleSkillSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/IsOffensiveCheckButton" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/MpCostEdit" method="HandleSpellSet"]

@@ -43,10 +43,11 @@ Project Description
 
 ### In Progress
 
-- [ ] Add Implementing Spells  
+- [ ] Implement Removing Spells  
 
 ### Done ✓
 
+- [x] Add Implementing Spells  
 - [x] implement adding skills to new npc page  
 - [x] Add Configuring Attacks to New Npc Page  
 - [x] Implement Study  
