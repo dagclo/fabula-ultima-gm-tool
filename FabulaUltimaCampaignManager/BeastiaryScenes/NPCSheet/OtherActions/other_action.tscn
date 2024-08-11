@@ -28,4 +28,6 @@ text = "Remove"
 
 [connection signal="ActionSet" from="." to="ActionDescription/ActionNameEdit" method="HandleActionSet"]
 [connection signal="ActionSet" from="." to="ActionDescription/DescriptionEdit" method="HandleActionSet"]
+[connection signal="text_changed" from="ActionDescription/ActionNameEdit" to="ActionDescription/ActionNameEdit" method="HandleTextChanged"]
+[connection signal="text_changed" from="ActionDescription/DescriptionEdit" to="ActionDescription/DescriptionEdit" method="HandleTextChanged"]
 [connection signal="pressed" from="RemoveActionButton" to="." method="HandleRemoveAction"]

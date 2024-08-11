@@ -4,9 +4,16 @@ using Godot;
 
 public partial class OtherActionDescriptionEdit : LineEdit
 {
+    private ActionTemplate _action;
+
     public void HandleActionSet(SignalWrapper<ActionTemplate> signal)
     {
-        var action = signal.Value;
-        this.Text = action.Effect;
+        _action = signal.Value;        
+    }
+
+
+    public void HandleTextChanged(string text)
+    {
+        _action.Effect = text;
     }
 }

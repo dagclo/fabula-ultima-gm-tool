@@ -42,10 +42,11 @@ Project Description
 
 ### In Progress
 
-- [ ] Implement Other Actions  
+- [ ] Implement Validation  
 
 ### Done ✓
 
+- [x] Implement Other Actions  
 - [x] Implement Removing Spells  
 - [x] Add Implementing Spells  
 - [x] implement adding skills to new npc page  

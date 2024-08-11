@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=40 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -38,6 +38,7 @@
 [ext_resource type="PackedScene" uid="uid://cqtoubns32l31" path="res://BeastiaryScenes/NPCSheet/Spells/added_spell.tscn" id="33_xf15o"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/OtherActions/AddedOtherActionList.cs" id="37_s8pb1"]
 [ext_resource type="PackedScene" uid="uid://bnvvg1obx5wff" path="res://BeastiaryScenes/NPCSheet/OtherActions/other_action.tscn" id="38_8lbek"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Validations/ValidationsList.cs" id="39_2f2qb"]
 
 [node name="NewNpcSheet" type="Window"]
 initial_position = 1
@@ -361,12 +362,24 @@ text = "Other Actions:"
 
 [node name="AddOtherActionButton" type="Button" parent="ScrollContainer/BeastEntryNode/OtherActions"]
 layout_mode = 2
-text = "Add Additional Action"
+text = "Add Additional Actions"
 
 [node name="OtherActionList" type="VBoxContainer" parent="ScrollContainer/BeastEntryNode/OtherActions"]
 layout_mode = 2
 script = ExtResource("37_s8pb1")
 AddActionScene = ExtResource("38_8lbek")
+
+[node name="Validations" type="VBoxContainer" parent="ScrollContainer/BeastEntryNode"]
+layout_mode = 2
+
+[node name="ValidationLabel" type="Label" parent="ScrollContainer/BeastEntryNode/Validations"]
+layout_mode = 2
+text = "Errors and Warnings"
+
+[node name="ValidationsList" type="VBoxContainer" parent="ScrollContainer/BeastEntryNode/Validations"]
+layout_mode = 2
+script = ExtResource("39_2f2qb")
+StartNodePath = "../../../../../NewNpcSheet"
 
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
