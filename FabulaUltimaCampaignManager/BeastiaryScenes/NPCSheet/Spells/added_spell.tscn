@@ -70,7 +70,7 @@ layout_mode = 2
 editable = false
 script = ExtResource("7_8ixf4")
 
-[node name="RemoveSkillButton" type="Button" parent="."]
+[node name="RemoveSpellButton" type="Button" parent="."]
 layout_mode = 2
 text = "Remove"
 
@@ -82,3 +82,4 @@ text = "Remove"
 [connection signal="SpellSet" from="." to="SpellAttributes/TargetEdit" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/DurationEdit" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="TextEdit" method="HandleSpellSet"]
+[connection signal="pressed" from="RemoveSpellButton" to="." method="HandleRemoveSpell"]

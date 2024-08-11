@@ -1,7 +1,9 @@
 using FabulaUltimaNpc;
+using FabulaUltimaSkillLibrary;
 using FirstProject.Beastiary;
 using Godot;
 using System;
+using System.Linq;
 
 public partial class AddedSpellEntry : VBoxContainer
 {
@@ -24,10 +26,21 @@ public partial class AddedSpellEntry : VBoxContainer
 
     internal void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
+        if (Spell == null) return;
+        var spellList = beastTemplate.Model.Spells;
+        if (!beastTemplate.Skills.Any(s => s.IsSpellcasterSkill()))
+        {            
+            spellList.Remove(Spell);
+        }
+        else if(!spellList.Contains(Spell))
+        {
+            spellList.Add(Spell);
+            OnUpdateBeast?.Invoke();
+        }
         EmitSignal(SignalName.BeastSet, new SignalWrapper<IBeastTemplate>(beastTemplate));
     }
 
-    public void HandleRemoveSkill()
+    public void HandleRemoveSpell()
     {
         OnRemoveSpell?.Invoke(this);
     }

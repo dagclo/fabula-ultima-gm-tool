@@ -41,11 +41,11 @@ public partial class CurrentSpellList : VBoxContainer, IBeastAttribute
         RemoveChild(entry);
         entry.QueueFree();
         OnBeastChanged?.Invoke(_beastTemplate);
-        BeastTemplateAction?.Invoke(new HashSet<BeastEntryNode.Action>(new[] { BeastEntryNode.Action.TRIGGER }));
+        BeastTemplateAction?.Invoke(new HashSet<BeastEntryNode.Action>(new[] { BeastEntryNode.Action.CHANGED }));
     }
 
     private void HandleUpdateBeast()
     {
-        BeastTemplateAction?.Invoke(new HashSet<BeastEntryNode.Action>(new[] { BeastEntryNode.Action.TRIGGER }));
+        BeastTemplateAction?.Invoke(new HashSet<BeastEntryNode.Action>(new[] { BeastEntryNode.Action.CHANGED }));
     }
 }
