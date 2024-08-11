@@ -1,6 +1,5 @@
 using FabulaUltimaNpc;
 using FabulaUltimaSkillLibrary;
-using FirstProject.Beastiary;
 using Godot;
 using System;
 using System.Collections.Generic;

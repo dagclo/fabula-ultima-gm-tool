@@ -21,7 +21,7 @@ public partial class AddedActionEntry : VBoxContainer
         EmitSignal(SignalName.BeastSet, new SignalWrapper<IBeastTemplate>(beastTemplate));
     }
 
-    public void HandleRemoveSpell()
+    public void HandleRemoveAction()
     {
         OnRemoveAction?.Invoke(this);
     }
