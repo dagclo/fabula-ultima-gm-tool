@@ -25,9 +25,14 @@ public partial class SpellAttributeRollOptions : OptionButton
     public void HandleSpellSet(SignalWrapper<SpellTemplate> signal)
     {
         var spell = signal.Value;
-        var spellAttribute = Index == 0 ? spell.Attribute1 : spell.Attribute2;
+        var spellAttribute = Index == 0 ? spell.Attribute1 : spell.Attribute2;        
+        if (spellAttribute == null)
+        {
+            this.Visible = false;
+            return;
+        }
         spellAttribute = spellAttribute.ShortenAttribute();
-        if (spellAttribute == null) return;
+        this.Visible = true;
         int selectedIndex = -1;
         foreach((var attr, var index) in Attributes.Select((a, i) => (a, i)))
         {
