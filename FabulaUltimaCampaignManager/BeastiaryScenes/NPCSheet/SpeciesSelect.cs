@@ -1,3 +1,4 @@
+using FabulaUltimaGMTool.BeastiaryScenes;
 using FabulaUltimaNpc;
 using FabulaUltimaSkillLibrary;
 using FirstProject.Beastiary;
@@ -5,7 +6,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class SpeciesSelect : OptionButton, IBeastAttribute
+public partial class SpeciesSelect : OptionButton, IBeastAttribute, IValidatable
 {
     [Signal]
     public delegate void SpeciesUpdateEncounterEventHandler(SignalWrapper<IEnumerable<SkillTemplate>> speciesSkills);
@@ -39,5 +40,10 @@ public partial class SpeciesSelect : OptionButton, IBeastAttribute
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         _beastTemplate = beastTemplate;
+    }
+    string IValidatable.Name => "Species";
+    public IEnumerable<TemplateValidation> Validate()
+    {
+        if (_beastTemplate.Species == null) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "Not Set" };
     }
 }

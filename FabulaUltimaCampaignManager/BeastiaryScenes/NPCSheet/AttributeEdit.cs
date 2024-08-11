@@ -1,10 +1,11 @@
+using FabulaUltimaGMTool.BeastiaryScenes;
 using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class AttributeEdit : Control, IBeastAttribute
+public partial class AttributeEdit : Control, IBeastAttribute, IValidatable
 {
     private IBeastTemplate _beastTemplate;
 
@@ -44,5 +45,31 @@ public partial class AttributeEdit : Control, IBeastAttribute
                 return;
         }
         BeastTemplateAction.Invoke(new HashSet<BeastEntryNode.Action>() { BeastEntryNode.Action.CHANGED });
+    }
+
+    string IValidatable.Name => AttributeName;
+    public IEnumerable<TemplateValidation> Validate()
+    {
+        if (_beastTemplate == null) yield break;
+        Die attributeDieValue;
+        switch (AttributeName.ToLowerInvariant())
+        {
+            case "might":
+                attributeDieValue = _beastTemplate.Might;
+                break;
+            case "insight":
+                attributeDieValue = _beastTemplate.Insight;
+                break;
+            case "willpower":
+                attributeDieValue = _beastTemplate.WillPower;
+                break;
+            case "dexterity":
+                attributeDieValue = _beastTemplate.Dexterity;
+                break;
+            default:
+                attributeDieValue = default;
+                break;
+        }
+        if (attributeDieValue.Sides.Equals(default(Die).Sides)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = $"Not Set" };
     }
 }

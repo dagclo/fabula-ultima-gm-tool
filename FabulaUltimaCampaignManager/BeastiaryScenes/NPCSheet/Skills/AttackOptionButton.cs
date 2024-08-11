@@ -1,10 +1,11 @@
+using FabulaUltimaGMTool.BeastiaryScenes;
 using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class AttackOptionButton : OptionButton
+public partial class AttackOptionButton : OptionButton, IValidatable
 {    
     private IDictionary<int, BasicAttackTemplate> _attackMap;
     private SkillTemplate _skill;
@@ -89,5 +90,13 @@ public partial class AttackOptionButton : OptionButton
         if( _skill == null) return;
         _currentAttack?.AttackSkills.Remove(_skill);
         EmitSignal(SignalName.RemoveSkill);
+    }
+
+    string IValidatable.Name => "Attack Skill";
+    public IEnumerable<TemplateValidation> Validate()
+    {
+        if (_skill == null) yield break;
+        if(_skill.OtherAttributes?.IsSpecialAttack == false) yield break;
+        if (_currentAttack == null) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = $"Special Attack '{_skill.Name}' not assigned to attack " };
     }
 }
