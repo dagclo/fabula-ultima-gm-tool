@@ -60,7 +60,18 @@ public partial class NpcSheet : Node
             foreach(var newResolvedSkills in resolvedSkills)
             {
                 editableBeastModel.Skills.Add(newResolvedSkills);
-            }            
+            }
+
+            foreach (var affinityGroup in editableBeastTemplate.Skills.Where(s => s.IsResistanceSkill()).GroupBy(s => s.Id).ToArray())
+            {
+                //for now save resolved skills
+                var versionToTake = affinityGroup.FirstOrDefault(s => s.IsResolved()) ?? affinityGroup.First();
+                foreach (var skill in affinityGroup)
+                {
+                    editableBeastTemplate.Model.Skills.Remove(skill);
+                }
+                editableBeastTemplate.Model.Skills.Add(versionToTake);
+            }
         }        
       
         this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });

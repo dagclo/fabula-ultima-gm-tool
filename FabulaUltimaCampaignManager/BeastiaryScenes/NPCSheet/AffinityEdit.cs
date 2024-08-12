@@ -1,6 +1,7 @@
 using FabulaUltimaNpc;
 using FabulaUltimaSkillLibrary;
 using FabulaUltimaSkillLibrary.Models;
+using FirstProject.Beastiary;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ public partial class AffinityEdit : Control, IBeastAttribute
     private SkilledBeastTemplateWrapper _beastTemplate;
 
     [Signal]
-    public delegate void UpdateAffinityEventHandler(string affinityValue);
+    public delegate void UpdateAffinityEventHandler(SignalWrapper<BeastResistance> affinityValue);
 
     [Signal]
     public delegate void UpdateElementEventHandler(string element);
@@ -36,7 +37,7 @@ public partial class AffinityEdit : Control, IBeastAttribute
         {
             affinity = resistance.Affinity;
         }        
-        EmitSignal(SignalName.UpdateAffinity, affinity);
+        EmitSignal(SignalName.UpdateAffinity, new SignalWrapper<BeastResistance>(resistance));
     }
 
     public void HandleAffinitySelected(string affinity)

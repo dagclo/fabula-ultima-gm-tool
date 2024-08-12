@@ -385,9 +385,10 @@ namespace FabulaUltimaSkillLibrary.Models
         }
 
         public void UpdateSkills()
-        {
+        {           
             _skillCountMap = _beastTemplate.Skills.GroupBy(s => s.Id).ToDictionary(g => g.Key, g => g.Count());
             _skillMap = _beastTemplate.Skills.GroupBy(s => s.Id).ToDictionary(g => g.Key, g => g.First());
+           
         }
     }
 }

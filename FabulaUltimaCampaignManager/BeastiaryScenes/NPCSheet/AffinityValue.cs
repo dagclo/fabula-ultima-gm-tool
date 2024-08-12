@@ -1,3 +1,5 @@
+using FabulaUltimaNpc;
+using FirstProject.Beastiary;
 using Godot;
 
 public partial class AffinityValue : OptionButton
@@ -16,22 +18,27 @@ public partial class AffinityValue : OptionButton
         }
     }
 
-    public void HandleUpdateAffinity(string affinity)
+    public void HandleUpdateAffinity(SignalWrapper<BeastResistance> signal)
     {
-        if (affinity == string.Empty)
+        var beastResistance = signal.Value;
+        if (beastResistance.Resolved == true)
+        {            
+            var affinity = beastResistance.Affinity;
+            for (var index = 0; index < this.ItemCount; index++)
+            {
+                string itemName = this.GetItemText(index);
+                if (itemName == affinity)
+                {
+                    CallDeferred(MethodName.Select, index);
+                    if (affinity != string.Empty) CallDeferred(MethodName.SetDisabled, true);
+                    break;
+                }
+            }
+        }
+        else
         {
             CallDeferred(MethodName.SetDisabled, false);
-        }
-        for(var index = 0; index < this.ItemCount; index++)
-        {            
-            string itemName = this.GetItemText(index);
-            if (itemName == affinity)
-            {   
-                CallDeferred(MethodName.Select, index);
-                if(affinity != string.Empty) CallDeferred(MethodName.SetDisabled, true);
-                break;
-            }
-        }        
+        }       
     }
 
     public void HandleItemSelected(int index)
