@@ -17,8 +17,8 @@ namespace FabulaUltimaSkillLibrary
 
         private (SkillTemplate skill, Guid? targetId)? MarkResolved(SpeciesType species, (SkillTemplate skill, Guid? targetId)? s)
         {
-            if (s == null) return s;            
-            SkillTemplate? clonedSkill = s.Value.skill.Clone();
+            if (s == null) return s;
+            SkillTemplate? clonedSkill = s.Value.skill;//.Clone();
             if (clonedSkill?.IsResolved() != false ||(clonedSkill.IsVulnerabilitySkill() && clonedSkill.IsFreeSkillForSpecies(species)))
             {
                 clonedSkill.SetResolved(true);
