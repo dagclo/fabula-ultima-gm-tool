@@ -62,8 +62,7 @@ public partial class AffinityEdit : Control, IBeastAttribute
         }
         var skillId = _beastTemplate.Resistances[AffinityName.ToLowerInvariant()].SkillId ?? throw new Exception("unset skill id");
         _beastTemplate.RemoveAffinitySkill(skillId);
-        if (skill == null) return;
-        _beastTemplate.AddSkill(skill);
+        if (skill != null) _beastTemplate.AddSkill(skill);
         BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.TRIGGER }.ToHashSet());
     }
 }

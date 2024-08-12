@@ -61,7 +61,7 @@ public partial class NpcSheet : Node
             var resolverResults = _skillResolver.ResolveSkills(editableBeastTemplate, input);
             var resolvedSkills = resolverResults.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToArray();
 
-            EmitSignal(SignalName.SkillSlotsAvailable, resolverResults.SkillSlots.Count(s => s == null) - editableBeastModel.Skills.Count());
+            EmitSignal(SignalName.SkillSlotsAvailable, resolverResults.RemainingSkillPoints - editableBeastModel.Skills.Count(s => !s.IsAffinitySkill()));
 
             foreach(var newResolvedSkills in resolvedSkills)
             {
