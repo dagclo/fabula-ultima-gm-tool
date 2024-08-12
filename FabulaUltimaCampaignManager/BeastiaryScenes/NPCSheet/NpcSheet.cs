@@ -45,11 +45,11 @@ public partial class NpcSheet : Node
             editableBeastTemplate.UpdateSkills();
             var input = new SkillInputData
             {
-                MaxMP = template.MagicPoints,
-                MaxHP = template.HealthPoints,
-                MDefMod = editableBeastTemplate.MagicalDefenseModifier,
-                DefMod = template.HasDefenseOverride ? 0 : editableBeastTemplate.DefenseModifier,
-                DefOverride = template.HasDefenseOverride ? template.Defense : null,
+                MaxMP = editableBeastTemplate.Internal.MagicPoints,
+                MaxHP = editableBeastTemplate.Internal.HealthPoints,
+                MDefMod = 0,
+                DefMod = 0,
+                DefOverride = null,
             };
             // remove old resolved skills
             var oldResolvedSkills = editableBeastModel.Skills.Where(s => s.IsResolved()).ToArray();
@@ -61,14 +61,14 @@ public partial class NpcSheet : Node
             var resolverResults = _skillResolver.ResolveSkills(editableBeastTemplate.Internal, input);
             var resolvedSkills = resolverResults.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToArray();
 
-            EmitSignal(SignalName.SkillSlotsAvailable, resolverResults.SkillSlots.Count(s => s == null));
+            EmitSignal(SignalName.SkillSlotsAvailable, resolverResults.SkillSlots.Count(s => s == null) - editableBeastModel.Skills.Count());
 
             foreach(var newResolvedSkills in resolvedSkills)
             {
                 editableBeastModel.Skills.Add(newResolvedSkills);
             }
 
-            foreach (var affinityGroup in editableBeastTemplate.Skills.Where(s => s.IsResistanceSkill()).GroupBy(s => s.Id).ToArray())
+            foreach (var affinityGroup in editableBeastTemplate.Skills.Where(s => s.IsResistanceSkill()).GroupBy(s => s.Id).Where(g => g.Count() > 1).ToArray())
             {
                 //for now save resolved skills
                 var versionToTake = affinityGroup.FirstOrDefault(s => s.IsResolved()) ?? affinityGroup.First();
