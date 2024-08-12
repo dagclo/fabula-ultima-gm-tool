@@ -225,11 +225,11 @@ namespace FabulaUltimaSkillLibrary
             var spellCount = npc.Spells.Count();
             var calcMp = npc.MagicPoints;
             var mpDiff = maxMP - calcMp;
-            var numBoostedSpellSkills = mpDiff / int.Parse(moreMPSkill.OtherAttributes[StatsConstants.MP_BOOST]);
+            var numBoostedSpellSkills = Math.Max(mpDiff / int.Parse(moreMPSkill.OtherAttributes[StatsConstants.MP_BOOST]), 0);
             var boostedMpSkills = Enumerable.Range(0, numBoostedSpellSkills).Select(_ => moreMPSkill);
 
             var moreSpellsSkill = KnownSkills.SpellCasterMoreSpells;
-            var remainingSpellSlots = (spellCount - numBoostedSpellSkills) / int.Parse(moreSpellsSkill.OtherAttributes[StatsConstants.NUM_SPELLS]);
+            var remainingSpellSlots = Math.Max((spellCount - numBoostedSpellSkills) / int.Parse(moreSpellsSkill.OtherAttributes[StatsConstants.NUM_SPELLS]), 0);
             var boostedSpellsSkills = Enumerable.Range(0, remainingSpellSlots).Select(_ => moreSpellsSkill);
 
             foreach(var skill in boostedMpSkills

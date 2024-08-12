@@ -42,12 +42,11 @@ namespace FabulaUltimaSkillLibrary.Models
 
             var validAttacks = KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) ? attacks : attacks.Where(a => !a.IsEquipmentAttack);
 
-            foreach (var attack in attacks) 
-            {
-                var updatedAttack = attack; // want to preserve original value
-                updatedAttack.AccuracyMod += accuracyMod;
-                updatedAttack.DamageMod += ResolveDamageMod(attack.AttackSkills);
-                yield return updatedAttack;
+            foreach (var attack in validAttacks) 
+            {   
+                attack.AccuracyMod = accuracyMod;
+                attack.DamageMod = 5 + ResolveDamageMod(attack.AttackSkills);
+                yield return attack;
             }
         }
               

@@ -841,30 +841,20 @@ namespace FabulaUltimaDatabase
 
         public void UpdateBeast(IBeastTemplate template)
         {
-            var beastExists = this.GetBeast(template.Id) != null;
-
-           
+            RemoveBeast(template.Id);           
 
             using (var connection = _configuration.GetConnection())
             {
                 connection.Open();
                 var beastId = template.Id.ToString().ToUpperInvariant();
-                if (!beastExists)
-                {
-
-                    connection.Execute(@"
+                connection.Execute(@"
                     INSERT INTO BeastTemplate (Id)
                     VALUES (@Id)
                     ",
-                    new
-                    {
-                        Id = beastId,
-                    });
-                }
-                else
-                {
-                    //todo: clear prior relationships
-                }
+                     new
+                     {
+                         Id = beastId,
+                     });
 
 
                 var beast = template.Model;

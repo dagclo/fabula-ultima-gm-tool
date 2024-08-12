@@ -14,12 +14,12 @@
 
         public bool IsEquipmentAttack { init; get; } = false;
 
-        public BasicAttackTemplate Clone(Guid id)
+        public BasicAttackTemplate Clone(Guid? id = null)
         {
             return new BasicAttackTemplate
             {
                 DamageType = DamageType,
-                Id = id,
+                Id = id ?? this.Id,
                 Name = Name,
                 Attribute1 = Attribute1,
                 Attribute2 = Attribute2,
