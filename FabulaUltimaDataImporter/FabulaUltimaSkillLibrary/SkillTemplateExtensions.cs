@@ -68,7 +68,7 @@ namespace FabulaUltimaSkillLibrary
             if (!IsResistanceSkill(skillTemplate)) throw new ArgumentException("not a resistance skill");
             var affinityId = Guid.Parse(skillTemplate.OtherAttributes[DamageConstants.AFFINITY_ID]);
             var damageType = skillTemplate.OtherAttributes[DamageConstants.DAMAGE_TYPE_NAME];
-            var resolved = skillTemplate.OtherAttributes.TryGetValue(Resolver.ASSIGNED_BY_RESOLVER, out var resolvedValue) ? bool.Parse(resolvedValue ?? false.ToString()) : false;
+            var resolved = skillTemplate.IsResolved();
             return new BeastResistance
             {
                 AffinityId = affinityId,               
