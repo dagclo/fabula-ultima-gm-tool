@@ -21,24 +21,18 @@ public partial class AffinityValue : OptionButton
     public void HandleUpdateAffinity(SignalWrapper<BeastResistance> signal)
     {
         var beastResistance = signal.Value;
-        if (beastResistance.Resolved == true)
-        {            
-            var affinity = beastResistance.Affinity;
-            for (var index = 0; index < this.ItemCount; index++)
+        var affinity = beastResistance.Affinity;
+        for (var index = 0; index < this.ItemCount; index++)
+        {
+            string itemName = this.GetItemText(index);
+            if (itemName == affinity)
             {
-                string itemName = this.GetItemText(index);
-                if (itemName == affinity)
-                {
-                    CallDeferred(MethodName.Select, index);
-                    if (affinity != string.Empty) CallDeferred(MethodName.SetDisabled, true);
-                    break;
-                }
+                CallDeferred(MethodName.Select, index);
+                if (affinity != string.Empty) CallDeferred(MethodName.SetDisabled, true);
+                break;
             }
         }
-        else
-        {
-            CallDeferred(MethodName.SetDisabled, false);
-        }       
+        CallDeferred(MethodName.SetDisabled, beastResistance.Resolved ?? false);
     }
 
     public void HandleItemSelected(int index)
