@@ -340,13 +340,13 @@ namespace FabulaUltimaSkillLibraryTests
                                 new (SkillTemplate skill, Guid? targetId)?[]
                                 {
                                     ( arcaneLanternSkill, elementalDischargeId),
-                                    ( KnownSkills.PhysicalVulnerability, null),
-                                    ( KnownSkills.IceResistance, null),
-                                    ( KnownSkills.FireResistance, null),
-                                    ( KnownSkills.EarthResistance, null),
-                                    ( KnownSkills.PoisonImmunity, null),
-                                    ( KnownSkills.ConstructSkillPoisonedImmunity, null),
-                                    ( KnownSkills.ImprovedDefensesMagical, null),
+                                    ( KnownSkills.PhysicalVulnerability.Clone().SetResolved(false), null),
+                                    ( KnownSkills.IceResistance.Clone().SetResolved(false), null),
+                                    ( KnownSkills.FireResistance.Clone().SetResolved(false), null),
+                                    ( KnownSkills.EarthResistance.Clone().SetResolved(true), null),
+                                    ( KnownSkills.PoisonImmunity.Clone().SetResolved(true), null),
+                                    ( KnownSkills.ConstructSkillPoisonedImmunity.Clone().SetResolved(true), null),
+                                    ( KnownSkills.ImprovedDefensesMagical.Clone().SetResolved(false), null),
                                     null,
                                 }).SetName("Arcane Lantern pg 328");
 
@@ -470,9 +470,9 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.BoltVulnerability, null),
                                     ( KnownSkills.IceVulnerability, null),
                                     ( KnownSkills.FireImmunity, null),
-                                    ( KnownSkills.EarthResistance, null),
-                                    ( KnownSkills.PoisonImmunity, null),
-                                    ( KnownSkills.ConstructSkillPoisonedImmunity, null),
+                                    ( KnownSkills.EarthResistance.SetResolved(true), null),
+                                    ( KnownSkills.PoisonImmunity.SetResolved(true), null),
+                                    ( KnownSkills.ConstructSkillPoisonedImmunity.SetResolved(true), null),
                                     ( KnownSkills.ImprovedHitPoints, null),
                                     null,
                                     null,
@@ -718,14 +718,14 @@ namespace FabulaUltimaSkillLibraryTests
                                 },
                                 new (SkillTemplate skill, Guid? targetId)?[]
                                 {
-                                    ( KnownSkills.SpecialAttackExtraDamageOnSlow, sharpNeedleId),
-                                    ( KnownSkills.SpellCasterMoreSpells, null),
-                                    ( KnownSkills.AirVulnerability, null),
-                                    ( KnownSkills.DarkVulnerability, null),
-                                    ( KnownSkills.EarthImmunity, null),
-                                    ( KnownSkills.LightImmunity, null),
-                                    ( KnownSkills.PoisonImmunity, null),
-                                    ( KnownSkills.ElementalSkillPoisonedImmunity, null),
+                                    ( KnownSkills.SpecialAttackExtraDamageOnSlow.Clone().SetResolved(false), sharpNeedleId),
+                                    ( KnownSkills.SpellCasterMoreSpells.Clone().SetResolved(false), null),
+                                    ( KnownSkills.AirVulnerability.Clone().SetResolved(false), null),
+                                    ( KnownSkills.DarkVulnerability.Clone().SetResolved(false), null),
+                                    ( KnownSkills.EarthImmunity.Clone().SetResolved(false), null),
+                                    ( KnownSkills.LightImmunity.Clone().SetResolved(false), null),
+                                    ( KnownSkills.PoisonImmunity.Clone().SetResolved(true), null),
+                                    ( KnownSkills.ElementalSkillPoisonedImmunity.Clone().SetResolved(true), null),
                                     null,
                                 }).SetName("Acorn Pixie pg 334");
 
@@ -787,8 +787,8 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.IceResistance, null),
                                     ( KnownSkills.FireResistance, null),
                                     ( KnownSkills.EarthImmunity, null),
-                                    ( KnownSkills.PoisonImmunity, null),
-                                    ( KnownSkills.ElementalSkillPoisonedImmunity, null),
+                                    ( KnownSkills.PoisonImmunity.SetResolved(true), null),
+                                    ( KnownSkills.ElementalSkillPoisonedImmunity.SetResolved(true), null),
                                     ( KnownSkills.ImprovedHitPoints, null),
                                     ( KnownSkills.ImprovedDamageAttack, seasonalTouchId),
                                     ( KnownSkills.DarkVulnerability, null), // added to fix NPC calculation
@@ -916,7 +916,7 @@ namespace FabulaUltimaSkillLibraryTests
                                 new (SkillTemplate skill, Guid? targetId)?[]
                                 {
                                     ( KnownSkills.ImprovedHitPoints, null),
-                                    ( KnownSkills.UseEquipment, null),
+                                    ( KnownSkills.UseEquipment.SetResolved(true), null),
                                     null,
                                     null,
                                 }).SetName("Guard pg 338");
@@ -1016,7 +1016,7 @@ namespace FabulaUltimaSkillLibraryTests
                                 },
                                 new (SkillTemplate skill, Guid? targetId)?[]
                                 {
-                                    ( KnownSkills.UseEquipment, null),
+                                    ( KnownSkills.UseEquipment.SetResolved(true), null),
                                     ( KnownSkills.SpellCasterMoreMP, null),
                                     ( KnownSkills.SpecializedAccuracyCheck, null),
                                     ( KnownSkills.FireVulnerability, null),
@@ -1299,9 +1299,9 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.IceVulnerability, null),
                                     ( KnownSkills.FireVulnerability, null),
                                     ( KnownSkills.PoisonVulnerability, null),
-                                    ( KnownSkills.PlantSkillDazedImmunity, null),
-                                    ( KnownSkills.PlantSkillShakenImmunity, null),
-                                    ( KnownSkills.PlantSkillEnragedImmunity, null),
+                                    ( KnownSkills.PlantSkillDazedImmunity.SetResolved(true), null),
+                                    ( KnownSkills.PlantSkillShakenImmunity.SetResolved(true), null),
+                                    ( KnownSkills.PlantSkillEnragedImmunity.SetResolved(true), null),
                                     ( KnownSkills.ImprovedHitPoints, null),
                                 }).SetName("Alraune pg 346 - Modified");
 
@@ -1405,9 +1405,9 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.FireResistance, null),
                                     ( KnownSkills.LightResistance, null),
                                     ( KnownSkills.PoisonVulnerability, null),
-                                    ( KnownSkills.PlantSkillDazedImmunity, null),
-                                    ( KnownSkills.PlantSkillShakenImmunity, null),
-                                    ( KnownSkills.PlantSkillEnragedImmunity, null),
+                                    ( KnownSkills.PlantSkillDazedImmunity.SetResolved(true), null),
+                                    ( KnownSkills.PlantSkillShakenImmunity.SetResolved(true), null),
+                                    ( KnownSkills.PlantSkillEnragedImmunity.SetResolved(true), null),
                                     ( KnownSkills.SpellCasterMoreSpells, null),
                                     ( KnownSkills.SpecializedAccuracyCheck, null),
                                     null
@@ -1512,14 +1512,14 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.UseEquipment, null),
                                     ( KnownSkills.SpellCasterMoreMP, null),
                                     ( KnownSkills.ImprovedDefensesMagical, null),
-                                    ( KnownSkills.DarkImmunity, null),
+                                    ( KnownSkills.DarkImmunity.SetResolved(true), null),
                                     ( KnownSkills.EarthVulnerability, null),
                                     ( KnownSkills.FireResistance, null),
                                     ( KnownSkills.IceResistance, null),
-                                    ( KnownSkills.LightVulnerability, null),
-                                    ( KnownSkills.PoisonImmunity, null),
-                                    ( KnownSkills.UndeadSkillPoisonedImmunity, null),
-                                    ( KnownSkills.UndeadSkillHealingHurts, null)
+                                    ( KnownSkills.LightVulnerability.SetResolved(true), null),
+                                    ( KnownSkills.PoisonImmunity.SetResolved(true), null),
+                                    ( KnownSkills.UndeadSkillPoisonedImmunity.SetResolved(true), null),
+                                    ( KnownSkills.UndeadSkillHealingHurts.SetResolved(true), null)
                                 }).SetName("Skeletal Mage pg 351");
 
                 var furyClawId = Guid.NewGuid();
@@ -1589,16 +1589,16 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.SpecialAttackSufferEnraged, furyClawId),
                                     ( KnownSkills.PhysicalImmunity, null),
                                     ( KnownSkills.AirVulnerability, null),
-                                    ( KnownSkills.DarkImmunity, null),
+                                    ( KnownSkills.DarkImmunity.SetResolved(true), null),
                                     ( KnownSkills.EarthResistance, null),
                                     ( KnownSkills.FireVulnerability, null),
                                     ( KnownSkills.IceResistance, null),
-                                    ( KnownSkills.LightVulnerability, null),
-                                    ( KnownSkills.PoisonImmunity, null),
+                                    ( KnownSkills.LightVulnerability.SetResolved(true), null),
+                                    ( KnownSkills.PoisonImmunity.SetResolved(true), null),
                                     ( KnownSkills.SpellCasterMoreMP, null),
                                     ( KnownSkills.SpecializedAccuracyCheck, null),
-                                    ( KnownSkills.UndeadSkillPoisonedImmunity, null),
-                                    ( KnownSkills.UndeadSkillHealingHurts, null),
+                                    ( KnownSkills.UndeadSkillPoisonedImmunity.SetResolved(true), null),
+                                    ( KnownSkills.UndeadSkillHealingHurts.SetResolved(true), null),
                                     null
                                 }).SetName("Shackled Soul pg 353");
 
@@ -1755,7 +1755,7 @@ namespace FabulaUltimaSkillLibraryTests
                         (KnownSkills.LightVulnerability, null),
                         (KnownSkills.DarkResistance, null),
                         (KnownSkills.PoisonResistance, null),
-                        (KnownSkills.UseEquipment, null),
+                        (KnownSkills.UseEquipment.SetResolved(true), null),
                         (KnownSkills.SpecializedAccuracyCheck, null),
                         (KnownSkills.ImprovedHitPoints, null),
                         null
@@ -1855,9 +1855,9 @@ namespace FabulaUltimaSkillLibraryTests
                         (KnownSkills.FireResistance, null),
                         (KnownSkills.LightResistance, null),
                         (KnownSkills.IceVulnerability, null),
-                        ( KnownSkills.PlantSkillDazedImmunity, null),
-                        ( KnownSkills.PlantSkillShakenImmunity, null),
-                        ( KnownSkills.PlantSkillEnragedImmunity, null),
+                        ( KnownSkills.PlantSkillDazedImmunity.SetResolved(true), null),
+                        ( KnownSkills.PlantSkillShakenImmunity.SetResolved(true), null),
+                        ( KnownSkills.PlantSkillEnragedImmunity.SetResolved(true), null),
                         ( KnownSkills.SpellCasterMoreMP, null),
                     }
 

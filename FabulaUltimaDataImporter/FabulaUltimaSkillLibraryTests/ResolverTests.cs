@@ -57,18 +57,15 @@ namespace FabulaUltimaSkillLibraryTests
                     var expectedGroup = pair.Value;
                     var actualGroup = actualSkillMap[pair.Key];
                     Assert.That(actualGroup.Count(), Is.EqualTo(expectedGroup.Count()), $"num of skill {pair.Key} should match");
-                    foreach(var skill in actualGroup.Where(s => s?.skill != null).Select(s => s.Value.skill))
-                    {
-                        Assert.That(skill.IsResolved, Is.True);
-                    }
                     
                     foreach(var entry in expectedGroup)
                     {
+                        var matching = actualGroup.FirstOrDefault(
+                            s => s.Value.skill.Id == entry.Value.skill.Id &&
+                                 s.Value.targetId == entry.Value.targetId);
+                        Assert.That(matching?.skill, Is.Not.Null, $"skill {entry.Value.skill} with target id {entry.Value.targetId} is missing");
+                        Assert.That(matching?.skill.IsResolved(), Is.EqualTo(entry?.skill.IsResolved()), $"skill {entry.Value.skill} with target id {entry.Value.targetId} doesn't match resolution {entry?.skill.IsResolved()}");
                         
-                        Assert.IsTrue(actualGroup.Any(
-                            s => s.Value.skill.Id == entry.Value.skill.Id && 
-                                 s.Value.targetId == entry.Value.targetId), 
-                            $"skill {entry.Value.skill} with target id {entry.Value.targetId} is missing");
                     }                    
                 }
             });

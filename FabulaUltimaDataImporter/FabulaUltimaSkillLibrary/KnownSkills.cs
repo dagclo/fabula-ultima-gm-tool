@@ -542,7 +542,7 @@ namespace FabulaUltimaSkillLibrary
 
         internal static SkillTemplate GetResistanceSkill(Guid damageTypeId)
         {
-            return ResistanceSkills[damageTypeId];
+            return ResistanceSkills[damageTypeId].Clone().SetResolved(false);
         }
 
 

@@ -15,11 +15,14 @@ namespace FabulaUltimaSkillLibrary
             _specialAttackIndex = specialAttackIndex;
         }
 
-        private (SkillTemplate skill, Guid? targetId)? MarkResolved((SkillTemplate skill, Guid? targetId)? s)
+        private (SkillTemplate skill, Guid? targetId)? MarkResolved(SpeciesType species, (SkillTemplate skill, Guid? targetId)? s)
         {
-            if (s == null) return s;
+            if (s == null) return s;            
             SkillTemplate? clonedSkill = s.Value.skill.Clone();
-            clonedSkill.OtherAttributes[SkillTemplateExtensions.RESOLVED] = $"{true}";
+            if (clonedSkill?.IsResolved() != false ||(clonedSkill.IsVulnerabilitySkill() && clonedSkill.IsFreeSkillForSpecies(species)))
+            {
+                clonedSkill.SetResolved(true);
+            }           
 
             return (clonedSkill, s.Value.targetId);
         }
@@ -30,7 +33,7 @@ namespace FabulaUltimaSkillLibrary
             var levelSkillSlots = GetSkillsSlotsFromLevel(npc.Level);
             var vulnerabilitySkillSlots = GetSkillsSlotsFromVulnerabilities(npc);
 
-            var resolvedSkills = ResolveSkillsInternal(npc, inputData).Select(s => MarkResolved(s)).ToArray();
+            var resolvedSkills = ResolveSkillsInternal(npc, inputData).Select(s => MarkResolved(npc.Species, s)).ToArray();
 
             var grantedSkillSlots = resolvedSkills.Where(s => s == null);
 
@@ -66,7 +69,7 @@ namespace FabulaUltimaSkillLibrary
             var equipmentSkills = ResolveEquipmentSkills(npc);
             var spellSkills = ResolveSpellSkills(npc, inputData.MaxMP);
             var resistanceSkills = ResolveResistances(npc.Species, npc.Resistances.Values);
-            var vulnerbilitySkills = ResolveVulnerbilities(npc.Resistances.Values.Where(r => r.AffinityId == DamageConstants.VULNERABLE)).ToArray();
+            var vulnerbilitySkills = ResolveVulnerbilities(npc.Resistances.Values.Where(r => r.AffinityId == DamageConstants.VULNERABLE));
             var immunitySkills = ResolveImmunities(npc.Species, npc.Resistances.Values.Where(r => r.AffinityId == DamageConstants.IMMUNE));
             var absorptionSkills = ResolveAbsorption(npc.Species, npc.Resistances.Values.Where(r => r.AffinityId == DamageConstants.ABSORBS));
             var checkSkills = ResolveChecks(npc, inputData);
@@ -120,16 +123,20 @@ namespace FabulaUltimaSkillLibrary
             }
         }
 
-        private IEnumerable<(SkillTemplate skill, Guid? targetId)?> ResolveSpecies(IBeastTemplate npc, ICollection<Guid> alreadyAssignedSkillIds)
+        private IEnumerable<(SkillTemplate skill, Guid? targetId)?> ResolveSpecies(IBeastTemplate npc, ISet<Guid> alreadyAssignedSkillIds)
         {
             foreach(var freeSkill in KnownSkills.GetAllKnownSkills()
                                 .Where(s => 
-                                {                                     
-                                    if(alreadyAssignedSkillIds.Contains(s.Id)) return false;
+                                {
+                                    if (alreadyAssignedSkillIds.Contains(s.Id)) 
+                                    {
+                                        //var updated = alreadyAssignedSkillIds[s.Id].SetResolved(true);
+                                        return false; 
+                                    }
                                     return s.OtherAttributes?.FreeSpecies?.Contains(npc.Species.Id) == true;
                                 }))
             {
-                freeSkill.OtherAttributes[ASSIGNED_BY_RESOLVER] = true.ToString();
+                freeSkill.SetResolved(true);
                 yield return (freeSkill, null);
                 yield return null;
             }            

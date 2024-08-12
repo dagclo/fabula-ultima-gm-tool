@@ -1,4 +1,5 @@
 ﻿using FabulaUltimaNpc;
+using static Dapper.SqlBuilder;
 
 namespace FabulaUltimaSkillLibrary
 {
@@ -42,11 +43,24 @@ namespace FabulaUltimaSkillLibrary
             return skillTemplate.OtherAttributes.TryGetValue(RESOLVED, out var valStr) ? bool.Parse(valStr) : false;
         }
 
+        public static SkillTemplate SetResolved(this SkillTemplate template, bool resolved)
+        {
+            template.OtherAttributes = template.OtherAttributes ?? new SkillAttributeCollection();
+            template.OtherAttributes[RESOLVED] = resolved.ToString();
+            return template;
+        }
+
         public static bool ModifiesAttack(this SkillTemplate skillTemplate)
         {
             if (skillTemplate.OtherAttributes == null) return false;
             if (skillTemplate.OtherAttributes.IsSpecialAttack == true) return true;
             return skillTemplate.OtherAttributes.ContainsKey(DamageConstants.DAMAGE_BOOST);
+        }
+
+        public static bool IsFreeSkillForSpecies(this SkillTemplate skillTemplate, SpeciesType species)
+        {            
+            if (skillTemplate.OtherAttributes == null) return false;
+            return skillTemplate.OtherAttributes.TryGetValue(SpeciesConstants.FREE_SPECIES, out var value) ? value == species.Id.ToString() : false;
         }
 
         public static BeastResistance ToBeastResistance(this SkillTemplate skillTemplate)
