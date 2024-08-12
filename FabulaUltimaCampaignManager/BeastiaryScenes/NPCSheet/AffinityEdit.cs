@@ -5,6 +5,7 @@ using FirstProject.Beastiary;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class AffinityEdit : Control, IBeastAttribute
 {
@@ -63,5 +64,6 @@ public partial class AffinityEdit : Control, IBeastAttribute
         _beastTemplate.RemoveAffinitySkill(skillId);
         if (skill == null) return;
         _beastTemplate.AddSkill(skill);
+        BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.TRIGGER }.ToHashSet());
     }
 }

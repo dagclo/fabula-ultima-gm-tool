@@ -64,6 +64,6 @@ public partial class SpeciesSelect : OptionButton, IBeastAttribute, IValidatable
 
         var builtInVulnerabilityChoices = _beastRepository.Database.GetBuiltInVulnerbilityChoices(_beastTemplate.Species).VulnerabilityChoices
             .ToDictionary(c => KnownSkills.VulnerabilitySkills[c.DamageTypeId].Id, c => KnownSkills.VulnerabilitySkills[c.DamageTypeId]);
-        if (!_beastTemplate.Skills.Any(s => builtInVulnerabilityChoices.ContainsKey(s.Id))) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = $"Species {_beastTemplate.Species.Name} Requires one of the following:  {string.Join(",", builtInVulnerabilityChoices.Values.Select(s => s.Name))}" };
+        if (builtInVulnerabilityChoices.Any() && !_beastTemplate.Skills.Any(s => builtInVulnerabilityChoices.ContainsKey(s.Id))) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = $"Species {_beastTemplate.Species.Name} Requires one of the following:  {string.Join(",", builtInVulnerabilityChoices.Values.Select(s => s.Name))}" };
     }
 }
