@@ -846,34 +846,13 @@ namespace FabulaUltimaDatabase
             using (var connection = _configuration.GetConnection())
             {
                 connection.Open();
-                var beastId = template.Id.ToString().ToUpperInvariant();
-                connection.Execute(@"
-                    INSERT INTO BeastTemplate (Id)
-                    VALUES (@Id)
-                    ",
-                     new
-                     {
-                         Id = beastId,
-                     });
-
-
+                var beastId = template.Id.ToString();
+              
                 var beast = template.Model;
                 connection.Execute(@"
-                    UPDATE [BeastTemplate]
-                    SET
-                        Name = @Name,
-                        Description = @Description,
-                        Level = @Level,
-                        Traits = @Traits,                        
-                        Dexterity = @Dexterity,
-                        Insight = @Insight,
-                        Might = @Might,
-                        Willpower = @Willpower,
-                        ImageFile = @ImageFile,
-                        Species = @Species
-                    WHERE Id = @Id
-                ",
-                new
+                    INSERT INTO BeastTemplate (Id, Name, Description, Level, Traits, Species, Dexterity, Insight, Might, Willpower, ImageFile)
+                    VALUES (@Id, @Name, @Description, @Level, @Traits, @Species, @Dexterity, @Insight, @Might, @Willpower, @ImageFile)
+                ", new
                 {
                     Id = beastId,
                     Name = beast.Name,
@@ -920,14 +899,14 @@ namespace FabulaUltimaDatabase
 
                 foreach (var action in beast.Actions)
                 {
-                    var actionId = action.Id.ToString().ToUpperInvariant();
+                    var actionId = action.Id.ToString();
                     connection.Execute(@"
                         INSERT INTO Action (Id, Name, Effect)
                         Values (@Id, @Name, @Effect)
                     ",
                     new
                     {
-                        Id = actionId,
+                        Id = actionId.ToUpperInvariant(),
                         Name = action.Name,
                         Effect = action.Effect,
                     });
@@ -964,7 +943,7 @@ namespace FabulaUltimaDatabase
                     INSERT INTO BeastResistance (BeastTemplateId, DamageTypeId, AffinityId)
                     VALUES (@BeastTemplateId, @DamageTypeId, @AffinityId)
                 ",
-                beast.Resistances.Values.Select(r => new { BeastTemplateId = beastId, DamageTypeId = r.DamageTypeId, AffinityId = r.AffinityId })
+                template.Resistances.Values.Select(r => new { BeastTemplateId = beastId, DamageTypeId = r.DamageTypeId, AffinityId = r.AffinityId })
                 );
 
                 connection.Execute(@"
