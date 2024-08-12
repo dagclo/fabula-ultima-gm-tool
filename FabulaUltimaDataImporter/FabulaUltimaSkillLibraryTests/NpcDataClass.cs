@@ -1761,7 +1761,7 @@ namespace FabulaUltimaSkillLibraryTests
                         null
                     }
 
-                    ).SetName("Hooded Assassin - High Level Original");
+                    ).SetName("(intermittent failure) Hooded Assassin - High Level Original");
 
                 var piercingHugId = Guid.NewGuid();
                 var thornBarrageId = Guid.NewGuid();

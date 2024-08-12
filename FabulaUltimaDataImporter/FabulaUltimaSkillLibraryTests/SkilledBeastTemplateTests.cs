@@ -359,9 +359,10 @@ namespace FabulaUltimaSkillLibraryTests
             // Arrange
 
             var templateMock = Substitute.For<IBeastTemplate>();
+            const int initialAccMod = 0;
             var attack = new BasicAttackTemplate
             {
-                AccuracyMod = 0
+                AccuracyMod = initialAccMod
             };
             templateMock.AllAttacks.Returns(
                 new[]
@@ -386,8 +387,8 @@ namespace FabulaUltimaSkillLibraryTests
             var improvedAttackFromBasic = skilledBeast.BasicAttacks.Single();
 
             // Assert
-            Assert.That(improvedAttackFromAll.AccuracyMod, Is.EqualTo(attack.AccuracyMod + accMod));
-            Assert.That(improvedAttackFromBasic.AccuracyMod, Is.EqualTo(attack.AccuracyMod + accMod));
+            Assert.That(improvedAttackFromAll.AccuracyMod, Is.EqualTo(initialAccMod + accMod));
+            Assert.That(improvedAttackFromBasic.AccuracyMod, Is.EqualTo(initialAccMod + accMod));
         }
 
 
@@ -400,9 +401,10 @@ namespace FabulaUltimaSkillLibraryTests
 
             var templateMock = Substitute.For<IBeastTemplate>();
             var skill = KnownSkills.ImprovedDamageAttack;
+            const int initialDamageMod = 5;
             var attack = new BasicAttackTemplate
             {
-                DamageMod = 0,
+                DamageMod = initialDamageMod,
                 AttackSkills = Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray(),
             };
             templateMock.AllAttacks.Returns(
@@ -420,7 +422,6 @@ namespace FabulaUltimaSkillLibraryTests
 
             var damageBoost = int.Parse(skill.OtherAttributes[DamageConstants.DAMAGE_BOOST]) * numTimesApplied;
 
-
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);
 
             // Act
@@ -428,8 +429,8 @@ namespace FabulaUltimaSkillLibraryTests
             var improvedAttackFromBasic = skilledBeast.BasicAttacks.Single();
 
             // Assert
-            Assert.That(improvedAttackFromAll.DamageMod, Is.EqualTo(attack.DamageMod + damageBoost));
-            Assert.That(improvedAttackFromBasic.DamageMod, Is.EqualTo(attack.DamageMod + damageBoost));
+            Assert.That(improvedAttackFromAll.DamageMod, Is.EqualTo(initialDamageMod + damageBoost));
+            Assert.That(improvedAttackFromBasic.DamageMod, Is.EqualTo(initialDamageMod + damageBoost));
         }
 
         [Test]
@@ -471,12 +472,13 @@ namespace FabulaUltimaSkillLibraryTests
         public void LevelDamageModifierApplied()
         {
             // Arrange
-            const int damageModifer = 392;
+            const int levelDamageModifer = 392;
+            const int initialDamageMod = 5;
             var templateMock = Substitute.For<IBeastTemplate>();
             
             var attack = new BasicAttackTemplate
             {
-                DamageMod = 0,                
+                DamageMod = initialDamageMod,                
             };
             templateMock.AllAttacks.Returns(
                 new[]
@@ -490,7 +492,7 @@ namespace FabulaUltimaSkillLibraryTests
                     attack
                 });
 
-            templateMock.LevelDamageModifier.Returns(damageModifer);
+            templateMock.LevelDamageModifier.Returns(levelDamageModifer);
 
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);
 
@@ -499,20 +501,22 @@ namespace FabulaUltimaSkillLibraryTests
             var improvedAttackFromBasic = skilledBeast.BasicAttacks.Single();
 
             // Assert
-            Assert.That(improvedAttackFromAll.DamageMod, Is.EqualTo(attack.DamageMod + damageModifer));
-            Assert.That(improvedAttackFromBasic.DamageMod, Is.EqualTo(attack.DamageMod + damageModifer));
+            Assert.That(improvedAttackFromAll.DamageMod, Is.EqualTo(initialDamageMod + levelDamageModifer));
+            Assert.That(improvedAttackFromBasic.DamageMod, Is.EqualTo(initialDamageMod + levelDamageModifer));
         }
 
         [Test]
         public void LevelAccuracyModifierApplied()
         {
             // Arrange
-            const int accuracyModifer = 392;
+            const int levelAccuracyModifer = 392;
+            const int initialAccMod = 0;
             var templateMock = Substitute.For<IBeastTemplate>();
             
             var attack = new BasicAttackTemplate
             {
                 DamageMod = 0,
+                AccuracyMod = initialAccMod,
             };
             templateMock.AllAttacks.Returns(
                 new[]
@@ -526,7 +530,7 @@ namespace FabulaUltimaSkillLibraryTests
                     attack
                 });
 
-            templateMock.LevelAccuracyModifier.Returns(accuracyModifer);
+            templateMock.LevelAccuracyModifier.Returns(levelAccuracyModifer);
 
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);
 
@@ -535,8 +539,8 @@ namespace FabulaUltimaSkillLibraryTests
             var improvedAttackFromBasic = skilledBeast.BasicAttacks.Single();
 
             // Assert
-            Assert.That(improvedAttackFromAll.AccuracyMod, Is.EqualTo(attack.AccuracyMod + accuracyModifer));
-            Assert.That(improvedAttackFromBasic.AccuracyMod, Is.EqualTo(attack.AccuracyMod + accuracyModifer));
+            Assert.That(improvedAttackFromAll.AccuracyMod, Is.EqualTo(initialAccMod + levelAccuracyModifer));
+            Assert.That(improvedAttackFromBasic.AccuracyMod, Is.EqualTo(initialAccMod + levelAccuracyModifer));
         }
     }
 }

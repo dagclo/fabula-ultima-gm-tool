@@ -19,7 +19,7 @@ namespace FabulaUltimaSkillLibrary
         {
             if (s == null) return s;
             SkillTemplate? clonedSkill = s.Value.skill;//.Clone();
-            if (clonedSkill?.IsResolved() != false ||(clonedSkill.IsVulnerabilitySkill() && clonedSkill.IsFreeSkillForSpecies(species)))
+            if (clonedSkill?.IsResolved() == null ||(clonedSkill.IsVulnerabilitySkill() && clonedSkill.IsFreeSkillForSpecies(species)))
             {
                 clonedSkill.SetResolved(true);
             }           
