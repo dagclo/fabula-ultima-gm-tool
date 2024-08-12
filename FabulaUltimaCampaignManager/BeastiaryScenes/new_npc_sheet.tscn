@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=42 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/AddedSkillsList.cs" id="28_hi7v6"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/ListSkillOptionButton.cs" id="28_sjni1"]
 [ext_resource type="PackedScene" uid="uid://baj8gvo8qh8e5" path="res://BeastiaryScenes/NPCSheet/Skills/added_skill.tscn" id="29_221r3"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/SkillSlotsCountLabel.cs" id="29_k0yui"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/AddSpellList.cs" id="31_hoffq"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellOptionButton.cs" id="32_fiuif"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/CurrentSpellList.cs" id="32_joy7r"]
@@ -318,6 +319,11 @@ script = ExtResource("28_sjni1")
 layout_mode = 2
 text = "Add Skill"
 
+[node name="SkillSlotsLabel" type="Label" parent="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection"]
+layout_mode = 2
+text = "Skill Slots Left: <unset>"
+script = ExtResource("29_k0yui")
+
 [node name="SkillsList" type="VBoxContainer" parent="ScrollContainer/BeastEntryNode/Skills"]
 layout_mode = 2
 script = ExtResource("28_hi7v6")
@@ -387,6 +393,7 @@ layout_mode = 2
 text = "Save"
 script = ExtResource("40_y6vnr")
 
+[connection signal="SkillSlotsAvailable" from="." to="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillSlotsLabel" method="HandleSkillSlotsLeft"]
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" to="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]

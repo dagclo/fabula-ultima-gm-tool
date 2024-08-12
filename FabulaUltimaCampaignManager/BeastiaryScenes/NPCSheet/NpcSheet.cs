@@ -3,6 +3,7 @@ using FabulaUltimaGMTool;
 using FabulaUltimaNpc;
 using FabulaUltimaSkillLibrary;
 using FabulaUltimaSkillLibrary.Models;
+using FirstProject.Beastiary;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,9 @@ using System.Linq;
 public partial class NpcSheet : Node
 {
     private Resolver _skillResolver;
+
+    [Signal]
+    public delegate void SkillSlotsAvailableEventHandler(int skillSlotsAvailable);
 
     public Action Closing { get; internal set; }
     public Action<ISet<BeastEntryNode.Action>> OnBeastChanged { get; private set; }
@@ -55,7 +59,9 @@ public partial class NpcSheet : Node
             }
 
             var resolverResults = _skillResolver.ResolveSkills(editableBeastTemplate.Internal, input);
-            var resolvedSkills = resolverResults.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToArray();           
+            var resolvedSkills = resolverResults.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToArray();
+
+            EmitSignal(SignalName.SkillSlotsAvailable, resolverResults.SkillSlots.Count(s => s == null));
 
             foreach(var newResolvedSkills in resolvedSkills)
             {
