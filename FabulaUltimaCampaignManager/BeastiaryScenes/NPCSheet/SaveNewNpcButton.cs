@@ -26,7 +26,7 @@ public partial class SaveNewNpcButton : Button, IBeastAttribute
     {
         var actions = new HashSet<BeastEntryNode.Action>
         {
-            BeastEntryNode.Action.CHANGED
+            BeastEntryNode.Action.TRIGGER
         };
         if (_errorCount == 0) actions.Add(BeastEntryNode.Action.SAVE);
         BeastTemplateAction?.Invoke(actions);
