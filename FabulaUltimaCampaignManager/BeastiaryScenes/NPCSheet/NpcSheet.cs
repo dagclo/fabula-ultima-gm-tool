@@ -47,13 +47,15 @@ public partial class NpcSheet : Node
                 DefMod = template.HasDefenseOverride ? 0 : editableBeastTemplate.DefenseModifier,
                 DefOverride = template.HasDefenseOverride ? template.Defense : null,
             };
-            var resolverResults = _skillResolver.ResolveSkills(template, input);
-            var resolvedSkills = resolverResults.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToList();
-            var oldResolvedSkills = editableBeastModel.Skills.Where(s => s.IsResolved());
-            foreach(var oldSkill in oldResolvedSkills)
+            // remove old resolved skills
+            var oldResolvedSkills = editableBeastModel.Skills.Where(s => s.IsResolved()).ToArray();
+            foreach (var oldSkill in oldResolvedSkills)
             {
                 editableBeastModel.Skills.Remove(oldSkill);
             }
+
+            var resolverResults = _skillResolver.ResolveSkills(template, input);
+            var resolvedSkills = resolverResults.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToArray();           
 
             foreach(var newResolvedSkills in resolvedSkills)
             {

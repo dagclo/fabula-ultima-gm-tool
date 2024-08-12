@@ -18,7 +18,6 @@ public partial class AffinityValue : OptionButton
 
     public void HandleUpdateAffinity(string affinity)
     {
-
         if (affinity == string.Empty)
         {
             CallDeferred(MethodName.SetDisabled, false);

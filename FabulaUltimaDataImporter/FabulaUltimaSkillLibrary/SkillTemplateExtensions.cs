@@ -39,7 +39,7 @@ namespace FabulaUltimaSkillLibrary
         public static bool IsResolved(this SkillTemplate skillTemplate)
         {
             if (skillTemplate.OtherAttributes == null) return false;
-            return bool.TryParse(skillTemplate.OtherAttributes[RESOLVED], out var resolved) ? resolved: false;
+            return skillTemplate.OtherAttributes.TryGetValue(RESOLVED, out var valStr) ? bool.Parse(valStr) : false;
         }
 
         public static bool ModifiesAttack(this SkillTemplate skillTemplate)

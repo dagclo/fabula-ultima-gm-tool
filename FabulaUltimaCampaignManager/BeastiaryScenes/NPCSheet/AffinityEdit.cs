@@ -36,7 +36,7 @@ public partial class AffinityEdit : Control, IBeastAttribute
         {
             affinity = resistance.Affinity;
         }        
-        if(resistance.Resolved == true) EmitSignal(SignalName.UpdateAffinity, affinity);
+        EmitSignal(SignalName.UpdateAffinity, affinity);
     }
 
     public void HandleAffinitySelected(string affinity)
