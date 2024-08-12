@@ -54,7 +54,7 @@ public partial class NpcSheet : Node
                 editableBeastModel.Skills.Remove(oldSkill);
             }
 
-            var resolverResults = _skillResolver.ResolveSkills(template, input);
+            var resolverResults = _skillResolver.ResolveSkills(editableBeastTemplate.Internal, input);
             var resolvedSkills = resolverResults.SkillSlots.Where(s => s?.skill != null).Select(s => s.Value.skill).ToArray();           
 
             foreach(var newResolvedSkills in resolvedSkills)

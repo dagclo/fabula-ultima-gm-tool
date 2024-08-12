@@ -14,6 +14,8 @@ namespace FabulaUltimaSkillLibrary.Models
             UpdateSkills();
         }
 
+        public IBeastTemplate Internal => _beastTemplate;
+
         public IReadOnlyCollection<ActionTemplate> Actions => _beastTemplate.Actions;
 
         public IEnumerable<BasicAttackTemplate> AllAttacks => ResolveAttacks(this._beastTemplate.AllAttacks).ToArray();
