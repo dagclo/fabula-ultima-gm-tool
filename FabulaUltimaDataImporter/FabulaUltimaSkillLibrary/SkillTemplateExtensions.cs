@@ -11,6 +11,23 @@ namespace FabulaUltimaSkillLibrary
             return skillTemplate.OtherAttributes.TryGetValue(DamageConstants.AFFINITY_ID, out var value) ? value == DamageConstants.VULNERABLE.ToString() : false;
         }
 
+        public static bool IsImmunitySkill(this SkillTemplate skillTemplate)
+        {            
+            return skillTemplate.IsAffinitySkill(DamageConstants.IMMUNE);
+        }
+
+        public static bool IsResistanceSkill(this SkillTemplate skillTemplate)
+        {
+            if (skillTemplate.OtherAttributes == null) return false;
+            return skillTemplate.IsAffinitySkill(DamageConstants.RESISTANT);
+        }
+
+        public static bool IsAffinitySkill(this SkillTemplate skillTemplate, Guid affinityId)
+        {
+            if (skillTemplate.OtherAttributes == null) return false;
+            return skillTemplate.OtherAttributes.TryGetValue(DamageConstants.AFFINITY_ID, out var value) ? value == affinityId.ToString() : false;
+        }
+
         public static bool IsSpeciesSkill(this SkillTemplate skillTemplate) 
         {
             if (skillTemplate.OtherAttributes == null) return false;
@@ -24,7 +41,7 @@ namespace FabulaUltimaSkillLibrary
             return skillTemplate.OtherAttributes.TryGetValue(SpeciesConstants.BLOCKED_SPECIES, out var value) ? value != template.Species.Id.ToString() : true;
         }
 
-        public static bool IsResistanceSkill(this SkillTemplate skillTemplate)
+        public static bool IsAffinitySkill(this SkillTemplate skillTemplate)
         {
             if (skillTemplate.OtherAttributes == null) return false;
             return skillTemplate.OtherAttributes.ContainsKey(DamageConstants.AFFINITY_ID);
@@ -60,12 +77,12 @@ namespace FabulaUltimaSkillLibrary
         public static bool IsFreeSkillForSpecies(this SkillTemplate skillTemplate, SpeciesType species)
         {            
             if (skillTemplate.OtherAttributes == null) return false;
-            return skillTemplate.OtherAttributes.TryGetValue(SpeciesConstants.FREE_SPECIES, out var value) ? value == species.Id.ToString() : false;
+            return skillTemplate.OtherAttributes.TryGetValue(SpeciesConstants.FREE_SPECIES, out var value) ? value.Contains(species.Id.ToString()) : false;
         }
 
         public static BeastResistance ToBeastResistance(this SkillTemplate skillTemplate)
         {
-            if (!IsResistanceSkill(skillTemplate)) throw new ArgumentException("not a resistance skill");
+            if (!IsAffinitySkill(skillTemplate)) throw new ArgumentException("not a resistance skill");
             var affinityId = Guid.Parse(skillTemplate.OtherAttributes[DamageConstants.AFFINITY_ID]);
             var damageType = skillTemplate.OtherAttributes[DamageConstants.DAMAGE_TYPE_NAME];
             var resolved = skillTemplate.IsResolved();

@@ -68,7 +68,7 @@ public partial class NpcSheet : Node
                 editableBeastModel.Skills.Add(newResolvedSkills);
             }
 
-            foreach (var affinityGroup in editableBeastTemplate.Skills.Where(s => s.IsResistanceSkill()).GroupBy(s => s.Id).Where(g => g.Count() > 1).ToArray())
+            foreach (var affinityGroup in editableBeastTemplate.Skills.Where(s => s.IsAffinitySkill()).GroupBy(s => s.Id).Where(g => g.Count() > 1).ToArray())
             {
                 //for now save resolved skills
                 var versionToTake = affinityGroup.FirstOrDefault(s => s.IsResolved()) ?? affinityGroup.First();

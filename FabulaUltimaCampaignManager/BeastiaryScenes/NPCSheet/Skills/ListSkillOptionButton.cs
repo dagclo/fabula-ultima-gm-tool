@@ -21,7 +21,7 @@ public partial class ListSkillOptionButton : OptionButton
         var index = 0;
         _skillMap = new Dictionary<int, SkillTemplate>();
         var validSkillGroupedBySpecialAttack = beastRepository.Database.GetSkills()
-                            .Where(s => !(s.IsSpeciesSkill() || s.IsResistanceSkill()))
+                            .Where(s => !(s.IsSpeciesSkill() || s.IsAffinitySkill()))
                             .Where(s => s.Id != KnownSkills.UseEquipment.Id)
                             .GroupBy(s => s.OtherAttributes?.IsSpecialAttack ?? false);
 

@@ -297,7 +297,7 @@ namespace FabulaUltimaSkillLibrary.Models
                 return trumps?.Contains(beastResistance.AffinityId) ?? throw new ArgumentException($"Skill '{skill.Name}' has no trumps");
             }
 
-            foreach (var skill in _beastTemplate.Skills.Where(s => s.IsResistanceSkill()))
+            foreach (var skill in _beastTemplate.Skills.Where(s => s.IsAffinitySkill()))
             {
                 var affinity = skill.ToBeastResistance();
                 if (skillAffinities.ContainsKey(affinity.DamageType) && !AffinityTrumps(skill, skillAffinities[affinity.DamageType])) continue;

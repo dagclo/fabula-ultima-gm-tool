@@ -40,7 +40,7 @@ public partial class ErrorLabel : Label, ISkillReader, IHasId
 			error = "Spellcaster skills not supported...yet";            
             return false;
 		}
-		if (skill.IsResistanceSkill())
+		if (skill.IsAffinitySkill())
 		{
             error = "Resistance skills not supported...yet";
             return false;
