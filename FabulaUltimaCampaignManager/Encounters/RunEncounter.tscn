@@ -120,6 +120,9 @@ layout_mode = 2
 [node name="PlayerPanel4" parent="GMScreen/VBoxContainer/Players" instance=ExtResource("4_nde4l")]
 layout_mode = 2
 
+[node name="PlayerPanel5" parent="GMScreen/VBoxContainer/Players" instance=ExtResource("4_nde4l")]
+layout_mode = 2
+
 [node name="GameLog" type="PanelContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
