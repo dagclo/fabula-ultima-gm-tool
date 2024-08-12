@@ -94,5 +94,8 @@ layout_mode = 2
 [node name="Player4" parent="DisplayPanel/PlayerPanel/GridContainer" instance=ExtResource("6_xpt3v")]
 layout_mode = 2
 
+[node name="Player5" parent="DisplayPanel/PlayerPanel/GridContainer" instance=ExtResource("6_xpt3v")]
+layout_mode = 2
+
 [connection signal="WaitTimeSet" from="DisplayPanel/AnnouncementPanel" to="DisplayPanel/AnnouncementPanel/Announcement" method="OnWaitTimeSet"]
 [connection signal="MessageReceived" from="DisplayPanel/AnnouncementPanel/Announcement" to="DisplayPanel/AnnouncementPanel" method="OnMessageReceived"]
