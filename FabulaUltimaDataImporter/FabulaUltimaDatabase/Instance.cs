@@ -4,6 +4,7 @@ using FabulaUltimaDatabase.Models;
 using FabulaUltimaNpc;
 using Microsoft.Data.Sqlite;
 using Newtonsoft.Json;
+using System;
 
 namespace FabulaUltimaDatabase
 {
@@ -840,9 +841,31 @@ namespace FabulaUltimaDatabase
 
         public void UpdateBeast(IBeastTemplate template)
         {
+            var beastExists = this.GetBeast(template.Id) != null;
+
+           
+
             using (var connection = _configuration.GetConnection())
             {
                 connection.Open();
+                var beastId = template.Id.ToString().ToUpperInvariant();
+                if (!beastExists)
+                {
+
+                    connection.Execute(@"
+                    INSERT INTO BeastTemplate (Id)
+                    VALUES (@Id)
+                    ",
+                    new
+                    {
+                        Id = beastId,
+                    });
+                }
+                else
+                {
+                    //todo: clear prior relationships
+                }
+
 
                 var beast = template.Model;
                 connection.Execute(@"
@@ -856,12 +879,13 @@ namespace FabulaUltimaDatabase
                         Insight = @Insight,
                         Might = @Might,
                         Willpower = @Willpower,
-                        ImageFile = @ImageFile
+                        ImageFile = @ImageFile,
+                        Species = @Species
                     WHERE Id = @Id
                 ",
                 new
                 {
-                    Id = beast.Id.ToString(),
+                    Id = beastId,
                     Name = beast.Name,
                     Description = beast.Description,
                     Level = beast.Level,
@@ -871,10 +895,113 @@ namespace FabulaUltimaDatabase
                     Might = beast.Might.Sides,
                     Willpower = beast.WillPower.Sides,
                     ImageFile = beast.ImageFile,
+                    Species = beast.Species.Id.ToString().ToUpperInvariant(),
                 });
 
-                //todo: allow update of beast relationships including species
+                foreach(var attack in beast.BasicAttacks)
+                {
+                    var attackId = attack.Id.ToString().ToUpperInvariant();
+                    connection.Execute(@"
+                        INSERT INTO BasicAttack (Id, Name, Attribute1, Attribute2, IsRanged, DamageType, DamageMod, AttackMod)
+                        Values (@Id, @Name, @Attribute1, @Attribute2, @IsRanged, @DamageType, 5, 0)
+                    ",
+                    new
+                    {
+                        Id = attackId,
+                        Name = attack.Name,
+                        Attribute1 = attack.Attribute1,
+                        Attribute2 = attack.Attribute2,
+                        IsRanged = attack.IsRanged ? 1 : 0,
+                        DamageType = attack.DamageType.Id,
+                    });
+
+                    connection.Execute(@"
+                        INSERT INTO BeastAttack (BeastTemplateId, BasicAttackId)
+                        Values (@BeastTemplateId, @BasicAttackId)
+                    ",
+                   new
+                   {
+                       BasicAttackId = attackId,
+                       BeastTemplateId = beastId,
+                   });
+
+                }
+                //todo: delete orphaned basic attacks
+
+                foreach (var action in beast.Actions)
+                {
+                    var actionId = action.Id.ToString().ToUpperInvariant();
+                    connection.Execute(@"
+                        INSERT INTO Action (Id, Name, Effect)
+                        Values (@Id, @Name, @Effect)
+                    ",
+                    new
+                    {
+                        Id = actionId,
+                        Name = action.Name,
+                        Effect = action.Effect,
+                    });
+
+                    connection.Execute(@"
+                        INSERT INTO BeastAction (BeastTemplateId, ActionId)
+                        Values (@BeastTemplateId, @ActionId)
+                    ",
+                   new
+                   {
+                       ActionId = actionId,
+                       BeastTemplateId = beastId,
+                   });
+
+                }
+                //todo: delete orphaned actions
+
+                foreach(var equipment in beast.Equipment)
+                {
+                    var equipmentId = equipment.Id.ToString().ToUpperInvariant();                   
+
+                    connection.Execute(@"
+                        INSERT INTO BeastEquipment (BeastTemplateId, EquipmentId)
+                        Values (@BeastTemplateId, @EquipmentId)
+                    ",
+                   new
+                   {
+                       EquipmentId = equipmentId,
+                       BeastTemplateId = beastId,
+                   });
+                }
+
+                connection.Execute(@"
+                    INSERT INTO BeastResistance (BeastTemplateId, DamageTypeId, AffinityId)
+                    VALUES (@BeastTemplateId, @DamageTypeId, @AffinityId)
+                ",
+                beast.Resistances.Values.Select(r => new { BeastTemplateId = beastId, DamageTypeId = r.DamageTypeId, AffinityId = r.AffinityId })
+                );
+
+                connection.Execute(@"
+                    INSERT INTO BeastSpell (BeastTemplateId, SpellId)
+                    VALUES (@BeastTemplateId, @SpellId)
+                ",
+               beast.Spells.Select(a => new { BeastTemplateId = beastId, SpellId = a.Id }));
             }
+            
+            var specialAttackMap = new Dictionary<Guid, ICollection<Guid>>();
+            foreach (var attack in template.AllAttacks)
+            {
+                foreach(var attackSkill in attack.AttackSkills)
+                {
+                    if (!specialAttackMap.ContainsKey(attackSkill.Id))
+                    {
+                        specialAttackMap[attackSkill.Id] = new HashSet<Guid>();
+                    }
+                    specialAttackMap[attackSkill.Id].Add(attack.Id);
+                }
+            }
+
+            var skillEntries = template.Skills.Where(s => s.OtherAttributes?.IsSpecialAttack != true)
+                                .Select(s => new BeastSkillEntry { SkillId = s.Id, BeastTemplateId = template.Id })
+                                .Concat(specialAttackMap.SelectMany(p => p.Value.Select(a => new BeastSkillEntry { BasicAttackId = a, SkillId = p.Key, BeastTemplateId = template.Id })));
+
+            AssignSkills(template.Id, skillEntries);
         }
 
         public void RemoveBeast(Guid id)

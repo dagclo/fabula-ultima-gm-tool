@@ -6,7 +6,6 @@ Project Description
 
 ### Backlog
 
-- [ ] Save all results  
 - [ ] Add Loading Page for switch back to main page  
 - [ ] Add Size Modifiers to creatures  
 - [ ] Implement basic search  
@@ -42,10 +41,11 @@ Project Description
 
 ### In Progress
 
-- [ ] Implement Validation  
+- [ ] Save all results  
 
 ### Done ✓
 
+- [x] Implement Validation  
 - [x] Implement Other Actions  
 - [x] Implement Removing Spells  
 - [x] Add Implementing Spells  

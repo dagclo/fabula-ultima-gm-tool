@@ -55,9 +55,8 @@ public partial class BeastEntryNode : Container
         if(actions.Contains(Action.CHANGED)) this.BeastChanged?.Invoke(_template);
         if(actions.Contains(Action.TRIGGER)) this.OnTrigger?.Invoke(_template);
         if (actions.Contains(Action.SAVE))
-        {
-            //todo: implement
-            //_beastRepository?.UpdateBeastTemplate(_template);
+        {            
+            _beastRepository?.UpdateBeastTemplate(_template);
         }
     }
 
