@@ -6,6 +6,7 @@ Project Description
 
 ### Backlog
 
+- [ ] Fix Repeat Encounter bug  
 - [ ] Add Loading Page for switch back to main page  
 - [ ] Add Size Modifiers to creatures  
 - [ ] Implement basic search  
@@ -41,10 +42,11 @@ Project Description
 
 ### In Progress
 
-- [ ] Save all results  
+- [ ] Use Same Turn class for both pcs and npcs  
 
 ### Done ✓
 
+- [x] Save all results  
 - [x] Implement Validation  
 - [x] Implement Other Actions  
 - [x] Implement Removing Spells  

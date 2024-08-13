@@ -55,16 +55,17 @@ public partial class NpcPanel : PanelContainer, INpcInstanceReader
     }
 
     internal void OnTurnChanged(ITurnOwner owner)
-    {
+    {        
         if (_instance == null) return;
         if (_status == null) return;
+        _turnOwner = owner;
+                
+        CallDeferred(MethodName.EmitSignal, SignalName.TurnChanged, new SignalWrapper<ITurnOwner>(owner));
         if (_status.IsDead)
         {
-            OnTurnEnd(); // immediately end turn
-            return;
+            CallDeferred(MethodName.OnTurnEnd);
+            //OnTurnEnd(); // immediately end turn            
         }
-        _turnOwner = owner;
-        CallDeferred(MethodName.EmitSignal, SignalName.TurnChanged, new SignalWrapper<ITurnOwner>(owner));
     }
 
     public void OnTurnEnd()

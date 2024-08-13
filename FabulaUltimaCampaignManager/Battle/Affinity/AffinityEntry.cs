@@ -11,7 +11,7 @@ public partial class AffinityEntry : HBoxContainer, INpcReader
 
     public void HandleNpcChanged(NpcInstance npc)
     {
-        var affinity = npc.Template.Resistances[TargetDamageType.ToLowerInvariant().FirstCharToUpper()];
+        var affinity = npc.Template.Resistances[TargetDamageType.ToLowerInvariant()];
         this.Visible = affinity.AffinityId != DamageConstants.NO_AFFINITY;
         foreach (var child in this.FindChildren("AffinityValue")
           .Where(l => l is Label))
