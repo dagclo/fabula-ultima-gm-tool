@@ -1,12 +1,20 @@
 using FabulaUltimaNpc;
 using FirstProject;
+using FirstProject.Campaign;
+using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
 using System;
-using System.Linq;
+using System.Threading.Tasks;
+
+public struct BeastiaryRefreshMessage
+{
+
+}
 
 public partial class GetBeastiary : VBoxContainer
 {
+    private MessagePublisher<BeastiaryRefreshMessage> _messagePublisher;
 
     [Signal]
     public delegate void AddBeastToEncounterEventHandler(NpcInstance npc);
@@ -21,9 +29,19 @@ public partial class GetBeastiary : VBoxContainer
     public override void _Ready()
 	{
         CallDeferred(MethodName.Setup);
-	}
+        var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
+        messageRouter.RegisterSubscriber<BeastiaryRefreshMessage>(this.ReceiveRefreshMessage);
+        _messagePublisher = messageRouter.GetPublisher<BeastiaryRefreshMessage>();
+    }
 
-	private void Setup()
+    private Task ReceiveRefreshMessage(IMessage message)
+    {
+        if (!(message is IMessage<BeastiaryRefreshMessage> refreshMessage)) return Task.CompletedTask;
+        CallDeferred(MethodName.Setup);
+        return Task.CompletedTask;
+    }
+
+    private void Setup()
 	{
         // remove any existing children
         foreach (var child in this.GetChildren())

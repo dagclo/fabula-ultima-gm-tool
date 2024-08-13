@@ -1,6 +1,4 @@
-﻿using System;
-
-public enum HpState
+﻿public enum HpState
 {
     HIT,
     HEAL,

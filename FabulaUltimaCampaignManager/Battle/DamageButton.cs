@@ -1,5 +1,4 @@
 using FabulaUltimaNpc;
-using FirstProject.Battle;
 using FirstProject.Beastiary;
 using FirstProject.Encounters;
 using FirstProject.Messaging;

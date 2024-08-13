@@ -1,6 +1,5 @@
 ﻿using FabulaUltimaNpc;
 using Godot;
-using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -183,30 +182,30 @@ namespace FirstProject.Npc
         [Export]
         public Godot.Collections.Dictionary<string, NpcResistance> NpcResistances { get; set; }
 
-        public IReadOnlyDictionary<string, BeastResistance> Resistances => NpcResistances.ToDictionary(r => r.Key, r => r.Value.BeastResistance);
+        IDictionary<string, BeastResistance> IBeast.Resistances => NpcResistances.ToDictionary(r => r.Key, r => r.Value.BeastResistance);
 
         [Export]
         public Godot.Collections.Array<NpcBasicAttack> NpcAttacks { get; set; }
-        public IReadOnlyCollection<BasicAttackTemplate> BasicAttacks => NpcAttacks.Select(a => a.BasicAttackTemplate).ToList();
+        ICollection<BasicAttackTemplate> IBeast.BasicAttacks => NpcAttacks.Select(a => a.BasicAttackTemplate).ToList();
 
 
         [Export]
         public Godot.Collections.Array<NpcSpell> NpcSpells { get; set; }
-        public IReadOnlyCollection<SpellTemplate> Spells => NpcSpells.Select(s => s.SpellTemplate).ToList();
+        ICollection<SpellTemplate> IBeast.Spells => NpcSpells.Select(s => s.SpellTemplate).ToList();
 
         [Export]
         public Godot.Collections.Array<NpcEquipment> NpcEquipment { get; set; }
-        public IReadOnlyCollection<EquipmentTemplate> Equipment => NpcEquipment.Select(e => e.EquipmentTemplate).ToList();
+        ICollection<EquipmentTemplate> IBeast.Equipment => NpcEquipment.Select(e => e.EquipmentTemplate).ToList();
 
         [Export]
         public Godot.Collections.Array<NpcSkill> NpcSkills { get; set; }
 
-        public IReadOnlyCollection<SkillTemplate> Skills => NpcSkills.Select(s => s.SkillTemplate).Concat(RankSkills?.Select(s => s.SkillTemplate) ?? new SkillTemplate[0]).ToList();
+        ICollection<SkillTemplate> IBeast.Skills => NpcSkills.Select(s => s.SkillTemplate).Concat(RankSkills?.Select(s => s.SkillTemplate) ?? new SkillTemplate[0]).ToList();
 
         [Export]
         public Godot.Collections.Array<NpcAction> NpcActions { get; set; }
 
-        public IReadOnlyCollection<ActionTemplate> Actions => NpcActions.Select(s => s.ActionTemplate).ToList();
+        ICollection<ActionTemplate> IBeast.Actions => NpcActions.Select(s => s.ActionTemplate).ToList();
 
         
         private Godot.Collections.Array<NpcSkill> _rankSkills;

@@ -16,16 +16,16 @@ namespace FabulaUltimaDatabase.Models
         public Die WillPower { get; set; }
         public string ImageFile { get; set; }
 
-        public IReadOnlyDictionary<string, BeastResistance> Resistances { get; set; } = new Dictionary<string, BeastResistance>();
+        public IDictionary<string, BeastResistance> Resistances { get; set; } = new Dictionary<string, BeastResistance>();
 
-        public IReadOnlyCollection<BasicAttackTemplate> BasicAttacks { get; set; } = new List<BasicAttackTemplate>();
+        public ICollection<BasicAttackTemplate> BasicAttacks { get; set; } = new List<BasicAttackTemplate>();
 
-        public IReadOnlyCollection<SpellTemplate> Spells { get; set; } = new List<SpellTemplate>();
+        public ICollection<SpellTemplate> Spells { get; set; } = new List<SpellTemplate>();
 
-        public IReadOnlyCollection<EquipmentTemplate> Equipment { get; set; } = new List<EquipmentTemplate>();
+        public ICollection<EquipmentTemplate> Equipment { get; set; } = new List<EquipmentTemplate>();
 
-        public IReadOnlyCollection<SkillTemplate> Skills { get; set; } = new List<SkillTemplate>();
-        public IReadOnlyCollection<ActionTemplate> Actions { get; set; } = new List<ActionTemplate>();
-        public Rank Rank => Rank.Soldier;
+        public ICollection<SkillTemplate> Skills { get; set; } = new List<SkillTemplate>();
+        public ICollection<ActionTemplate> Actions { get; set; } = new List<ActionTemplate>();
+        public Rank Rank { get; set; } = Rank.Soldier;
     }
 }

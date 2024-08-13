@@ -1,8 +1,6 @@
-using FabulaUltimaDatabase;
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
-using System;
 
 public partial class Level : Label, INpcReader
 {

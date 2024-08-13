@@ -18,7 +18,7 @@ VALUES
 	( '69711547-14c6-4a01-af94-f5d5117a6bae', 'Humanoid', 3, 0, 0, 0, NULL),
 	( '23e74a9c-8413-497f-b098-f541b43884c0', 'Monster', 4, 0, 0, 0, NULL),
 	( 'd608585c-32ff-4d10-88b9-b4df66364195', 'Plant', 3, 0, 0, 1, '["7dfe93bd-67d5-468d-bb32-b4d8c1676305","39fb0c13-06df-47e0-ae4b-ccfb2012b03d","dda401cf-437c-438e-9a1b-e3421f9c4902","01a0f627-748c-49eb-999f-03746b673be5"]'),
-	( '3e35bbec-d713-4efc-af8a-3d5e01403885', 'Undead', 2, 0, 0, 1, '["9ef9cb1e-96da-4acc-ae0e-66e8e5236888"]');
+	( '3e35bbec-d713-4efc-af8a-3d5e01403885', 'Undead', 1, 0, 0, 1, NULL); --extra skill point granted by free vulnerability
 
 
 CREATE TABLE BeastTemplate

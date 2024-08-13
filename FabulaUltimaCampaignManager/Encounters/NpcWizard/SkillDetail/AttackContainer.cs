@@ -1,6 +1,5 @@
 using FabulaUltimaNpc;
 using Godot;
-using System;
 using FabulaUltimaSkillLibrary;
 
 public partial class AttackContainer : HBoxContainer, ISkillReader

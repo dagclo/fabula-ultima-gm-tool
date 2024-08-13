@@ -6,6 +6,8 @@
         public string Affinity { get; set; }
         public Guid AffinityId { get; set; }
         public Guid DamageTypeId { get; set; }
+        public Guid? SkillId { get; set; }
+        public bool? Resolved { get; set; }
 
         public override string ToString()
         {

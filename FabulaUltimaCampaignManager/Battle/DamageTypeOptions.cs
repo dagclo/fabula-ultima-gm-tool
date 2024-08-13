@@ -1,4 +1,3 @@
-using FabulaUltimaNpc;
 using FirstProject;
 using FirstProject.Beastiary;
 using FirstProject.Encounters;
@@ -7,7 +6,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 
 public partial class DamageTypeOptions : OptionButton, INpcReader
 {

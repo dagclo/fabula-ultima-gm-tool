@@ -1,12 +1,13 @@
 using FabulaUltimaNpc;
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class DescriptionImage : TextureRect, IBeastAttribute
 {
     private IBeastTemplate _beastTemplate = null;
 
-    public Action<bool> Save { get; set; }
+    public Action<System.Collections.Generic.ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
@@ -35,6 +36,6 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
         if (string.IsNullOrWhiteSpace(imageFileName)) return;
         imageFileName.CopyToResourceFolder(out var newPath);
         _beastTemplate.ImageFile = newPath;
-        Save?.Invoke(false);
+        BeastTemplateAction.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });
     }
 }

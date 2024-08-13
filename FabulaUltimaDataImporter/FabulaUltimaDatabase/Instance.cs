@@ -4,7 +4,7 @@ using FabulaUltimaDatabase.Models;
 using FabulaUltimaNpc;
 using Microsoft.Data.Sqlite;
 using Newtonsoft.Json;
-using static Dapper.SqlBuilder;
+using System;
 
 namespace FabulaUltimaDatabase
 {
@@ -271,13 +271,14 @@ namespace FabulaUltimaDatabase
                     {
                         Id = e.Id.Value,
                         Name = e.Name,
-                        AttackMod = e.AttackMod.Value,
+                        AccuracyMod = e.AttackMod.Value,
                         Attribute1 = e.Attribute1,
                         Attribute2 = e.Attribute2,
                         DamageMod = e.DamageMod.Value,
                         DamageType = damageTypes[e.DamageType.Value].ToDamageType(),
                         IsRanged = equipmentCategories[e.CategoryId.Value].IsRanged,
-                        AttackSkills = specialAttacks.Where(s => s.BasicAttackId == e.Id.Value).Select(s => skillMap[s.SkillId]).ToArray()
+                        AttackSkills = specialAttacks.Where(s => s.BasicAttackId == e.Id.Value).Select(s => skillMap[s.SkillId]).ToArray(),
+                        IsEquipmentAttack = true,
                     } : null,
                     StatsModifier = equipmentCategories[e.CategoryId.Value].IsArmor ?
                         new StatsModifications
@@ -388,7 +389,7 @@ namespace FabulaUltimaDatabase
                     Name = a.Name,
                     Attribute1 = a.Attribute1,
                     Attribute2 = a.Attribute2,
-                    AttackMod = a.AttackMod,
+                    AccuracyMod = a.AttackMod,
                     DamageMod = a.DamageMod.Value,
                     IsRanged = a.IsRanged.Value,
                     AttackSkills = specialAttacks.Where(s => s.BasicAttackId == a.Id.Value).Select(s => skillMap[s.SkillId]).ToArray()
@@ -752,7 +753,6 @@ namespace FabulaUltimaDatabase
             using var connection = _configuration.GetConnection();
             connection.Open();
 
-            // todo: delete old stuff
             var deleteSql = @"DELETE FROM Skills WHERE json_extract(OtherAttributes, '$.IsKnownSkill') LIKE 'True'";
             var deletedRows = connection.Execute(deleteSql);
 
@@ -841,28 +841,20 @@ namespace FabulaUltimaDatabase
 
         public void UpdateBeast(IBeastTemplate template)
         {
+            RemoveBeast(template.Id);           
+
             using (var connection = _configuration.GetConnection())
             {
                 connection.Open();
-
+                var beastId = template.Id.ToString();
+              
                 var beast = template.Model;
                 connection.Execute(@"
-                    UPDATE [BeastTemplate]
-                    SET
-                        Name = @Name,
-                        Description = @Description,
-                        Level = @Level,
-                        Traits = @Traits,                        
-                        Dexterity = @Dexterity,
-                        Insight = @Insight,
-                        Might = @Might,
-                        Willpower = @Willpower,
-                        ImageFile = @ImageFile
-                    WHERE Id = @Id
-                ",
-                new
+                    INSERT INTO BeastTemplate (Id, Name, Description, Level, Traits, Species, Dexterity, Insight, Might, Willpower, ImageFile)
+                    VALUES (@Id, @Name, @Description, @Level, @Traits, @Species, @Dexterity, @Insight, @Might, @Willpower, @ImageFile)
+                ", new
                 {
-                    Id = beast.Id.ToString(),
+                    Id = beastId,
                     Name = beast.Name,
                     Description = beast.Description,
                     Level = beast.Level,
@@ -872,10 +864,113 @@ namespace FabulaUltimaDatabase
                     Might = beast.Might.Sides,
                     Willpower = beast.WillPower.Sides,
                     ImageFile = beast.ImageFile,
+                    Species = beast.Species.Id.ToString().ToUpperInvariant(),
                 });
 
-                //todo: allow update of beast relationships including species
+                foreach(var attack in beast.BasicAttacks)
+                {
+                    var attackId = attack.Id.ToString().ToUpperInvariant();
+                    connection.Execute(@"
+                        INSERT INTO BasicAttack (Id, Name, Attribute1, Attribute2, IsRanged, DamageType, DamageMod, AttackMod)
+                        Values (@Id, @Name, @Attribute1, @Attribute2, @IsRanged, @DamageType, 5, 0)
+                    ",
+                    new
+                    {
+                        Id = attackId,
+                        Name = attack.Name,
+                        Attribute1 = attack.Attribute1,
+                        Attribute2 = attack.Attribute2,
+                        IsRanged = attack.IsRanged ? 1 : 0,
+                        DamageType = attack.DamageType.Id,
+                    });
+
+                    connection.Execute(@"
+                        INSERT INTO BeastAttack (BeastTemplateId, BasicAttackId)
+                        Values (@BeastTemplateId, @BasicAttackId)
+                    ",
+                   new
+                   {
+                       BasicAttackId = attackId,
+                       BeastTemplateId = beastId,
+                   });
+
+                }
+                //todo: delete orphaned basic attacks
+
+                foreach (var action in beast.Actions)
+                {
+                    var actionId = action.Id.ToString();
+                    connection.Execute(@"
+                        INSERT INTO Action (Id, Name, Effect)
+                        Values (@Id, @Name, @Effect)
+                    ",
+                    new
+                    {
+                        Id = actionId.ToUpperInvariant(),
+                        Name = action.Name,
+                        Effect = action.Effect,
+                    });
+
+                    connection.Execute(@"
+                        INSERT INTO BeastAction (BeastTemplateId, ActionId)
+                        Values (@BeastTemplateId, @ActionId)
+                    ",
+                   new
+                   {
+                       ActionId = actionId,
+                       BeastTemplateId = beastId,
+                   });
+
+                }
+                //todo: delete orphaned actions
+
+                foreach(var equipment in beast.Equipment)
+                {
+                    var equipmentId = equipment.Id.ToString().ToUpperInvariant();                   
+
+                    connection.Execute(@"
+                        INSERT INTO BeastEquipment (BeastTemplateId, EquipmentId)
+                        Values (@BeastTemplateId, @EquipmentId)
+                    ",
+                   new
+                   {
+                       EquipmentId = equipmentId,
+                       BeastTemplateId = beastId,
+                   });
+                }
+
+                connection.Execute(@"
+                    INSERT INTO BeastResistance (BeastTemplateId, DamageTypeId, AffinityId)
+                    VALUES (@BeastTemplateId, @DamageTypeId, @AffinityId)
+                ",
+                template.Resistances.Values.Select(r => new { BeastTemplateId = beastId, DamageTypeId = r.DamageTypeId, AffinityId = r.AffinityId })
+                );
+
+                connection.Execute(@"
+                    INSERT INTO BeastSpell (BeastTemplateId, SpellId)
+                    VALUES (@BeastTemplateId, @SpellId)
+                ",
+               beast.Spells.Select(a => new { BeastTemplateId = beastId, SpellId = a.Id }));
             }
+            
+            var specialAttackMap = new Dictionary<Guid, ICollection<Guid>>();
+            foreach (var attack in template.AllAttacks)
+            {
+                foreach(var attackSkill in attack.AttackSkills)
+                {
+                    if (!specialAttackMap.ContainsKey(attackSkill.Id))
+                    {
+                        specialAttackMap[attackSkill.Id] = new HashSet<Guid>();
+                    }
+                    specialAttackMap[attackSkill.Id].Add(attack.Id);
+                }
+            }
+
+            var skillEntries = template.Skills.Where(s => s.OtherAttributes?.IsSpecialAttack != true)
+                                .Select(s => new BeastSkillEntry { SkillId = s.Id, BeastTemplateId = template.Id })
+                                .Concat(specialAttackMap.SelectMany(p => p.Value.Select(a => new BeastSkillEntry { BasicAttackId = a, SkillId = p.Key, BeastTemplateId = template.Id })));
+
+            AssignSkills(template.Id, skillEntries);
         }
 
         public void RemoveBeast(Guid id)
@@ -913,6 +1008,62 @@ namespace FabulaUltimaDatabase
 
                 
             }
+        }
+
+        public IEnumerable<EquipmentTemplate> GetEquipmentTemplates()
+        {
+            var equipmentCategories = GetEquipmentCategories().ToDictionary(ec => ec.Id, ec => ec);
+            var damageTypes = GetDamageTypes().ToDictionary(d => d.Id, d => d);
+            foreach (var equipment in GetEquipment())
+            {
+                yield return new EquipmentTemplate
+                {
+                    Id = equipment.Id,
+                    Name = equipment.Name,
+                    Category = equipmentCategories[equipment.CategoryId.Value],
+                    IsMartial = equipment.IsMartial.Value,
+                    Quality = equipment.Quality,
+                    NumHands = equipment.NumHands,
+                    BasicAttack = equipmentCategories[equipment.CategoryId.Value].IsWeapon ? new BasicAttackTemplate()
+                    {
+                        Id = equipment.Id.Value,
+                        Name = equipment.Name,
+                        AccuracyMod = equipment.AttackMod.Value,
+                        Attribute1 = equipment.Attribute1,
+                        Attribute2 = equipment.Attribute2,
+                        DamageMod = equipment.DamageMod.Value,
+                        DamageType = damageTypes[equipment.DamageType.Value].ToDamageType(),
+                        IsRanged = equipmentCategories[equipment.CategoryId.Value].IsRanged,
+                        //AttackSkills = specialAttacks.Where(s => s.BasicAttackId == equipment.Id.Value).Select(s => skillMap[s.SkillId]).ToArray() // no attack skills
+                        IsEquipmentAttack = true,
+                    } : null,
+                    StatsModifier = equipmentCategories[equipment.CategoryId.Value].IsArmor ?
+                 new StatsModifications
+                 {
+                     InitiativeModifier = -equipment.InitiativeModification.Value,
+                     MagicDefenseModifier = equipment.MagicDefenceModification.Value,
+                     DefenseModifier = equipment.DefenseOverride ?? equipment.DefenseModification.Value,
+                     DefenseOverrides = equipment.DefenseOverride.HasValue
+
+                 } : null,
+                };
+            }            
+        }
+
+        public IEnumerable<SpellTemplate> GetSpellTemplates()
+        {
+            return GetSpells().Select(s => new SpellTemplate
+            {
+                Id = s.Id.Value,
+                Name = s.Name,
+                Attribute1 = s.Attribute1,
+                Attribute2 = s.Attribute2,
+                Description = s.Description,
+                Duration = s.Duration,
+                IsOffensive = s.IsOffensive ?? false,
+                MagicPointCost = s.MagicPointCost,
+                Target = s.Target,
+            });
         }
     }
 }

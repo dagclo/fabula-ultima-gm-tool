@@ -132,12 +132,12 @@
             }
         }
 
-        public IReadOnlyDictionary<string, BeastResistance> Resistances => Model.Resistances;
-        public IReadOnlyCollection<BasicAttackTemplate> BasicAttacks => Model.BasicAttacks;
-        public IReadOnlyCollection<SpellTemplate> Spells => Model.Spells;
-        public IReadOnlyCollection<EquipmentTemplate> Equipment => Model.Equipment;
-        public IReadOnlyCollection<SkillTemplate> Skills => Model.Skills;
-        public IReadOnlyCollection<ActionTemplate> Actions => Model.Actions;
+        public IReadOnlyDictionary<string, BeastResistance> Resistances => Model.Resistances as IReadOnlyDictionary<string, BeastResistance>;
+        public IReadOnlyCollection<BasicAttackTemplate> BasicAttacks => Model.BasicAttacks as IReadOnlyCollection<BasicAttackTemplate>;
+        public IReadOnlyCollection<SpellTemplate> Spells => Model.Spells as IReadOnlyCollection<SpellTemplate>;
+        public IReadOnlyCollection<EquipmentTemplate> Equipment => Model.Equipment as IReadOnlyCollection<EquipmentTemplate>;
+        public IReadOnlyCollection<SkillTemplate> Skills => Model.Skills as IReadOnlyCollection<SkillTemplate>;
+        public IReadOnlyCollection<ActionTemplate> Actions => Model.Actions as IReadOnlyCollection<ActionTemplate>;
 
         // calculated
 
@@ -171,6 +171,8 @@
         public int MagicCheckModifier => LevelAccuracyModifier;
 
         public bool Immutable => true;
+
+        public bool HasDefenseOverride => false;
 
         public Die GetDie(string attributeName)
         {

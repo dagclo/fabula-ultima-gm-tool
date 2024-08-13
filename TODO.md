@@ -6,11 +6,11 @@ Project Description
 
 ### Backlog
 
-- [ ] Add Loading Page for switch back to main page
-- [ ] Add Size Modifiers to creatures
-- [ ] Implement basic search
-- [ ] added special attacks don't show up on instances
-- [ ] Add way to remove npcs from encounter without completely deleting encounter
+- [ ] Add Loading Page for switch back to main page  
+- [ ] Add Size Modifiers to creatures  
+- [ ] Implement basic search  
+- [ ] added special attacks don't show up on instances  
+- [ ] Add way to remove npcs from encounter without completely deleting encounter  
 - [ ] Fix Cockatrice's Petrifying Peck  
 - [ ] Implement Filtering by species, and level  
 - [ ] Block adding equipment with the same name  
@@ -41,9 +41,16 @@ Project Description
 
 ### In Progress
 
+- [ ] Save all results  
 
 ### Done ✓
 
+- [x] Implement Validation  
+- [x] Implement Other Actions  
+- [x] Implement Removing Spells  
+- [x] Add Implementing Spells  
+- [x] implement adding skills to new npc page  
+- [x] Add Configuring Attacks to New Npc Page  
 - [x] Implement Study  
 - [x] Fix Beastiary UI being too wide  
 - [x] Condense DB and images  

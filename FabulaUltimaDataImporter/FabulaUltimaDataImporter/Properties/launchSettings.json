@@ -6,15 +6,15 @@
     },
     "Run Rat Input File": {
       "commandName": "Project",
-      "commandLineArgs": "--filename \"D:\\Godot\\FabulaUltimaDataImporter\\FabulaUltimaDataImporter\\test.sqlite\" --create true --reloadKnownSkills true --inputTape \"D:\\Godot\\FabulaUltimaDataImporter\\FabulaUltimaDataImporter\\InputFiles\\inputtape.tape\""
+      "commandLineArgs": "--filename \"..\\..\\..\\..\\FabulaUltimaDataImporter\\test.sqlite\" --create true --reloadKnownSkills true --inputTape \"D:\\Godot\\FabulaUltimaDataImporter\\FabulaUltimaDataImporter\\InputFiles\\inputtape.tape\""
     },
     "Run Cactus Input File": {
       "commandName": "Project",
-      "commandLineArgs": "--filename \"D:\\Godot\\FabulaUltimaDataImporter\\FabulaUltimaDataImporter\\test.sqlite\" --create true --reloadKnownSkills true --inputTape \"D:\\Godot\\FabulaUltimaDataImporter\\FabulaUltimaDataImporter\\InputFiles\\cactroll.tape\""
+      "commandLineArgs": "--filename \"..\\..\\..\\..\\FabulaUltimaDataImporter\\test.sqlite\" --create true --reloadKnownSkills true --inputTape \"D:\\Godot\\FabulaUltimaDataImporter\\FabulaUltimaDataImporter\\InputFiles\\cactroll.tape\""
     },
     "Update Current DB": {
       "commandName": "Project",
-      "commandLineArgs": "--filename \"..\\..\\..\\..\\..\\BeastiaryDB.sqlite\""
+      "commandLineArgs": "--filename \"..\\..\\..\\..\\..\\BeastiaryDB.sqlite\"  --reloadKnownSkills true"
     },
     "Update AppData DB": {
       "commandName": "Project",

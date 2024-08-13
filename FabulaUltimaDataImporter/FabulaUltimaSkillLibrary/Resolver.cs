@@ -8,11 +8,23 @@ namespace FabulaUltimaSkillLibrary
     {
         private readonly Instance _instance;
         private readonly SpecialAttackIndex _specialAttackIndex;
-
+        public const string ASSIGNED_BY_RESOLVER = "AssignedByResolver";
         public Resolver(Instance instance, SpecialAttackIndex specialAttackIndex) 
         { 
             _instance = instance;
             _specialAttackIndex = specialAttackIndex;
+        }
+
+        private (SkillTemplate skill, Guid? targetId)? MarkResolved(SpeciesType species, (SkillTemplate skill, Guid? targetId)? s)
+        {
+            if (s == null) return s;
+            SkillTemplate? clonedSkill = s.Value.skill;//.Clone();
+            if (clonedSkill?.IsResolved() == null ||(clonedSkill.IsVulnerabilitySkill() && clonedSkill.IsFreeSkillForSpecies(species)))
+            {
+                clonedSkill.SetResolved(true);
+            }           
+
+            return (clonedSkill, s.Value.targetId);
         }
 
         public SkillOutputData ResolveSkills(IBeastTemplate npc, SkillInputData inputData)
@@ -21,7 +33,7 @@ namespace FabulaUltimaSkillLibrary
             var levelSkillSlots = GetSkillsSlotsFromLevel(npc.Level);
             var vulnerabilitySkillSlots = GetSkillsSlotsFromVulnerabilities(npc);
 
-            var resolvedSkills = ResolveSkillsInternal(npc, inputData).ToArray();
+            var resolvedSkills = ResolveSkillsInternal(npc, inputData).Select(s => MarkResolved(npc.Species, s)).ToArray();
 
             var grantedSkillSlots = resolvedSkills.Where(s => s == null);
 
@@ -38,8 +50,8 @@ namespace FabulaUltimaSkillLibrary
             {   
                 if (totalSkillSlots[index] != null) continue;
                 if (!skillQueue.Any()) break;
-                var skill = skillQueue.Dequeue();
-                totalSkillSlots[index] = skill;
+                var skillSlot = skillQueue.Dequeue();                
+                totalSkillSlots[index] = skillSlot;
             }
 
             return new SkillOutputData
@@ -61,10 +73,9 @@ namespace FabulaUltimaSkillLibrary
             var immunitySkills = ResolveImmunities(npc.Species, npc.Resistances.Values.Where(r => r.AffinityId == DamageConstants.IMMUNE));
             var absorptionSkills = ResolveAbsorption(npc.Species, npc.Resistances.Values.Where(r => r.AffinityId == DamageConstants.ABSORBS));
             var checkSkills = ResolveChecks(npc, inputData);
-            var speciesSkills = ResolveSpecies(npc);
 
-            return statsSkills
-                .Concat(specialAttacks)                
+            var result = statsSkills
+                .Concat(specialAttacks)
                 .Concat(spellSkills)
                 .Concat(resistanceSkills)
                 .Concat(checkSkills)
@@ -72,6 +83,11 @@ namespace FabulaUltimaSkillLibrary
                 .Concat(immunitySkills)
                 .Concat(absorptionSkills)
                 .Concat(equipmentSkills)
+                .ToArray();
+
+            var speciesSkills = ResolveSpecies(npc, result.Where(s => s?.skill != null).Select(s => s.Value.skill.Id).ToHashSet()); // don't apply skills twice
+
+            return result              
                 .Concat(speciesSkills); 
         }
 
@@ -107,14 +123,20 @@ namespace FabulaUltimaSkillLibrary
             }
         }
 
-        private IEnumerable<(SkillTemplate skill, Guid? targetId)?> ResolveSpecies(IBeastTemplate npc)
+        private IEnumerable<(SkillTemplate skill, Guid? targetId)?> ResolveSpecies(IBeastTemplate npc, ISet<Guid> alreadyAssignedSkillIds)
         {
             foreach(var freeSkill in KnownSkills.GetAllKnownSkills()
                                 .Where(s => 
-                                { 
+                                {
+                                    if (alreadyAssignedSkillIds.Contains(s.Id)) 
+                                    {
+                                        //var updated = alreadyAssignedSkillIds[s.Id].SetResolved(true);
+                                        return false; 
+                                    }
                                     return s.OtherAttributes?.FreeSpecies?.Contains(npc.Species.Id) == true;
                                 }))
             {
+                freeSkill.SetResolved(true);
                 yield return (freeSkill, null);
                 yield return null;
             }            
@@ -122,11 +144,12 @@ namespace FabulaUltimaSkillLibrary
 
         private IEnumerable<(SkillTemplate skill, Guid? targetId)?> ResolveChecks(IBeastTemplate npc, SkillInputData inputData)
         {
-            var basicAttack = npc.AllAttacks.First();
-            var firstAttackMod = basicAttack.AttackMod;
+            var basicAttack = npc.AllAttacks?.FirstOrDefault();
+            if (basicAttack == null) yield break;
+            var firstAttackMod = basicAttack.AccuracyMod;
             var levelAttackMod = npc.LevelAccuracyModifier;
             var totalAttackMod = firstAttackMod + levelAttackMod;
-            var givenAttackMod = inputData.AttackModifiers[basicAttack.Id].AtkMod;
+            var givenAttackMod = inputData.AttackModifiers.TryGetValue(basicAttack.Id, out var atkMod) ? atkMod.AtkMod : 0;
             var modDiff = givenAttackMod - totalAttackMod;
 
             var accuracySpecializedSkill = KnownSkills.SpecializedAccuracyCheck;
@@ -202,11 +225,11 @@ namespace FabulaUltimaSkillLibrary
             var spellCount = npc.Spells.Count();
             var calcMp = npc.MagicPoints;
             var mpDiff = maxMP - calcMp;
-            var numBoostedSpellSkills = mpDiff / int.Parse(moreMPSkill.OtherAttributes[StatsConstants.MP_BOOST]);
+            var numBoostedSpellSkills = Math.Max(mpDiff / int.Parse(moreMPSkill.OtherAttributes[StatsConstants.MP_BOOST]), 0);
             var boostedMpSkills = Enumerable.Range(0, numBoostedSpellSkills).Select(_ => moreMPSkill);
 
             var moreSpellsSkill = KnownSkills.SpellCasterMoreSpells;
-            var remainingSpellSlots = (spellCount - numBoostedSpellSkills) / int.Parse(moreSpellsSkill.OtherAttributes[StatsConstants.NUM_SPELLS]);
+            var remainingSpellSlots = Math.Max((spellCount - numBoostedSpellSkills) / int.Parse(moreSpellsSkill.OtherAttributes[StatsConstants.NUM_SPELLS]), 0);
             var boostedSpellsSkills = Enumerable.Range(0, remainingSpellSlots).Select(_ => moreSpellsSkill);
 
             foreach(var skill in boostedMpSkills
@@ -252,7 +275,7 @@ namespace FabulaUltimaSkillLibrary
                 var damageMod = attack.DamageMod;
                 var levelMod = npc.LevelDamageModifier;
                 var totalCalcMod = damageMod + levelMod;
-                var givenDamageMod = attackModifiers[attack.Id].DamMod;
+                var givenDamageMod = attackModifiers.TryGetValue(attack.Id, out var mod) ? mod.DamMod : 0;
 
                 var damModDiff = givenDamageMod - totalCalcMod;
                 if(damModDiff == int.Parse(improvedDamageSkill.OtherAttributes[DamageConstants.DAMAGE_BOOST]))

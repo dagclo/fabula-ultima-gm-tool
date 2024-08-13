@@ -1,8 +1,9 @@
 ﻿using FabulaUltimaNpc;
 using System;
+using System.Collections.Generic;
 
 public interface IBeastAttribute
 {
     void HandleBeastChanged(IBeastTemplate beastTemplate);
-    Action<bool> Save { get; set; }
+    Action<ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
 }

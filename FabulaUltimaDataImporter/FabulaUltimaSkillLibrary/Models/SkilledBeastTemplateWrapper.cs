@@ -5,21 +5,22 @@ namespace FabulaUltimaSkillLibrary.Models
     public class SkilledBeastTemplateWrapper : IBeastTemplate
     {
         private readonly IBeastTemplate _beastTemplate;
-        private readonly IReadOnlyDictionary<Guid, int> _skillCountMap;
-        private readonly IReadOnlyDictionary<Guid, SkillTemplate> _skillMap;        
+        private IReadOnlyDictionary<Guid, int> _skillCountMap;
+        private IReadOnlyDictionary<Guid, SkillTemplate> _skillMap;        
 
         public SkilledBeastTemplateWrapper(IBeastTemplate beastTemplate)
         {
             _beastTemplate = beastTemplate;
-            _skillCountMap = beastTemplate.Skills.GroupBy(s => s.Id).ToDictionary(g => g.Key, g => g.Count());
-            _skillMap = beastTemplate.Skills.GroupBy(s => s.Id).ToDictionary(g => g.Key, g => g.First());
+            UpdateSkills();
         }
+
+        public IBeastTemplate Internal => _beastTemplate;
 
         public IReadOnlyCollection<ActionTemplate> Actions => _beastTemplate.Actions;
 
         public IEnumerable<BasicAttackTemplate> AllAttacks => ResolveAttacks(this._beastTemplate.AllAttacks).ToArray();
 
-        public IEnumerable<BasicAttackTemplate> ResolveAttacks(IEnumerable<BasicAttackTemplate> attacks)
+        private IEnumerable<BasicAttackTemplate> ResolveAttacks(IEnumerable<BasicAttackTemplate> attacks)
         {
             int accuracyMod = LevelAccuracyModifier;
             if(_skillMap.TryGetValue(KnownSkills.SpecializedAccuracyCheck.Id, out var accuracySkill))
@@ -39,12 +40,13 @@ namespace FabulaUltimaSkillLibrary.Models
                 return damageMod;
             }
 
-            foreach (var attack in attacks) 
-            {
-                var updatedAttack = attack.Clone(); // want to preserve original value
-                updatedAttack.AttackMod += accuracyMod;
-                updatedAttack.DamageMod += ResolveDamageMod(attack.AttackSkills);
-                yield return updatedAttack;
+            var validAttacks = KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) ? attacks : attacks.Where(a => !a.IsEquipmentAttack);
+
+            foreach (var attack in validAttacks) 
+            {   
+                attack.AccuracyMod = accuracyMod;
+                attack.DamageMod = 5 + ResolveDamageMod(attack.AttackSkills);
+                yield return attack;
             }
         }
               
@@ -52,25 +54,51 @@ namespace FabulaUltimaSkillLibrary.Models
 
         public int Crisis => _beastTemplate.Crisis;
 
-        public int Defense => ResolveDefense(_beastTemplate.Defense);
-
-        private int ResolveDefense(int defense)
+        public int Defense => ResolveDefense();
+        public int DefenseModifier => Defense - _beastTemplate.Defense;
+        private ICollection<EquipmentTemplate> Armor => _beastTemplate.Equipment.Where(e => e.Category.IsArmor).ToArray();
+        private int ResolveDefense()
         {
-            var result = defense;
-            var pDefSkillId = KnownSkills.ImprovedDefensesPhysical.Id;
-            if (_skillCountMap.TryGetValue(pDefSkillId, out var numPDefTimesApplied))
+            var defense = _beastTemplate.Defense;
+            var armor = Armor;
+            bool overrides = false;
+            if (KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) && armor.Any())
             {
-                var targetSkill = _skillMap[pDefSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST]) * numPDefTimesApplied);
+                var overrideArmor = armor.Where(a => a.StatsModifier?.DefenseOverrides ?? false)
+                        .OrderByDescending(a => a.StatsModifier?.DefenseModifier ?? int.MinValue)
+                        .FirstOrDefault();
+                if(overrideArmor != null)
+                {
+                    defense = overrideArmor.StatsModifier.DefenseModifier;
+                    overrides = true;
+                }
+                else
+                {
+                    var bestArmor = armor
+                        .OrderByDescending(a => a.StatsModifier?.DefenseModifier ?? int.MinValue)
+                        .First();
+                    defense += bestArmor.StatsModifier.DefenseModifier;
+                }
             }
 
-            var mDefSkillId = KnownSkills.ImprovedDefensesMagical.Id;
-            if (_skillCountMap.TryGetValue(mDefSkillId, out var numMDefTimesApplied))
+            if(!overrides)
             {
-                var targetSkill = _skillMap[mDefSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST]) * numMDefTimesApplied);
+                var pDefSkillId = KnownSkills.ImprovedDefensesPhysical.Id;
+                if (_skillCountMap.TryGetValue(pDefSkillId, out var numPDefTimesApplied))
+                {
+                    var targetSkill = _skillMap[pDefSkillId];
+                    defense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST]) * numPDefTimesApplied);
+                }
+
+                var mDefSkillId = KnownSkills.ImprovedDefensesMagical.Id;
+                if (_skillCountMap.TryGetValue(mDefSkillId, out var numMDefTimesApplied))
+                {
+                    var targetSkill = _skillMap[mDefSkillId];
+                    defense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST]) * numMDefTimesApplied);
+                }
             }
-            return result;
+           
+            return defense;
         }
 
         public string Description 
@@ -96,7 +124,7 @@ namespace FabulaUltimaSkillLibrary.Models
             }
         }
 
-        public IReadOnlyCollection<EquipmentTemplate> Equipment => _beastTemplate.Equipment;
+        public IReadOnlyCollection<EquipmentTemplate> Equipment => KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) ? _beastTemplate.Equipment : Array.Empty<EquipmentTemplate>();
 
         public int HealthPoints => ResolveHP(_beastTemplate.HealthPoints);
 
@@ -175,25 +203,36 @@ namespace FabulaUltimaSkillLibrary.Models
 
         public int LevelDamageModifier => _beastTemplate.LevelDamageModifier;
 
-        public int MagicalDefense => ResolveMagicalDefense(_beastTemplate.MagicalDefense);
+        public int MagicalDefense => ResolveMagicalDefense();
+        public int MagicalDefenseModifier => MagicalDefense - _beastTemplate.MagicalDefense;
 
-        private int ResolveMagicalDefense(int magicalDefense)
+        private int ResolveMagicalDefense()
         {
-            var result = magicalDefense;
+            var magicalDefense = _beastTemplate.MagicalDefense;
+
+            var armor = Armor;
+            if (KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) && armor.Any())
+            {
+                var bestArmor = armor
+                        .OrderByDescending(a => a.StatsModifier?.MagicDefenseModifier ?? int.MinValue)
+                        .First();
+                magicalDefense += bestArmor.StatsModifier.MagicDefenseModifier;
+            }
+
             var pDefSkillId = KnownSkills.ImprovedDefensesPhysical.Id;
             if (_skillCountMap.TryGetValue(pDefSkillId, out var numPDefTimesApplied))
             {
                 var targetSkill = _skillMap[pDefSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numPDefTimesApplied);
+                magicalDefense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numPDefTimesApplied);
             }
 
             var mDefSkillId = KnownSkills.ImprovedDefensesMagical.Id;
             if (_skillCountMap.TryGetValue(mDefSkillId, out var numMDefTimesApplied))
             {
                 var targetSkill = _skillMap[mDefSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numMDefTimesApplied);
+                magicalDefense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numMDefTimesApplied);
             }
-            return result;
+            return magicalDefense;
         }
 
         public int MagicPoints => ResolveMP(_beastTemplate.MagicPoints);
@@ -242,11 +281,35 @@ namespace FabulaUltimaSkillLibrary.Models
             }
         }
 
-        /// <summary>
-        /// todo: generate these from the skills instead of the resistances
-        /// </summary>
-        public IReadOnlyDictionary<string, BeastResistance> Resistances => _beastTemplate.Resistances;
+        public IReadOnlyDictionary<string, BeastResistance> Resistances => ResolveResistances();
+           
+        private IReadOnlyDictionary<string, BeastResistance> ResolveResistances()
+        {
+            var damageTypes = DamageConstants.DamageTypeMap.Keys;
 
+            Dictionary<string, BeastResistance> skillAffinities = new Dictionary<string, BeastResistance>();
+
+            bool AffinityTrumps(SkillTemplate skill, BeastResistance beastResistance)
+            {
+                if (skill.IsVulnerabilitySkill()) return false;
+                var trumps = skill.OtherAttributes?.TryGetValue(DamageConstants.AFFINITY_TRUMPS, out var trumpString) ?? false ? trumpString?.Split(',').Select(i => Guid.Parse(i)).ToHashSet<Guid>() : null;
+                return trumps?.Contains(beastResistance.AffinityId) ?? throw new ArgumentException($"Skill '{skill.Name}' has no trumps");
+            }
+
+            foreach (var skill in _beastTemplate.Skills.Where(s => s.IsAffinitySkill()))
+            {
+                var affinity = skill.ToBeastResistance();
+                if (skillAffinities.ContainsKey(affinity.DamageType) && !AffinityTrumps(skill, skillAffinities[affinity.DamageType])) continue;
+                skillAffinities[affinity.DamageType] = affinity;
+            }
+
+            foreach(var damageType in damageTypes.Where(k => !skillAffinities.ContainsKey(k)))
+            {
+                skillAffinities[damageType] = SkillTemplateExtensions.GetNoAffinitySkill(damageType).ToBeastResistance();
+            }
+            return skillAffinities;
+        }
+        
         public IReadOnlyCollection<SkillTemplate> Skills => _beastTemplate.Skills;
 
         public SpeciesType Species
@@ -290,6 +353,11 @@ namespace FabulaUltimaSkillLibrary.Models
 
         public bool Immutable { get; set; }
 
+        public bool HasDefenseOverride => KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) ? Armor.Any(a => a.StatsModifier?.DefenseOverrides ?? false) : false;
+
+        
+        
+
         private int ResolveMagicCheckModifier(int magicCheckModifier)
         {
             var checkMod = magicCheckModifier;
@@ -302,5 +370,26 @@ namespace FabulaUltimaSkillLibrary.Models
         }
 
         public Die GetDie(string attributeName) => _beastTemplate.GetDie(attributeName);
+
+        public void AddSkill(SkillTemplate skill)
+        {
+            if (this.Skills is not ICollection<SkillTemplate> skillCollection) return;
+            if (skillCollection.Any(s => s.Id == skill.Id)) return;
+            skillCollection.Add(skill);
+        }
+
+        public void RemoveAffinitySkill(Guid skillId)
+        {
+            if (this.Skills is not ICollection<SkillTemplate> skillCollection) return;
+            if (!skillCollection.Any(s => s.Id == skillId)) return;
+            skillCollection.Remove(skillCollection.Single(s => s.Id == skillId));
+        }
+
+        public void UpdateSkills()
+        {           
+            _skillCountMap = _beastTemplate.Skills.GroupBy(s => s.Id).ToDictionary(g => g.Key, g => g.Count());
+            _skillMap = _beastTemplate.Skills.GroupBy(s => s.Id).ToDictionary(g => g.Key, g => g.First());
+           
+        }
     }
 }

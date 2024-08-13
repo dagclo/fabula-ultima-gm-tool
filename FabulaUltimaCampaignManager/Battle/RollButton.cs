@@ -2,7 +2,6 @@ using FirstProject.Beastiary;
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
-using System;
 
 public partial class RollButton : Button, INpcReader
 {

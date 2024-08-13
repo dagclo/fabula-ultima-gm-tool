@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace FabulaUltimaNpc
+﻿namespace FabulaUltimaNpc
 {
     public static class BeastTemplateExtensions
     {
@@ -39,7 +31,7 @@ namespace FabulaUltimaNpc
                 case nameof(IBeastTemplate.Defense):
                     return template.Defense.ToString();
                 default:
-                    throw new ArgumentException($"unknown attribute {attributeName}", nameof(attributeName));
+                    throw new ArgumentException($"unknown attribute '{attributeName}'", nameof(attributeName));
             }
         }
     }

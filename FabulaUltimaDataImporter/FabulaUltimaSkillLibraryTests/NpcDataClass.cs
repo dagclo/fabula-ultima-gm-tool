@@ -23,7 +23,7 @@ namespace FabulaUltimaSkillLibraryTests
 
         
 
-        public static IReadOnlyDictionary<string, BeastResistance> GetResistances(
+        public static IDictionary<string, BeastResistance> GetResistances(
                 string physical = "",
                 string air = "",
                 string bolt = "",
@@ -160,7 +160,7 @@ namespace FabulaUltimaSkillLibraryTests
                             new BasicAttackTemplate
                             {
                                 DamageMod = 5,
-                                AttackMod = 0,
+                                AccuracyMod = 0,
                                 Name = "Mandible Slash",
                                 DamageType = POISON,
                                 Attribute1 = DEXTERITY,
@@ -171,32 +171,32 @@ namespace FabulaUltimaSkillLibraryTests
                             new BasicAttackTemplate
                             {
                                 DamageMod = 5,
-                                AttackMod = 0,
+                                AccuracyMod = 0,
                                 Name = "Cutter ball",
                                 DamageType = PHYSICAL,
                                 Attribute1 = DEXTERITY,
                                 Attribute2 = MIGHT,
                                 IsRanged = false,
-                                Id = cutterBallId                                
+                                Id = cutterBallId
                             }
                         }
-                    }), 
+                    }),
                     new SkillInputData
                     {
-                        MaxHP = 60, 
+                        MaxHP = 60,
                         MaxMP = 45,
                         DefMod = 2,
                         DefOverride = null,
-                        MDefMod = 1,                        
-                        
+                        MDefMod = 1,
+
                         Init = 7,
                         AttackModifiers = new Dictionary<Guid, AttackModifier>()
                         {
                             { mandibleSlashId, new AttackModifier { AtkMod =  0, DamMod = 5, Text = "and the target suffers weak", AttackId = mandibleSlashId } },
                             { cutterBallId, new AttackModifier { AtkMod =  0, DamMod = 5, Text = "If the cutterpillar performed the Guard action during its previous turn, this attacks deals 5 extra damage", AttackId = cutterBallId } }
                         }
-                    },                    
-                    new (SkillTemplate skill, Guid? targetId)? []
+                    },
+                    new (SkillTemplate skill, Guid? targetId)?[]
                     {
                         ( KnownSkills.SpecialAttackSufferWeak, mandibleSlashId),
                         ( KnownSkills.SpecialAttackOnGuardExtraDamage, cutterBallId),
@@ -230,7 +230,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "White Maw",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -244,7 +244,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new SpellTemplate
                                         {
                                             Id = Guid.NewGuid(),
-                                            Name = "IceBerg",                                            
+                                            Name = "IceBerg",
                                         },
                                         new SpellTemplate
                                         {
@@ -262,7 +262,7 @@ namespace FabulaUltimaSkillLibraryTests
                                     MDefMod = 1,
                                     Init = 8,
                                     AttackModifiers = new Dictionary<Guid, AttackModifier>()
-                                    {   
+                                    {
                                         { whiteMawId, new AttackModifier { AtkMod =  5, DamMod = 15, Text = "and the target suffers weak", AttackId = whiteMawId } },
                                     }
                                 },
@@ -272,7 +272,7 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.ImprovedDamageAttack, whiteMawId),
                                     ( KnownSkills.FireVulnerability, null),
                                     ( KnownSkills.IceResistance, null),
-                                    ( KnownSkills.AirResistance, null),                                                    
+                                    ( KnownSkills.AirResistance, null),
                                     ( KnownSkills.ImprovedDefensesPhysical, null),
                                     ( KnownSkills.SpellCasterMoreSpells, null),
                                     ( KnownSkills.SpecializedAccuracyCheck, null),
@@ -284,13 +284,13 @@ namespace FabulaUltimaSkillLibraryTests
                 var arcaneLanternSkill = new SkillTemplate(Guid.NewGuid())
                 {
                     IsSpecialRule = false,
-                    Keywords = new HashSet<string>{ "arcane", "lantern", "roll", "damage", "type"},
+                    Keywords = new HashSet<string> { "arcane", "lantern", "roll", "damage", "type" },
                     Name = "Elemental Discharge Special Attack",
                     TargetType = typeof(BasicAttackTemplate),
                     Text = "When the arcane lantern performs this attack, roll a d6 to determine the damage type: 1-2 bolt; 3-4 fire; 5-6 ice.",
                     OtherAttributes = new SkillAttributeCollection
                     {
-                       [KnownSkills.IS_SPECIAL_ATTACK] = true.ToString()
+                        [KnownSkills.IS_SPECIAL_ATTACK] = true.ToString()
                     }
                 };
 
@@ -305,7 +305,7 @@ namespace FabulaUltimaSkillLibraryTests
                                     Might = D6,
                                     WillPower = D10,
                                     Id = Guid.NewGuid(),
-                                    Level =5,
+                                    Level = 5,
                                     Species = CONSTRUCT,
                                     Traits = "glowing, helpful, magical, tiny",
                                     Resistances = GetResistances(physical: "VU", fire: "RS", ice: "RS", earth: "RS", poison: "IM"),
@@ -314,7 +314,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Elemental Discharge",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -339,14 +339,14 @@ namespace FabulaUltimaSkillLibraryTests
                                 },
                                 new (SkillTemplate skill, Guid? targetId)?[]
                                 {
-                                    ( arcaneLanternSkill, elementalDischargeId),                                    
-                                    ( KnownSkills.PhysicalVulnerability, null),
-                                    ( KnownSkills.IceResistance, null),
-                                    ( KnownSkills.FireResistance, null),
-                                    ( KnownSkills.EarthResistance, null),
-                                    ( KnownSkills.PoisonImmunity, null),
-                                    ( KnownSkills.ConstructSkillPoisonedImmunity, null),
-                                    ( KnownSkills.ImprovedDefensesMagical, null),                                    
+                                    ( arcaneLanternSkill, elementalDischargeId),
+                                    ( KnownSkills.PhysicalVulnerability.Clone().SetResolved(false), null),
+                                    ( KnownSkills.IceResistance.Clone().SetResolved(false), null),
+                                    ( KnownSkills.FireResistance.Clone().SetResolved(false), null),
+                                    ( KnownSkills.EarthResistance.Clone().SetResolved(true), null),
+                                    ( KnownSkills.PoisonImmunity.Clone().SetResolved(true), null),
+                                    ( KnownSkills.ConstructSkillPoisonedImmunity.Clone().SetResolved(true), null),
+                                    ( KnownSkills.ImprovedDefensesMagical.Clone().SetResolved(false), null),
                                     null,
                                 }).SetName("Arcane Lantern pg 328");
 
@@ -359,8 +359,8 @@ namespace FabulaUltimaSkillLibraryTests
                     Text = "After performing this attack, the razorbird loses all benefits granted by the Flying skill until the start of its next turn",
                     OtherAttributes = new SkillAttributeCollection
                     {
-                        [KnownSkills.IS_SPECIAL_ATTACK] =  true.ToString(),
-                        [KnownSkills.IS_SPECIAL_ATTACK_DETRIMENT] = true.ToString() ,
+                        [KnownSkills.IS_SPECIAL_ATTACK] = true.ToString(),
+                        [KnownSkills.IS_SPECIAL_ATTACK_DETRIMENT] = true.ToString(),
                     }
                 };
 
@@ -381,13 +381,13 @@ namespace FabulaUltimaSkillLibraryTests
                                     Level = 15,
                                     Species = CONSTRUCT,
                                     Traits = "fast, flying, heavily armed, loyal",
-                                    Resistances = GetResistances(air: "VU", bolt: "VU", ice: "VU", earth: "RS", poison: "IM", fire:"IM"),
+                                    Resistances = GetResistances(air: "VU", bolt: "VU", ice: "VU", earth: "RS", poison: "IM", fire: "IM"),
                                     BasicAttacks = new[]
                                     {
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Razor Dive",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -398,7 +398,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Gatling Gun",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -409,7 +409,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Scorch Rocket",
                                             DamageType = FIRE,
                                             Attribute1 = DEXTERITY,
@@ -429,15 +429,15 @@ namespace FabulaUltimaSkillLibraryTests
                                     Init = 9,
                                     AttackModifiers = new Dictionary<Guid, AttackModifier>()
                                     {
-                                        { 
-                                            razorDiveId, 
-                                            new AttackModifier 
-                                            { 
-                                                AttackId = razorDiveId, 
-                                                AtkMod =  1, 
-                                                DamMod = 10, 
-                                                Text = "After performing this attack, the razorbird loses all benefits granted by the Flying Skill until the start of its next turn." 
-                                            } 
+                                        {
+                                            razorDiveId,
+                                            new AttackModifier
+                                            {
+                                                AttackId = razorDiveId,
+                                                AtkMod =  1,
+                                                DamMod = 10,
+                                                Text = "After performing this attack, the razorbird loses all benefits granted by the Flying Skill until the start of its next turn."
+                                            }
                                         },
                                         {
                                             gatlingGunId,
@@ -455,7 +455,7 @@ namespace FabulaUltimaSkillLibraryTests
                                             {
                                                 AttackId = scorchRocketId,
                                                 AtkMod =  1,
-                                                DamMod = 10                                                
+                                                DamMod = 10
                                             }
                                         },
                                     }
@@ -470,15 +470,15 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.BoltVulnerability, null),
                                     ( KnownSkills.IceVulnerability, null),
                                     ( KnownSkills.FireImmunity, null),
-                                    ( KnownSkills.EarthResistance, null),
-                                    ( KnownSkills.PoisonImmunity, null),
-                                    ( KnownSkills.ConstructSkillPoisonedImmunity, null),                                                                   
+                                    ( KnownSkills.EarthResistance.SetResolved(true), null),
+                                    ( KnownSkills.PoisonImmunity.SetResolved(true), null),
+                                    ( KnownSkills.ConstructSkillPoisonedImmunity.SetResolved(true), null),
                                     ( KnownSkills.ImprovedHitPoints, null),
                                     null,
                                     null,
                                 }).SetName("Razorbird pg 330");
-                var sharpTurnId = Guid.NewGuid();                
-                
+                var sharpTurnId = Guid.NewGuid();
+
                 yield return new TestCaseData(
                                 null,
                                 new BeastTemplate(new BeastModel
@@ -493,13 +493,13 @@ namespace FabulaUltimaSkillLibraryTests
                                     Level = 10,
                                     Species = DEMON,
                                     Traits = "bright, cackling, cruel, fast",
-                                    Resistances = GetResistances( bolt: "AB", dark: "RS", earth: "VU"),
+                                    Resistances = GetResistances(bolt: "AB", dark: "RS", earth: "VU"),
                                     BasicAttacks = new[]
                                     {
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Sharp Turn",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -533,21 +533,21 @@ namespace FabulaUltimaSkillLibraryTests
                                             {
                                                 AttackId = sharpTurnId,
                                                 AtkMod =  1,
-                                                DamMod = 10,                                                
+                                                DamMod = 10,
                                             }
                                         }
                                     }
                                 },
                                 new (SkillTemplate skill, Guid? targetId)?[]
                                 {
-                                    
+
                                     ( KnownSkills.ImprovedDamageAttack, sharpTurnId),
                                     ( KnownSkills.SpellCasterMoreMP, null),
                                     ( KnownSkills.BoltResistance, null),
                                     ( KnownSkills.BoltAbsorption, null),
                                     ( KnownSkills.DarkResistance, null),
                                     ( KnownSkills.EarthVulnerability, null),
-                                    ( KnownSkills.ImprovedHitPoints, null),                                    
+                                    ( KnownSkills.ImprovedHitPoints, null),
                                     null,
                                 }).SetName("Lightning Wheel pg 332");
 
@@ -573,7 +573,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Tangle of Vipers",
                                             DamageType = POISON,
                                             Attribute1 = DEXTERITY,
@@ -584,7 +584,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Cold Glare",
                                             DamageType = ICE,
                                             Attribute1 = DEXTERITY,
@@ -636,11 +636,11 @@ namespace FabulaUltimaSkillLibraryTests
                                 new (SkillTemplate skill, Guid? targetId)?[]
                                 {
 
-                                    ( KnownSkills.ImprovedDamageAttack, viperTangleId),                                                                        
+                                    ( KnownSkills.ImprovedDamageAttack, viperTangleId),
                                     ( KnownSkills.SpecialAttackTargetMagicDefense, coldGlareId),
                                     ( KnownSkills.SpecialAttackPreventObjectiveAction, coldGlareId),
                                     ( KnownSkills.SpellCasterMoreMP, null),
-                                    ( KnownSkills.AirVulnerability, null),                                    
+                                    ( KnownSkills.AirVulnerability, null),
                                     ( KnownSkills.DarkResistance, null),
                                     ( KnownSkills.FireImmunity, null),
                                     ( KnownSkills.IceResistance, null),
@@ -671,7 +671,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Sharp Needle",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -718,14 +718,14 @@ namespace FabulaUltimaSkillLibraryTests
                                 },
                                 new (SkillTemplate skill, Guid? targetId)?[]
                                 {
-                                    ( KnownSkills.SpecialAttackExtraDamageOnSlow, sharpNeedleId),
-                                    ( KnownSkills.SpellCasterMoreSpells, null),
-                                    ( KnownSkills.AirVulnerability, null),
-                                    ( KnownSkills.DarkVulnerability, null),
-                                    ( KnownSkills.EarthImmunity, null),
-                                    ( KnownSkills.LightImmunity, null),
-                                    ( KnownSkills.PoisonImmunity, null),
-                                    ( KnownSkills.ElementalSkillPoisonedImmunity, null),
+                                    ( KnownSkills.SpecialAttackExtraDamageOnSlow.Clone().SetResolved(false), sharpNeedleId),
+                                    ( KnownSkills.SpellCasterMoreSpells.Clone().SetResolved(false), null),
+                                    ( KnownSkills.AirVulnerability.Clone().SetResolved(false), null),
+                                    ( KnownSkills.DarkVulnerability.Clone().SetResolved(false), null),
+                                    ( KnownSkills.EarthImmunity.Clone().SetResolved(false), null),
+                                    ( KnownSkills.LightImmunity.Clone().SetResolved(false), null),
+                                    ( KnownSkills.PoisonImmunity.Clone().SetResolved(true), null),
+                                    ( KnownSkills.ElementalSkillPoisonedImmunity.Clone().SetResolved(true), null),
                                     null,
                                 }).SetName("Acorn Pixie pg 334");
 
@@ -750,7 +750,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Seasonal Touch",
                                             DamageType = AIR,
                                             Attribute1 = DEXTERITY,
@@ -786,9 +786,9 @@ namespace FabulaUltimaSkillLibraryTests
                                 {
                                     ( KnownSkills.IceResistance, null),
                                     ( KnownSkills.FireResistance, null),
-                                    ( KnownSkills.EarthImmunity, null),                                    
-                                    ( KnownSkills.PoisonImmunity, null),
-                                    ( KnownSkills.ElementalSkillPoisonedImmunity, null),
+                                    ( KnownSkills.EarthImmunity, null),
+                                    ( KnownSkills.PoisonImmunity.SetResolved(true), null),
+                                    ( KnownSkills.ElementalSkillPoisonedImmunity.SetResolved(true), null),
                                     ( KnownSkills.ImprovedHitPoints, null),
                                     ( KnownSkills.ImprovedDamageAttack, seasonalTouchId),
                                     ( KnownSkills.DarkVulnerability, null), // added to fix NPC calculation
@@ -801,14 +801,14 @@ namespace FabulaUltimaSkillLibraryTests
                                 null,
                                 new BeastTemplate(new BeastModel
                                 {
-                                    Name = "Guard",                                    
+                                    Name = "Guard",
                                     Dexterity = D8,
                                     Insight = D8,
                                     Might = D8,
                                     WillPower = D8,
                                     Id = Guid.NewGuid(),
                                     Level = 5,
-                                    Species = HUMANOID,                                    
+                                    Species = HUMANOID,
                                     Resistances = GetResistances(),
                                     Equipment = new[]
                                     {
@@ -848,7 +848,7 @@ namespace FabulaUltimaSkillLibraryTests
                                             BasicAttack =  new BasicAttackTemplate
                                             {
                                                 DamageMod = 12,
-                                                AttackMod = 0,
+                                                AccuracyMod = 0,
                                                 Name = "Heavy Spear",
                                                 DamageType = PHYSICAL,
                                                 Attribute1 = DEXTERITY,
@@ -872,7 +872,7 @@ namespace FabulaUltimaSkillLibraryTests
                                             BasicAttack =  new BasicAttackTemplate
                                             {
                                                 DamageMod = 8,
-                                                AttackMod = 0,
+                                                AccuracyMod = 0,
                                                 Name = "Crossbow",
                                                 DamageType = PHYSICAL,
                                                 Attribute1 = DEXTERITY,
@@ -899,7 +899,7 @@ namespace FabulaUltimaSkillLibraryTests
                                             {
                                                 AttackId = heavySpearId,
                                                 AtkMod =  0,
-                                                DamMod = 12,                                                
+                                                DamMod = 12,
                                             }
                                         },
                                         {
@@ -914,9 +914,9 @@ namespace FabulaUltimaSkillLibraryTests
                                     }
                                 },
                                 new (SkillTemplate skill, Guid? targetId)?[]
-                                {                                    
+                                {
                                     ( KnownSkills.ImprovedHitPoints, null),
-                                    ( KnownSkills.UseEquipment, null),
+                                    ( KnownSkills.UseEquipment.SetResolved(true), null),
                                     null,
                                     null,
                                 }).SetName("Guard pg 338");
@@ -934,7 +934,7 @@ namespace FabulaUltimaSkillLibraryTests
                                     Id = Guid.NewGuid(),
                                     Level = 10,
                                     Species = HUMANOID,
-                                    Resistances = GetResistances(air: "RS", fire:"VU", poison: "RS", ice: "VU"),
+                                    Resistances = GetResistances(air: "RS", fire: "VU", poison: "RS", ice: "VU"),
                                     Spells = new[]
                                     {
                                         new SpellTemplate
@@ -942,7 +942,7 @@ namespace FabulaUltimaSkillLibraryTests
                                             Id = Guid.NewGuid(),
                                             Name = "Bee Dance",
                                         }
-                                       
+
                                     },
                                     Equipment = new[]
                                     {
@@ -982,7 +982,7 @@ namespace FabulaUltimaSkillLibraryTests
                                             BasicAttack =  new BasicAttackTemplate
                                             {
                                                 DamageMod = 10,
-                                                AttackMod = 1,
+                                                AccuracyMod = 1,
                                                 Name = "Hiveblade",
                                                 DamageType = PHYSICAL,
                                                 Attribute1 = DEXTERITY,
@@ -1002,7 +1002,7 @@ namespace FabulaUltimaSkillLibraryTests
                                     MDefMod = 2,
                                     Init = 11,
                                     AttackModifiers = new Dictionary<Guid, AttackModifier>()
-                                    { 
+                                    {
                                         {
                                             katanaId,
                                             new AttackModifier
@@ -1015,8 +1015,8 @@ namespace FabulaUltimaSkillLibraryTests
                                     }
                                 },
                                 new (SkillTemplate skill, Guid? targetId)?[]
-                                {   
-                                    ( KnownSkills.UseEquipment, null),                                    
+                                {
+                                    ( KnownSkills.UseEquipment.SetResolved(true), null),
                                     ( KnownSkills.SpellCasterMoreMP, null),
                                     ( KnownSkills.SpecializedAccuracyCheck, null),
                                     ( KnownSkills.FireVulnerability, null),
@@ -1024,7 +1024,7 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.PoisonResistance, null),
                                     ( KnownSkills.ImprovedInitiative, null),
                                     ( KnownSkills.IceVulnerability, null),
-                                    ( KnownSkills.ImprovedHitPoints, null), 
+                                    ( KnownSkills.ImprovedHitPoints, null),
                                     null,
                                 }).SetName("Hivekin adjusted pg 340");
 
@@ -1051,7 +1051,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Scratch",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -1062,7 +1062,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Ghostfire",
                                             DamageType = FIRE,
                                             Attribute1 = DEXTERITY,
@@ -1106,7 +1106,7 @@ namespace FabulaUltimaSkillLibraryTests
                                             {
                                                 AttackId = scratchId,
                                                 AtkMod =  0,
-                                                DamMod = 5,                                                
+                                                DamMod = 5,
                                             }
                                         }
                                     }
@@ -1118,7 +1118,7 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.SpellCasterMoreMP, null),
                                     ( KnownSkills.BoltVulnerability, null),
                                     ( KnownSkills.FireResistance, null),
-                                    ( KnownSkills.IceResistance, null),                                    
+                                    ( KnownSkills.IceResistance, null),
                                     ( KnownSkills.PoisonVulnerability, null),
                                     ( KnownSkills.ImprovedDefensesMagical, null),
                                     ( KnownSkills.ImprovedInitiative, null),
@@ -1147,7 +1147,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Petrifying Peck",
                                             DamageType = NO_DAMAGE,
                                             Attribute1 = DEXTERITY,
@@ -1158,7 +1158,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Toxic Peck",
                                             DamageType = FIRE,
                                             Attribute1 = DEXTERITY,
@@ -1206,9 +1206,9 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.ImprovedDamageAttack, toxicPeckId),
                                     ( KnownSkills.BoltResistance, null),
                                     ( KnownSkills.EarthResistance, null),
-                                    ( KnownSkills.IceVulnerability, null),          
+                                    ( KnownSkills.IceVulnerability, null),
                                     ( KnownSkills.LightVulnerability, null),
-                                    ( KnownSkills.ImprovedDefensesMagical, null),     
+                                    ( KnownSkills.ImprovedDefensesMagical, null),
                                     ( KnownSkills.SpecializedAccuracyCheck, null),
                                     null,
                                 }).SetName("Cockatrice pg 345 - modified");
@@ -1236,7 +1236,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Vine Slap",
                                             DamageType = PHYSICAL,
                                             Attribute1 = DEXTERITY,
@@ -1247,7 +1247,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Alraune Scream",
                                             DamageType = NO_DAMAGE,
                                             Attribute1 = WILLPOWER,
@@ -1299,9 +1299,9 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.IceVulnerability, null),
                                     ( KnownSkills.FireVulnerability, null),
                                     ( KnownSkills.PoisonVulnerability, null),
-                                    ( KnownSkills.PlantSkillDazedImmunity, null),
-                                    ( KnownSkills.PlantSkillShakenImmunity, null),
-                                    ( KnownSkills.PlantSkillEnragedImmunity, null),
+                                    ( KnownSkills.PlantSkillDazedImmunity.SetResolved(true), null),
+                                    ( KnownSkills.PlantSkillShakenImmunity.SetResolved(true), null),
+                                    ( KnownSkills.PlantSkillEnragedImmunity.SetResolved(true), null),
                                     ( KnownSkills.ImprovedHitPoints, null),
                                 }).SetName("Alraune pg 346 - Modified");
 
@@ -1323,13 +1323,13 @@ namespace FabulaUltimaSkillLibraryTests
                                     Level = 20,
                                     Species = PLANT,
                                     Traits = "",
-                                    Resistances = GetResistances(air: "RS", bolt: "VU", earth:"VU", fire: "RS", light: "RS", poison: "VU"),
+                                    Resistances = GetResistances(air: "RS", bolt: "VU", earth: "VU", fire: "RS", light: "RS", poison: "VU"),
                                     BasicAttacks = new[]
                                     {
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Dragoneater",
                                             DamageType = PHYSICAL,
                                             Attribute1 = MIGHT,
@@ -1340,7 +1340,7 @@ namespace FabulaUltimaSkillLibraryTests
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Lashing Vines",
                                             DamageType = AIR,
                                             Attribute1 = DEXTERITY,
@@ -1396,7 +1396,7 @@ namespace FabulaUltimaSkillLibraryTests
                                     }
                                 },
                                 new (SkillTemplate skill, Guid? targetId)?[]
-                                {                                    
+                                {
                                     ( KnownSkills.SpecialAttackSufferWeak, lashingVinesId),
                                     ( KnownSkills.ImprovedDamageAttack,  lashingVinesId),
                                     ( KnownSkills.AirResistance, null),
@@ -1405,9 +1405,9 @@ namespace FabulaUltimaSkillLibraryTests
                                     ( KnownSkills.FireResistance, null),
                                     ( KnownSkills.LightResistance, null),
                                     ( KnownSkills.PoisonVulnerability, null),
-                                    ( KnownSkills.PlantSkillDazedImmunity, null),
-                                    ( KnownSkills.PlantSkillShakenImmunity, null),
-                                    ( KnownSkills.PlantSkillEnragedImmunity, null),   
+                                    ( KnownSkills.PlantSkillDazedImmunity.SetResolved(true), null),
+                                    ( KnownSkills.PlantSkillShakenImmunity.SetResolved(true), null),
+                                    ( KnownSkills.PlantSkillEnragedImmunity.SetResolved(true), null),
                                     ( KnownSkills.SpellCasterMoreSpells, null),
                                     ( KnownSkills.SpecializedAccuracyCheck, null),
                                     null
@@ -1426,7 +1426,7 @@ namespace FabulaUltimaSkillLibraryTests
                                     Id = Guid.NewGuid(),
                                     Level = 10,
                                     Species = UNDEAD,
-                                    Resistances = GetResistances(dark: "IM", earth: "VU", fire:"RS", ice: "RS", light:"VU", poison: "IM"),
+                                    Resistances = GetResistances(dark: "IM", earth: "VU", fire: "RS", ice: "RS", light: "VU", poison: "IM"),
                                     Spells = new[]
                                     {
                                         new SpellTemplate
@@ -1474,7 +1474,7 @@ namespace FabulaUltimaSkillLibraryTests
                                             BasicAttack =  new BasicAttackTemplate
                                             {
                                                 DamageMod = 6,
-                                                AttackMod = 0,
+                                                AccuracyMod = 0,
                                                 Name = "Staff",
                                                 DamageType = PHYSICAL,
                                                 Attribute1 = WILLPOWER,
@@ -1511,15 +1511,15 @@ namespace FabulaUltimaSkillLibraryTests
                                 {
                                     ( KnownSkills.UseEquipment, null),
                                     ( KnownSkills.SpellCasterMoreMP, null),
-                                    ( KnownSkills.ImprovedDefensesMagical, null),                                    
-                                    ( KnownSkills.DarkImmunity, null),
+                                    ( KnownSkills.ImprovedDefensesMagical, null),
+                                    ( KnownSkills.DarkImmunity.SetResolved(true), null),
                                     ( KnownSkills.EarthVulnerability, null),
                                     ( KnownSkills.FireResistance, null),
                                     ( KnownSkills.IceResistance, null),
-                                    ( KnownSkills.LightVulnerability, null),
-                                    ( KnownSkills.PoisonImmunity, null),
-                                    ( KnownSkills.UndeadSkillPoisonedImmunity, null),
-                                    ( KnownSkills.UndeadSkillHealingHurts, null)
+                                    ( KnownSkills.LightVulnerability.SetResolved(true), null),
+                                    ( KnownSkills.PoisonImmunity.SetResolved(true), null),
+                                    ( KnownSkills.UndeadSkillPoisonedImmunity.SetResolved(true), null),
+                                    ( KnownSkills.UndeadSkillHealingHurts.SetResolved(true), null)
                                 }).SetName("Skeletal Mage pg 351");
 
                 var furyClawId = Guid.NewGuid();
@@ -1538,13 +1538,13 @@ namespace FabulaUltimaSkillLibraryTests
                                     Level = 20,
                                     Species = UNDEAD,
                                     Traits = "",
-                                    Resistances = GetResistances(physical: "IM", air:"VU", dark: "IM", earth: "RS", fire: "VU", ice: "RS", light: "VU", poison: "IM"),
+                                    Resistances = GetResistances(physical: "IM", air: "VU", dark: "IM", earth: "RS", fire: "VU", ice: "RS", light: "VU", poison: "IM"),
                                     BasicAttacks = new[]
                                     {
                                         new BasicAttackTemplate
                                         {
                                             DamageMod = 5,
-                                            AttackMod = 0,
+                                            AccuracyMod = 0,
                                             Name = "Fury Claw",
                                             DamageType = PHYSICAL,
                                             Attribute1 = MIGHT,
@@ -1586,19 +1586,19 @@ namespace FabulaUltimaSkillLibraryTests
                                 },
                                 new (SkillTemplate skill, Guid? targetId)?[]
                                 {
-                                    ( KnownSkills.SpecialAttackSufferEnraged, furyClawId),                                    
+                                    ( KnownSkills.SpecialAttackSufferEnraged, furyClawId),
                                     ( KnownSkills.PhysicalImmunity, null),
                                     ( KnownSkills.AirVulnerability, null),
-                                    ( KnownSkills.DarkImmunity, null),
+                                    ( KnownSkills.DarkImmunity.SetResolved(true), null),
                                     ( KnownSkills.EarthResistance, null),
                                     ( KnownSkills.FireVulnerability, null),
                                     ( KnownSkills.IceResistance, null),
-                                    ( KnownSkills.LightVulnerability, null),
-                                    ( KnownSkills.PoisonImmunity, null),
+                                    ( KnownSkills.LightVulnerability.SetResolved(true), null),
+                                    ( KnownSkills.PoisonImmunity.SetResolved(true), null),
                                     ( KnownSkills.SpellCasterMoreMP, null),
                                     ( KnownSkills.SpecializedAccuracyCheck, null),
-                                    ( KnownSkills.UndeadSkillPoisonedImmunity, null),
-                                    ( KnownSkills.UndeadSkillHealingHurts, null),
+                                    ( KnownSkills.UndeadSkillPoisonedImmunity.SetResolved(true), null),
+                                    ( KnownSkills.UndeadSkillHealingHurts.SetResolved(true), null),
                                     null
                                 }).SetName("Shackled Soul pg 353");
 
@@ -1618,7 +1618,7 @@ namespace FabulaUltimaSkillLibraryTests
                         Insight = D6,
                         Might = D12,
                         WillPower = D6,
-                        Resistances = GetResistances(bolt: "VU", dark: "RS", light:"VU", poison: "RS"),
+                        Resistances = GetResistances(bolt: "VU", dark: "RS", light: "VU", poison: "RS"),
                         Equipment = new[]
                         {
                             new EquipmentTemplate
@@ -1638,8 +1638,8 @@ namespace FabulaUltimaSkillLibraryTests
                                     Name = "Mercy's Blade",
                                     DamageMod = 0,
                                     DamageType = PHYSICAL,
-                                    AttackMod = 0,
-                                    Attribute1 = DEXTERITY, 
+                                    AccuracyMod = 0,
+                                    Attribute1 = DEXTERITY,
                                     Attribute2 = DEXTERITY,
                                     IsRanged = false
                                 }
@@ -1661,7 +1661,7 @@ namespace FabulaUltimaSkillLibraryTests
                                     Name = "Justice's Club",
                                     DamageMod = 0,
                                     DamageType = PHYSICAL,
-                                    AttackMod = 0,
+                                    AccuracyMod = 0,
                                     Attribute1 = MIGHT,
                                     Attribute2 = MIGHT,
                                     IsRanged = false
@@ -1694,7 +1694,7 @@ namespace FabulaUltimaSkillLibraryTests
                             {
                                 Id = bumRushID,
                                 DamageMod = 5,
-                                AttackMod = 0,
+                                AccuracyMod = 0,
                                 Name = "Bum Rush",
                                 DamageType = PHYSICAL,
                                 Attribute1 = DEXTERITY,
@@ -1755,17 +1755,17 @@ namespace FabulaUltimaSkillLibraryTests
                         (KnownSkills.LightVulnerability, null),
                         (KnownSkills.DarkResistance, null),
                         (KnownSkills.PoisonResistance, null),
-                        (KnownSkills.UseEquipment, null),
+                        (KnownSkills.UseEquipment.SetResolved(true), null),
                         (KnownSkills.SpecializedAccuracyCheck, null),
                         (KnownSkills.ImprovedHitPoints, null),
                         null
                     }
 
-                    ).SetName("Hooded Assassin - High Level Original");
+                    ).SetName("(intermittent failure) Hooded Assassin - High Level Original");
 
                 var piercingHugId = Guid.NewGuid();
                 var thornBarrageId = Guid.NewGuid();
-                
+
 
                 yield return new TestCaseData(
                     null,
@@ -1779,15 +1779,15 @@ namespace FabulaUltimaSkillLibraryTests
                         Insight = D6,
                         Might = D12,
                         WillPower = D6,
-                        Resistances = GetResistances(air: "RS", earth: "RS", light: "RS", fire: "RS", ice:"VU"),
-                       // no equipment
+                        Resistances = GetResistances(air: "RS", earth: "RS", light: "RS", fire: "RS", ice: "VU"),
+                        // no equipment
                         BasicAttacks = new BasicAttackTemplate[]
                         {
                             new BasicAttackTemplate
                             {
                                 Id = piercingHugId,
                                 DamageMod = 5,
-                                AttackMod = 0,
+                                AccuracyMod = 0,
                                 Name = "Piercing Hug",
                                 DamageType = PHYSICAL,
                                 Attribute1 = MIGHT,
@@ -1798,7 +1798,7 @@ namespace FabulaUltimaSkillLibraryTests
                             {
                                 Id = thornBarrageId,
                                 DamageMod = 5,
-                                AttackMod = 0,
+                                AccuracyMod = 0,
                                 Name = "Thorn Barrage",
                                 DamageType = PHYSICAL,
                                 Attribute1 = DEXTERITY,
@@ -1848,16 +1848,16 @@ namespace FabulaUltimaSkillLibraryTests
                         }
                     },
                     new (SkillTemplate skill, Guid? targetId)?[]
-                    {   
-                        (KnownSkills.ImprovedDamageAttack, piercingHugId),                        
+                    {
+                        (KnownSkills.ImprovedDamageAttack, piercingHugId),
                         (KnownSkills.AirResistance, null),
                         (KnownSkills.EarthResistance, null),
                         (KnownSkills.FireResistance, null),
                         (KnownSkills.LightResistance, null),
                         (KnownSkills.IceVulnerability, null),
-                        ( KnownSkills.PlantSkillDazedImmunity, null),
-                        ( KnownSkills.PlantSkillShakenImmunity, null),
-                        ( KnownSkills.PlantSkillEnragedImmunity, null),
+                        ( KnownSkills.PlantSkillDazedImmunity.SetResolved(true), null),
+                        ( KnownSkills.PlantSkillShakenImmunity.SetResolved(true), null),
+                        ( KnownSkills.PlantSkillEnragedImmunity.SetResolved(true), null),
                         ( KnownSkills.SpellCasterMoreMP, null),
                     }
 
@@ -1885,7 +1885,7 @@ namespace FabulaUltimaSkillLibraryTests
                             {
                                 Id = bearHugId,
                                 DamageMod = 5,
-                                AttackMod = 0,
+                                AccuracyMod = 0,
                                 Name = "Bear Hug",
                                 DamageType = PHYSICAL,
                                 Attribute1 = DEXTERITY,
@@ -1927,7 +1927,7 @@ namespace FabulaUltimaSkillLibraryTests
                         (KnownSkills.IceResistance, null),
                         (KnownSkills.LightResistance, null),
                         (KnownSkills.ImprovedDefensesMagical, null),
-                        null,                        
+                        null,
                         null
                     }).SetName("Sun Bear pg 327");
             }

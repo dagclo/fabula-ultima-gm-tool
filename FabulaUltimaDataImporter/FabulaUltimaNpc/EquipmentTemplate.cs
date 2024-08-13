@@ -10,5 +10,21 @@
         public StatsModifications? StatsModifier { get; set; }
         public string Quality { get; set; }
         public int? NumHands { get; set; }
+
+        public EquipmentTemplate Clone()
+        {
+            var id = Guid.NewGuid();
+            return new EquipmentTemplate
+            {
+                Id = id,
+                Name = Name,
+                Category = Category,
+                IsMartial = IsMartial,
+                BasicAttack = BasicAttack?.Clone(id),
+                StatsModifier = StatsModifier?.Clone(),
+                Quality = Quality,
+                NumHands = NumHands,
+            };
+        }
     }
 }
