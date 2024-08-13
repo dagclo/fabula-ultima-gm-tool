@@ -36,6 +36,6 @@ public partial class DescriptionImage : TextureRect, IBeastAttribute
         if (string.IsNullOrWhiteSpace(imageFileName)) return;
         imageFileName.CopyToResourceFolder(out var newPath);
         _beastTemplate.ImageFile = newPath;
-        BeastTemplateAction.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED, BeastEntryNode.Action.SAVE });
+        BeastTemplateAction.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });
     }
 }

@@ -1,19 +1,19 @@
+using FirstProject.Messaging;
 using Godot;
 
 public partial class AddNpcButton : Button
 {
+    private MessagePublisher<BeastiaryRefreshMessage> _messagePublisher;
+
     [Export]
     public PackedScene AddNpcScene { get; set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+        var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");        
+        _messagePublisher = messageRouter.GetPublisher<BeastiaryRefreshMessage>();
+    }
 
 	public void HandlePressed()
 	{
@@ -26,5 +26,6 @@ public partial class AddNpcButton : Button
     {
         RemoveChild(npcScene);
         npcScene.QueueFree();
+        _messagePublisher.Publish(new BeastiaryRefreshMessage().AsMessage());
     }
 }
