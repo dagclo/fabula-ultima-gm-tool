@@ -37,6 +37,10 @@ window/stretch/aspect="expand"
 project/assembly_name="FabulaUltimaGMTool"
 project/solution_directory="."
 
+[editor]
+
+movie_writer/movie_file="F:/Videos/Gameplay/Captures/godot_capture.avi"
+
 [gui]
 
 theme/custom="res://node_2d.tres"

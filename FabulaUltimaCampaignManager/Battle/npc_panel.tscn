@@ -345,6 +345,10 @@ layout_mode = 2
 text = "Apply Damage"
 script = ExtResource("15_1atgb")
 
+[node name="Notes" type="TextEdit" parent="NpcStatus"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
 [node name="FinishTurnButton" type="Button" parent="NpcStatus"]
 layout_mode = 2
 text = "Finish Turn"
