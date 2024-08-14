@@ -1,27 +1,29 @@
 using FirstProject.Campaign;
 using FirstProject.Messaging;
 using Godot;
+using System;
 
-public partial class CharacterTitleEdit : LineEdit, IPlayerAttribute
+public partial class PlayerEnabled : CheckButton, IPlayerAttribute
 {
     private PlayerData _player;
     private MessagePublisher<SaveMessage> _messagePublisher;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
-	{
+    {
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         _messagePublisher = messageRouter.GetPublisher<SaveMessage>();
     }
 
-    public void SetPlayer(PlayerData player)
+    public void SetPlayer(PlayerData data)
     {
-        _player = player;
-        this.Text = _player.CharacterTitle;
+		_player = data;
+        this.SetPressedNoSignal(_player.Enabled);
     }
 
-    public void OnTextSubmitted(string newText)
+    public void HandleToggled(bool on)
     {
-        _player.CharacterTitle = newText;
+        _player.Enabled = on;
         _messagePublisher.Publish((new SaveMessage()).AsMessage());
     }
 }
