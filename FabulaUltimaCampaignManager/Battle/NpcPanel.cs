@@ -1,3 +1,4 @@
+using FabulaUltimaDatabase;
 using FirstProject.Beastiary;
 using FirstProject.Encounters;
 using FirstProject.Npc;
@@ -50,6 +51,6 @@ public partial class NpcPanel : PanelContainer, INpcInstanceReader
     {        
         if (_instance == null) return;
         if (_status == null) return;
-        EmitSignal(SignalName.RoundChanged);
+        CallDeferred(MethodName.EmitSignal, SignalName.RoundChanged);
     }
 }

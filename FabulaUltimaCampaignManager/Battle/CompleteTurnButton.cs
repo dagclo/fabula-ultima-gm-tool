@@ -1,8 +1,7 @@
 using Godot;
 
 public partial class CompleteTurnButton : Button
-{
-	private bool _alreadyGone = false;
+{	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -15,8 +14,8 @@ public partial class CompleteTurnButton : Button
 	}
 
 	public void OnRoundStart()
-	{	
-		_alreadyGone = false;
+	{
+        this.Disabled = false;
     }
 
     public void OnRoundEnd()
@@ -25,13 +24,12 @@ public partial class CompleteTurnButton : Button
     }
 
     public void OnTurnStart()
-    {	
-		if (_alreadyGone) return;
+    {			
 		this.Disabled = false;
     }
 
 	public void OnButtonPressed()
 	{
-        _alreadyGone = true;
+		this.Disabled = true;
     }
 }
