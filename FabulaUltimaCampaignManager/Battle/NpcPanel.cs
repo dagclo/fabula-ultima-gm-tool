@@ -10,6 +10,9 @@ public partial class NpcPanel : PanelContainer, INpcInstanceReader
     [Export]
     public int SlotIndex { get; set; }
 
+    [Signal]
+    public delegate void RoundChangedEventHandler();
+
     public Action<NpcInstance> NpcChanged { get; set; }
     
     private Action<BattleStatus> StatusSet;
@@ -43,15 +46,10 @@ public partial class NpcPanel : PanelContainer, INpcInstanceReader
         StatusSet?.Invoke(battleStatus);
     }
 
-    internal void OnTurnChanged()
+    internal void OnRoundChanged()
     {        
         if (_instance == null) return;
         if (_status == null) return;
-        
-        //if (_status.IsDead)
-        //{
-        //    CallDeferred(MethodName.OnTurnEnd);
-        //    //OnTurnEnd(); // immediately end turn            
-        //}
+        EmitSignal(SignalName.RoundChanged);
     }
 }

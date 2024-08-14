@@ -10,7 +10,7 @@ public partial class FinishTurnButton : Button, INpcReader
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-		this.Disabled = true;
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,7 +23,7 @@ public partial class FinishTurnButton : Button, INpcReader
 		this._instance = npc;
     }
 
-	public void OnTurnChanged()
+	public void OnRoundChanged()
 	{
 		if (this._instance == null) return;				
 		this.Disabled = false;

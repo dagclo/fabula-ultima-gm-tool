@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdbhgvau850oy"]
+[gd_scene load_steps=12 format=3 uid="uid://cdbhgvau850oy"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_27rb4"]
 [ext_resource type="Script" path="res://Battle/RunEncounter.cs" id="1_dwbmd"]
 [ext_resource type="PackedScene" uid="uid://bsxr63lu04kga" path="res://Battle/npc_panel.tscn" id="2_wj8as"]
 [ext_resource type="Script" path="res://Battle/NpcTabs.cs" id="3_75r23"]
 [ext_resource type="PackedScene" uid="uid://erwugkr5gcel" path="res://Battle/player_panel.tscn" id="4_nde4l"]
+[ext_resource type="Script" path="res://Battle/ResetRoundButton.cs" id="6_0ebfa"]
 [ext_resource type="Script" path="res://Battle/GMScreen.cs" id="6_jr3u1"]
 [ext_resource type="Script" path="res://Battle/GameLog.cs" id="10_f45dp"]
 [ext_resource type="Script" path="res://Battle/PlayersList.cs" id="10_xq16r"]
@@ -64,6 +65,11 @@ SlotIndex = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="ResetRoundButton" type="Button" parent="GMScreen/VBoxContainer"]
+layout_mode = 2
+text = "Reset Round"
+script = ExtResource("6_0ebfa")
+
 [node name="Players" type="VBoxContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
 script = ExtResource("10_xq16r")
@@ -122,4 +128,5 @@ NextScreenPath = "res://node_2d.tscn"
 [node name="BattleWindow" parent="." instance=ExtResource("14_c81va")]
 visible = false
 
+[connection signal="pressed" from="GMScreen/VBoxContainer/ResetRoundButton" to="GMScreen/VBoxContainer/ResetRoundButton" method="HandlePressed"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/EndEncounterButton" to="GMScreen/VBoxContainer/EndEncounterButton" method="OnButtonPressed"]

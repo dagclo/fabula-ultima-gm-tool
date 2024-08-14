@@ -23,7 +23,7 @@ public partial class NpcTabs : TabContainer
         {
             var npcPanel = child as NpcPanel;
             npcPanel.NpcChanged += (NpcInstance npc) => EnableTab(index, npc);
-            this.RoundChanged += npcPanel.OnTurnChanged;
+            this.RoundChanged += npcPanel.OnRoundChanged;
             SetTabHidden(index, true);            
         }
     }
