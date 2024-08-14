@@ -46,7 +46,7 @@ public partial class Sprite : Sprite2D, INpcReader
 
     private async Task ReceiveRoundStateMessage(IMessage message)
     {
-        if (!(message is IMessage<RoundState> turnMessage))
+        if (!(message is IMessage<RoundState>))
         {
             throw new Exception("wrong message type");
         }
@@ -59,14 +59,7 @@ public partial class Sprite : Sprite2D, INpcReader
             timeLeftInMs -= timeStep;
         }
 
-        var roundState = turnMessage.Value;
-        State nextState = State.IDLE;
-        if (roundState.CurrentTurnOwner.Match(_instance))
-        {
-            nextState = State.ACTIVE;
-        }
-        
-        _state = nextState;
+        _state = State.IDLE;
         _defaultState = _state;
     }
 

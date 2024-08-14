@@ -23,15 +23,13 @@ public partial class FinishTurnButton : Button, INpcReader
 		this._instance = npc;
     }
 
-	public void OnTurnChanged(SignalWrapper<ITurnOwner> signalWrapper)
+	public void OnTurnChanged()
 	{
-		if (this._instance == null) return;
-		var turnOwner = signalWrapper.Value;
-		if (turnOwner?.Match(_instance) != true) return;		
+		if (this._instance == null) return;				
 		this.Disabled = false;
 	}
 
-	public void OnButtonPressed()
+	public void OnButtonPressed() 
 	{
 		this.Disabled = true;
 	}
