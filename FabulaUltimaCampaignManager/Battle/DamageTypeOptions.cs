@@ -15,7 +15,7 @@ public partial class DamageTypeOptions : OptionButton, INpcReader
 
     private readonly IDictionary<int, string> _indexToDamageNameMap = new Dictionary<int, string>();
     private IReadOnlyDictionary<string, Affinity> _affinities;
-    public const string HEAL = "Heal";
+    public const string HEAL = "heal";
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -27,7 +27,7 @@ public partial class DamageTypeOptions : OptionButton, INpcReader
 		foreach(var name in damageTypeValues)
 		{
 			this.AddItem(name.Name, startIndex);
-			_indexToDamageNameMap[startIndex] = name.Name;
+			_indexToDamageNameMap[startIndex] = name.Name.ToLowerInvariant();
             startIndex++;
 		}
 		

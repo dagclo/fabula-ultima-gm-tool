@@ -159,10 +159,8 @@ layout_mode = 2
 
 [node name="CampaignManager" type="TabContainer" parent="HSplitContainer"]
 layout_mode = 2
-current_tab = 1
 
 [node name="Campaign" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
-visible = false
 layout_mode = 2
 script = ExtResource("3_tscfl")
 CampaignData = ExtResource("4_wujyf")
@@ -240,6 +238,7 @@ layout_mode = 2
 SlotIndex = 4
 
 [node name="Beastiary" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
+visible = false
 layout_mode = 2
 
 [node name="FilteredSearch" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary"]

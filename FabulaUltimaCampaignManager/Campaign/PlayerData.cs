@@ -7,7 +7,7 @@ namespace FirstProject.Campaign
     {
         [Export]
         public string Name { get; set; }
-        public bool IsValid => !string.IsNullOrWhiteSpace(Name);
+        public bool IsValid => !string.IsNullOrWhiteSpace(Name) && Enabled;
 
         [Export]
         public string CharacterName { get; set; }
@@ -17,6 +17,9 @@ namespace FirstProject.Campaign
 
         [Export]
         public string PortraitFile { get; set; }
+
+        [Export]
+        public bool Enabled { get; set; } = false;
 
         public Action<bool> ActiveChanged { get; set; }
         private bool _isActive = true;

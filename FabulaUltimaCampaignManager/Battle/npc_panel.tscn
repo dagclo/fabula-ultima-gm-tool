@@ -345,12 +345,16 @@ layout_mode = 2
 text = "Apply Damage"
 script = ExtResource("15_1atgb")
 
+[node name="Notes" type="TextEdit" parent="NpcStatus"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
 [node name="FinishTurnButton" type="Button" parent="NpcStatus"]
 layout_mode = 2
 text = "Finish Turn"
 script = ExtResource("15_6xvc4")
 
-[connection signal="TurnChanged" from="." to="NpcStatus/FinishTurnButton" method="OnTurnChanged"]
+[connection signal="RoundChanged" from="." to="NpcStatus/FinishTurnButton" method="OnRoundChanged"]
 [connection signal="toggled" from="NpcStatus/Statuses/DeadToggle" to="NpcStatus/Statuses/DeadToggle" method="OnToggleDeath"]
 [connection signal="value_changed" from="NpcStatus/StudyLevelBar/StudyLevelSlider" to="NpcStatus/StudyLevelBar/CurrentStudyLevel" method="OnSliderValueChanged"]
 [connection signal="ActionSet" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/Attribute1Options" method="OnActionSet"]
@@ -375,7 +379,6 @@ script = ExtResource("15_6xvc4")
 [connection signal="toggled" from="NpcStatus/Damage/ResistanceOverride" to="NpcStatus/Damage/ExpectedDamage" method="OnResistanceOverrideChange"]
 [connection signal="ExpectedDamageChanged" from="NpcStatus/Damage/ExpectedDamage" to="NpcStatus/Damage/DamageButton" method="OnDamageChanged"]
 [connection signal="pressed" from="NpcStatus/Damage/DamageButton" to="NpcStatus/Damage/DamageButton" method="OnButtonPressed"]
-[connection signal="pressed" from="NpcStatus/FinishTurnButton" to="." method="OnTurnEnd"]
 [connection signal="pressed" from="NpcStatus/FinishTurnButton" to="NpcStatus/FinishTurnButton" method="OnButtonPressed"]
 
 [editable path="NpcStatus/Attributes/Name"]

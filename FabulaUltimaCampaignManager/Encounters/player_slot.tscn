@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cxbt82uyb2oo7"]
+[gd_scene load_steps=10 format=3 uid="uid://cxbt82uyb2oo7"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_3wx5j"]
 [ext_resource type="Script" path="res://Player/PlayerSlot.cs" id="1_alfyt"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Player/CharacterTitleEdit.cs" id="4_laftu"]
 [ext_resource type="Script" path="res://Player/PortraitTexture.cs" id="4_wr4x0"]
 [ext_resource type="Script" path="res://Player/PortraitFileDialog.cs" id="5_tiwgs"]
+[ext_resource type="Script" path="res://Player/PlayerEnabled.cs" id="9_5xy6i"]
 
 [node name="PlayerSlot" type="VBoxContainer"]
 offset_right = 315.0
@@ -46,49 +47,39 @@ file_mode = 0
 access = 2
 script = ExtResource("5_tiwgs")
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer"]
+[node name="Attributes" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-columns = 2
 
-[node name="PlayerName" type="Label" parent="HBoxContainer/GridContainer"]
-layout_mode = 2
-theme_type_variation = &"BoldLabel"
-text = "Name:"
-
-[node name="PlayerNameInput" type="LineEdit" parent="HBoxContainer/GridContainer"]
+[node name="PlayerNameInput" type="LineEdit" parent="HBoxContainer/Attributes"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-placeholder_text = "name"
+placeholder_text = "Player Name"
 script = ExtResource("2_xsw1t")
 
-[node name="CharacterName" type="Label" parent="HBoxContainer/GridContainer"]
-layout_mode = 2
-theme_type_variation = &"BoldLabel"
-text = "Character Name:"
-
-[node name="CharacterNameEdit" type="LineEdit" parent="HBoxContainer/GridContainer"]
+[node name="CharacterNameEdit" type="LineEdit" parent="HBoxContainer/Attributes"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-placeholder_text = "name"
+placeholder_text = "Character Name"
 script = ExtResource("3_qclik")
 
-[node name="CharacterTitle" type="Label" parent="HBoxContainer/GridContainer"]
-layout_mode = 2
-theme_type_variation = &"BoldLabel"
-text = "Character Title:"
-
-[node name="CharacterTitleEdit" type="LineEdit" parent="HBoxContainer/GridContainer"]
+[node name="CharacterTitleEdit" type="LineEdit" parent="HBoxContainer/Attributes"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-placeholder_text = "title"
+placeholder_text = "Character Title"
 script = ExtResource("4_laftu")
+
+[node name="EnabledCheckButton" type="CheckButton" parent="HBoxContainer/Attributes"]
+layout_mode = 2
+text = "Enabled"
+script = ExtResource("9_5xy6i")
 
 [connection signal="pressed" from="HBoxContainer/Portrait/UpdateButton" to="HBoxContainer/Portrait/PortraitFileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="HBoxContainer/Portrait/PortraitFileDialog" to="HBoxContainer/Portrait/PortraitTexture" method="HandleImageSet"]
-[connection signal="text_submitted" from="HBoxContainer/GridContainer/PlayerNameInput" to="HBoxContainer/GridContainer/PlayerNameInput" method="OnTextSubmitted"]
-[connection signal="text_submitted" from="HBoxContainer/GridContainer/CharacterNameEdit" to="HBoxContainer/GridContainer/CharacterNameEdit" method="OnTextSubmitted"]
-[connection signal="text_submitted" from="HBoxContainer/GridContainer/CharacterTitleEdit" to="HBoxContainer/GridContainer/CharacterTitleEdit" method="OnTextSubmitted"]
+[connection signal="text_submitted" from="HBoxContainer/Attributes/PlayerNameInput" to="HBoxContainer/Attributes/PlayerNameInput" method="OnTextSubmitted"]
+[connection signal="text_submitted" from="HBoxContainer/Attributes/CharacterNameEdit" to="HBoxContainer/Attributes/CharacterNameEdit" method="OnTextSubmitted"]
+[connection signal="text_submitted" from="HBoxContainer/Attributes/CharacterTitleEdit" to="HBoxContainer/Attributes/CharacterTitleEdit" method="OnTextSubmitted"]
+[connection signal="toggled" from="HBoxContainer/Attributes/EnabledCheckButton" to="HBoxContainer/Attributes/EnabledCheckButton" method="HandleToggled"]
