@@ -1132,6 +1132,7 @@ namespace FabulaUltimaSkillLibrary
                 {
                     [DAMAGE_BOOST] = 5.ToString(),
                     [IS_KNOWN_SKILL] = true.ToString(),
+                    [IS_SPECIAL_ATTACK] = true.ToString(),
                 }
             };
 

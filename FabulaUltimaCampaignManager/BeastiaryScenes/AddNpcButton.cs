@@ -1,3 +1,5 @@
+using FabulaUltimaDatabase.Models;
+using FabulaUltimaNpc;
 using FirstProject.Messaging;
 using Godot;
 
@@ -19,6 +21,10 @@ public partial class AddNpcButton : Button
 	{
 		var npcScene = AddNpcScene?.Instantiate<NpcSheet>();
         this.AddChild(npcScene);
+        npcScene.BeastModel = new BeastModel()
+        {
+            Level = 5
+        };
         npcScene.Closing += () => OnNpcClose(npcScene);
     }
 

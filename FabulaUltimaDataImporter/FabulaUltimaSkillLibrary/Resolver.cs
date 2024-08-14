@@ -288,7 +288,7 @@ namespace FabulaUltimaSkillLibrary
         private IEnumerable<(SkillTemplate skill, Guid? targetId)?> ResolveStatsSkills(IBeastTemplate npc, SkillInputData inputData)
         {
             var improvedHitPoints = KnownSkills.ImprovedHitPoints;
-            var hpDiff = inputData.MaxHP - npc.HealthPoints;
+            var hpDiff = Math.Max(inputData.MaxHP - npc.HealthPoints, 0);
             var numImprovedHPSkills = hpDiff / int.Parse(improvedHitPoints.OtherAttributes[StatsConstants.HP_BOOST]);
             var aggregatedSkills = Enumerable.Range(0, numImprovedHPSkills).Select(_ => improvedHitPoints);
 

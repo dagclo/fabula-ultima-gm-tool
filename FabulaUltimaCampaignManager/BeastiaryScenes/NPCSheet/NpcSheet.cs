@@ -18,6 +18,7 @@ public partial class NpcSheet : Node
 
     public Action Closing { get; internal set; }
     public Action<ISet<BeastEntryNode.Action>> OnBeastChanged { get; private set; }
+    public IBeast BeastModel { get; internal set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -27,7 +28,10 @@ public partial class NpcSheet : Node
            .Where(l => l is BeastEntryNode))
         {
             var node = child as BeastEntryNode;
-            var beast = new BeastModel();
+            var beast = BeastModel ?? new BeastModel()
+            {
+                Level = 5
+            };
             beast.Id = Guid.NewGuid();
             node.Beast = new SkilledBeastTemplateWrapper(new BeastTemplate(beast));
             node.OnTrigger += HandleTrigger;
