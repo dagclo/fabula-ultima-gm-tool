@@ -13,8 +13,7 @@ public struct BeastiaryRefreshMessage
 }
 
 public partial class GetBeastiary : VBoxContainer
-{
-    private MessagePublisher<BeastiaryRefreshMessage> _messagePublisher;
+{   
 
     [Signal]
     public delegate void AddBeastToEncounterEventHandler(NpcInstance npc);
@@ -31,7 +30,6 @@ public partial class GetBeastiary : VBoxContainer
         CallDeferred(MethodName.Setup);
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         messageRouter.RegisterSubscriber<BeastiaryRefreshMessage>(this.ReceiveRefreshMessage);
-        _messagePublisher = messageRouter.GetPublisher<BeastiaryRefreshMessage>();
     }
 
     private Task ReceiveRefreshMessage(IMessage message)
