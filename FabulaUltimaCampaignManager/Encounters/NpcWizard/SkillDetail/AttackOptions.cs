@@ -25,11 +25,6 @@ public partial class AttackOptions : OptionButton, ISkillReader, INpcReader, IHa
         Id = Guid.NewGuid();
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
     public void HandleSkillChanged(SkillTemplate skill)
     {
         _skill = skill;
@@ -41,6 +36,7 @@ public partial class AttackOptions : OptionButton, ISkillReader, INpcReader, IHa
         {
             AddItem(attack.Name, index);
         }
+        this.Selected = -1;
     }
 
     public void HandleNpcChanged(NpcInstance npc)

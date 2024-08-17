@@ -11,7 +11,8 @@ namespace FirstProject.Npc
     {
         public IBeastTemplate Template => new SkilledBeastTemplateWrapper(new BeastTemplate(Model))
         {
-            Immutable = true
+            CanBeModified = true,
+            CanBeDeleted = false,
         };
         public NpcInstance()
         {

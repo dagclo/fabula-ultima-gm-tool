@@ -28,11 +28,6 @@ public partial class SkillList : VBoxContainer, INpcReader
         }
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
 	public void OnSkillsReady(int numSkillsToCreate)
 	{
         _numSkillsToCreate = numSkillsToCreate;
@@ -40,7 +35,14 @@ public partial class SkillList : VBoxContainer, INpcReader
         {
             child.QueueFree();
         }
+        foreach (var npcAttack in _instance.Model.NpcAttacks)
+        {
+            // remove all rank skills first
+            // have to replace or else the attack template won't be updated
+            npcAttack.RankSkills = new Godot.Collections.Array<NpcSkill>();
+        }
         _nodeIdToSkillMap.Clear();
+        _instance.Model.RankSkills = new Godot.Collections.Array<NpcSkill>();
         foreach (var _ in Enumerable.Range(0, numSkillsToCreate)) 
 		{
 			var skillScene = SkillScene.Instantiate<SkillEntry>();						
@@ -68,6 +70,7 @@ public partial class SkillList : VBoxContainer, INpcReader
         foreach (var npcAttack in _instance.Model.NpcAttacks)
         {
             // remove all rank skills first
+            // have to replace or else the attack template won't be updated
             npcAttack.RankSkills = new Godot.Collections.Array<NpcSkill>();
         }
 

@@ -10,7 +10,7 @@ public partial class DeleteButton : Button, IBeastAttribute
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
-        this.Visible = !beastTemplate.Immutable;
+        this.Visible = beastTemplate.CanBeDeleted;
     }
 
     public void OnClick()
