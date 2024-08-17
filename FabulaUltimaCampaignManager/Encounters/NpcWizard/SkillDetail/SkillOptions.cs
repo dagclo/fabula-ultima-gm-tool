@@ -38,6 +38,7 @@ public partial class SkillOptions : OptionButton, INpcReader
             {
                 AddItem(skill.Name, index);
             }
+            this.Selected = -1;
         }
     }
 

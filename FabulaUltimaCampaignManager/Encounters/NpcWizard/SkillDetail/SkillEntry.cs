@@ -10,7 +10,7 @@ public partial class SkillEntry : VBoxContainer
 {
     private NpcInstance _instance;
     
-    public Action<Guid, SkillTemplate, BasicAttackTemplate> SkillDefined;
+    public Action<Guid, SkillTemplate, BasicAttackTemplate> SkillDefined { get; set; }
     private Guid _id;
 
 
@@ -18,11 +18,6 @@ public partial class SkillEntry : VBoxContainer
     public override void _Ready()
 	{
         _id = Guid.NewGuid();
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
 	}
 
     internal void Update(NpcInstance instance)

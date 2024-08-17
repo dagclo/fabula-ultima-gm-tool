@@ -13,7 +13,7 @@ public partial class WizardTabs : TabContainer
             if (!(node is INpcWizardTab tab)) continue;
             var currentIndex = tabIndex;
             tab.Available += () =>  OnTabAvailable(currentIndex);
-            SetTabHidden(tabIndex, true);
+            //SetTabHidden(tabIndex, true);
             SetTabTitle(tabIndex, tab.Title);
             if(lastValidTab != null)
             {
