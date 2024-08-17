@@ -170,7 +170,8 @@
 
         public int MagicCheckModifier => LevelAccuracyModifier;
 
-        public bool Immutable => true;
+        public bool CanBeModified => true;
+        public bool CanBeDeleted => true;
 
         public bool HasDefenseOverride => false;
 

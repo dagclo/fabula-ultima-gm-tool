@@ -351,12 +351,10 @@ namespace FabulaUltimaSkillLibrary.Models
 
         public int MagicCheckModifier => ResolveMagicCheckModifier(_beastTemplate.MagicCheckModifier);
 
-        public bool Immutable { get; set; }
+        public bool CanBeModified { get; set; } = true;
+        public bool CanBeDeleted { get; set; } = true;
 
         public bool HasDefenseOverride => KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) ? Armor.Any(a => a.StatsModifier?.DefenseOverrides ?? false) : false;
-
-        
-        
 
         private int ResolveMagicCheckModifier(int magicCheckModifier)
         {

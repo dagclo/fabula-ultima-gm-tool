@@ -9,6 +9,6 @@ public partial class AddToEncounterButton : Button, IBeastAttribute
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
-        this.Visible = !beastTemplate.Immutable;
+        this.Visible = beastTemplate.CanBeModified && beastTemplate.CanBeDeleted;
     }
 }

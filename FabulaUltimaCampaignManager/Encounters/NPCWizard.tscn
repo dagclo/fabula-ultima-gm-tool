@@ -35,7 +35,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
+current_tab = 2
 script = ExtResource("3_t4msy")
 
 [node name="InstanceDetail" type="PanelContainer" parent="TabContainer"]
@@ -117,6 +117,7 @@ text = "Next"
 script = ExtResource("9_23wcm")
 
 [node name="SkillDetail" type="PanelContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("9_hi8oj")
 
@@ -140,7 +141,6 @@ text = "Next"
 script = ExtResource("14_adso8")
 
 [node name="ResultDetail" type="PanelContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 script = ExtResource("15_67juc")
 

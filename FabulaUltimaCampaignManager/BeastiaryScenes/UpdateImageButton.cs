@@ -8,6 +8,6 @@ public partial class UpdateImageButton : Button, IBeastAttribute
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
-        this.Visible = !beastTemplate.Immutable;
+        this.Visible = beastTemplate.CanBeModified;
     }
 }
