@@ -18,6 +18,9 @@ public partial class GetBeastiary : VBoxContainer
     [Signal]
     public delegate void AddBeastToEncounterEventHandler(NpcInstance npc);
 
+    [Signal]
+    public delegate void LoadingBeastsEventHandler(bool loading);
+
     [Export]
     public PackedScene BeastEntryScene { get; set; }
 
@@ -30,10 +33,11 @@ public partial class GetBeastiary : VBoxContainer
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-        CallDeferred(MethodName.Setup);
+        
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         messageRouter.RegisterSubscriber<BeastiaryRefreshMessage>(this.ReceiveRefreshMessage);
         _messagePublisher = messageRouter.GetPublisher<BeastiaryRefreshMessage>();
+        CallDeferred(MethodName.Setup);
     }
 
     private Task ReceiveRefreshMessage(IMessage message)
@@ -45,6 +49,7 @@ public partial class GetBeastiary : VBoxContainer
 
     private void Setup()
 	{
+        EmitSignal(SignalName.LoadingBeasts, true);
         // remove any existing children
         foreach (var child in this.GetChildren())
         {
@@ -61,6 +66,7 @@ public partial class GetBeastiary : VBoxContainer
             node.OnAddToEncounter += HandleAddEncounter;
             node.OnDeleteBeast += HandleDeleteBeast;
         }
+        EmitSignal(SignalName.LoadingBeasts, false);
     }
 
     private void HandleAddEncounter(IBeastTemplate template)
