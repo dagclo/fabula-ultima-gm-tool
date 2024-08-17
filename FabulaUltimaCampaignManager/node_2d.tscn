@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=34 format=3 uid="uid://ec56818wobea"]
 
 [ext_resource type="Script" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
@@ -32,6 +32,7 @@
 [ext_resource type="Script" path="res://Beastiary/SpeciesOptionButton.cs" id="26_k15df"]
 [ext_resource type="FontFile" uid="uid://dya0rxr7wqedx" path="res://Font/NicoBold-Regular.ttf" id="26_wiiue"]
 [ext_resource type="Script" path="res://Beastiary/LevelOptionButton.cs" id="27_rlqv4"]
+[ext_resource type="Script" path="res://Beastiary/BeastListScroll.cs" id="28_yuje5"]
 
 [node name="Fabula Ultima Campaign Manager" type="VBoxContainer"]
 anchors_preset = 15
@@ -287,6 +288,7 @@ script = ExtResource("27_rlqv4")
 [node name="BeastList" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Beastiary"]
 layout_mode = 2
 size_flags_vertical = 3
+script = ExtResource("28_yuje5")
 
 [node name="BeastList" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/BeastList"]
 layout_mode = 2
