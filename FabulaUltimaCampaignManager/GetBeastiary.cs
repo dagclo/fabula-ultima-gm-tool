@@ -1,10 +1,10 @@
 using FabulaUltimaNpc;
 using FirstProject;
-using FirstProject.Campaign;
+using FirstProject.Beastiary;
 using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
-using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 public struct BeastiaryRefreshMessage
@@ -23,6 +23,8 @@ public partial class GetBeastiary : VBoxContainer
 
     [Export]
     public PackedScene NpcWizard { get; set; }
+
+    private CompositeSearchFilter<IBeastTemplate> _searchFilter = new CompositeSearchFilter<IBeastTemplate>();
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -49,7 +51,7 @@ public partial class GetBeastiary : VBoxContainer
         }
 
         var dBAccess = GetNode<DbAccess>("/root/DbAccess");
-        foreach (var beast in dBAccess.Repository.GetBeasts())
+        foreach (var beast in dBAccess.Repository.GetBeasts().Where(b => _searchFilter.Apply(b)))
         {
             var node = BeastEntryScene.Instantiate<BeastEntryNode>();
             node.Beast = beast;
@@ -100,8 +102,10 @@ public partial class GetBeastiary : VBoxContainer
         npcWizard.QueueFree();
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-	{
-	}
+    public void HandledSearchFilterChanged(SignalWrapper<ISearchFilter<IBeastTemplate>> addSignal, SignalWrapper<ISearchFilter<IBeastTemplate>> removeSignal)
+    {
+        if(removeSignal.Value != null) _searchFilter.Filters.Remove(removeSignal.Value);
+        if (addSignal.Value != null) _searchFilter.Filters.Add(addSignal.Value);
+        CallDeferred(MethodName.Setup);
+    }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=33 format=3 uid="uid://ec56818wobea"]
 
 [ext_resource type="Script" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
@@ -29,7 +29,9 @@
 [ext_resource type="PackedScene" uid="uid://7xtkfi8kp6pg" path="res://BeastiaryScenes/new_npc_sheet.tscn" id="24_tvbgp"]
 [ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="25_0xra3"]
 [ext_resource type="Script" path="res://Beastiary/SearchBeastsTextEdit.cs" id="25_dycy4"]
+[ext_resource type="Script" path="res://Beastiary/SpeciesOptionButton.cs" id="26_k15df"]
 [ext_resource type="FontFile" uid="uid://dya0rxr7wqedx" path="res://Font/NicoBold-Regular.ttf" id="26_wiiue"]
+[ext_resource type="Script" path="res://Beastiary/LevelOptionButton.cs" id="27_rlqv4"]
 
 [node name="Fabula Ultima Campaign Manager" type="VBoxContainer"]
 anchors_preset = 15
@@ -266,17 +268,21 @@ script = ExtResource("25_dycy4")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+[node name="SpeciesFilterLabel" type="Label" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Filter stand by"
-fit_content = true
+text = "Filter By Species"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+[node name="SpeciesOptionButton" type="OptionButton" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Filter stand by"
-fit_content = true
+script = ExtResource("26_k15df")
+
+[node name="LevelFilterLabel" type="Label" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+layout_mode = 2
+text = "Level"
+
+[node name="LevelOptionButton" type="OptionButton" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+layout_mode = 2
+script = ExtResource("27_rlqv4")
 
 [node name="BeastList" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Beastiary"]
 layout_mode = 2
@@ -342,4 +348,8 @@ fit_content = true
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/AddNpcButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/AddNpcButton" method="HandlePressed"]
 [connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Beastiary/BeastList/BeastList" method="HandledSearchFilterChanged"]
 [connection signal="text_submitted" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" method="OnTextSubmitted"]
+[connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/SpeciesOptionButton" to="HSplitContainer/CampaignManager/Beastiary/BeastList/BeastList" method="HandledSearchFilterChanged"]
+[connection signal="item_selected" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/SpeciesOptionButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/SpeciesOptionButton" method="HandleItemSelect"]
+[connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/LevelOptionButton" to="HSplitContainer/CampaignManager/Beastiary/BeastList/BeastList" method="HandledSearchFilterChanged"]
+[connection signal="item_selected" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/LevelOptionButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/LevelOptionButton" method="OnItemSelected"]
 [connection signal="AddBeastToEncounter" from="HSplitContainer/CampaignManager/Beastiary/BeastList/BeastList" to="HSplitContainer/CurrentEncounter" method="AddNpcToEncounter"]
