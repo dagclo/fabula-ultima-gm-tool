@@ -11,19 +11,18 @@ public partial class SpecialAttackLabel : Label, IAttackReader
 		this.Text = string.Empty;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
     public void ReadAttack(BasicAttackTemplate attack)
     {
 		if (attack.AttackSkills == null) return;
 		var stringBuilder = new StringBuilder();
-		
+		bool first = true;
 		foreach(var skill in attack.AttackSkills.Where(s => s.OtherAttributes?.IsSpecialAttack == true))
-		{	
-            stringBuilder.Append(" and ");
+		{
+			if (first)
+			{
+                stringBuilder.Append(" and ");
+				first = false;
+            }            
             stringBuilder.Append(skill.Text);
         }
 		this.Text = stringBuilder.ToString();

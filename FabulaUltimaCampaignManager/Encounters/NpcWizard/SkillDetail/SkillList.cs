@@ -35,6 +35,12 @@ public partial class SkillList : VBoxContainer, INpcReader
         {
             child.QueueFree();
         }
+        foreach (var npcAttack in _instance.Model.NpcAttacks)
+        {
+            // remove all rank skills first
+            // have to replace or else the attack template won't be updated
+            npcAttack.RankSkills = new Godot.Collections.Array<NpcSkill>();
+        }
         _nodeIdToSkillMap.Clear();
         _instance.Model.RankSkills = new Godot.Collections.Array<NpcSkill>();
         foreach (var _ in Enumerable.Range(0, numSkillsToCreate)) 
@@ -64,8 +70,8 @@ public partial class SkillList : VBoxContainer, INpcReader
         foreach (var npcAttack in _instance.Model.NpcAttacks)
         {
             // remove all rank skills first
-            var rankSkills = npcAttack.RankSkills ?? new Godot.Collections.Array<NpcSkill>();
-            rankSkills.Clear();
+            // have to replace or else the attack template won't be updated
+            npcAttack.RankSkills = new Godot.Collections.Array<NpcSkill>();
         }
 
         if (attackIdMapToSkills.Any())
