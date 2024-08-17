@@ -25,6 +25,7 @@ public partial class GetBeastiary : VBoxContainer
     public PackedScene NpcWizard { get; set; }
 
     private CompositeSearchFilter<IBeastTemplate> _searchFilter = new CompositeSearchFilter<IBeastTemplate>();
+    private MessagePublisher<BeastiaryRefreshMessage> _messagePublisher;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -32,6 +33,7 @@ public partial class GetBeastiary : VBoxContainer
         CallDeferred(MethodName.Setup);
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         messageRouter.RegisterSubscriber<BeastiaryRefreshMessage>(this.ReceiveRefreshMessage);
+        _messagePublisher = messageRouter.GetPublisher<BeastiaryRefreshMessage>();
     }
 
     private Task ReceiveRefreshMessage(IMessage message)
@@ -83,7 +85,7 @@ public partial class GetBeastiary : VBoxContainer
         var dBAccess = GetNode<DbAccess>("/root/DbAccess");
         var repository = dBAccess.Repository;
         repository.DeleteBeastTemplate(template.Id);
-        CallDeferred(MethodName.Setup);
+        _messagePublisher.Publish(new BeastiaryRefreshMessage().AsMessage());
     }
 
     private void AddInstanceToEncounter(NpcInstance instance)
@@ -106,6 +108,6 @@ public partial class GetBeastiary : VBoxContainer
     {
         if(removeSignal.Value != null) _searchFilter.Filters.Remove(removeSignal.Value);
         if (addSignal.Value != null) _searchFilter.Filters.Add(addSignal.Value);
-        CallDeferred(MethodName.Setup);
+        _messagePublisher.Publish(new BeastiaryRefreshMessage().AsMessage());
     }
 }
