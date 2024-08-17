@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=39 format=3 uid="uid://ec56818wobea"]
 
 [ext_resource type="Script" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
@@ -28,7 +28,75 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/AddNpcButton.cs" id="23_yxpob"]
 [ext_resource type="PackedScene" uid="uid://7xtkfi8kp6pg" path="res://BeastiaryScenes/new_npc_sheet.tscn" id="24_tvbgp"]
 [ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="25_0xra3"]
+[ext_resource type="Script" path="res://Beastiary/SearchBeastsTextEdit.cs" id="25_dycy4"]
+[ext_resource type="Script" path="res://Beastiary/SpeciesOptionButton.cs" id="26_k15df"]
 [ext_resource type="FontFile" uid="uid://dya0rxr7wqedx" path="res://Font/NicoBold-Regular.ttf" id="26_wiiue"]
+[ext_resource type="Script" path="res://Beastiary/LevelOptionButton.cs" id="27_rlqv4"]
+[ext_resource type="Script" path="res://Beastiary/BeastListScroll.cs" id="28_yuje5"]
+[ext_resource type="Texture2D" uid="uid://cc364hyjqh7yb" path="res://Icon/64px-Loading_spinner.svg.png" id="32_fx1uk"]
+[ext_resource type="Script" path="res://Beastiary/LoadingBeastAnimation.cs" id="32_gxmwi"]
+
+[sub_resource type="Animation" id="Animation_nvy4y"]
+resource_name = "rotate"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LoadingTexture:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LoadingTexture:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_romfh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LoadingTexture:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LoadingTexture:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nvo1n"]
+_data = {
+"RESET": SubResource("Animation_romfh"),
+"rotate": SubResource("Animation_nvy4y")
+}
 
 [node name="Fabula Ultima Campaign Manager" type="VBoxContainer"]
 anchors_preset = 15
@@ -254,45 +322,67 @@ AddNpcScene = ExtResource("24_tvbgp")
 [node name="Search" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch"]
 layout_mode = 2
 
-[node name="SearchLabel" type="Label" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search"]
-layout_mode = 2
-text = "Search: "
-
 [node name="SearchText" type="LineEdit" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "search"
 max_length = 25
+script = ExtResource("25_dycy4")
 
 [node name="Filters" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+[node name="SpeciesFilterLabel" type="Label" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Filter stand by"
-fit_content = true
+text = "Filter By Species"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+[node name="SpeciesOptionButton" type="OptionButton" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Filter stand by"
-fit_content = true
+script = ExtResource("26_k15df")
 
-[node name="BeastList" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Beastiary"]
+[node name="LevelFilterLabel" type="Label" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+layout_mode = 2
+text = "Level"
+
+[node name="LevelOptionButton" type="OptionButton" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+layout_mode = 2
+script = ExtResource("27_rlqv4")
+
+[node name="BeastiaryPanel" type="PanelContainer" parent="HSplitContainer/CampaignManager/Beastiary"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/BeastList"]
+[node name="BeastList" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("28_yuje5")
+
+[node name="BeastList" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList"]
 layout_mode = 2
 size_flags_horizontal = 0
 script = ExtResource("1_4mhff")
 BeastEntryScene = ExtResource("1_4uxgl")
 NpcWizard = ExtResource("23_hlpai")
 
-[node name="BeastEntry" parent="HSplitContainer/CampaignManager/Beastiary/BeastList/VBoxContainer" instance=ExtResource("1_4uxgl")]
+[node name="BeastEntry" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" instance=ExtResource("1_4uxgl")]
 layout_mode = 2
+
+[node name="Loading" type="PanelContainer" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel"]
+visible = false
+layout_mode = 2
+script = ExtResource("32_gxmwi")
+
+[node name="LoadingTexture" type="TextureRect" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/Loading"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("32_fx1uk")
+
+[node name="LoadingAnimationPlayer" type="AnimationPlayer" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/Loading"]
+libraries = {
+"": SubResource("AnimationLibrary_nvo1n")
+}
 
 [node name="AboutPanel" type="PopupPanel" parent="."]
 initial_position = 1
@@ -342,4 +432,11 @@ fit_content = true
 [connection signal="LoadEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnLoadEncounter"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Encounters/AddEncounterButton" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnAddEncounterButtonPressed"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/AddNpcButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/AddNpcButton" method="HandlePressed"]
-[connection signal="AddBeastToEncounter" from="HSplitContainer/CampaignManager/Beastiary/BeastList/VBoxContainer" to="HSplitContainer/CurrentEncounter" method="AddNpcToEncounter"]
+[connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" method="HandledSearchFilterChanged"]
+[connection signal="text_submitted" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" method="OnTextSubmitted"]
+[connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/SpeciesOptionButton" to="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" method="HandledSearchFilterChanged"]
+[connection signal="item_selected" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/SpeciesOptionButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/SpeciesOptionButton" method="HandleItemSelect"]
+[connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/LevelOptionButton" to="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" method="HandledSearchFilterChanged"]
+[connection signal="item_selected" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/LevelOptionButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/LevelOptionButton" method="OnItemSelected"]
+[connection signal="AddBeastToEncounter" from="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" to="HSplitContainer/CurrentEncounter" method="AddNpcToEncounter"]
+[connection signal="LoadingBeasts" from="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" to="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/Loading" method="HandleLoading"]

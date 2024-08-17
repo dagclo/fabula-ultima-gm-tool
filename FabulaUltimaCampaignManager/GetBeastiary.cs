@@ -1,10 +1,10 @@
 using FabulaUltimaNpc;
 using FirstProject;
-using FirstProject.Campaign;
+using FirstProject.Beastiary;
 using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
-using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 public struct BeastiaryRefreshMessage
@@ -13,11 +13,13 @@ public struct BeastiaryRefreshMessage
 }
 
 public partial class GetBeastiary : VBoxContainer
-{
-    private MessagePublisher<BeastiaryRefreshMessage> _messagePublisher;
+{   
 
     [Signal]
     public delegate void AddBeastToEncounterEventHandler(NpcInstance npc);
+
+    [Signal]
+    public delegate void LoadingBeastsEventHandler(bool loading);
 
     [Export]
     public PackedScene BeastEntryScene { get; set; }
@@ -25,13 +27,17 @@ public partial class GetBeastiary : VBoxContainer
     [Export]
     public PackedScene NpcWizard { get; set; }
 
+    private CompositeSearchFilter<IBeastTemplate> _searchFilter = new CompositeSearchFilter<IBeastTemplate>();
+    private MessagePublisher<BeastiaryRefreshMessage> _messagePublisher;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-        CallDeferred(MethodName.Setup);
+        
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         messageRouter.RegisterSubscriber<BeastiaryRefreshMessage>(this.ReceiveRefreshMessage);
         _messagePublisher = messageRouter.GetPublisher<BeastiaryRefreshMessage>();
+        CallDeferred(MethodName.Setup);
     }
 
     private Task ReceiveRefreshMessage(IMessage message)
@@ -43,6 +49,7 @@ public partial class GetBeastiary : VBoxContainer
 
     private void Setup()
 	{
+        EmitSignal(SignalName.LoadingBeasts, true);
         // remove any existing children
         foreach (var child in this.GetChildren())
         {
@@ -51,7 +58,7 @@ public partial class GetBeastiary : VBoxContainer
         }
 
         var dBAccess = GetNode<DbAccess>("/root/DbAccess");
-        foreach (var beast in dBAccess.Repository.GetBeasts())
+        foreach (var beast in dBAccess.Repository.GetBeasts().Where(b => _searchFilter.Apply(b)))
         {
             var node = BeastEntryScene.Instantiate<BeastEntryNode>();
             node.Beast = beast;
@@ -59,6 +66,7 @@ public partial class GetBeastiary : VBoxContainer
             node.OnAddToEncounter += HandleAddEncounter;
             node.OnDeleteBeast += HandleDeleteBeast;
         }
+        EmitSignal(SignalName.LoadingBeasts, false);
     }
 
     private void HandleAddEncounter(IBeastTemplate template)
@@ -83,7 +91,7 @@ public partial class GetBeastiary : VBoxContainer
         var dBAccess = GetNode<DbAccess>("/root/DbAccess");
         var repository = dBAccess.Repository;
         repository.DeleteBeastTemplate(template.Id);
-        CallDeferred(MethodName.Setup);
+        _messagePublisher.Publish(new BeastiaryRefreshMessage().AsMessage());
     }
 
     private void AddInstanceToEncounter(NpcInstance instance)
@@ -102,8 +110,10 @@ public partial class GetBeastiary : VBoxContainer
         npcWizard.QueueFree();
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-	{
-	}
+    public void HandledSearchFilterChanged(SignalWrapper<ISearchFilter<IBeastTemplate>> addSignal, SignalWrapper<ISearchFilter<IBeastTemplate>> removeSignal)
+    {
+        if(removeSignal.Value != null) _searchFilter.Filters.Remove(removeSignal.Value);
+        if (addSignal.Value != null) _searchFilter.Filters.Add(addSignal.Value);
+        _messagePublisher.Publish(new BeastiaryRefreshMessage().AsMessage());
+    }
 }
