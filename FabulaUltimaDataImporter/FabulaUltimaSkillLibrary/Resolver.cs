@@ -306,8 +306,8 @@ namespace FabulaUltimaSkillLibrary
             var numPDef = 0;
             var numMDef = 0;
 
-            var mDefModMinusArmor = inputData.MDefMod - (npc.Equipment?.Sum(e => e.StatsModifier?.MagicDefenseModifier ?? 0) ?? 0);
-            var pDefModMinusArmor = inputData.DefMod - (npc.Equipment?.Sum(e => e.StatsModifier?.DefenseModifier ?? 0) ?? 0);
+            var mDefModMinusArmor = Math.Max(inputData.MDefMod - (npc.Equipment?.Sum(e => e.StatsModifier?.MagicDefenseModifier ?? 0) ?? 0), 0);
+            var pDefModMinusArmor = Math.Max(inputData.DefMod - (npc.Equipment?.Sum(e => e.StatsModifier?.DefenseModifier ?? 0) ?? 0), 0);
             switch (mDefModMinusArmor)
             {
                 case 0:
