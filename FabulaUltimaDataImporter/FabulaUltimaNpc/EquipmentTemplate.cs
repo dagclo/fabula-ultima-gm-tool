@@ -12,15 +12,14 @@
         public int? NumHands { get; set; }
 
         public EquipmentTemplate Clone()
-        {
-            var id = Guid.NewGuid();
+        {            
             return new EquipmentTemplate
             {
-                Id = id,
+                Id = Id,
                 Name = Name,
                 Category = Category,
                 IsMartial = IsMartial,
-                BasicAttack = BasicAttack?.Clone(id),
+                BasicAttack = BasicAttack?.Clone(),
                 StatsModifier = StatsModifier?.Clone(),
                 Quality = Quality,
                 NumHands = NumHands,

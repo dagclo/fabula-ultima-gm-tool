@@ -138,6 +138,10 @@ namespace FabulaUltimaDatabase
                 return beasts.Select(b =>
                 {
                     Guid id = Guid.Parse(b.Id);
+
+                    var speciesType = species[Guid.Parse((string)b.Species)].ToSpeciesType();
+                    var resistance = resistances[id];
+
                     return new BeastTemplate( new BeastModel
                     {
                         Id = id,
@@ -145,13 +149,13 @@ namespace FabulaUltimaDatabase
                         Description = b.Description,
                         Level = (int)b.Level,
                         Traits = b.Traits,
-                        Species = species[Guid.Parse((string)b.Species)].ToSpeciesType(),
+                        Species = speciesType,
                         Dexterity = ((int?)b.Dexterity).ToDie(),
                         Insight = ((int?)b.Insight).ToDie(),
                         Might = ((int?)b.Might).ToDie(),
                         WillPower = ((int?)b.Willpower).ToDie(),
                         ImageFile = b.ImageFile,
-                        Resistances = resistances[id],
+                        Resistances = resistance,
                         BasicAttacks = ExtractAttacks(id, attacks, ownedAttacks, damageTypes, skills, assignedSkills).ToArray(),
                         Spells = ExtractSpells(id, spells, ownedSpells).ToArray(),
                         Equipment = ExtractEquipment(id, equipment, ownedEquipment, damageTypes, equipmentCategories, skills, assignedSkills).ToArray(),
@@ -256,7 +260,7 @@ namespace FabulaUltimaDatabase
             }
 
             return ownedEquipment[id]
-                .Select(e => equipmentMap[e.EquipmentId])
+                .Select(e => equipmentMap.TryGetValue(e.EquipmentId, out var equipment) ? equipment : throw new Exception($"Beast {id} has unknown equipment {e.EquipmentId}"))
                 .Select(e
                 =>
                 new EquipmentTemplate
@@ -943,7 +947,7 @@ namespace FabulaUltimaDatabase
                     INSERT INTO BeastResistance (BeastTemplateId, DamageTypeId, AffinityId)
                     VALUES (@BeastTemplateId, @DamageTypeId, @AffinityId)
                 ",
-                template.Resistances.Values.Select(r => new { BeastTemplateId = beastId, DamageTypeId = r.DamageTypeId, AffinityId = r.AffinityId })
+                    template.Resistances.Values.Select(r => new { BeastTemplateId = beastId, DamageTypeId = r.DamageTypeId, AffinityId = r.AffinityId })
                 );
 
                 connection.Execute(@"
