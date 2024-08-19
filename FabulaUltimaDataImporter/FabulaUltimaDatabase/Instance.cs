@@ -260,7 +260,7 @@ namespace FabulaUltimaDatabase
             }
 
             return ownedEquipment[id]
-                .Select(e => equipmentMap[e.EquipmentId])
+                .Select(e => equipmentMap.TryGetValue(e.EquipmentId, out var equipment) ? equipment : throw new Exception($"Beast {id} has unknown equipment {e.EquipmentId}"))
                 .Select(e
                 =>
                 new EquipmentTemplate
@@ -947,7 +947,7 @@ namespace FabulaUltimaDatabase
                     INSERT INTO BeastResistance (BeastTemplateId, DamageTypeId, AffinityId)
                     VALUES (@BeastTemplateId, @DamageTypeId, @AffinityId)
                 ",
-                template.Resistances.Values.Select(r => new { BeastTemplateId = beastId, DamageTypeId = r.DamageTypeId, AffinityId = r.AffinityId })
+                    template.Resistances.Values.Select(r => new { BeastTemplateId = beastId, DamageTypeId = r.DamageTypeId, AffinityId = r.AffinityId })
                 );
 
                 connection.Execute(@"
