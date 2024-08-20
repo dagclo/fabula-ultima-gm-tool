@@ -11,6 +11,7 @@ public partial class NpcTabs : TabContainer
     private Action RoundChanged { get; set; }
     private IDictionary<string, int> _instanceIdTabIndexMap = new Dictionary<string, int>();
 
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -23,6 +24,7 @@ public partial class NpcTabs : TabContainer
         {
             var npcPanel = child as NpcPanel;
             npcPanel.NpcChanged += (NpcInstance npc) => EnableTab(index, npc);
+            npcPanel.SetTabTitle += (string s) => SetTabTitle(index, s);
             this.RoundChanged += npcPanel.OnRoundChanged;
             SetTabHidden(index, true);            
         }

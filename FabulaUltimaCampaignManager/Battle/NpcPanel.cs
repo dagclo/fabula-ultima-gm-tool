@@ -11,11 +11,15 @@ public partial class NpcPanel : PanelContainer, INpcInstanceReader
     [Export]
     public int SlotIndex { get; set; }
 
+    [Export]
+    public string TurnCounterCharacter { get; set; } = "*";
+
     [Signal]
     public delegate void RoundChangedEventHandler();
 
     public Action<NpcInstance> NpcChanged { get; set; }
-    
+    public Action<string> SetTabTitle { get; set; }
+
     private Action<BattleStatus> StatusSet;
     private NpcInstance _instance;
     private BattleStatus _status;    
@@ -45,6 +49,14 @@ public partial class NpcPanel : PanelContainer, INpcInstanceReader
         _status = battleStatus;
         NpcChanged?.Invoke(instance);
         StatusSet?.Invoke(battleStatus);
+        _status.StatusChanged += OnStatusChanged;
+        OnStatusChanged(_status);
+    }
+
+    private void OnStatusChanged(BattleStatus status)
+    {
+        var newTitle = $"{_instance.InstanceName} {string.Join("", Enumerable.Range(1, _status.NumTurnsLeft).Select(_ => TurnCounterCharacter))}";
+        SetTabTitle?.Invoke(newTitle);
     }
 
     internal void OnRoundChanged()

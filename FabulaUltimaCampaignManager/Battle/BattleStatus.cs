@@ -14,7 +14,9 @@ public partial class BattleStatus : Resource
     {
         _currentHP = c.Template.HealthPoints;
         _currentMP = c.Template.MagicPoints;
-        _instanceId = Guid.NewGuid();        
+        _instanceId = Guid.NewGuid();
+        _maxTurns = c.Model.Rank.GetNumSoldiersReplaced();
+        _numTurnsLeft = _maxTurns;
     }
 
     public BattleStatus()
@@ -24,19 +26,33 @@ public partial class BattleStatus : Resource
     public Action<BattleStatus> StatusChanged { get; set; }
     public Action<BattleStatus> StudyLevelChanged { get; set; }
 
-    private bool _isActive = true;
-    public bool IsActive
+    private int _numTurnsLeft;
+    public int NumTurnsLeft
     {
-        get => _isActive;
-        set
+        get => _numTurnsLeft;
+        private set
         {
-            if (_isActive != value)
+            if (_numTurnsLeft != value)
             {
-                _isActive = value;
+                _numTurnsLeft = value;
                 StatusChanged.Invoke(this);
             }
         }
     }
+    private readonly int _maxTurns;
+    public void ResetTurns()
+    {
+        NumTurnsLeft = _maxTurns;
+    }
+
+    public void DecrementTurns()
+    {
+        if (NumTurnsLeft == 0) return;
+        NumTurnsLeft--;
+    }
+
+    private bool _isActive = true;
+    public bool IsActive => NumTurnsLeft > 0;
     public void Kill() => CurrentHP = 0;
 
     public bool IsDead => CurrentHP <= 0;
