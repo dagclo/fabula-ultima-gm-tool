@@ -140,7 +140,7 @@ namespace FabulaUltimaDatabase
                     Guid id = Guid.Parse(b.Id);
 
                     var speciesType = species[Guid.Parse((string)b.Species)].ToSpeciesType();
-                    var resistance = resistances[id];
+                    var resistance = resistances.TryGetValue(id, out var resistanceMap) ? resistanceMap : throw new Exception($"beast {id}:{b.Name} has no resistances listed");
 
                     return new BeastTemplate( new BeastModel
                     {
@@ -845,6 +845,7 @@ namespace FabulaUltimaDatabase
 
         public void UpdateBeast(IBeastTemplate template)
         {
+            var beastExisted = GetBeast(template.Id) != null;
             RemoveBeast(template.Id);           
 
             using (var connection = _configuration.GetConnection())
@@ -874,19 +875,25 @@ namespace FabulaUltimaDatabase
                 foreach(var attack in beast.BasicAttacks)
                 {
                     var attackId = attack.Id.ToString().ToUpperInvariant();
-                    connection.Execute(@"
+
+                    if(!beastExisted)
+                    {
+                        //note: updating basic attacks is handled directly
+                        connection.Execute(@"
                         INSERT INTO BasicAttack (Id, Name, Attribute1, Attribute2, IsRanged, DamageType, DamageMod, AttackMod)
                         Values (@Id, @Name, @Attribute1, @Attribute2, @IsRanged, @DamageType, 5, 0)
-                    ",
-                    new
-                    {
-                        Id = attackId,
-                        Name = attack.Name,
-                        Attribute1 = attack.Attribute1,
-                        Attribute2 = attack.Attribute2,
-                        IsRanged = attack.IsRanged ? 1 : 0,
-                        DamageType = attack.DamageType.Id,
-                    });
+                            ",
+                           new
+                           {
+                               Id = attackId,
+                               Name = attack.Name,
+                               Attribute1 = attack.Attribute1,
+                               Attribute2 = attack.Attribute2,
+                               IsRanged = attack.IsRanged ? 1 : 0,
+                               DamageType = attack.DamageType.Id,
+                           });
+                    }
+                   
 
                     connection.Execute(@"
                         INSERT INTO BeastAttack (BeastTemplateId, BasicAttackId)
@@ -904,16 +911,20 @@ namespace FabulaUltimaDatabase
                 foreach (var action in beast.Actions)
                 {
                     var actionId = action.Id.ToString();
-                    connection.Execute(@"
+                    if (!beastExisted)
+                    {
+                        //note: updating other actions is handled directly
+                        connection.Execute(@"
                         INSERT INTO Action (Id, Name, Effect)
                         Values (@Id, @Name, @Effect)
-                    ",
-                    new
-                    {
-                        Id = actionId.ToUpperInvariant(),
-                        Name = action.Name,
-                        Effect = action.Effect,
-                    });
+                        ",
+                        new
+                        {
+                            Id = actionId.ToUpperInvariant(),
+                            Name = action.Name,
+                            Effect = action.Effect,
+                        });
+                    }
 
                     connection.Execute(@"
                         INSERT INTO BeastAction (BeastTemplateId, ActionId)
