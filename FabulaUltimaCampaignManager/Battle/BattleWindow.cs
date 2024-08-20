@@ -42,7 +42,7 @@ public partial class BattleWindow : Window, IEncounterReader
             }
             if (!takenFirst)
             {
-                status.IsFirst = true;
+                status.IsActive = true;
                 takenFirst = true;
             }
             reader.ReadNpc(npc, status);

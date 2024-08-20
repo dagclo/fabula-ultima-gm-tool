@@ -220,6 +220,7 @@ script = ExtResource("1_q5xa3")
 
 [node name="BeastSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_icy35")
+offset = Vector2(10, 0)
 script = ExtResource("3_s1sbu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BeastSprite"]

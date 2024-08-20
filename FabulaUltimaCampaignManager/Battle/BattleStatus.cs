@@ -23,7 +23,20 @@ public partial class BattleStatus : Resource
 
     public Action<BattleStatus> StatusChanged { get; set; }
     public Action<BattleStatus> StudyLevelChanged { get; set; }
-    public bool IsFirst { get; set; } = false;
+
+    private bool _isActive = true;
+    public bool IsActive
+    {
+        get => _isActive;
+        set
+        {
+            if (_isActive != value)
+            {
+                _isActive = value;
+                StatusChanged.Invoke(this);
+            }
+        }
+    }
     public void Kill() => CurrentHP = 0;
 
     public bool IsDead => CurrentHP <= 0;

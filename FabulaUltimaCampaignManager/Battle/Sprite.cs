@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 public partial class Sprite : Sprite2D, INpcReader
 {
     private AnimationPlayer _animationPlayer;    
-    private State _state = State.IDLE;
-    private State _defaultState = State.IDLE;    
+    private State _state = State.ACTIVE;
+    private State _defaultState = State.ACTIVE;    
     private NpcInstance _instance;
 
     [Export]
@@ -59,7 +59,7 @@ public partial class Sprite : Sprite2D, INpcReader
             timeLeftInMs -= timeStep;
         }
 
-        _state = State.IDLE;
+        _state = State.ACTIVE;
         _defaultState = _state;
     }
 
@@ -116,15 +116,13 @@ public partial class Sprite : Sprite2D, INpcReader
         return max / value;
     }
 
-    bool _initialSet = false;
+    
     private MessagePublisher<NpcActionMessage> _messagePublisher;
 
     public void HandleStatusChanged(BattleStatus status)
-    {
-        if( _initialSet) return;
-        _state = status.IsFirst ? State.ACTIVE : State.IDLE;
-        _defaultState = _state;
-        _initialSet = true;
+    {   
+        _state = status.IsActive ? State.ACTIVE : State.IDLE;
+        _defaultState = _state;    
     }
 
     public void OnHpChanged(SignalWrapper<ISet<HpState>> signal)
