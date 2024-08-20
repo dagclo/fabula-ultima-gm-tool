@@ -1,5 +1,5 @@
 ## How to Add Monsters
-- [Youtube Video](https://youtu.be/WgJQ1ZyKUn0)
+- [Youtube Video](https://youtu.be/f6c1Nyx26AU)
 
 
 ## How to build
