@@ -18,11 +18,11 @@ public partial class SpecialAttackLabel : Label, IAttackReader
 		bool first = true;
 		foreach(var skill in attack.AttackSkills.Where(s => s.OtherAttributes?.IsSpecialAttack == true))
 		{
-			if (first)
+			if (!first)
 			{
-                stringBuilder.Append(" and ");
-				first = false;
-            }            
+                stringBuilder.Append("; ");				
+            }
+            first = false;
             stringBuilder.Append(skill.Text);
         }
 		this.Text = stringBuilder.ToString();
