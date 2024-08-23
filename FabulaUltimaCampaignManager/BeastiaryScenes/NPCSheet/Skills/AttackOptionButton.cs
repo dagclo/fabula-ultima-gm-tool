@@ -67,7 +67,7 @@ public partial class AttackOptionButton : OptionButton, IValidatable
         this.Selected = selected;
     }    
 
-    public void HandleSkillSet(SignalWrapper<SkillTemplate> signal)
+    public void HandleSkillSet(SignalWrapper<SkillTemplate> signal, bool _)
     {
         _skill = signal.Value;
     }

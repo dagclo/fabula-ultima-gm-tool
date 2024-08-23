@@ -10,7 +10,7 @@ public partial class SpecialAttackAttachEdit : HBoxContainer
         this.Visible = false;
 	}
 
-    public void HandleSkillSet(SignalWrapper<SkillTemplate> signal)
+    public void HandleSkillSet(SignalWrapper<SkillTemplate> signal, bool _)
     {
         this.Visible = signal.Value.OtherAttributes?.IsSpecialAttack ?? false;
     }

@@ -7,7 +7,7 @@ public partial class AddedSkillEntry : VBoxContainer
 {  
 
     [Signal]
-    public delegate void SkillSetEventHandler(SignalWrapper<SkillTemplate> skill);
+    public delegate void SkillSetEventHandler(SignalWrapper<SkillTemplate> skill, bool editable);
 
     [Signal]
     public delegate void BeastSetEventHandler(SignalWrapper<IBeastTemplate> beast);
@@ -18,7 +18,8 @@ public partial class AddedSkillEntry : VBoxContainer
     public override void _Ready()
     {
         if (Skill == null) return;
-        EmitSignal(SignalName.SkillSet, new SignalWrapper<SkillTemplate>(Skill));
+        var editable = Skill.Name == null;
+        EmitSignal(SignalName.SkillSet, new SignalWrapper<SkillTemplate>(Skill), editable);
     }
 
     internal void HandleBeastChanged(IBeastTemplate beastTemplate)

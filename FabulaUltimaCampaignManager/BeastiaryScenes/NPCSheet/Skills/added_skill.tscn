@@ -27,9 +27,9 @@ text = "Choose Attack:"
 layout_mode = 2
 script = ExtResource("4_ufr2p")
 
-[node name="SpecialAttackTextEdit" type="TextEdit" parent="."]
+[node name="SkillDescriptionTextEdit" type="TextEdit" parent="."]
 layout_mode = 2
-placeholder_text = "Special Attack Text"
+placeholder_text = "Skill Description"
 editable = false
 scroll_fit_content_height = true
 script = ExtResource("4_qnffj")
@@ -42,7 +42,7 @@ text = "Remove"
 [connection signal="SkillSet" from="." to="SkillNameEdit" method="HandleSkillSet"]
 [connection signal="SkillSet" from="." to="SpecialAttack" method="HandleSkillSet"]
 [connection signal="SkillSet" from="." to="SpecialAttack/AttackOptionButton" method="HandleSkillSet"]
-[connection signal="SkillSet" from="." to="SpecialAttackTextEdit" method="HandleSkillSet"]
+[connection signal="SkillSet" from="." to="SkillDescriptionTextEdit" method="HandleSkillSet"]
 [connection signal="AttackSkillSet" from="SpecialAttack/AttackOptionButton" to="." method="HandleUpdateBeast"]
 [connection signal="RemoveSkill" from="SpecialAttack/AttackOptionButton" to="." method="HandleRemoveSkill"]
 [connection signal="item_selected" from="SpecialAttack/AttackOptionButton" to="SpecialAttack/AttackOptionButton" method="HandleAttackSelected"]

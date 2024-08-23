@@ -4,8 +4,9 @@ using Godot;
 
 public partial class SpecialAttackTextEdit : TextEdit
 {
-    public void HandleSkillSet(SignalWrapper<SkillTemplate> signal)
+    public void HandleSkillSet(SignalWrapper<SkillTemplate> signal, bool editable)
     {
         this.Text = string.IsNullOrWhiteSpace(signal.Value.Text) ? signal.Value.Name : signal.Value.Text;
+        this.Editable = editable;
     }
 }
