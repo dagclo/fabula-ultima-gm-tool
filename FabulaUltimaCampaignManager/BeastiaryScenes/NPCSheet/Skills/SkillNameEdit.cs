@@ -10,7 +10,9 @@ public partial class SkillNameEdit : LineEdit
 	{
 		this.Text = signal.Value.Name;
 		this.Editable = editable;
-	}
+        _skill = signal.Value;
+
+    }
 
 	public void HandleTextChanged(string newText)
 	{

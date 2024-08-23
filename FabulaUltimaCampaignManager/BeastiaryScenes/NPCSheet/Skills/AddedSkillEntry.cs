@@ -26,17 +26,17 @@ public partial class AddedSkillEntry : VBoxContainer, IValidatable
     public override void _Ready()
     {
         if (Skill == null) return;
-        _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;        
-        if (IsEditable)
-        {
-            _beastRepository.QueueUpdates(_beastTemplate.Id, Skill);
-        }
+        _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;       
         EmitSignal(SignalName.SkillSet, new SignalWrapper<SkillTemplate>(Skill), IsEditable);
     }
 
     internal void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         _beastTemplate = beastTemplate;
+        if (IsEditable)
+        {
+            _beastRepository.QueueUpdates(_beastTemplate.Id, Skill);
+        }
         EmitSignal(SignalName.BeastSet, new SignalWrapper<IBeastTemplate>(beastTemplate));
     }
 
@@ -57,7 +57,8 @@ public partial class AddedSkillEntry : VBoxContainer, IValidatable
 
     public IEnumerable<TemplateValidation> Validate()
     {
+        if (Skill == null) yield break;
         if (string.IsNullOrWhiteSpace(Skill.Name)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "Name Not Set" };
-        if (string.IsNullOrWhiteSpace(Skill.Text)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "Description Not Set" };
+        if (IsEditable && string.IsNullOrWhiteSpace(Skill.Text)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "Description Not Set" };
     }
 }

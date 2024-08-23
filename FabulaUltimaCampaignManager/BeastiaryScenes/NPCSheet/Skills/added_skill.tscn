@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/AddedSkillEntry.cs" id="1_swdhj"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/SkillNameEdit.cs" id="2_fpeto"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/SpecialAttackAttachEdit.cs" id="3_3tj5w"]
-[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/SpecialAttackTextEdit.cs" id="4_qnffj"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/AttackOptionButton.cs" id="4_ufr2p"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/SkillDescriptionTextEdit.cs" id="5_jxy4s"]
 
 [node name="Skill" type="VBoxContainer"]
 script = ExtResource("1_swdhj")
@@ -32,7 +32,7 @@ layout_mode = 2
 placeholder_text = "Skill Description"
 editable = false
 scroll_fit_content_height = true
-script = ExtResource("4_qnffj")
+script = ExtResource("5_jxy4s")
 
 [node name="RemoveSkillButton" type="Button" parent="."]
 layout_mode = 2
@@ -43,7 +43,9 @@ text = "Remove"
 [connection signal="SkillSet" from="." to="SpecialAttack" method="HandleSkillSet"]
 [connection signal="SkillSet" from="." to="SpecialAttack/AttackOptionButton" method="HandleSkillSet"]
 [connection signal="SkillSet" from="." to="SkillDescriptionTextEdit" method="HandleSkillSet"]
+[connection signal="text_changed" from="SkillNameEdit" to="SkillNameEdit" method="HandleTextChanged"]
 [connection signal="AttackSkillSet" from="SpecialAttack/AttackOptionButton" to="." method="HandleUpdateBeast"]
 [connection signal="RemoveSkill" from="SpecialAttack/AttackOptionButton" to="." method="HandleRemoveSkill"]
 [connection signal="item_selected" from="SpecialAttack/AttackOptionButton" to="SpecialAttack/AttackOptionButton" method="HandleAttackSelected"]
+[connection signal="text_changed" from="SkillDescriptionTextEdit" to="SkillDescriptionTextEdit" method="HandleTextChanged"]
 [connection signal="pressed" from="RemoveSkillButton" to="SpecialAttack/AttackOptionButton" method="HandleRemoveSkill"]

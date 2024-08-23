@@ -100,7 +100,7 @@ text = "Name:"
 
 [node name="NameEdit" type="LineEdit" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
-placeholder_text = "Archer"
+placeholder_text = "Creature Name"
 script = ExtResource("6_7xana")
 
 [node name="LevelLabel" type="Label" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
@@ -128,7 +128,7 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-placeholder_text = "Fires from on high with the eyes of an eagle."
+placeholder_text = "Creature Description"
 script = ExtResource("10_bxjsn")
 
 [node name="TraitsLabel" type="Label" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
@@ -137,7 +137,7 @@ text = "Traits:"
 
 [node name="TraitsEdit" type="LineEdit" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
-placeholder_text = "happy, fast, clever"
+placeholder_text = "creature traits"
 script = ExtResource("11_klrkd")
 
 [node name="Stats" type="GridContainer" parent="ScrollContainer/BeastEntryNode/Attributes"]
@@ -409,6 +409,7 @@ script = ExtResource("40_y6vnr")
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Attacks/BasicAttackSection/AddBasicAttack" to="ScrollContainer/BeastEntryNode/Attacks/BasicAttackSection/BasicAttacks" method="HandleAddAttack"]
 [connection signal="SkillSelected" from="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillOptionButton" to="ScrollContainer/BeastEntryNode/Skills/SkillsList" method="HandleSkillSelect"]
 [connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillOptionButton" to="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillOptionButton" method="HandleSelected"]
+[connection signal="pressed" from="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/AddSkillButton" to="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillOptionButton" method="HandleAddSkill"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/AddSkillButton" to="ScrollContainer/BeastEntryNode/Skills/SkillsList" method="HandleAddSkill"]
 [connection signal="SpellSelected" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellOptionButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandleSpellSelected"]
 [connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellOptionButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellOptionButton" method="HandleSpellSelected"]

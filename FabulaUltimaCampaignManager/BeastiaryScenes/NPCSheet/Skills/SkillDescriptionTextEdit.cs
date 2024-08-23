@@ -2,20 +2,20 @@ using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using Godot;
 
-public partial class SpecialAttackTextEdit : TextEdit
+public partial class SkillDescriptionTextEdit : TextEdit
 {
     private SkillTemplate _skill;
 
     public void HandleSkillSet(SignalWrapper<SkillTemplate> signal, bool editable)
     {
-        this.Text = signal.Value.Text;
+        this.Text = string.IsNullOrWhiteSpace(signal.Value.Text) ? signal.Value.Name : signal.Value.Text;
         this.Editable = editable;
         _skill = signal.Value;
     }
 
-    public void HandleTextChanged(string newText)
+    public void HandleTextChanged()
     {
         if (_skill == null) return;
-        _skill.Text = newText;        
+        _skill.Text = this.Text;        
     }
 }

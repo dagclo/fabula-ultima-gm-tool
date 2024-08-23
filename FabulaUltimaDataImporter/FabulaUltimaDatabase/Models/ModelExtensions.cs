@@ -25,21 +25,24 @@ namespace FabulaUltimaDatabase.Models
                 TargetType = skillTemplate.TargetType.ToString(),
                 Text = skillTemplate.Text ?? string.Empty,
                 IsSpecialRule = skillTemplate.IsSpecialRule ? 1 : 0,                
-                Keywords = Newtonsoft.Json.JsonConvert.SerializeObject(skillTemplate.Keywords.ToArray()),
+                Keywords = Newtonsoft.Json.JsonConvert.SerializeObject(skillTemplate.Keywords?.ToArray()),
                 OtherAttributes = skillTemplate.OtherAttributes != null ? Newtonsoft.Json.JsonConvert.SerializeObject(skillTemplate.OtherAttributes.DataDictionary) : null,
             };
         }
 
         public static SkillTemplate ToSkillTemplate(this SkillEntry skillEntry) 
         {
+            var skillAttributes = skillEntry.OtherAttributes == null ? new SkillAttributeCollection() : 
+                new SkillAttributeCollection(JsonConvert.DeserializeObject<Dictionary<string, string>>(skillEntry.OtherAttributes));
+
             return new SkillTemplate(Guid.Parse(skillEntry.Id))
             {
                 Name = skillEntry.Name,
                 IsSpecialRule = skillEntry.IsSpecialRule == 0 ? false : true,
-                Keywords = JsonConvert.DeserializeObject<HashSet<string>>(skillEntry.Keywords),
+                Keywords = skillEntry.Keywords == null ? new HashSet<string>() : JsonConvert.DeserializeObject<HashSet<string>>(skillEntry.Keywords),
                 TargetType = Type.GetType(skillEntry.TargetType),
                 Text = skillEntry.Text ?? string.Empty,
-                OtherAttributes = new SkillAttributeCollection(JsonConvert.DeserializeObject<Dictionary<string, string>>(skillEntry.OtherAttributes)),                
+                OtherAttributes = skillAttributes,                
 
             };
         }
