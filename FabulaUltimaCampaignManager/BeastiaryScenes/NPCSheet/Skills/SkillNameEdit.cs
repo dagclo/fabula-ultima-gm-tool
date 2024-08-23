@@ -4,9 +4,17 @@ using Godot;
 
 public partial class SkillNameEdit : LineEdit
 {
-	public void HandleSkillSet(SignalWrapper<SkillTemplate> signal, bool editable)
+	private SkillTemplate _skill;
+
+    public void HandleSkillSet(SignalWrapper<SkillTemplate> signal, bool editable)
 	{
 		this.Text = signal.Value.Name;
 		this.Editable = editable;
 	}
+
+	public void HandleTextChanged(string newText)
+	{
+		if (_skill == null) return;
+        _skill.Name = newText;
+    }
 }

@@ -1,10 +1,14 @@
+using FabulaUltimaGMTool.BeastiaryScenes;
 using FabulaUltimaNpc;
+using FirstProject;
 using FirstProject.Beastiary;
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public partial class AddedSkillEntry : VBoxContainer
-{  
+public partial class AddedSkillEntry : VBoxContainer, IValidatable
+{
+    private BeastiaryRepository _beastRepository;
 
     [Signal]
     public delegate void SkillSetEventHandler(SignalWrapper<SkillTemplate> skill, bool editable);
@@ -12,14 +16,21 @@ public partial class AddedSkillEntry : VBoxContainer
     [Signal]
     public delegate void BeastSetEventHandler(SignalWrapper<IBeastTemplate> beast);
     public SkillTemplate Skill { get; internal set; }
-	public Action<AddedSkillEntry> OnRemoveSkill { get; set; }
+    private bool IsEditable => Skill.Name == null;
+    public Action<AddedSkillEntry> OnRemoveSkill { get; set; }
     public Action OnUpdateBeast { get; set; }
+
+    string IValidatable.Name => "Added Skill";
 
     public override void _Ready()
     {
         if (Skill == null) return;
-        var editable = Skill.Name == null;
-        EmitSignal(SignalName.SkillSet, new SignalWrapper<SkillTemplate>(Skill), editable);
+        _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;        
+        if (IsEditable)
+        {
+            _beastRepository.QueueUpdates(Skill);
+        }
+        EmitSignal(SignalName.SkillSet, new SignalWrapper<SkillTemplate>(Skill), IsEditable);
     }
 
     internal void HandleBeastChanged(IBeastTemplate beastTemplate)
@@ -29,11 +40,22 @@ public partial class AddedSkillEntry : VBoxContainer
 
     public void HandleRemoveSkill()
     {
-        OnRemoveSkill?.Invoke(this);        
+        if (Skill == null) return;
+        if (IsEditable)
+        {
+            _beastRepository.DequeueUpdate(Skill.Id);
+        }
+        OnRemoveSkill?.Invoke(this);
     }
 
     public void HandleUpdateBeast()
     {
         OnUpdateBeast?.Invoke();
+    }
+
+    public IEnumerable<TemplateValidation> Validate()
+    {
+        if (string.IsNullOrWhiteSpace(Skill.Name)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "Name Not Set" };
+        if (string.IsNullOrWhiteSpace(Skill.Text)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "Description Not Set" };
     }
 }

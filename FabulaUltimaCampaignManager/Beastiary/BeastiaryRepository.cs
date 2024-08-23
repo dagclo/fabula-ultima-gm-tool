@@ -59,5 +59,33 @@ namespace FirstProject.Beastiary
         {
             Database.RemoveBeast(id);
         }
+
+        private readonly IDictionary<Guid, Action> _queuedActions = new Dictionary<Guid, Action>();
+
+        public void QueueUpdates<TTemplateType>(TTemplateType template)
+        {
+            switch (template)
+            {
+                case SkillTemplate skill:
+                    if (!_queuedActions.ContainsKey(skill.Id)) _queuedActions[skill.Id] = () => Database.UpdateSkill(skill);
+                    break;
+                default:
+                    throw new ArgumentException($"unsupported type{template.GetType()}");
+            }
+        }
+
+        public void DequeueUpdate(Guid id)
+        {
+            _queuedActions.Remove(id);
+        }
+
+        public void RunQueuedUpdates()
+        {
+            foreach(var action in  _queuedActions.Values)
+            {
+                action.Invoke();
+            }
+            _queuedActions.Clear();
+        }
     }
 }
