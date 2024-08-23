@@ -1081,7 +1081,8 @@ namespace FabulaUltimaDatabase
 
         public void UpdateSkill(SkillTemplate skill)
         {
-            
+            DeleteSkill(skill);
+            AddSkills(new[] { skill });
         }
 
         /// <summary>

@@ -60,32 +60,42 @@ namespace FirstProject.Beastiary
             Database.RemoveBeast(id);
         }
 
-        private readonly IDictionary<Guid, Action> _queuedActions = new Dictionary<Guid, Action>();
+        private readonly IDictionary<Guid, IDictionary<Guid, Action>> _queuedActions = new Dictionary<Guid, IDictionary<Guid, Action>>();
 
-        public void QueueUpdates<TTemplateType>(TTemplateType template)
+        public void QueueUpdates<TTemplateType>(Guid refId, TTemplateType template)
         {
+            if (!_queuedActions.ContainsKey(refId)) _queuedActions[refId] = new Dictionary<Guid, Action>();
+            var targetQueue = _queuedActions[refId];
             switch (template)
             {
                 case SkillTemplate skill:
-                    if (!_queuedActions.ContainsKey(skill.Id)) _queuedActions[skill.Id] = () => Database.UpdateSkill(skill);
+                    if (!targetQueue.ContainsKey(skill.Id)) targetQueue[skill.Id] = () => Database.UpdateSkill(skill);
                     break;
                 default:
                     throw new ArgumentException($"unsupported type{template.GetType()}");
             }
         }
 
-        public void DequeueUpdate(Guid id)
+        public void DequeueUpdate(Guid refId, Guid objectId)
         {
-            _queuedActions.Remove(id);
+            if (!_queuedActions.ContainsKey(refId)) return;
+            _queuedActions[refId].Remove(objectId);
         }
 
-        public void RunQueuedUpdates()
+        public void RunQueuedUpdates(Guid refId)
         {
-            foreach(var action in  _queuedActions.Values)
+            if (!_queuedActions.ContainsKey(refId)) return;
+            foreach (var action in _queuedActions[refId].Values)
             {
                 action.Invoke();
             }
-            _queuedActions.Clear();
+            //_queuedActions.Clear();
+        }
+
+        internal void ClearQueuedUpdate(Guid refId)
+        {
+            if (!_queuedActions.ContainsKey(refId)) return;
+            _queuedActions.Remove(refId);
         }
     }
 }

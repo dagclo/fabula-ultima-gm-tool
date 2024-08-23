@@ -9,6 +9,7 @@ using System.Collections.Generic;
 public partial class AddedSkillEntry : VBoxContainer, IValidatable
 {
     private BeastiaryRepository _beastRepository;
+    private IBeastTemplate _beastTemplate;
 
     [Signal]
     public delegate void SkillSetEventHandler(SignalWrapper<SkillTemplate> skill, bool editable);
@@ -28,13 +29,14 @@ public partial class AddedSkillEntry : VBoxContainer, IValidatable
         _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;        
         if (IsEditable)
         {
-            _beastRepository.QueueUpdates(Skill);
+            _beastRepository.QueueUpdates(_beastTemplate.Id, Skill);
         }
         EmitSignal(SignalName.SkillSet, new SignalWrapper<SkillTemplate>(Skill), IsEditable);
     }
 
     internal void HandleBeastChanged(IBeastTemplate beastTemplate)
-    {        
+    {
+        _beastTemplate = beastTemplate;
         EmitSignal(SignalName.BeastSet, new SignalWrapper<IBeastTemplate>(beastTemplate));
     }
 
@@ -43,7 +45,7 @@ public partial class AddedSkillEntry : VBoxContainer, IValidatable
         if (Skill == null) return;
         if (IsEditable)
         {
-            _beastRepository.DequeueUpdate(Skill.Id);
+            _beastRepository.DequeueUpdate(_beastTemplate.Id, Skill.Id);
         }
         OnRemoveSkill?.Invoke(this);
     }
