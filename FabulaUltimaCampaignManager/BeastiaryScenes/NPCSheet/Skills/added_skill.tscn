@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://baj8gvo8qh8e5"]
+[gd_scene load_steps=7 format=3 uid="uid://baj8gvo8qh8e5"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/AddedSkillEntry.cs" id="1_swdhj"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/SkillNameEdit.cs" id="2_fpeto"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/SpecialAttackAttachEdit.cs" id="3_3tj5w"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/SpecialAttackCheckBox.cs" id="3_aiimh"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/AttackOptionButton.cs" id="4_ufr2p"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Skills/SkillDescriptionTextEdit.cs" id="5_jxy4s"]
 
@@ -14,6 +15,12 @@ layout_mode = 2
 placeholder_text = "Skill Name"
 editable = false
 script = ExtResource("2_fpeto")
+
+[node name="SpecialAttackCheckButton" type="CheckButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Is Special Attack"
+script = ExtResource("3_aiimh")
 
 [node name="SpecialAttack" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -43,7 +50,10 @@ text = "Remove"
 [connection signal="SkillSet" from="." to="SpecialAttack" method="HandleSkillSet"]
 [connection signal="SkillSet" from="." to="SpecialAttack/AttackOptionButton" method="HandleSkillSet"]
 [connection signal="SkillSet" from="." to="SkillDescriptionTextEdit" method="HandleSkillSet"]
+[connection signal="SkillSet" from="." to="SpecialAttackCheckButton" method="HandleSkillSet"]
 [connection signal="text_changed" from="SkillNameEdit" to="SkillNameEdit" method="HandleTextChanged"]
+[connection signal="toggled" from="SpecialAttackCheckButton" to="SpecialAttack" method="HandleToggled"]
+[connection signal="toggled" from="SpecialAttackCheckButton" to="SpecialAttackCheckButton" method="HandleToggled"]
 [connection signal="AttackSkillSet" from="SpecialAttack/AttackOptionButton" to="." method="HandleUpdateBeast"]
 [connection signal="RemoveSkill" from="SpecialAttack/AttackOptionButton" to="." method="HandleRemoveSkill"]
 [connection signal="item_selected" from="SpecialAttack/AttackOptionButton" to="SpecialAttack/AttackOptionButton" method="HandleAttackSelected"]
