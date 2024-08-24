@@ -30,11 +30,10 @@ public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
 
     public void HandleAddSkill()
     {
-        if (_nextSkillToAdd == null) return;
-        var skillClone = _nextSkillToAdd; //todo: check if clone required
-        _skillsList.Add(skillClone);
+        if (_nextSkillToAdd == null) return;        
+        _skillsList.Add(_nextSkillToAdd);
         var scene = AddSkillScene.Instantiate<AddedSkillEntry>();
-        scene.Skill = skillClone;
+        scene.Skill = _nextSkillToAdd;
         scene.OnRemoveSkill += HandleRemoveSkill;
         scene.OnUpdateBeast += HandleUpdateBeast;
         OnBeastChanged += scene.HandleBeastChanged;        

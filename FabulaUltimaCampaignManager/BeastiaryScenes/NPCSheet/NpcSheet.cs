@@ -3,6 +3,7 @@ using FabulaUltimaGMTool;
 using FabulaUltimaNpc;
 using FabulaUltimaSkillLibrary;
 using FabulaUltimaSkillLibrary.Models;
+using FirstProject;
 using FirstProject.Beastiary;
 using Godot;
 using System;
@@ -12,6 +13,7 @@ using System.Linq;
 public partial class NpcSheet : Node
 {
     private Resolver _skillResolver;
+    private BeastiaryRepository _beastRepository;
 
     [Signal]
     public delegate void SkillSlotsAvailableEventHandler(int skillSlotsAvailable);
@@ -24,15 +26,17 @@ public partial class NpcSheet : Node
     public override void _Ready()
 	{
         _skillResolver = GetNode<SkillResolver>("/root/SkillResolver").Instance;
+        _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;
+        var beast = BeastModel ?? new BeastModel()
+        {
+            Id = Guid.NewGuid(),
+            Level = 5
+        };
+        BeastModel = beast;
         foreach (var child in this.FindChildren("*", recursive: true)
            .Where(l => l is BeastEntryNode))
         {
             var node = child as BeastEntryNode;
-            var beast = BeastModel ?? new BeastModel()
-            {
-                Level = 5
-            };
-            beast.Id = Guid.NewGuid();
             node.Beast = new SkilledBeastTemplateWrapper(new BeastTemplate(beast));
             node.OnTrigger += HandleTrigger;
             this.OnBeastChanged = node.ActionTemplate;
@@ -87,13 +91,9 @@ public partial class NpcSheet : Node
         this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-	{
-	}
-
 	public void HandleCloseRequested()
 	{
-		Closing?.Invoke();
+        _beastRepository.ClearQueuedUpdate(BeastModel.Id);
+        Closing?.Invoke();
 	}
 }

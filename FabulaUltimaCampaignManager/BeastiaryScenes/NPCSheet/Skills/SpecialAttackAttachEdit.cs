@@ -4,14 +4,22 @@ using Godot;
 
 public partial class SpecialAttackAttachEdit : HBoxContainer
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    private SkillTemplate _skill;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
         this.Visible = false;
 	}
 
-    public void HandleSkillSet(SignalWrapper<SkillTemplate> signal)
+    public void HandleSkillSet(SignalWrapper<SkillTemplate> signal, bool _)
     {
-        this.Visible = signal.Value.OtherAttributes?.IsSpecialAttack ?? false;
+        _skill = signal.Value;
+        HandleToggled(_skill.OtherAttributes?.IsSpecialAttack ?? false);
+    }
+
+    public void HandleToggled(bool on)
+    {
+        this.Visible = on;
     }
 }

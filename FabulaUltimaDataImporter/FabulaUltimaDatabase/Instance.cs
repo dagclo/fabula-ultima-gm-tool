@@ -1019,9 +1019,7 @@ namespace FabulaUltimaDatabase
                 new
                 {
                     Id = id.ToString(),                 
-                });
-
-                
+                });                
             }
         }
 
@@ -1079,6 +1077,33 @@ namespace FabulaUltimaDatabase
                 MagicPointCost = s.MagicPointCost,
                 Target = s.Target,
             });
+        }
+
+        public void UpdateSkill(SkillTemplate skill)
+        {
+            DeleteSkill(skill);
+            AddSkills(new[] { skill });
+        }
+
+        /// <summary>
+        /// doesn't yet delete associated links
+        /// </summary>
+        /// <param name="skill"></param>
+        private void DeleteSkill(SkillTemplate skill)
+        {
+            using (var connection = _configuration.GetConnection())
+            {
+                connection.Open();
+
+                connection.Execute(@"
+                    DELETE FROM [Skills]
+                    WHERE Id = @Id;
+                ",
+                new
+                {
+                    Id = skill.Id.ToString(),
+                });
+            }
         }
     }
 }
