@@ -2,6 +2,7 @@ using FabulaUltimaNpc;
 using FirstProject;
 using FirstProject.Beastiary;
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +19,7 @@ public partial class SpellOptionButton : OptionButton
         var beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;
 
         var index = 0;
+        AddItem("Create New Spell", index++);
         _spellMap = new Dictionary<int, SpellTemplate>();
         foreach (var spell in beastRepository.Database.GetSpellTemplates().OrderBy(s => s.Name))
         {
@@ -30,6 +32,23 @@ public partial class SpellOptionButton : OptionButton
 
     public void HandleSpellSelected(int index)
     {
-        EmitSignal(SignalName.SpellSelected, new SignalWrapper<SpellTemplate>(_spellMap[index]));
+        SpellTemplate spell;
+        if (index == 0)
+        {
+            spell = new SpellTemplate()
+            {
+                Id = Guid.NewGuid(),
+            };
+        }
+        else
+        {
+            spell = _spellMap[index];
+        }
+        EmitSignal(SignalName.SpellSelected, new SignalWrapper<SpellTemplate>(spell));
+    }
+
+    public void HandleSpellAdded()
+    {
+        this.Selected = -1;
     }
 }

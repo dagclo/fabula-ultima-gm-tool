@@ -71,6 +71,9 @@ namespace FirstProject.Beastiary
                 case SkillTemplate skill:
                     if (!targetQueue.ContainsKey(skill.Id)) targetQueue[skill.Id] = () => Database.UpdateSkill(skill);
                     break;
+                case SpellTemplate spell:
+                    if (!targetQueue.ContainsKey(spell.Id)) targetQueue[spell.Id] = () => Database.UpdateSpell(spell);
+                    break;
                 default:
                     throw new ArgumentException($"unsupported type{template.GetType()}");
             }

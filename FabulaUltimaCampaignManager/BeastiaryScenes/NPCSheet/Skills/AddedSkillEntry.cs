@@ -17,7 +17,7 @@ public partial class AddedSkillEntry : VBoxContainer, IValidatable
     [Signal]
     public delegate void BeastSetEventHandler(SignalWrapper<IBeastTemplate> beast);
     public SkillTemplate Skill { get; internal set; }
-    private bool IsEditable => Skill.Name == null;
+    private bool IsEditable { get; set; }
     public Action<AddedSkillEntry> OnRemoveSkill { get; set; }
     public Action OnUpdateBeast { get; set; }
 
@@ -26,7 +26,8 @@ public partial class AddedSkillEntry : VBoxContainer, IValidatable
     public override void _Ready()
     {
         if (Skill == null) return;
-        _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;       
+        _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;
+        IsEditable = Skill.Name == null;
         EmitSignal(SignalName.SkillSet, new SignalWrapper<SkillTemplate>(Skill), IsEditable);
     }
 

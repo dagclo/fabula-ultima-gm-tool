@@ -1105,5 +1105,32 @@ namespace FabulaUltimaDatabase
                 });
             }
         }
+
+        public void UpdateSpell(SpellTemplate spell)
+        {
+            DeleteSpell(spell);
+            CreateSpell(spell.ToSpellEntry());
+        }
+
+        /// <summary>
+        /// doesn't yet delete associated links
+        /// </summary>
+        /// <param name="skill"></param>
+        private void DeleteSpell(SpellTemplate spell)
+        {
+            using (var connection = _configuration.GetConnection())
+            {
+                connection.Open();
+
+                connection.Execute(@"
+                    DELETE FROM [Spell]
+                    WHERE Id = @Id;
+                ",
+                new
+                {
+                    Id = spell.Id.ToString(),
+                });
+            }
+        }
     }
 }

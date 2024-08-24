@@ -4,9 +4,17 @@ using Godot;
 
 public partial class IsOffensiveCheckButton : CheckButton
 {
-    public void HandleSpellSet(SignalWrapper<SpellTemplate> signal)
+    private SpellTemplate _spell;
+
+    public void HandleSpellSet(SignalWrapper<SpellTemplate> signal, bool editable)
     {
-        var spell = signal.Value;
-        this.SetPressedNoSignal(spell.IsOffensive);
+        _spell = signal.Value;
+        this.SetPressedNoSignal(_spell.IsOffensive);
+        this.Disabled = !editable;
+    }
+
+    public void HandleToggled(bool on)
+    {
+        _spell.IsOffensive = on;
     }
 }
