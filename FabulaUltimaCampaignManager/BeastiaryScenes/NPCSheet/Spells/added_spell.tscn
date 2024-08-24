@@ -34,7 +34,7 @@ text = "MP:"
 
 [node name="MpCostEdit" type="LineEdit" parent="SpellAttributes"]
 layout_mode = 2
-placeholder_text = "<unset>"
+placeholder_text = "Mp Cost"
 editable = false
 expand_to_text_length = true
 script = ExtResource("4_f5nyv")
@@ -52,14 +52,14 @@ Index = 1
 
 [node name="TargetEdit" type="LineEdit" parent="SpellAttributes"]
 layout_mode = 2
-placeholder_text = "<unset>"
+placeholder_text = "Target"
 editable = false
 expand_to_text_length = true
 script = ExtResource("5_k5812")
 
 [node name="DurationEdit" type="LineEdit" parent="SpellAttributes"]
 layout_mode = 2
-placeholder_text = "<unset>"
+placeholder_text = "Duration"
 editable = false
 expand_to_text_length = true
 script = ExtResource("6_8o3ct")

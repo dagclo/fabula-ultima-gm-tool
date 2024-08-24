@@ -1128,7 +1128,7 @@ namespace FabulaUltimaDatabase
                 ",
                 new
                 {
-                    Id = spell.Id.ToString(),
+                    Id = spell.Id.ToString().ToUpperInvariant(),
                 });
             }
         }
