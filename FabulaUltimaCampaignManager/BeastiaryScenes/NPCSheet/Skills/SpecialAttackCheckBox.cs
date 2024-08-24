@@ -17,5 +17,6 @@ public partial class SpecialAttackCheckBox : CheckButton
 	public void HandleToggled(bool on)
 	{
 		_skill.OtherAttributes.IsSpecialAttack = on;
+		_skill.IsSpecialRule = !(_skill.OtherAttributes.IsSpecialAttack ?? false);
 	}
 }
