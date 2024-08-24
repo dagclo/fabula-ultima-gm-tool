@@ -34,7 +34,7 @@ text = "MP:"
 
 [node name="MpCostEdit" type="LineEdit" parent="SpellAttributes"]
 layout_mode = 2
-placeholder_text = "<unset>"
+placeholder_text = "Mp Cost"
 editable = false
 expand_to_text_length = true
 script = ExtResource("4_f5nyv")
@@ -52,19 +52,19 @@ Index = 1
 
 [node name="TargetEdit" type="LineEdit" parent="SpellAttributes"]
 layout_mode = 2
-placeholder_text = "<unset>"
+placeholder_text = "Target"
 editable = false
 expand_to_text_length = true
 script = ExtResource("5_k5812")
 
 [node name="DurationEdit" type="LineEdit" parent="SpellAttributes"]
 layout_mode = 2
-placeholder_text = "<unset>"
+placeholder_text = "Duration"
 editable = false
 expand_to_text_length = true
 script = ExtResource("6_8o3ct")
 
-[node name="TextEdit" type="TextEdit" parent="."]
+[node name="SpellTextEdit" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 editable = false
@@ -81,5 +81,13 @@ text = "Remove"
 [connection signal="SpellSet" from="." to="SpellAttributes/AttributeRoll2" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/TargetEdit" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/DurationEdit" method="HandleSpellSet"]
-[connection signal="SpellSet" from="." to="TextEdit" method="HandleSpellSet"]
+[connection signal="SpellSet" from="." to="SpellTextEdit" method="HandleSpellSet"]
+[connection signal="text_changed" from="SpellAttributes/SpellName" to="SpellAttributes/SpellName" method="HandleTextChanged"]
+[connection signal="toggled" from="SpellAttributes/IsOffensiveCheckButton" to="SpellAttributes/IsOffensiveCheckButton" method="HandleToggled"]
+[connection signal="text_changed" from="SpellAttributes/MpCostEdit" to="SpellAttributes/MpCostEdit" method="HandleTextChanged"]
+[connection signal="item_selected" from="SpellAttributes/AttributeRoll1" to="SpellAttributes/AttributeRoll1" method="HandleSelected"]
+[connection signal="item_selected" from="SpellAttributes/AttributeRoll2" to="SpellAttributes/AttributeRoll2" method="HandleSelected"]
+[connection signal="text_changed" from="SpellAttributes/TargetEdit" to="SpellAttributes/TargetEdit" method="HandleTextChanged"]
+[connection signal="text_changed" from="SpellAttributes/DurationEdit" to="SpellAttributes/DurationEdit" method="HandleTextChanged"]
+[connection signal="text_changed" from="SpellTextEdit" to="SpellTextEdit" method="OnTextChanged"]
 [connection signal="pressed" from="RemoveSpellButton" to="." method="HandleRemoveSpell"]

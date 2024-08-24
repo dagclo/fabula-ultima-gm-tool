@@ -47,6 +47,22 @@ namespace FabulaUltimaDatabase.Models
             };
         }
 
+        public static SpellEntry ToSpellEntry(this SpellTemplate spellTemplate)
+        {
+            return new SpellEntry
+            {
+                Id = spellTemplate.Id,
+                Description = spellTemplate.Description,
+                Duration = spellTemplate.Duration,
+                Attribute1 = spellTemplate.Attribute1,
+                Attribute2 = spellTemplate.Attribute2,
+                IsOffensive = spellTemplate.IsOffensive,
+                MagicPointCost = spellTemplate.MagicPointCost,
+                Name = spellTemplate.Name,
+                Target = spellTemplate.Target,
+            };
+        }
+
         public static DamageType ToDamageType(this DamageTypeEntry damageTypeEntry)
         {
             return new DamageType()

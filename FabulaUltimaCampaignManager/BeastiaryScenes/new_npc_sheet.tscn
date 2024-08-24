@@ -414,6 +414,7 @@ script = ExtResource("40_y6vnr")
 [connection signal="SpellSelected" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellOptionButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandleSpellSelected"]
 [connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellOptionButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellOptionButton" method="HandleSpellSelected"]
 [connection signal="AddSpell" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" to="ScrollContainer/BeastEntryNode/Spells/SpellList" method="HandleAddSpell"]
+[connection signal="pressed" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellOptionButton" method="HandleSpellAdded"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandlePressed"]
 [connection signal="UpdateSpellEnabled" from="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/SpellCount" to="ScrollContainer/BeastEntryNode/Spells/SpellOptionsSection/AddSpellButton" method="HandleSpellSlotsAvailable"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/OtherActions/AddOtherActionButton" to="ScrollContainer/BeastEntryNode/OtherActions/OtherActionList" method="HandleAddAction"]
