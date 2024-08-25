@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class NpcSheet : Node
+public partial class NpcSheet : Window
 {
     private Resolver _skillResolver;
     private BeastiaryRepository _beastRepository;
@@ -23,10 +23,12 @@ public partial class NpcSheet : Node
     public Action<ISet<BeastEntryNode.Action>> OnBeastChanged { get; private set; }
     public IBeast BeastModel { get; internal set; }
     public Action OnSave { get; internal set; }
+    public string TitleOverride { get; internal set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
+        this.Title = string.IsNullOrWhiteSpace(TitleOverride) ? this.Title : TitleOverride;
         _skillResolver = GetNode<SkillResolver>("/root/SkillResolver").Instance;
         _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;
         var beast = BeastModel ?? new BeastModel()
