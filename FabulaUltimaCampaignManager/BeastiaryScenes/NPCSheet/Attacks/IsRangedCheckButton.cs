@@ -6,6 +6,7 @@ public partial class IsRangedCheckButton : CheckButton
 {
     private BasicAttackTemplate _basicAttack;
 
+
     public void HandleToggle(bool toggledOn)
 	{
         if(_basicAttack == null) return;
@@ -16,5 +17,6 @@ public partial class IsRangedCheckButton : CheckButton
     {
         var attack = signal.Value;
         _basicAttack = attack;
+        this.SetPressedNoSignal(_basicAttack.IsRanged);
     }
 }

@@ -45,5 +45,20 @@ public partial class AttributeRollAttributeOption : OptionButton
     {
         var attack = signal.Value;
         _basicAttack = attack;
+        string attributeToCheck;
+        switch (Index)
+        {
+            case 0:
+                attributeToCheck = _basicAttack.Attribute1;
+                break;
+            case 1:
+                attributeToCheck = _basicAttack.Attribute2;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException($"{Index} out of range");
+        }
+
+        var id = Attributes.IndexOf(attributeToCheck.ShortenAttribute());
+        this.Selected = GetItemIndex(id);
     }
 }
