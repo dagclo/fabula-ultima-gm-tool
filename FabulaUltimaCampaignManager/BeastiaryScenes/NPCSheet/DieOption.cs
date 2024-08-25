@@ -23,4 +23,9 @@ public partial class DieOption : OptionButton
         var size = GetItemId(index);
         EmitSignal(SignalName.DieSizeChanged, size);
     }
+
+    public void HandleAttributeSizeSet(int size)
+    {
+        Select(GetItemIndex(size));
+    }
 }

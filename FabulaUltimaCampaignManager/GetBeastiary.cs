@@ -79,11 +79,11 @@ public partial class GetBeastiary : VBoxContainer
             }
 		};
 
-		var npcWizard = NpcWizard.Instantiate<NPCWizard>();
+		var npcWizard = NpcWizard.Instantiate<NpcSheet>();        
+        npcWizard.BeastModel = instance.Model;
         this.AddChild(npcWizard);
-        npcWizard.OnAddBeastToEncounter(instance);
-        npcWizard.Closing += () => OnWizardClose(npcWizard);
-        npcWizard.InstanceSet += AddInstanceToEncounter;
+        npcWizard.Closing += () => OnNpcSheetClose(npcWizard);
+        npcWizard.OnSave += () => AddInstanceToEncounter(instance);
     }
 
     private void HandleDeleteBeast(IBeastTemplate template)
@@ -99,12 +99,12 @@ public partial class GetBeastiary : VBoxContainer
         CallDeferred(MethodName.EmitSignal, SignalName.AddBeastToEncounter, instance);
     }
 
-    private void OnWizardCloseDefer(NPCWizard npcWizard)
-    {        
-        CallDeferred(MethodName.OnWizardClose, npcWizard);
-    }
+    //private void OnWizardCloseDefer(NpcSheet npcWizard)
+    //{        
+    //    CallDeferred(MethodName.OnWizardClose, npcWizard);
+    //}
 
-    private void OnWizardClose(NPCWizard npcWizard)
+    private void OnNpcSheetClose(NpcSheet npcWizard)
     {
         RemoveChild(npcWizard);
         npcWizard.QueueFree();

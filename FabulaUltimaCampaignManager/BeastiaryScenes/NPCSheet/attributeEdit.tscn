@@ -26,6 +26,7 @@ popup/item_0/id = 0
 popup/item_0/disabled = true
 script = ExtResource("2_nyy7k")
 
+[connection signal="AttributeDieSizeSet" from="." to="HBoxContainer/DieOption" method="HandleAttributeSizeSet"]
 [connection signal="AttributeNameSet" from="." to="HBoxContainer/AttributeLabel" method="HandleNameChanged"]
 [connection signal="DieSizeChanged" from="HBoxContainer/DieOption" to="." method="HandleDiceSizeChanged"]
 [connection signal="item_selected" from="HBoxContainer/DieOption" to="HBoxContainer/DieOption" method="OnSelected"]

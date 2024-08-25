@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=39 format=3 uid="uid://ec56818wobea"]
 
 [ext_resource type="Script" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
@@ -25,7 +25,6 @@
 [ext_resource type="Script" path="res://Encounters/RunEncounterButton.cs" id="9_buhfi"]
 [ext_resource type="Script" path="res://Encounters/BattleBackOptions.cs" id="11_5ov2a"]
 [ext_resource type="Script" path="res://CampaignManager.cs" id="17_8qoxa"]
-[ext_resource type="PackedScene" uid="uid://pqw3i42qkgpi" path="res://Encounters/NPCWizard.tscn" id="23_hlpai"]
 [ext_resource type="Script" path="res://BeastiaryScenes/AddNpcButton.cs" id="23_yxpob"]
 [ext_resource type="PackedScene" uid="uid://7xtkfi8kp6pg" path="res://BeastiaryScenes/new_npc_sheet.tscn" id="24_tvbgp"]
 [ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="25_0xra3"]
@@ -365,7 +364,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 script = ExtResource("1_4mhff")
 BeastEntryScene = ExtResource("1_4uxgl")
-NpcWizard = ExtResource("23_hlpai")
+NpcWizard = ExtResource("24_tvbgp")
 
 [node name="BeastEntry" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" instance=ExtResource("1_4uxgl")]
 layout_mode = 2

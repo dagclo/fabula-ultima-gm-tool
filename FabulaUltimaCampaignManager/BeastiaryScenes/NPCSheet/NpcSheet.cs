@@ -5,6 +5,7 @@ using FabulaUltimaSkillLibrary;
 using FabulaUltimaSkillLibrary.Models;
 using FirstProject;
 using FirstProject.Beastiary;
+using FirstProject.Npc;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ public partial class NpcSheet : Node
     public Action Closing { get; internal set; }
     public Action<ISet<BeastEntryNode.Action>> OnBeastChanged { get; private set; }
     public IBeast BeastModel { get; internal set; }
+    public Action OnSave { get; internal set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -39,6 +41,7 @@ public partial class NpcSheet : Node
             var node = child as BeastEntryNode;
             node.Beast = new SkilledBeastTemplateWrapper(new BeastTemplate(beast));
             node.OnTrigger += HandleTrigger;
+            if(OnSave != null) node.OverrideSave += OnSave;
             this.OnBeastChanged = node.ActionTemplate;
         }
     }

@@ -27,6 +27,7 @@ public partial class BeastEntryNode : Container
     public Action<IBeastTemplate> OnAddToEncounter { get; set; }
     public Action<IBeastTemplate> OnDeleteBeast { get; set; }
     public Action<IBeastTemplate> OnTrigger { get; set; }
+    public System.Action OverrideSave { get; internal set; }
 
 
     // Called when the node enters the scene tree for the first time.
@@ -56,8 +57,15 @@ public partial class BeastEntryNode : Container
         if(actions.Contains(Action.TRIGGER)) this.OnTrigger?.Invoke(_template);
         if (actions.Contains(Action.SAVE))
         {            
-            _beastRepository?.RunQueuedUpdates(_template.Id);
-            _beastRepository?.UpdateBeastTemplate(_template);
+            if(OverrideSave != null)
+            {
+                OverrideSave();
+            }
+            else
+            {
+                _beastRepository?.RunQueuedUpdates(_template.Id);
+                _beastRepository?.UpdateBeastTemplate(_template);
+            }            
         }
     }
 

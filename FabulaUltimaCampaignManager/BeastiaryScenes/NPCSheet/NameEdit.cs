@@ -15,7 +15,8 @@ public partial class NameEdit : LineEdit, IBeastAttribute, IValidatable
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         if (beastTemplate == null) return;
-        _beastTemplate = beastTemplate;        
+        _beastTemplate = beastTemplate;
+        this.Text = beastTemplate.Name;
     }
 
     public void OnTextSubmitted(string newText)

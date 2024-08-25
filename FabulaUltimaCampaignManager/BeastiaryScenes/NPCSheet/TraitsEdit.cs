@@ -13,6 +13,7 @@ public partial class TraitsEdit : LineEdit, IBeastAttribute, IValidatable
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         _beastTemplate = beastTemplate;
+        this.Text = _beastTemplate.Traits;
     }
 
     public void OnTextSubmitted(string newText)

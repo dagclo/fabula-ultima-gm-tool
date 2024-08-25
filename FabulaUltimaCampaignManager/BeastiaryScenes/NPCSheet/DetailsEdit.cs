@@ -13,7 +13,8 @@ public partial class DetailsEdit : LineEdit, IBeastAttribute, IValidatable
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         if (beastTemplate == null) return;
-        _beastTemplate = beastTemplate;        
+        _beastTemplate = beastTemplate;
+        this.Text = _beastTemplate.Description;
     }
 
     public void OnTextSubmitted(string newText)
