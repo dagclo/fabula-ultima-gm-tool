@@ -43,13 +43,13 @@ public partial class AddedSpellEntry : VBoxContainer, IValidatable
         var spellList = _beastTemplate.Model.Spells;
         bool allowUpdate = true;
         if (!_beastTemplate.Skills.Any(s => s.IsSpellcasterSkill()))
-        {            
-            spellList.Remove(Spell);
+        {
+            _beastTemplate.Model.RemoveSpell(Spell);
             allowUpdate = false;
         }
         else if(!spellList.Contains(Spell))
         {
-            spellList.Add(Spell);
+            _beastTemplate.Model.AddSpell(Spell);
             OnUpdateBeast?.Invoke();
         }
 

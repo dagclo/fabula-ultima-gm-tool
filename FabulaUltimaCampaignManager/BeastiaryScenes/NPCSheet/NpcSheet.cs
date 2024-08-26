@@ -87,10 +87,6 @@ public partial class NpcSheet : Window
             var resolverResults = _skillResolver.ResolveSkills(editableBeastTemplate, input);
             var resolvedSkills = resolverResults.SkillSlots.Where(s => s?.skill != null && s.Value.skill.IsAffinitySkill()).Select(s => s.Value.skill).ToArray();
             
-            
-            
-            
-
             foreach(var newResolvedSkills in resolvedSkills)
             {
                 editableBeastModel.AddSkill(newResolvedSkills);

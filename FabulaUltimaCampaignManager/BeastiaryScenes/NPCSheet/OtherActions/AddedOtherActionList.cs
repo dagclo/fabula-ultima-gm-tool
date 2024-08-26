@@ -32,7 +32,7 @@ public partial class AddedOtherActionList : VBoxContainer, IBeastAttribute
         {
             Id = Guid.NewGuid()
         };
-        _beastTemplate.Model.Actions.Add(action);
+        _beastTemplate.Model.AddAction(action);
         AddOtherAction(action);
         BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.CHANGED }.ToHashSet());
     }
@@ -50,7 +50,7 @@ public partial class AddedOtherActionList : VBoxContainer, IBeastAttribute
 
     private void HandleRemoveAction(AddedActionEntry entry)
     {
-        _beastTemplate.Model.Actions.Remove(entry.Action);
+        _beastTemplate.Model.RemoveAction(entry.Action);
         OnBeastChanged -= entry.HandleBeastChanged;
         RemoveChild(entry);
         entry.QueueFree();

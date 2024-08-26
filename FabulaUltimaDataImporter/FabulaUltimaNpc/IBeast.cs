@@ -17,14 +17,24 @@
 
         public Rank Rank { get; }
 
-        public IDictionary<string, BeastResistance> Resistances { get; }
-        public ICollection<BasicAttackTemplate> BasicAttacks { get; }
-        public ICollection<SpellTemplate> Spells { get; }
-        public ICollection<EquipmentTemplate> Equipment { get; }
+        public IReadOnlyDictionary<string, BeastResistance> Resistances { get; }
+        public IReadOnlyCollection<BasicAttackTemplate> BasicAttacks { get; }
+        public IReadOnlyCollection<SpellTemplate> Spells { get; }
+        public IReadOnlyCollection<EquipmentTemplate> Equipment { get; }
         public IReadOnlyCollection<SkillTemplate> Skills { get; }
-        public ICollection<ActionTemplate> Actions { get; }
+        public IReadOnlyCollection<ActionTemplate> Actions { get; }
 
-        void AddSkill(SkillTemplate newSkill);
+        void AddEquipment(EquipmentTemplate equipment);
+        void RemoveEquipment(EquipmentTemplate equipment);
+        bool HasEquipment(EquipmentTemplate equipment);
+        void AddSkill(SkillTemplate skill);
         void RemoveSkill(SkillTemplate skill);
+
+        void AddBasicAttack(BasicAttackTemplate basicAttack);
+        void RemoveBasicAttack(BasicAttackTemplate basicAttack);
+        void AddAction(ActionTemplate action);
+        void RemoveAction(ActionTemplate action);
+        void AddSpell(SpellTemplate spell);
+        void RemoveSpell(SpellTemplate spell);
     }
 }

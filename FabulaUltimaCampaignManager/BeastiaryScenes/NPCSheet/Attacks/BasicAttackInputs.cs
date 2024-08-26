@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 public partial class BasicAttackInputs : VBoxContainer, IBeastAttribute
-{
-    private ICollection<BasicAttackTemplate> _basicAttacks;
+{    
+    private IBeast _beastModel;
 
     [Export]
     public PackedScene BasicAttackInputScene { get; set; }
@@ -16,10 +16,10 @@ public partial class BasicAttackInputs : VBoxContainer, IBeastAttribute
     private bool _addedExisting = false;
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
-        _basicAttacks = beastTemplate.Model.BasicAttacks;
+        _beastModel = beastTemplate.Model;
         if (!_addedExisting)
         {
-            foreach (var attack in _basicAttacks)
+            foreach (var attack in _beastModel.BasicAttacks)
             {
                 AddAttack(attack);
             }
@@ -31,7 +31,7 @@ public partial class BasicAttackInputs : VBoxContainer, IBeastAttribute
 
     public void HandleAddAttack()
     {
-        if (_basicAttacks == null) return;
+        if (_beastModel == null) return;
         var newAttack = new BasicAttackTemplate
         {
             Id = Guid.NewGuid(),
@@ -39,7 +39,7 @@ public partial class BasicAttackInputs : VBoxContainer, IBeastAttribute
             AccuracyMod = 0,
             AttackSkills = new List<SkillTemplate>()
         };
-        _basicAttacks.Add(newAttack);
+        _beastModel.AddBasicAttack(newAttack);
         AddAttack(newAttack);
         BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.CHANGED }.ToHashSet());
     }
@@ -56,7 +56,7 @@ public partial class BasicAttackInputs : VBoxContainer, IBeastAttribute
     private void HandleAttackRemove(BasicAttackSettings scene)
     {
         var attack = scene.BasicAttack;
-        _basicAttacks.Remove(attack);
+        _beastModel.RemoveBasicAttack(attack);
         OnBeastUpdate -= scene.HandleBeastUpdate;
         RemoveChild(scene);
         scene.QueueFree();

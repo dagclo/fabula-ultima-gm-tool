@@ -30,7 +30,7 @@ public partial class CurrentSpellList : VBoxContainer, IBeastAttribute
     public void HandleAddSpell(SignalWrapper<SpellTemplate> signal)
     {
         var spell = signal.Value;
-        _beastTemplate.Model.Spells.Add(spell);
+        _beastTemplate.Model.AddSpell(spell);
         AddSpell(spell);
         BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.CHANGED }.ToHashSet());
     }
@@ -48,7 +48,7 @@ public partial class CurrentSpellList : VBoxContainer, IBeastAttribute
 
     private void HandleRemoveSpell(AddedSpellEntry entry)
     {
-        _beastTemplate.Model.Spells.Remove(entry.Spell);
+        _beastTemplate.Model.RemoveSpell(entry.Spell);
         OnBeastChanged -= entry.HandleBeastChanged;
         RemoveChild(entry);
         entry.QueueFree();
