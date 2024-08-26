@@ -1,8 +1,10 @@
 using FabulaUltimaNpc;
+using FabulaUltimaSkillLibrary;
 using FirstProject.Beastiary;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
 {
@@ -21,6 +23,11 @@ public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
         _skillsList = beastTemplate.Model.Skills;
         OnBeastChanged?.Invoke(beastTemplate);
         _beastTemplate = beastTemplate;
+        foreach(var skill in _skillsList.Where(s => !(s.IsSpeciesSkill() || s.IsAffinitySkill()))
+                            .Where(s => s.Id != KnownSkills.UseEquipment.Id))
+        {
+            AddSkill(skill);
+        }
     }
 
     public void HandleSkillSelect(SignalWrapper<SkillTemplate> signalWrapper)
@@ -30,16 +37,22 @@ public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
 
     public void HandleAddSkill()
     {
-        if (_nextSkillToAdd == null) return;        
-        _skillsList.Add(_nextSkillToAdd);
+        if (_nextSkillToAdd == null) return;
+        var skill = _nextSkillToAdd;
+        _skillsList.Add(skill);
+        AddSkill(skill);
+        BeastTemplateAction?.Invoke(new HashSet<BeastEntryNode.Action>(new[] { BeastEntryNode.Action.TRIGGER }));
+    }
+
+    private void AddSkill(SkillTemplate skill)
+    {
         var scene = AddSkillScene.Instantiate<AddedSkillEntry>();
-        scene.Skill = _nextSkillToAdd;
+        scene.Skill = skill;
         scene.OnRemoveSkill += HandleRemoveSkill;
         scene.OnUpdateBeast += HandleUpdateBeast;
-        OnBeastChanged += scene.HandleBeastChanged;        
+        OnBeastChanged += scene.HandleBeastChanged;
         AddChild(scene);
         scene.HandleBeastChanged(_beastTemplate);
-        BeastTemplateAction?.Invoke(new HashSet<BeastEntryNode.Action>(new[] { BeastEntryNode.Action.TRIGGER }));
     }
 
     private void HandleUpdateBeast()
