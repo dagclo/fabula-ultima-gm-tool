@@ -31,6 +31,7 @@ namespace FabulaUltimaSkillLibrary
         {
             var speciesSkillSlots = GetSkillSlotsFromSpecies(npc.Species);
             var levelSkillSlots = GetSkillsSlotsFromLevel(npc.Level);
+            var rankSkillSlots = GetSkillsSlotsFromRank(npc.Model.Rank);
             var vulnerabilitySkillSlots = GetSkillsSlotsFromVulnerabilities(npc);
 
             var resolvedSkills = ResolveSkillsInternal(npc, inputData).Select(s => MarkResolved(npc.Species, s)).ToArray();
@@ -39,6 +40,7 @@ namespace FabulaUltimaSkillLibrary
 
             var totalSkillSlots = speciesSkillSlots
                                     .Concat(levelSkillSlots)
+                                    .Concat(rankSkillSlots)
                                     .Concat(vulnerabilitySkillSlots)
                                     .Concat(grantedSkillSlots)
                                     .ToArray();
@@ -58,6 +60,12 @@ namespace FabulaUltimaSkillLibrary
             {
                 SkillSlots = totalSkillSlots
             };
+        }
+
+        private IEnumerable<(SkillTemplate skill, Guid? targetId)?> GetSkillsSlotsFromRank(Rank rank)
+        {
+            var numSkillSlots = rank.GetNumSkills();
+            return Enumerable.Range(0, numSkillSlots).Select(_ => ((SkillTemplate skill, Guid? targetId)?)null);
         }
 
         private IEnumerable<(SkillTemplate skill, Guid? targetId)?> ResolveSkillsInternal(

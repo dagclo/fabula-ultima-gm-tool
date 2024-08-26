@@ -22,6 +22,7 @@ public partial class NpcSheet : Window
     public Action Closing { get; internal set; }
     public Action<ISet<BeastEntryNode.Action>> OnBeastChanged { get; private set; }
     public IBeast BeastModel { get; internal set; }
+    public NpcInstance NpcInstance { get; set; }
     public Action OnSave { get; internal set; }
     public string TitleOverride { get; internal set; }
 
@@ -101,4 +102,10 @@ public partial class NpcSheet : Window
         _beastRepository.ClearQueuedUpdate(BeastModel.Id);
         Closing?.Invoke();
 	}
+
+    public void HandleInstanceNameChange(string newText)
+    {
+        if (NpcInstance == null) return;
+        NpcInstance.InstanceName = newText;
+    }
 }

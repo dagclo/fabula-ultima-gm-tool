@@ -816,6 +816,7 @@ namespace FabulaUltimaSkillLibraryTests
                                   Insight = D8,
                                   Might = D8,
                                   WillPower = D8,
+                                  Rank = rank,
                                   Id = Guid.NewGuid(),
                                   Level = 5,
                                   Species = HUMANOID,
@@ -895,8 +896,8 @@ namespace FabulaUltimaSkillLibraryTests
                               }),
                               new SkillInputData
                               {
-                                  MaxHP = 60,
-                                  MaxMP = 45,
+                                  MaxHP = (50 * rank.GetNumSoldiersReplaced()) + 10,
+                                  MaxMP = 45 * rank.MagicPointMultiplier(),
                                   DefMod = 0,
                                   DefOverride = 11,
                                   MDefMod = 0,
