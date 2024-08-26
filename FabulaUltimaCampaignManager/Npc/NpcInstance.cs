@@ -19,6 +19,12 @@ namespace FirstProject.Npc
             Id = Guid.NewGuid().ToString();            
         }
 
+        public NpcInstance(NpcInstance npc) : this()
+        {
+            Model = npc.Model;
+            InstanceName = npc.InstanceName;
+        }
+
         [Export]
         public string Id { get; set; }
 
@@ -60,8 +66,6 @@ namespace FirstProject.Npc
                 EmitChanged();
             }
         }
-
-
 
         public IReadOnlyDictionary<string, Affinity> Resistances => this.Template.Resistances.ToDictionary(p => p.Key, p => p.Value.ToAffinity());
 

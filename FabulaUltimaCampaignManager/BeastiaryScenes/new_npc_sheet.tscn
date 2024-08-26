@@ -432,6 +432,7 @@ script = ExtResource("40_y6vnr")
 [connection signal="SkillSlotsAvailable" from="." to="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillSlotsLabel" method="HandleSkillSlotsLeft"]
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
 [connection signal="text_changed" from="ScrollContainer/BeastEntryNode/Attributes/InstanceNameEdit" to="." method="HandleInstanceNameChange"]
+[connection signal="text_changed" from="ScrollContainer/BeastEntryNode/Attributes/InstanceNameEdit" to="ScrollContainer/BeastEntryNode/Attributes/InstanceNameEdit" method="HandleTextChanged"]
 [connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Attributes/RankOptionButton" to="ScrollContainer/BeastEntryNode/Attributes/RankOptionButton" method="HandleSelected"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" to="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]

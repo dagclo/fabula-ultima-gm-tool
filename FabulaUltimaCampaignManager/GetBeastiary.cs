@@ -82,10 +82,10 @@ public partial class GetBeastiary : VBoxContainer
 		var npcSheet = NpcWizard.Instantiate<NpcSheet>();        
         npcSheet.BeastModel = instance.Model;
         npcSheet.TitleOverride = "Add NPC to Encounter";
-        npcSheet.NpcInstance = instance;
-        this.AddChild(npcSheet);
+        npcSheet.NpcInstance = instance;        
         npcSheet.Closing += () => OnNpcSheetClose(npcSheet);
         npcSheet.OnSave += () => AddInstanceToEncounter(instance);
+        this.AddChild(npcSheet);
     }
 
     private void HandleDeleteBeast(IBeastTemplate template)
