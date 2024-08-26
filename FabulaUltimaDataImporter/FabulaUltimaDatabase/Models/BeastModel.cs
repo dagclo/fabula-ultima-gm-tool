@@ -24,8 +24,22 @@ namespace FabulaUltimaDatabase.Models
 
         public ICollection<EquipmentTemplate> Equipment { get; set; } = new List<EquipmentTemplate>();
 
-        public ICollection<SkillTemplate> Skills { get; set; } = new List<SkillTemplate>();
+        private ICollection<SkillTemplate> _skillTemplates = new List<SkillTemplate>();
+        public IReadOnlyCollection<SkillTemplate> Skills
+        {
+            get
+            {
+                return _skillTemplates as IReadOnlyCollection<SkillTemplate>;
+            }
+            set
+            {
+                _skillTemplates = value as ICollection<SkillTemplate>;
+            }
+        }
         public ICollection<ActionTemplate> Actions { get; set; } = new List<ActionTemplate>();
         public Rank Rank { get; set; } = Rank.Soldier;
+
+        public void RemoveSkill(SkillTemplate skill) => _skillTemplates.Remove(skill);
+        public void AddSkill(SkillTemplate skill) => _skillTemplates.Add(skill);
     }
 }

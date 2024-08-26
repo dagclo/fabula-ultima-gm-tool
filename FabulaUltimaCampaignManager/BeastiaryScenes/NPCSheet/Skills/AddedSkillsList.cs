@@ -8,7 +8,7 @@ using System.Linq;
 
 public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
 {
-    private ICollection<SkillTemplate> _skillsList;
+    private IBeast _beastModel;
     private SkillTemplate _nextSkillToAdd;
     private IBeastTemplate _beastTemplate;
 
@@ -22,11 +22,11 @@ public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
-        _skillsList = beastTemplate.Model.Skills;
+        _beastModel = beastTemplate.Model;
         OnBeastChanged?.Invoke(beastTemplate);
         _beastTemplate = beastTemplate;
         if (_addedExisting) return;        
-        foreach(var skill in _skillsList.Where(s => !(s.IsSpeciesSkill() || s.IsAffinitySkill()))
+        foreach(var skill in _beastModel.Skills.Where(s => !(s.IsSpeciesSkill() || s.IsAffinitySkill()))
                             .Where(s => s.Id != KnownSkills.UseEquipment.Id))
         {
             AddSkill(skill);
@@ -43,7 +43,7 @@ public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
     {
         if (_nextSkillToAdd == null) return;
         var skill = _nextSkillToAdd;
-        _skillsList.Add(skill);
+        _beastModel.AddSkill(skill);
         AddSkill(skill);
         BeastTemplateAction?.Invoke(new HashSet<BeastEntryNode.Action>(new[] { BeastEntryNode.Action.TRIGGER }));
     }
@@ -66,7 +66,7 @@ public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
 
     private void HandleRemoveSkill(AddedSkillEntry entry)
     {
-        _skillsList.Remove(entry.Skill);
+        _beastModel.RemoveSkill(entry.Skill);
         OnBeastChanged -= entry.HandleBeastChanged;
         RemoveChild(entry);
         entry.QueueFree();

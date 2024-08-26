@@ -200,7 +200,48 @@ namespace FirstProject.Npc
         [Export]
         public Godot.Collections.Array<NpcSkill> NpcSkills { get; set; }
 
-        ICollection<SkillTemplate> IBeast.Skills => NpcSkills.Select(s => s.SkillTemplate).Concat(RankSkills?.Select(s => s.SkillTemplate) ?? new SkillTemplate[0]).ToList();
+        public void RemoveSkill(SkillTemplate targetSkill)
+        {
+            var skillId = targetSkill.Id;
+            int? baseSkillIndex = null;
+            foreach(var (skill, index) in NpcSkills.Select((s, i) => (s, i)))
+            {
+                if(Guid.Parse(skill.Id) == targetSkill.Id)
+                {
+                    baseSkillIndex = index;
+                    break;
+                }
+            }
+
+            if(baseSkillIndex != null)
+            {                
+                NpcSkills.RemoveAt(baseSkillIndex.Value);
+                return;
+            }
+
+            int? rankSkillIndex = null;
+            foreach (var (skill, index) in RankSkills.Select((s, i) => (s, i)))
+            {
+                if (Guid.Parse(skill.Id) == targetSkill.Id)
+                {
+                    rankSkillIndex = index;
+                    break;
+                }
+            }
+
+            if (rankSkillIndex != null)
+            {
+                RankSkills.RemoveAt(rankSkillIndex.Value);
+                return;
+            }
+        }
+
+        public void AddSkill(SkillTemplate skill)
+        {
+            NpcSkills.Add(new NpcSkill(skill));
+        }
+
+        IReadOnlyCollection<SkillTemplate> IBeast.Skills => NpcSkills.Select(s => s.SkillTemplate).Concat(RankSkills?.Select(s => s.SkillTemplate) ?? new SkillTemplate[0]).ToList();
 
         [Export]
         public Godot.Collections.Array<NpcAction> NpcActions { get; set; }
@@ -222,5 +263,7 @@ namespace FirstProject.Npc
                 EmitChanged();
             }
         }
+
+        
     }
 }

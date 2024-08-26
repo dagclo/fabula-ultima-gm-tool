@@ -20,11 +20,7 @@ public partial class AddNpcButton : Button
 	public void HandlePressed()
 	{
 		var npcScene = AddNpcScene?.Instantiate<NpcSheet>();
-        this.AddChild(npcScene);
-        npcScene.BeastModel = new BeastModel()
-        {
-            Level = 5
-        };
+        this.AddChild(npcScene);       
         npcScene.Closing += () => OnNpcClose(npcScene);
     }
 

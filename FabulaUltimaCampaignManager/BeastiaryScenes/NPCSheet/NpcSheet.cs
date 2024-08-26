@@ -32,6 +32,7 @@ public partial class NpcSheet : Window
         this.Title = string.IsNullOrWhiteSpace(TitleOverride) ? this.Title : TitleOverride;
         _skillResolver = GetNode<SkillResolver>("/root/SkillResolver").Instance;
         _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;
+        var isNew = BeastModel?.Species == null;
         var beast = BeastModel ?? new BeastModel()
         {
             Id = Guid.NewGuid(),
@@ -46,6 +47,15 @@ public partial class NpcSheet : Window
             node.OnTrigger += HandleTrigger;
             if(OnSave != null) node.OverrideSave += OnSave;
             this.OnBeastChanged = node.ActionTemplate;
+        }
+
+        if (!isNew)
+        {
+            // mark species skills as "resolved"
+            foreach(var skill in BeastModel.Skills.Where(s => s.IsAffinitySkill() && s.IsFreeSkillForSpecies(BeastModel.Species)))
+            {
+                skill.SetResolved(true);
+            }
         }
 
         this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.TRIGGER });
@@ -71,19 +81,19 @@ public partial class NpcSheet : Window
             var oldResolvedSkills = editableBeastModel.Skills.Where(s => s.IsResolved()).ToArray();
             foreach (var oldSkill in oldResolvedSkills)
             {
-                editableBeastModel.Skills.Remove(oldSkill);
+                editableBeastModel.RemoveSkill(oldSkill);
             }
 
             var resolverResults = _skillResolver.ResolveSkills(editableBeastTemplate, input);
             var resolvedSkills = resolverResults.SkillSlots.Where(s => s?.skill != null && s.Value.skill.IsAffinitySkill()).Select(s => s.Value.skill).ToArray();
             
-            //todo: figure out how to work with existing affinity skills
-            var remainingSkillSlots = resolverResults.RemainingSkillPoints - editableBeastModel.Skills.Count(s => !s.IsResolved());
-            EmitSignal(SignalName.SkillSlotsAvailable, remainingSkillSlots);
+            
+            
+            
 
             foreach(var newResolvedSkills in resolvedSkills)
             {
-                editableBeastModel.Skills.Add(newResolvedSkills);
+                editableBeastModel.AddSkill(newResolvedSkills);
             }
 
             foreach (var affinityGroup in editableBeastTemplate.Skills.Where(s => s.IsAffinitySkill()).GroupBy(s => s.Id).Where(g => g.Count() > 1).ToArray())
@@ -92,10 +102,14 @@ public partial class NpcSheet : Window
                 var versionToTake = affinityGroup.FirstOrDefault(s => s.IsResolved()) ?? affinityGroup.First();
                 foreach (var skill in affinityGroup)
                 {
-                    editableBeastTemplate.Model.Skills.Remove(skill);
+                    editableBeastTemplate.Model.RemoveSkill(skill);
                 }
-                editableBeastTemplate.Model.Skills.Add(versionToTake);
+                editableBeastTemplate.Model.AddSkill(versionToTake);
             }
+
+            var remainingSkillSlots = resolverResults.SkillSlots.Count() - editableBeastModel.Skills.Count();
+
+            EmitSignal(SignalName.SkillSlotsAvailable, remainingSkillSlots);
         }        
       
         this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });

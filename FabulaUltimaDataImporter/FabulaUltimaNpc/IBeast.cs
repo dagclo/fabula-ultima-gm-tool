@@ -21,7 +21,10 @@
         public ICollection<BasicAttackTemplate> BasicAttacks { get; }
         public ICollection<SpellTemplate> Spells { get; }
         public ICollection<EquipmentTemplate> Equipment { get; }
-        public ICollection<SkillTemplate> Skills { get; }
+        public IReadOnlyCollection<SkillTemplate> Skills { get; }
         public ICollection<ActionTemplate> Actions { get; }
+
+        void AddSkill(SkillTemplate newSkill);
+        void RemoveSkill(SkillTemplate skill);
     }
 }
