@@ -47,12 +47,14 @@ public partial class NpcSheet : Window
             if(OnSave != null) node.OverrideSave += OnSave;
             this.OnBeastChanged = node.ActionTemplate;
         }
+
+        this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.TRIGGER });
     }
 
     private void HandleTrigger(IBeastTemplate template)
     {        
         var editableBeastTemplate = template as SkilledBeastTemplateWrapper;
-        var editableBeastModel = editableBeastTemplate?.Model as BeastModel;
+        var editableBeastModel = editableBeastTemplate?.Model;
         if (editableBeastModel == null) return;
         if (editableBeastModel.Species != null) // no point in resolving without species
         {
@@ -74,8 +76,10 @@ public partial class NpcSheet : Window
 
             var resolverResults = _skillResolver.ResolveSkills(editableBeastTemplate, input);
             var resolvedSkills = resolverResults.SkillSlots.Where(s => s?.skill != null && s.Value.skill.IsAffinitySkill()).Select(s => s.Value.skill).ToArray();
-
-            EmitSignal(SignalName.SkillSlotsAvailable, resolverResults.RemainingSkillPoints - editableBeastModel.Skills.Count(s => !s.IsAffinitySkill()));
+            
+            //todo: figure out how to work with existing affinity skills
+            var remainingSkillSlots = resolverResults.RemainingSkillPoints - editableBeastModel.Skills.Count(s => !s.IsResolved());
+            EmitSignal(SignalName.SkillSlotsAvailable, remainingSkillSlots);
 
             foreach(var newResolvedSkills in resolvedSkills)
             {
