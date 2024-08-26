@@ -17,6 +17,10 @@ public partial class AddedOtherActionList : VBoxContainer, IBeastAttribute
     {
         _beastTemplate = beastTemplate;
         OnBeastChanged?.Invoke(beastTemplate);
+        foreach(var action in _beastTemplate.Model.Actions)
+        {
+            AddOtherAction(action);
+        }
     }
 
     public void HandleAddAction()
@@ -26,6 +30,12 @@ public partial class AddedOtherActionList : VBoxContainer, IBeastAttribute
             Id = Guid.NewGuid()
         };
         _beastTemplate.Model.Actions.Add(action);
+        AddOtherAction(action);
+        BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.CHANGED }.ToHashSet());
+    }
+
+    private void AddOtherAction(ActionTemplate action)
+    {
         var scene = AddActionScene.Instantiate<AddedActionEntry>();
         scene.Action = action;
         scene.OnRemoveAction += HandleRemoveAction;
@@ -33,7 +43,6 @@ public partial class AddedOtherActionList : VBoxContainer, IBeastAttribute
         OnBeastChanged += scene.HandleBeastChanged;
         AddChild(scene);
         scene.HandleBeastChanged(_beastTemplate);
-        BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.CHANGED }.ToHashSet());
     }
 
     private void HandleRemoveAction(AddedActionEntry entry)
