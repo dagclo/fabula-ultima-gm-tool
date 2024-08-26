@@ -37,7 +37,7 @@ public partial class ChooseDamageTypeOptions : OptionButton
         var attack = signal.Value;
         _basicAttack = attack;
         if (_basicAttack.DamageType == null) return;
-        var id = DamageTypes.IndexOf(_basicAttack.DamageType.Name);
+        var id = DamageTypes.IndexOf(_basicAttack.DamageType.Name.ToLowerInvariant());
         Select(GetItemIndex(id));
     }
 }
