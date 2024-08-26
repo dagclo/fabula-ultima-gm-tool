@@ -50,16 +50,18 @@ public partial class NpcEquipmentList : Container, IBeastAttribute
         BeastTemplateAction?.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.TRIGGER });
     }
 
+    private bool _addedExisting = false;
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         _beastTemplate = beastTemplate;        
         OnEquipmentSkillChanged?.Invoke(KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate));
-        if(_beastTemplate.Equipment?.Any() == true)
+        if(_beastTemplate.Equipment?.Any() == true && !_addedExisting)
         {
             foreach(var item in _beastTemplate.Equipment)
             {
                 AddEquipment(item);
             }
+            _addedExisting = true;
         }
     }    
 }

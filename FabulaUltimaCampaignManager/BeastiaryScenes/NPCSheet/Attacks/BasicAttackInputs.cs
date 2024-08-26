@@ -13,13 +13,19 @@ public partial class BasicAttackInputs : VBoxContainer, IBeastAttribute
     public Action<ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
     public Action OnBeastUpdate { get; private set; }
 
+    private bool _addedExisting = false;
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         _basicAttacks = beastTemplate.Model.BasicAttacks;
-        foreach(var attack in _basicAttacks)
+        if (!_addedExisting)
         {
-            AddAttack(attack);
-        }
+            foreach (var attack in _basicAttacks)
+            {
+                AddAttack(attack);
+            }
+            _addedExisting = true;
+        }        
+        
         OnBeastUpdate?.Invoke();
     }
 

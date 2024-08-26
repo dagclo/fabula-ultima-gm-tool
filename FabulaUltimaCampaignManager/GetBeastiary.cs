@@ -79,12 +79,13 @@ public partial class GetBeastiary : VBoxContainer
             }
 		};
 
-		var npcWizard = NpcWizard.Instantiate<NpcSheet>();        
-        npcWizard.BeastModel = instance.Model;
-        npcWizard.TitleOverride = "Add NPC to Encounter";
-        this.AddChild(npcWizard);
-        npcWizard.Closing += () => OnNpcSheetClose(npcWizard);
-        npcWizard.OnSave += () => AddInstanceToEncounter(instance);
+		var npcSheet = NpcWizard.Instantiate<NpcSheet>();        
+        npcSheet.BeastModel = instance.Model;
+        npcSheet.TitleOverride = "Add NPC to Encounter";
+        npcSheet.NpcInstance = instance;
+        this.AddChild(npcSheet);
+        npcSheet.Closing += () => OnNpcSheetClose(npcSheet);
+        npcSheet.OnSave += () => AddInstanceToEncounter(instance);
     }
 
     private void HandleDeleteBeast(IBeastTemplate template)

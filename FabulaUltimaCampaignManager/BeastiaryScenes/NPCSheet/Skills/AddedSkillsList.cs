@@ -18,16 +18,20 @@ public partial class AddedSkillsList : VBoxContainer, IBeastAttribute
     public PackedScene AddSkillScene { get; set; }
     public Action<ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
 
+    private bool _addedExisting = false;
+
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         _skillsList = beastTemplate.Model.Skills;
         OnBeastChanged?.Invoke(beastTemplate);
         _beastTemplate = beastTemplate;
+        if (_addedExisting) return;        
         foreach(var skill in _skillsList.Where(s => !(s.IsSpeciesSkill() || s.IsAffinitySkill()))
                             .Where(s => s.Id != KnownSkills.UseEquipment.Id))
         {
             AddSkill(skill);
         }
+        _addedExisting = true;
     }
 
     public void HandleSkillSelect(SignalWrapper<SkillTemplate> signalWrapper)
