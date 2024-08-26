@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=47 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
@@ -8,13 +8,18 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/FileDialog.cs" id="5_rvk4d"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NameEdit.cs" id="6_7xana"]
 [ext_resource type="PackedScene" uid="uid://l34wimyfig21" path="res://BeastiaryScenes/NPCSheet/attributeEdit.tscn" id="7_8kck5"]
+[ext_resource type="Texture2D" uid="uid://bv6hlum4nideo" path="res://Battle/Resources/shield-wood-1.png" id="7_8xudk"]
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="7_s3ls8"]
+[ext_resource type="Texture2D" uid="uid://b44piog8ba1go" path="res://Battle/Resources/shield-silver-2.png" id="8_7wtjf"]
 [ext_resource type="Script" path="res://BeastiaryScenes/AttributeLabel.cs" id="8_46qyh"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/LevelEdit.cs" id="8_j4tkl"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/SpeciesSelect.cs" id="8_o3w12"]
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedHealthLabel.cs" id="9_1jn2a"]
+[ext_resource type="Texture2D" uid="uid://dhjos7mj8pftp" path="res://Battle/Resources/shield-platinum-4.png" id="9_hxud2"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/DetailsEdit.cs" id="10_bxjsn"]
+[ext_resource type="Texture2D" uid="uid://csn2i0kg01qfw" path="res://Battle/Resources/shield-sapphire-3.png" id="10_ndi6f"]
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedMagicPointsLabel.cs" id="10_uy26j"]
+[ext_resource type="Texture2D" uid="uid://dsmn0g2p50jw2" path="res://Battle/Resources/shield-master-12.png" id="11_dw5ms"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/TraitsEdit.cs" id="11_klrkd"]
 [ext_resource type="Script" path="res://BeastiaryScenes/UseDiceSizeLabel.cs" id="11_ytpva"]
 [ext_resource type="PackedScene" uid="uid://dyorgxiwguhn3" path="res://BeastiaryScenes/NPCSheet/affinity_edit.tscn" id="13_hryoq"]
@@ -95,13 +100,47 @@ layout_mode = 2
 size_flags_horizontal = 3
 columns = 2
 
+[node name="InstanceNameLabel" type="Label" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
+layout_mode = 2
+text = "Instance Name"
+
+[node name="InstanceNameEdit" type="LineEdit" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
+layout_mode = 2
+placeholder_text = "NPC Name"
+
+[node name="RankLabel" type="Label" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
+layout_mode = 2
+text = "Rank"
+
+[node name="RankOptionButton" type="OptionButton" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
+layout_mode = 2
+size_flags_vertical = 4
+expand_icon = true
+item_count = 5
+selected = 0
+popup/item_0/text = "Soldier"
+popup/item_0/icon = ExtResource("7_8xudk")
+popup/item_0/id = 1
+popup/item_1/text = "Elite"
+popup/item_1/icon = ExtResource("8_7wtjf")
+popup/item_1/id = 2
+popup/item_2/text = "Champion"
+popup/item_2/icon = ExtResource("9_hxud2")
+popup/item_2/id = 3
+popup/item_3/text = "Super Champion"
+popup/item_3/icon = ExtResource("10_ndi6f")
+popup/item_3/id = 4
+popup/item_4/text = "Uber Champion"
+popup/item_4/icon = ExtResource("11_dw5ms")
+popup/item_4/id = 5
+
 [node name="NameLabel" type="Label" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
 text = "Name:"
 
 [node name="NameEdit" type="LineEdit" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
-placeholder_text = "Creature Name"
+placeholder_text = "Creature Type Name"
 script = ExtResource("6_7xana")
 
 [node name="LevelLabel" type="Label" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
@@ -129,7 +168,7 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-placeholder_text = "Creature Description"
+placeholder_text = "Creature Type Description"
 script = ExtResource("10_bxjsn")
 
 [node name="TraitsLabel" type="Label" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
