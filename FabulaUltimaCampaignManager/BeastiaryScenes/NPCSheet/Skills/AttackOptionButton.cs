@@ -72,6 +72,7 @@ public partial class AttackOptionButton : OptionButton, IValidatable
             {
                 EmitSignal(SignalName.RemoveSkill);
             }
+            _currentAttack = attack;
         }
 
         this.Selected = selected;
