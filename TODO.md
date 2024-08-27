@@ -8,7 +8,6 @@ Project Description
 
 - [ ] Add Loading Page for switch back to main page  
 - [ ] Add Size Modifiers to creatures  
-- [ ] Implement basic search  
 - [ ] Fix Cockatrice's Petrifying Peck  
 - [ ] Block adding equipment with the same name  
 - [ ] Add Skill Tab  
@@ -32,6 +31,7 @@ Project Description
 
 ### Done ✓
 
+- [x] Implement basic search  
 - [x] Fix PC portraits not going dark when turn is done  
 - [x] Get Rid of CallDeferrer and use CallDeferred  
 - [x] Fix PC buttons not updating after reset button  

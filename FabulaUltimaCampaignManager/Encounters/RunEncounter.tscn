@@ -70,8 +70,9 @@ layout_mode = 2
 text = "Reset Round"
 script = ExtResource("6_0ebfa")
 
-[node name="Players" type="VBoxContainer" parent="GMScreen/VBoxContainer"]
+[node name="Players" type="GridContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
+columns = 3
 script = ExtResource("10_xq16r")
 
 [node name="PlayerPanel1" parent="GMScreen/VBoxContainer/Players" instance=ExtResource("4_nde4l")]

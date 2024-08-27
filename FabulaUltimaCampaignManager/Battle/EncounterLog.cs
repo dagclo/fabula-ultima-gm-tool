@@ -1,6 +1,6 @@
 ﻿using System;
 
-public struct NpcActionMessage
+public struct EncounterLog
 {
     public Guid Id { get; internal set; }
     public string Action { get; internal set; }

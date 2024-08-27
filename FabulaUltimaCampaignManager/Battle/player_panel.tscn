@@ -23,6 +23,47 @@ text = "Name: "
 text = "<unset>"
 script = ExtResource("4_up2s2")
 
+[node name="TopStatusSection" type="HBoxContainer" parent="PlayerStatus"]
+layout_mode = 2
+
+[node name="SingleAttributeSection" type="VBoxContainer" parent="PlayerStatus/TopStatusSection"]
+layout_mode = 2
+
+[node name="DazedStatusButton" type="CheckButton" parent="PlayerStatus/TopStatusSection/SingleAttributeSection"]
+layout_mode = 2
+text = "Dazed"
+
+[node name="SlowStatusButton" type="CheckButton" parent="PlayerStatus/TopStatusSection/SingleAttributeSection"]
+layout_mode = 2
+text = "Slow"
+
+[node name="EnragedStatusButton" type="CheckButton" parent="PlayerStatus/TopStatusSection"]
+layout_mode = 2
+text = "Enraged"
+
+[node name="BottomStatusSection" type="HBoxContainer" parent="PlayerStatus"]
+layout_mode = 2
+
+[node name="SingleAttributeSection" type="VBoxContainer" parent="PlayerStatus/BottomStatusSection"]
+layout_mode = 2
+
+[node name="ShakenStatusButton" type="CheckButton" parent="PlayerStatus/BottomStatusSection/SingleAttributeSection"]
+layout_mode = 2
+text = "Shaken"
+
+[node name="WeakStatusButton" type="CheckButton" parent="PlayerStatus/BottomStatusSection/SingleAttributeSection"]
+layout_mode = 2
+text = "Weak"
+
+[node name="PoisonedStatusButton" type="CheckButton" parent="PlayerStatus/BottomStatusSection"]
+layout_mode = 2
+text = "Poisoned"
+
+[node name="TextEdit" type="TextEdit" parent="PlayerStatus"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "Notes"
+
 [node name="CompleteTurnButton" type="Button" parent="PlayerStatus"]
 layout_mode = 2
 text = "Complete Turn"

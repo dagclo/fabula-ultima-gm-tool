@@ -41,7 +41,7 @@ public partial class Sprite : Sprite2D, INpcReader
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         messageRouter.RegisterSubscriber<RoundState>(this.ReceiveRoundStateMessage);        
-        _messagePublisher = messageRouter.GetPublisher<NpcActionMessage>();
+        _messagePublisher = messageRouter.GetPublisher<EncounterLog>();
     }
 
     private async Task ReceiveRoundStateMessage(IMessage message)
@@ -117,7 +117,7 @@ public partial class Sprite : Sprite2D, INpcReader
     }
 
     
-    private MessagePublisher<NpcActionMessage> _messagePublisher;
+    private MessagePublisher<EncounterLog> _messagePublisher;
 
     public void HandleStatusChanged(BattleStatus status)
     {   
@@ -144,7 +144,7 @@ public partial class Sprite : Sprite2D, INpcReader
         {
             _state = State.DEATH;
             _animationPlayer.Queue(DyingAnimation);
-            _messagePublisher.Publish(new NpcActionMessage 
+            _messagePublisher.Publish(new EncounterLog 
             { 
                 Actor = _instance.InstanceName,
                 Verb  = "has died",
@@ -152,7 +152,7 @@ public partial class Sprite : Sprite2D, INpcReader
         }
         else if (_state == State.DEATH && hpState.Contains(HpState.REVIVING)) // this should be gone
         {
-            _messagePublisher.Publish(new NpcActionMessage
+            _messagePublisher.Publish(new EncounterLog
             {
                 Actor = _instance.InstanceName,
                 Verb = "is back!",

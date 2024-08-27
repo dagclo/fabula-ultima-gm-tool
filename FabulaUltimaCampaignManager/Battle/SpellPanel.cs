@@ -9,7 +9,7 @@ public partial class SpellPanel : PanelContainer
     private SpellTemplate _spell;
     private NpcInstance _instance;
     private BattleStatus _battleStatus;
-    private MessagePublisher<NpcActionMessage> _messagePublisher;
+    private MessagePublisher<EncounterLog> _messagePublisher;
 
     [Signal]
     public delegate void NotEnoughMPEventHandler();
@@ -18,7 +18,7 @@ public partial class SpellPanel : PanelContainer
     public override void _Ready()
 	{
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
-        _messagePublisher = messageRouter.GetPublisher<NpcActionMessage>();
+        _messagePublisher = messageRouter.GetPublisher<EncounterLog>();
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -47,7 +47,7 @@ public partial class SpellPanel : PanelContainer
     public void OnUseSpell()
     {
         _battleStatus.CurrentMP -= _spell.MagicPointCost;
-        _messagePublisher.Publish((new NpcActionMessage
+        _messagePublisher.Publish((new EncounterLog
         {
             Id = _spell.Id,
             Action = _spell.Name,

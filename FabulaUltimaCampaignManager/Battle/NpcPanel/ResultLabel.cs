@@ -9,7 +9,7 @@ public partial class ResultLabel : Label, INpcReader, INpcStatusReader
 {
     private ICheckModel _checkModel;    
     private BattleStatus _battleStatus;
-    private MessagePublisher<NpcActionMessage> _messagePublisher;
+    private MessagePublisher<EncounterLog> _messagePublisher;
     private NpcInstance _instance;
 
     // Called when the node enters the scene tree for the first time.
@@ -17,7 +17,7 @@ public partial class ResultLabel : Label, INpcReader, INpcStatusReader
 	{
 		this.Text = string.Empty;
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
-        _messagePublisher = messageRouter.GetPublisher<NpcActionMessage>();
+        _messagePublisher = messageRouter.GetPublisher<EncounterLog>();
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,7 +31,7 @@ public partial class ResultLabel : Label, INpcReader, INpcStatusReader
         var checkResult = signalWrapper.Value;
         var successText = checkResult.Success ? "Success" : "Failed";
         var highRoll = checkResult.Success ? $" (hr: {checkResult.FinalHighRoll})" : string.Empty;
-        _messagePublisher.Publish((new NpcActionMessage
+        _messagePublisher.Publish((new EncounterLog
         {
             Id = Guid.NewGuid(),
             Action = $"for {_checkModel.Action}",
