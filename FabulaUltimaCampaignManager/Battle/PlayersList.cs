@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-public partial class PlayersList : VBoxContainer
+public partial class PlayersList : Container
 {   
     private Action RoundStart { get; set; }    
 

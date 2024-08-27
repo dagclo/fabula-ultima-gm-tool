@@ -1,3 +1,5 @@
+using FirstProject.Encounters;
+using FirstProject.Messaging;
 using Godot;
 using System;
 using System.Linq;
@@ -10,6 +12,7 @@ public partial class RunEncounter : Control
 	{		
         var runState = GetNode<RunState>("/root/RunState");
 		var encounter = runState.RunningEncounter ?? throw new Exception("No encounter set");
+        
         var statuses = encounter.NpcCollection.Select((c, i) => new BattleStatus(c)).ToList();
         
         foreach (var child in this.FindChildren("*")
@@ -18,10 +21,22 @@ public partial class RunEncounter : Control
             var reader = child as IEncounterReader;			
             reader.ReadEncounter(encounter, statuses);
         }
+
+       
+        CallDeferred(MethodName.DeferAction, encounter); // post initiative winner to log
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    public void DeferAction(Encounter encounter)
+    {
+        var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
+        var messagePublisher = messageRouter.GetPublisher<EncounterLog>();
+        var log = new EncounterLog
+        {
+            Action = "Initiative",
+            Id = Guid.NewGuid(),
+            Verb = "won",
+            Actor = encounter.InitiativeSeed.PlayersWon ? "Players" : "Npcs"
+        };
+        messagePublisher.Publish(log.AsMessage());
+    }
 }

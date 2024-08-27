@@ -12,7 +12,7 @@ public partial class DamageButton : Button, INpcStatusReader, INpcReader
     private FirstProject.Npc.Affinity? _affinity;
     private string _damageType;
     private BattleStatus _battleStatus;
-    private MessagePublisher<NpcActionMessage> _messagePublisher;
+    private MessagePublisher<EncounterLog> _messagePublisher;
     private IBeastTemplate _template;
 
     // Called when the node enters the scene tree for the first time.
@@ -20,7 +20,7 @@ public partial class DamageButton : Button, INpcStatusReader, INpcReader
     {
         this.Disabled = true;
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
-        _messagePublisher = messageRouter.GetPublisher<NpcActionMessage>();
+        _messagePublisher = messageRouter.GetPublisher<EncounterLog>();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -55,7 +55,7 @@ public partial class DamageButton : Button, INpcStatusReader, INpcReader
             _battleStatus.CurrentHP = Math.Max(0, _battleStatus.CurrentHP - (_damage ?? 0));
         }
 		
-        _messagePublisher.Publish((new NpcActionMessage
+        _messagePublisher.Publish((new EncounterLog
         {
             Id = Guid.NewGuid(), // todo: decide what to do with this
             Action = $"of {_damageType} {Math.Abs(_damage ?? 0)} (affinity: {_affinity})",

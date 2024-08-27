@@ -11,13 +11,13 @@ public partial class GameLog : Label
 	public override void _Ready()
 	{
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
-		messageRouter.RegisterSubscriber<NpcActionMessage>(this.ReceiveMessage);
+		messageRouter.RegisterSubscriber<EncounterLog>(this.ReceiveMessage);
         this.Text = string.Empty;
     }
 
     private async Task ReceiveMessage(IMessage message)
     {
-        if (!(message is IMessage<NpcActionMessage> typedMessage)) return;        
+        if (!(message is IMessage<EncounterLog> typedMessage)) return;        
         var action = typedMessage.Value;
         var log = $"{action.Actor} {action.Verb} {action.Action}";
         CallDeferred(MethodName.AppendLine, log);

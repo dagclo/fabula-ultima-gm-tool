@@ -7,14 +7,14 @@ using Godot;
 public partial class UseAttackButton : Button, IAttackReader, INpcReader
 {
 	private BasicAttackTemplate _attack;
-    private MessagePublisher<NpcActionMessage> _messagePublisher;
+    private MessagePublisher<EncounterLog> _messagePublisher;
     private string _instanceName;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
-		_messagePublisher = messageRouter.GetPublisher<NpcActionMessage>();
+		_messagePublisher = messageRouter.GetPublisher<EncounterLog>();
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,7 +29,7 @@ public partial class UseAttackButton : Button, IAttackReader, INpcReader
 
 	public void OnUseAttack()
 	{
-        _messagePublisher.Publish((new NpcActionMessage
+        _messagePublisher.Publish((new EncounterLog
         {
             Id = _attack.Id,
             Action = _attack.Name,

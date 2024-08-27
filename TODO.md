@@ -6,46 +6,46 @@ Project Description
 
 ### Backlog
 
-- [ ] Fix Repeat Encounter bug  
 - [ ] Add Loading Page for switch back to main page  
 - [ ] Add Size Modifiers to creatures  
-- [ ] Implement basic search  
-- [ ] added special attacks don't show up on instances  
-- [ ] Add way to remove npcs from encounter without completely deleting encounter  
 - [ ] Fix Cockatrice's Petrifying Peck  
-- [ ] Implement Filtering by species, and level  
 - [ ] Block adding equipment with the same name  
-- [ ] Don't require attacks if equipment equipped  
-- [ ] Allow for zero cost equipment  
 - [ ] Add Skill Tab  
 - [ ] Add Spell Tab  
 - [ ] Fix Basic Attack Spacing in Index  
-- [ ] only offensive spells need attributes assigned to them  
 - [ ] implement clocks  
 - [ ] Add After Encounter Result  
-- [ ] Enable Selection of Players  
 - [ ] Update NPC Image Button only appears when hovering over Image  
-- [ ] implement leveling up npc  
-- [ ] Implement updating all beast attributes  
 - [ ] Implement PC Death  
 - [ ] Enable PC Theme Music  
 - [ ] Implement Cross Network Dice Rolls  
 - [ ] enable removing npc  
-- [ ] Get Rid of CallDeferrer and use CallDeferred  
 - [ ] get rid of any interface methods that don't need to be implemented  
 - [ ] nuke database to get rid of orphans (maybe add this as a clean up task?)  
 - [ ] list of impossible book creatures (Razorbird, Cutterpillar, Hivekin, Cockatrice, Alraune)  
 - [ ] What happens if the process is interrupted?  
-- [ ] allow for lower case attributes  
 - [ ] check for disallowed max hp/mp values  
-- [ ] attack names should be in quotes for importer  
 
 ### In Progress
 
-- [ ] Use Same Turn class for both pcs and npcs  
 
 ### Done ✓
 
+- [x] Implement basic search  
+- [x] Fix PC portraits not going dark when turn is done  
+- [x] Get Rid of CallDeferrer and use CallDeferred  
+- [x] Fix PC buttons not updating after reset button  
+- [x] Implement updating all beast attributes  
+- [x] implement leveling up npc  
+- [x] Enable Selection of Players  
+- [x] only offensive spells need attributes assigned to them  
+- [x] Allow for zero cost equipment  
+- [x] Don't require attacks if equipment equipped  
+- [x] Implement Filtering by species, and level  
+- [x] Add way to remove npcs from encounter without completely deleting encounter  
+- [x] added special attacks don't show up on instances  
+- [x] Fix Repeat Encounter bug  
+- [x] Use Same Turn class for both pcs and npcs  
 - [x] Save all results  
 - [x] Implement Validation  
 - [x] Implement Other Actions  
