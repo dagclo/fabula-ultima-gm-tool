@@ -8,7 +8,8 @@ public partial class OtherActionDescriptionEdit : LineEdit
 
     public void HandleActionSet(SignalWrapper<ActionTemplate> signal)
     {
-        _action = signal.Value;        
+        _action = signal.Value;
+        Text = _action.Effect;
     }
 
 

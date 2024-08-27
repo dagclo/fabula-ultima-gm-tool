@@ -1,4 +1,5 @@
 using FabulaUltimaNpc;
+using FirstProject.Npc;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,11 @@ public partial class SaveNewNpcButton : Button, IBeastAttribute
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
-        // do nothing for now
+        var npcModel = beastTemplate.Model as NpcModel;
+        if (npcModel != null)
+        {
+            this.Text = "Add Copy To Encounter";
+        }
     }
 
     public void HandleErrorsAndWarnings(int errorCount, int warningCount)

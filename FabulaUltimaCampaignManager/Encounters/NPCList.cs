@@ -1,10 +1,13 @@
 using FirstProject.Encounters;
+using FirstProject.Npc;
 using Godot;
 
 public partial class NPCList : VBoxContainer
 {
+    [Signal]
+    public delegate void RemoveNpcEventHandler(NpcInstance encounter);
 
-	[Export]
+    [Export]
 	public PackedScene EntryScene { get; set; }
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -30,7 +33,13 @@ public partial class NPCList : VBoxContainer
         {
             var npcNode = EntryScene.Instantiate<NPCShortEntry>();
             npcNode.UpdateNpc(npc);
+            npcNode.OnRemove += HandleRemove;
             this.AddChild(npcNode);
         }
+    }
+
+    public void HandleRemove(NpcInstance npc)
+    {
+        EmitSignal(SignalName.RemoveNpc, npc);
     }
 }

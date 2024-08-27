@@ -10,6 +10,7 @@ public partial class AttackNameLineEdit : LineEdit
 	{
 		var attack = signal.Value;
 		_basicAttack = attack;
+		this.Text = attack.Name;
 	}
 
 	public void HandleTextChanged(string text)

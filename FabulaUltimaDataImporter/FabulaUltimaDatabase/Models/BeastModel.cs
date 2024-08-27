@@ -16,16 +16,69 @@ namespace FabulaUltimaDatabase.Models
         public Die WillPower { get; set; }
         public string ImageFile { get; set; }
 
-        public IDictionary<string, BeastResistance> Resistances { get; set; } = new Dictionary<string, BeastResistance>();
+        private IDictionary<string, BeastResistance> _resistances = new Dictionary<string, BeastResistance>();
+        public IReadOnlyDictionary<string, BeastResistance> Resistances
+        {
+            get => _resistances as IReadOnlyDictionary<string, BeastResistance>;
+            set => _resistances = value as IDictionary<string, BeastResistance>;
+        }
 
-        public ICollection<BasicAttackTemplate> BasicAttacks { get; set; } = new List<BasicAttackTemplate>();
+        private ICollection<BasicAttackTemplate> _basicAttacks = new List<BasicAttackTemplate>();
+        public IReadOnlyCollection<BasicAttackTemplate> BasicAttacks
+        {
+            get => _basicAttacks as IReadOnlyCollection<BasicAttackTemplate>;
+            set => _basicAttacks = value as ICollection<BasicAttackTemplate>;
+        }
 
-        public ICollection<SpellTemplate> Spells { get; set; } = new List<SpellTemplate>();
+        public void AddBasicAttack(BasicAttackTemplate basicAttack) => _basicAttacks.Add(basicAttack);
+        public void RemoveBasicAttack(BasicAttackTemplate basicAttack) => _basicAttacks.Remove(basicAttack);
 
-        public ICollection<EquipmentTemplate> Equipment { get; set; } = new List<EquipmentTemplate>();
+        private ICollection<SpellTemplate> _spells = new List<SpellTemplate>();
+        public IReadOnlyCollection<SpellTemplate> Spells
+        {
+            get => _spells as IReadOnlyCollection<SpellTemplate>;
+            set => _spells = value as ICollection<SpellTemplate>;
+        }
+        public void AddSpell(SpellTemplate spell) => _spells.Add(spell);
+        public void RemoveSpell(SpellTemplate spell) => _spells.Remove(spell);
 
-        public ICollection<SkillTemplate> Skills { get; set; } = new List<SkillTemplate>();
-        public ICollection<ActionTemplate> Actions { get; set; } = new List<ActionTemplate>();
+        private ICollection<EquipmentTemplate> _equipment = new List<EquipmentTemplate>();
+        public IReadOnlyCollection<EquipmentTemplate> Equipment
+        {
+            get => _equipment as IReadOnlyCollection<EquipmentTemplate>;
+            set => _equipment = value as ICollection<EquipmentTemplate>;
+        }
+
+        public void AddEquipment(EquipmentTemplate equipment) => _equipment.Add(equipment);
+        public void RemoveEquipment(EquipmentTemplate equipment) => _equipment.Remove(equipment);
+        public bool HasEquipment(EquipmentTemplate equipment) => _equipment.Contains(equipment);
+
+        private ICollection<SkillTemplate> _skillTemplates = new List<SkillTemplate>();
+        public IReadOnlyCollection<SkillTemplate> Skills
+        {
+            get
+            {
+                return _skillTemplates as IReadOnlyCollection<SkillTemplate>;
+            }
+            set
+            {
+                _skillTemplates = value as ICollection<SkillTemplate>;
+            }
+        }
+        
+        private ICollection<ActionTemplate> _actions = new List<ActionTemplate>();
+        public IReadOnlyCollection<ActionTemplate> Actions
+        {
+            get => _actions as IReadOnlyCollection<ActionTemplate>;
+            set => _actions = value as ICollection<ActionTemplate>;
+        }
+
+        public void AddAction(ActionTemplate action) => _actions.Add(action);
+        public void RemoveAction(ActionTemplate action) => _actions.Remove(action);
+
         public Rank Rank { get; set; } = Rank.Soldier;
+
+        public void RemoveSkill(SkillTemplate skill) => _skillTemplates.Remove(skill);
+        public void AddSkill(SkillTemplate skill) => _skillTemplates.Add(skill);
     }
 }

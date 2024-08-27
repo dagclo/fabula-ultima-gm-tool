@@ -24,7 +24,17 @@ public partial class AttackOptionButton : OptionButton, IValidatable
         var index = 0;
         var attacks = beastTemplate.AllAttacks;
         _attackMap = _attackMap ?? new Dictionary<int, BasicAttackTemplate>();
-        var attack = _attackMap.TryGetValue(this.Selected, out var value) ? value : null;
+        BasicAttackTemplate attack;
+        var foundAttack = attacks.FirstOrDefault(a => a.AttackSkills.Any(s => s.Id == _skill.Id));
+        if (foundAttack != null)
+        {
+            attack = foundAttack;
+        }
+        else
+        {
+            attack = _attackMap.TryGetValue(this.Selected, out var value) ? value : null;
+        }
+        
         if (_attackMap.Any())
         {
             _attackMap.Clear();
@@ -62,6 +72,7 @@ public partial class AttackOptionButton : OptionButton, IValidatable
             {
                 EmitSignal(SignalName.RemoveSkill);
             }
+            _currentAttack = attack;
         }
 
         this.Selected = selected;

@@ -9,6 +9,7 @@ public partial class ActionNameEdit : LineEdit
     public void HandleActionSet(SignalWrapper<ActionTemplate> signal)
 	{
 		_action = signal.Value;
+        Text = _action.Name;
     }
 
 	public void HandleTextChanged(string text)

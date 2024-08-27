@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public partial class AddEquipmentButton : Button, IBeastAttribute
 {   
-    private ICollection<EquipmentTemplate> _equipmentList;
+    private IBeast _beastModel;
     private EquipmentTemplate _equipmentTemplate;
 
     public Action<ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
@@ -15,8 +15,8 @@ public partial class AddEquipmentButton : Button, IBeastAttribute
     public delegate void AddEquipmentEventHandler(SignalWrapper<EquipmentTemplate> equipment);
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
-    {   
-        _equipmentList = beastTemplate.Model.Equipment;
+    {
+        _beastModel = beastTemplate.Model;
     }
 
     public void HandleEquipmentSelected(SignalWrapper<EquipmentTemplate> signalWrapper)
@@ -28,7 +28,7 @@ public partial class AddEquipmentButton : Button, IBeastAttribute
     {
         if (_equipmentTemplate == null) return;
         var clone = _equipmentTemplate.Clone();
-        _equipmentList.Add(clone);
+        _beastModel.AddEquipment(clone);
         EmitSignal(SignalName.AddEquipment, new SignalWrapper<EquipmentTemplate>(clone));
     }
 }

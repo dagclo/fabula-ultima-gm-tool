@@ -182,32 +182,176 @@ namespace FirstProject.Npc
         [Export]
         public Godot.Collections.Dictionary<string, NpcResistance> NpcResistances { get; set; }
 
-        IDictionary<string, BeastResistance> IBeast.Resistances => NpcResistances.ToDictionary(r => r.Key, r => r.Value.BeastResistance);
+        IReadOnlyDictionary<string, BeastResistance> IBeast.Resistances => NpcResistances.ToDictionary(r => r.Key, r => r.Value.BeastResistance);
 
         [Export]
         public Godot.Collections.Array<NpcBasicAttack> NpcAttacks { get; set; }
-        ICollection<BasicAttackTemplate> IBeast.BasicAttacks => NpcAttacks.Select(a => a.BasicAttackTemplate).ToList();
+        IReadOnlyCollection<BasicAttackTemplate> IBeast.BasicAttacks => NpcAttacks.Select(a => a.BasicAttackTemplate).ToList();
+
+        public void RemoveBasicAttack(BasicAttackTemplate basicAttack)
+        {
+            var equipmentId = basicAttack.Id;
+            int? targetIndex = null;
+            foreach (var (equipment, index) in NpcAttacks.Select((s, i) => (s, i)))
+            {
+                if (Guid.Parse(equipment.Id) == basicAttack.Id)
+                {
+                    targetIndex = index;
+                    break;
+                }
+            }
+
+            if (targetIndex != null)
+            {
+                NpcAttacks.RemoveAt(targetIndex.Value);
+                return;
+            }
+        }
+
+        public void AddBasicAttack(BasicAttackTemplate basicAttack)
+        {
+            NpcAttacks.Add(new NpcBasicAttack(basicAttack));
+        }
 
 
         [Export]
         public Godot.Collections.Array<NpcSpell> NpcSpells { get; set; }
-        ICollection<SpellTemplate> IBeast.Spells => NpcSpells.Select(s => s.SpellTemplate).ToList();
+        IReadOnlyCollection<SpellTemplate> IBeast.Spells => NpcSpells.Select(s => s.SpellTemplate).ToList();
+
+        public void RemoveSpell(SpellTemplate targetSpell)
+        {
+            var equipmentId = targetSpell.Id;
+            int? targetIndex = null;
+            foreach (var (spell, index) in NpcSpells.Select((s, i) => (s, i)))
+            {
+                if (Guid.Parse(spell.Id) == targetSpell.Id)
+                {
+                    targetIndex = index;
+                    break;
+                }
+            }
+
+            if (targetIndex != null)
+            {
+                NpcSpells.RemoveAt(targetIndex.Value);
+                return;
+            }
+        }
+
+        public void AddSpell(SpellTemplate spell)
+        {
+            NpcSpells.Add(new NpcSpell(spell));
+        }
 
         [Export]
         public Godot.Collections.Array<NpcEquipment> NpcEquipment { get; set; }
-        ICollection<EquipmentTemplate> IBeast.Equipment => NpcEquipment.Select(e => e.EquipmentTemplate).ToList();
+        public void RemoveEquipment(EquipmentTemplate targetEquipment)
+        {
+            var equipmentId = targetEquipment.Id;
+            int? targetIndex = null;
+            foreach (var (equipment, index) in NpcEquipment.Select((s, i) => (s, i)))
+            {
+                if (Guid.Parse(equipment.Id) == targetEquipment.Id)
+                {
+                    targetIndex = index;
+                    break;
+                }
+            }
+
+            if (targetIndex != null)
+            {
+                NpcEquipment.RemoveAt(targetIndex.Value);
+                return;
+            }         
+        }
+
+        public void AddEquipment(EquipmentTemplate equipment)
+        {
+            NpcEquipment.Add(new NpcEquipment(equipment));
+        }
+
+        public bool HasEquipment(EquipmentTemplate equipment) => NpcEquipment.Any(e => Guid.Parse(e.Id) == equipment.Id);
+        
+
+        IReadOnlyCollection<EquipmentTemplate> IBeast.Equipment => NpcEquipment.Select(e => e.EquipmentTemplate).ToList();
 
         [Export]
         public Godot.Collections.Array<NpcSkill> NpcSkills { get; set; }
 
-        ICollection<SkillTemplate> IBeast.Skills => NpcSkills.Select(s => s.SkillTemplate).Concat(RankSkills?.Select(s => s.SkillTemplate) ?? new SkillTemplate[0]).ToList();
+        public void RemoveSkill(SkillTemplate targetSkill)
+        {
+            var skillId = targetSkill.Id;
+            int? baseSkillIndex = null;
+            foreach(var (skill, index) in NpcSkills.Select((s, i) => (s, i)))
+            {
+                if(Guid.Parse(skill.Id) == targetSkill.Id)
+                {
+                    baseSkillIndex = index;
+                    break;
+                }
+            }
+
+            if(baseSkillIndex != null)
+            {                
+                NpcSkills.RemoveAt(baseSkillIndex.Value);
+                return;
+            }
+
+            int? rankSkillIndex = null;
+            foreach (var (skill, index) in RankSkills.Select((s, i) => (s, i)))
+            {
+                if (Guid.Parse(skill.Id) == targetSkill.Id)
+                {
+                    rankSkillIndex = index;
+                    break;
+                }
+            }
+
+            if (rankSkillIndex != null)
+            {
+                RankSkills.RemoveAt(rankSkillIndex.Value);
+                return;
+            }
+        }
+
+        public void AddSkill(SkillTemplate skill)
+        {
+            NpcSkills.Add(new NpcSkill(skill));
+        }
+
+        IReadOnlyCollection<SkillTemplate> IBeast.Skills => NpcSkills.Select(s => s.SkillTemplate).Concat(RankSkills?.Select(s => s.SkillTemplate) ?? new SkillTemplate[0]).ToList();
 
         [Export]
         public Godot.Collections.Array<NpcAction> NpcActions { get; set; }
 
-        ICollection<ActionTemplate> IBeast.Actions => NpcActions.Select(s => s.ActionTemplate).ToList();
+        IReadOnlyCollection<ActionTemplate> IBeast.Actions => NpcActions.Select(s => s.ActionTemplate).ToList();
 
-        
+        public void RemoveAction(ActionTemplate basicAttack)
+        {
+            var equipmentId = basicAttack.Id;
+            int? targetIndex = null;
+            foreach (var (action, index) in NpcActions.Select((s, i) => (s, i)))
+            {
+                if (Guid.Parse(action.Id) == basicAttack.Id)
+                {
+                    targetIndex = index;
+                    break;
+                }
+            }
+
+            if (targetIndex != null)
+            {
+                NpcActions.RemoveAt(targetIndex.Value);
+                return;
+            }
+        }
+
+        public void AddAction(ActionTemplate action)
+        {
+            NpcActions.Add(new NpcAction(action));
+        }
+
+
         private Godot.Collections.Array<NpcSkill> _rankSkills;
         [Export]
         public Godot.Collections.Array<NpcSkill> RankSkills
@@ -221,6 +365,6 @@ namespace FirstProject.Npc
                 _rankSkills = value;
                 EmitChanged();
             }
-        }
+        }        
     }
 }

@@ -23,7 +23,7 @@ namespace FabulaUltimaSkillLibraryTests
 
         
 
-        public static IDictionary<string, BeastResistance> GetResistances(
+        public static Dictionary<string, BeastResistance> GetResistances(
                 string physical = "",
                 string air = "",
                 string bolt = "",
@@ -797,21 +797,32 @@ namespace FabulaUltimaSkillLibraryTests
 
                 var heavySpearId = Guid.NewGuid();
                 var crossbowId = Guid.NewGuid();
-                yield return new TestCaseData(
-                                null,
-                                new BeastTemplate(new BeastModel
-                                {
-                                    Name = "Guard",
-                                    Dexterity = D8,
-                                    Insight = D8,
-                                    Might = D8,
-                                    WillPower = D8,
-                                    Id = Guid.NewGuid(),
-                                    Level = 5,
-                                    Species = HUMANOID,
-                                    Resistances = GetResistances(),
-                                    Equipment = new[]
-                                    {
+                foreach (Rank rank in Enum.GetValues<Rank>())
+                {
+                    var expectedResult = new (SkillTemplate skill, Guid? targetId)?[]
+                              {
+                                    ( KnownSkills.ImprovedHitPoints, null),
+                                    ( KnownSkills.UseEquipment.SetResolved(true), null),
+                                    null,
+                                    null,
+                              }.Concat(Enumerable.Range(0, rank.GetNumSkills()).Select(_ => ((SkillTemplate skill, Guid? targetId)?) null)).ToArray();
+
+                    yield return new TestCaseData(
+                              null,
+                              new BeastTemplate(new BeastModel
+                              {
+                                  Name = "Guard",
+                                  Dexterity = D8,
+                                  Insight = D8,
+                                  Might = D8,
+                                  WillPower = D8,
+                                  Rank = rank,
+                                  Id = Guid.NewGuid(),
+                                  Level = 5,
+                                  Species = HUMANOID,
+                                  Resistances = GetResistances(),
+                                  Equipment = new[]
+                                  {
 
                                         new EquipmentTemplate
                                         {
@@ -881,18 +892,18 @@ namespace FabulaUltimaSkillLibraryTests
                                                 Id = crossbowId,
                                             }
                                         },
-                                    }
-                                }),
-                                new SkillInputData
-                                {
-                                    MaxHP = 60,
-                                    MaxMP = 45,
-                                    DefMod = 0,
-                                    DefOverride = 11,
-                                    MDefMod = 0,
-                                    Init = 5,
-                                    AttackModifiers = new Dictionary<Guid, AttackModifier>()
-                                    {
+                                  }
+                              }),
+                              new SkillInputData
+                              {
+                                  MaxHP = (50 * rank.GetNumSoldiersReplaced()) + 10,
+                                  MaxMP = 45 * rank.MagicPointMultiplier(),
+                                  DefMod = 0,
+                                  DefOverride = 11,
+                                  MDefMod = 0,
+                                  Init = 5,
+                                  AttackModifiers = new Dictionary<Guid, AttackModifier>()
+                                  {
                                         {
                                             heavySpearId,
                                             new AttackModifier
@@ -911,15 +922,12 @@ namespace FabulaUltimaSkillLibraryTests
                                                 DamMod = 8,
                                             }
                                         }
-                                    }
-                                },
-                                new (SkillTemplate skill, Guid? targetId)?[]
-                                {
-                                    ( KnownSkills.ImprovedHitPoints, null),
-                                    ( KnownSkills.UseEquipment.SetResolved(true), null),
-                                    null,
-                                    null,
-                                }).SetName("Guard pg 338");
+                                  }
+                              },
+                              expectedResult
+                             ).SetName($"{rank.ToString()} Guard pg 338");
+                }
+              
 
                 var katanaId = Guid.NewGuid();
                 yield return new TestCaseData(

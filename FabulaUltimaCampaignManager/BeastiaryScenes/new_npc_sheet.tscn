@@ -1,8 +1,9 @@
-[gd_scene load_steps=42 format=3 uid="uid://7xtkfi8kp6pg"]
+[gd_scene load_steps=44 format=3 uid="uid://7xtkfi8kp6pg"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/NpcSheet.cs" id="1_3svqs"]
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_f0gy2"]
 [ext_resource type="Texture2D" uid="uid://i7qlj5i8k4cu" path="res://Battle/Monster Unknown.png" id="2_pl67v"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/InstanceNameEdit.cs" id="3_coptv"]
 [ext_resource type="Script" path="res://BeastiaryScenes/DescriptionImage.cs" id="3_v0pp1"]
 [ext_resource type="Script" path="res://BeastiaryScenes/UpdateImageButton.cs" id="4_4podo"]
 [ext_resource type="Script" path="res://BeastiaryScenes/FileDialog.cs" id="5_rvk4d"]
@@ -13,6 +14,7 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/LevelEdit.cs" id="8_j4tkl"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/SpeciesSelect.cs" id="8_o3w12"]
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedHealthLabel.cs" id="9_1jn2a"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/RankOptionButton.cs" id="9_nrygr"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/DetailsEdit.cs" id="10_bxjsn"]
 [ext_resource type="Script" path="res://BeastiaryScenes/ComputedMagicPointsLabel.cs" id="10_uy26j"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/TraitsEdit.cs" id="11_klrkd"]
@@ -43,6 +45,7 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/SaveNewNpcButton.cs" id="40_y6vnr"]
 
 [node name="NewNpcSheet" type="Window"]
+title = "New Npc"
 initial_position = 1
 size = Vector2i(1000, 800)
 script = ExtResource("1_3svqs")
@@ -60,6 +63,29 @@ script = ExtResource("1_f0gy2")
 
 [node name="Attributes" type="VBoxContainer" parent="ScrollContainer/BeastEntryNode"]
 layout_mode = 2
+
+[node name="InstanceNameEdit" type="LineEdit" parent="ScrollContainer/BeastEntryNode/Attributes"]
+layout_mode = 2
+placeholder_text = "NPC Name"
+script = ExtResource("3_coptv")
+
+[node name="RankOptionButton" type="OptionButton" parent="ScrollContainer/BeastEntryNode/Attributes"]
+layout_mode = 2
+size_flags_vertical = 4
+expand_icon = true
+item_count = 5
+selected = 0
+popup/item_0/text = "Soldier"
+popup/item_0/id = 1
+popup/item_1/text = "Elite"
+popup/item_1/id = 2
+popup/item_2/text = "Champion"
+popup/item_2/id = 3
+popup/item_3/text = "Super Champion"
+popup/item_3/id = 4
+popup/item_4/text = "Uber Champion"
+popup/item_4/id = 5
+script = ExtResource("9_nrygr")
 
 [node name="Description" type="HBoxContainer" parent="ScrollContainer/BeastEntryNode/Attributes"]
 layout_mode = 2
@@ -100,7 +126,7 @@ text = "Name:"
 
 [node name="NameEdit" type="LineEdit" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
 layout_mode = 2
-placeholder_text = "Creature Name"
+placeholder_text = "Creature Type Name"
 script = ExtResource("6_7xana")
 
 [node name="LevelLabel" type="Label" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
@@ -128,7 +154,7 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-placeholder_text = "Creature Description"
+placeholder_text = "Creature Type Description"
 script = ExtResource("10_bxjsn")
 
 [node name="TraitsLabel" type="Label" parent="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText"]
@@ -395,6 +421,9 @@ script = ExtResource("40_y6vnr")
 
 [connection signal="SkillSlotsAvailable" from="." to="ScrollContainer/BeastEntryNode/Skills/SkillOptionsSection/SkillSlotsLabel" method="HandleSkillSlotsLeft"]
 [connection signal="close_requested" from="." to="." method="HandleCloseRequested"]
+[connection signal="text_changed" from="ScrollContainer/BeastEntryNode/Attributes/InstanceNameEdit" to="." method="HandleInstanceNameChange"]
+[connection signal="text_changed" from="ScrollContainer/BeastEntryNode/Attributes/InstanceNameEdit" to="ScrollContainer/BeastEntryNode/Attributes/InstanceNameEdit" method="HandleTextChanged"]
+[connection signal="item_selected" from="ScrollContainer/BeastEntryNode/Attributes/RankOptionButton" to="ScrollContainer/BeastEntryNode/Attributes/RankOptionButton" method="HandleSelected"]
 [connection signal="pressed" from="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/UpdateImageButton" to="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/FileDialog" to="ScrollContainer/BeastEntryNode/Attributes/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
 [connection signal="text_changed" from="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/NameEdit" to="ScrollContainer/BeastEntryNode/Attributes/Description/DescriptionText/NameEdit" method="OnTextSubmitted"]

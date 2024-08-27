@@ -13,10 +13,17 @@ public partial class AddedOtherActionList : VBoxContainer, IBeastAttribute
     public Action<ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
     public Action<IBeastTemplate> OnBeastChanged { get; private set; }
 
+    private bool _addedExisting = false;
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         _beastTemplate = beastTemplate;
         OnBeastChanged?.Invoke(beastTemplate);
+        if (_addedExisting) return;
+        foreach(var action in _beastTemplate.Model.Actions)
+        {
+            AddOtherAction(action);
+        }
+        _addedExisting = true;
     }
 
     public void HandleAddAction()
@@ -25,7 +32,13 @@ public partial class AddedOtherActionList : VBoxContainer, IBeastAttribute
         {
             Id = Guid.NewGuid()
         };
-        _beastTemplate.Model.Actions.Add(action);
+        _beastTemplate.Model.AddAction(action);
+        AddOtherAction(action);
+        BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.CHANGED }.ToHashSet());
+    }
+
+    private void AddOtherAction(ActionTemplate action)
+    {
         var scene = AddActionScene.Instantiate<AddedActionEntry>();
         scene.Action = action;
         scene.OnRemoveAction += HandleRemoveAction;
@@ -33,12 +46,11 @@ public partial class AddedOtherActionList : VBoxContainer, IBeastAttribute
         OnBeastChanged += scene.HandleBeastChanged;
         AddChild(scene);
         scene.HandleBeastChanged(_beastTemplate);
-        BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.CHANGED }.ToHashSet());
     }
 
     private void HandleRemoveAction(AddedActionEntry entry)
     {
-        _beastTemplate.Model.Actions.Remove(entry.Action);
+        _beastTemplate.Model.RemoveAction(entry.Action);
         OnBeastChanged -= entry.HandleBeastChanged;
         RemoveChild(entry);
         entry.QueueFree();

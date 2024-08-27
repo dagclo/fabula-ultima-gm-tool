@@ -15,6 +15,9 @@ public partial class AttributeEdit : Control, IBeastAttribute, IValidatable
     [Signal]
     public delegate void AttributeNameSetEventHandler(string attributeName);
 
+    [Signal]
+    public delegate void AttributeDieSizeSetEventHandler(int size);
+
     public Action<System.Collections.Generic.ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
@@ -22,6 +25,23 @@ public partial class AttributeEdit : Control, IBeastAttribute, IValidatable
         if (beastTemplate == null) return;
         _beastTemplate = beastTemplate;
         EmitSignal(SignalName.AttributeNameSet, AttributeName.ShortenAttribute());
+        Die? curDieSize = null;
+        switch (AttributeName.ToLowerInvariant())
+        {
+            case "might":
+                curDieSize = _beastTemplate.Might;
+                break;
+            case "insight":
+                curDieSize = _beastTemplate.Insight;
+                break;
+            case "willpower":
+                curDieSize = _beastTemplate.WillPower;
+                break;
+            case "dexterity":
+                curDieSize = _beastTemplate.Dexterity;
+                break;
+        }
+        if (curDieSize != null) EmitSignal(SignalName.AttributeDieSizeSet, curDieSize.Value.Sides);
     }
 
     public void HandleDiceSizeChanged(int newSize)

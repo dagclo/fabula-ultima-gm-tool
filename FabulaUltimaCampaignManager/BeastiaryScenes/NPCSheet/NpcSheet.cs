@@ -5,12 +5,13 @@ using FabulaUltimaSkillLibrary;
 using FabulaUltimaSkillLibrary.Models;
 using FirstProject;
 using FirstProject.Beastiary;
+using FirstProject.Npc;
 using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class NpcSheet : Node
+public partial class NpcSheet : Window
 {
     private Resolver _skillResolver;
     private BeastiaryRepository _beastRepository;
@@ -21,12 +22,17 @@ public partial class NpcSheet : Node
     public Action Closing { get; internal set; }
     public Action<ISet<BeastEntryNode.Action>> OnBeastChanged { get; private set; }
     public IBeast BeastModel { get; internal set; }
+    public NpcInstance NpcInstance { get; set; }
+    public Action OnSave { get; internal set; }
+    public string TitleOverride { get; internal set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
+        this.Title = string.IsNullOrWhiteSpace(TitleOverride) ? this.Title : TitleOverride;
         _skillResolver = GetNode<SkillResolver>("/root/SkillResolver").Instance;
         _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;
+        var isNew = BeastModel?.Species == null;
         var beast = BeastModel ?? new BeastModel()
         {
             Id = Guid.NewGuid(),
@@ -39,14 +45,26 @@ public partial class NpcSheet : Node
             var node = child as BeastEntryNode;
             node.Beast = new SkilledBeastTemplateWrapper(new BeastTemplate(beast));
             node.OnTrigger += HandleTrigger;
+            if(OnSave != null) node.OverrideSave += OnSave;
             this.OnBeastChanged = node.ActionTemplate;
         }
+
+        if (!isNew)
+        {
+            // mark species skills as "resolved"
+            foreach(var skill in BeastModel.Skills.Where(s => s.IsAffinitySkill() && s.IsFreeSkillForSpecies(BeastModel.Species)))
+            {
+                skill.SetResolved(true);
+            }
+        }
+
+        this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.TRIGGER });
     }
 
     private void HandleTrigger(IBeastTemplate template)
     {        
         var editableBeastTemplate = template as SkilledBeastTemplateWrapper;
-        var editableBeastModel = editableBeastTemplate?.Model as BeastModel;
+        var editableBeastModel = editableBeastTemplate?.Model;
         if (editableBeastModel == null) return;
         if (editableBeastModel.Species != null) // no point in resolving without species
         {
@@ -63,17 +81,15 @@ public partial class NpcSheet : Node
             var oldResolvedSkills = editableBeastModel.Skills.Where(s => s.IsResolved()).ToArray();
             foreach (var oldSkill in oldResolvedSkills)
             {
-                editableBeastModel.Skills.Remove(oldSkill);
+                editableBeastModel.RemoveSkill(oldSkill);
             }
 
             var resolverResults = _skillResolver.ResolveSkills(editableBeastTemplate, input);
             var resolvedSkills = resolverResults.SkillSlots.Where(s => s?.skill != null && s.Value.skill.IsAffinitySkill()).Select(s => s.Value.skill).ToArray();
-
-            EmitSignal(SignalName.SkillSlotsAvailable, resolverResults.RemainingSkillPoints - editableBeastModel.Skills.Count(s => !s.IsAffinitySkill()));
-
+            
             foreach(var newResolvedSkills in resolvedSkills)
             {
-                editableBeastModel.Skills.Add(newResolvedSkills);
+                editableBeastModel.AddSkill(newResolvedSkills);
             }
 
             foreach (var affinityGroup in editableBeastTemplate.Skills.Where(s => s.IsAffinitySkill()).GroupBy(s => s.Id).Where(g => g.Count() > 1).ToArray())
@@ -82,10 +98,14 @@ public partial class NpcSheet : Node
                 var versionToTake = affinityGroup.FirstOrDefault(s => s.IsResolved()) ?? affinityGroup.First();
                 foreach (var skill in affinityGroup)
                 {
-                    editableBeastTemplate.Model.Skills.Remove(skill);
+                    editableBeastTemplate.Model.RemoveSkill(skill);
                 }
-                editableBeastTemplate.Model.Skills.Add(versionToTake);
+                editableBeastTemplate.Model.AddSkill(versionToTake);
             }
+
+            var remainingSkillSlots = resolverResults.SkillSlots.Count() - editableBeastModel.Skills.Count();
+
+            EmitSignal(SignalName.SkillSlotsAvailable, remainingSkillSlots);
         }        
       
         this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });
@@ -96,4 +116,11 @@ public partial class NpcSheet : Node
         _beastRepository.ClearQueuedUpdate(BeastModel.Id);
         Closing?.Invoke();
 	}
+
+    public void HandleInstanceNameChange(string newText)
+    {
+        if (NpcInstance == null) return;
+        NpcInstance.InstanceName = newText;
+        this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });
+    }
 }

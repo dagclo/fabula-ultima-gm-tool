@@ -14,6 +14,7 @@ public partial class SpeciesSelect : OptionButton, IBeastAttribute, IValidatable
     public delegate void SpeciesUpdateEncounterEventHandler(SignalWrapper<IEnumerable<SkillTemplate>> speciesSkills);
     private IBeastTemplate _beastTemplate;
     private BeastiaryRepository _beastRepository;
+    private Dictionary<string, int> _speciesIndexMap;
 
     public Action<System.Collections.Generic.ISet<BeastEntryNode.Action>> BeastTemplateAction { get; set; }
 
@@ -21,7 +22,9 @@ public partial class SpeciesSelect : OptionButton, IBeastAttribute, IValidatable
     public override void _Ready()
 	{
         _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;
-        foreach (var val in new[] { "Beast", "Construct", "Demon", "Elemental", "Humanoid", "Monster", "Plant", "Undead" })
+        var speciesList = new[] { "Beast", "Construct", "Demon", "Elemental", "Humanoid", "Monster", "Plant", "Undead" };
+        _speciesIndexMap = speciesList.Select((s, i) => (s, i)).ToDictionary(p => p.s, p => p.i);
+        foreach (var val in speciesList)
         {
             AddItem(val);
         }
@@ -44,6 +47,10 @@ public partial class SpeciesSelect : OptionButton, IBeastAttribute, IValidatable
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         _beastTemplate = beastTemplate;
+        if (_beastTemplate.Species != null)
+        {
+           this.Selected = _speciesIndexMap[_beastTemplate.Species.Name];
+        }
     }
     string IValidatable.Name => "Species";
     public IEnumerable<TemplateValidation> Validate()

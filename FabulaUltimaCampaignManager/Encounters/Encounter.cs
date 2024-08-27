@@ -32,6 +32,12 @@ namespace FirstProject.Encounters
             EmitChanged();
         }
 
+        public void RemoveNpc(NpcInstance npc)
+        {
+            NpcCollection.Remove(npc);
+            EmitChanged();
+        }
+
         [Export]
         public string Id { get; set; }
 
