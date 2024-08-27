@@ -23,15 +23,15 @@ public partial class ResultLabel : Label, INpcReader, INpcStatusReader
     public void OnResultReady(SignalWrapper<CheckResult> signalWrapper)
     {
         var checkResult = signalWrapper.Value;
-        var successText = checkResult.Success ? "Successfully with" : "Failed with ";
+        var successText = checkResult.Success ? "Successfully" : "Failed";
         var highRoll = checkResult.Success ? $"[hr+mod]=[{checkResult.HighRoll}+{checkResult.HighRollMod}={checkResult.FinalHighRoll}" : string.Empty;
         var detailString = $"[{checkResult.Attribute1Name}+{checkResult.Attribute2Name}+mod]=[{checkResult.Attribute1Result}+{checkResult.Attribute2Result}+{checkResult.ResultMod}]=[{checkResult.TotalRoll}]";
         _messagePublisher.Publish((new EncounterLog
         {
             Id = Guid.NewGuid(),
-            Action = $"rolled",
+            Action = $"{_checkModel.Action} {successText}|{detailString}|{highRoll}",
             Actor = _instance.InstanceName,
-            Verb = $"{_checkModel.Action} with {successText}|{detailString}|{highRoll}",
+            Verb = $"rolled",
         }).AsMessage());
         this.Text = $"{_instance.InstanceName} rolled for {_checkModel.Action} {successText} | {detailString} | {highRoll}";
     }

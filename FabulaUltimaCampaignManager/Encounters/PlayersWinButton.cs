@@ -1,15 +1,29 @@
+using FirstProject.Encounters;
+using FirstProject.Messaging;
 using Godot;
 using System;
 
 public partial class PlayersWinButton : Button
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+    private MessagePublisher<EncounterLog> _messagePublisher;
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
-	}
+        var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
+        _messagePublisher = messageRouter.GetPublisher<EncounterLog>();
+    }
+
+	public void HandlePressed()
+	{        
+        var log = new EncounterLog
+        {
+            Action = "",
+            Id = Guid.NewGuid(),
+            Verb = "Win!",
+            Actor = "Players",
+            DisplayLevel = DisplayLevel.CELEBRATE
+        };
+        _messagePublisher.Publish(log.AsMessage());
+    }
 }

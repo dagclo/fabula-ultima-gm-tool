@@ -128,7 +128,6 @@ layout_mode = 2
 layout_mode = 2
 text = "End Encounter"
 script = ExtResource("12_2xgj5")
-NextScreenPath = "res://node_2d.tscn"
 
 [node name="PlayersWinButton" type="Button" parent="GMScreen/VBoxContainer/VFlowContainer"]
 layout_mode = 2
@@ -140,3 +139,4 @@ visible = false
 
 [connection signal="pressed" from="GMScreen/VBoxContainer/ResetRoundButton" to="GMScreen/VBoxContainer/ResetRoundButton" method="HandlePressed"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" to="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" method="OnButtonPressed"]
+[connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/PlayersWinButton" to="GMScreen/VBoxContainer/VFlowContainer/PlayersWinButton" method="HandlePressed"]

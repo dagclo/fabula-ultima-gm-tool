@@ -47,14 +47,15 @@ public partial class RunEncounter : Control
     }
 
     public void DeferAction(Encounter encounter)
-    {        
-        
+    {
+        var initiativeWinner = encounter.InitiativeSeed.PlayersWon ? "Players" : "Npcs";
         var log = new EncounterLog
         {
-            Action = "Initiative",
+            Action = $"\n{initiativeWinner} Start",
             Id = Guid.NewGuid(),
-            Verb = "won",
-            Actor = encounter.InitiativeSeed.PlayersWon ? "Players" : "Npcs"
+            Verb = "1",
+            Actor = "Round",
+            DisplayLevel = DisplayLevel.WHOOSH
         };
         _messagePublisher.Publish(log.AsMessage());
     }

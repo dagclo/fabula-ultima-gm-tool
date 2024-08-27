@@ -1,5 +1,6 @@
 using FirstProject.Messaging;
 using Godot;
+using System.Linq;
 using System.Threading.Tasks;
 
 public partial class Announcement : Label
@@ -20,9 +21,10 @@ public partial class Announcement : Label
     private async Task ReceiveMessage(IMessage message)
     {   
         if (!(message is IMessage<EncounterLog> typedMessage)) return;        
-        var action = typedMessage.Value;
-        var log = $"{action.Actor} {action.Verb} {action.Action}\n"; // using \n because the windows \r\n\ doesn't work
-        CallDeferred(MethodName.SetText, log);        
+        var log = typedMessage.Value;
+        var logActionNoExtraneousDetails = log.Action.Split('|').First();
+        var accouncement = $"{log.Actor} {log.Verb} {logActionNoExtraneousDetails}"; // using \n because the windows \r\n\ doesn't work
+        CallDeferred(MethodName.SetText, accouncement);        
         CallDeferred(MethodName.EmitSignal, SignalName.MessageReceived, _waitBetweenMessage);
         await ToSignal(GetTree().CreateTimer(_waitBetweenMessage), SceneTreeTimer.SignalName.Timeout); // adjust timing later
     }

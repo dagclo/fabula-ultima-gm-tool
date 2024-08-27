@@ -7,12 +7,18 @@ public struct EncounterLog
     public string Actor { get; internal set; }
     public string Verb { get; internal set; }
     public DisplayLevel DisplayLevel { get; internal set; }
+
+    public override string ToString()
+    {
+        return $"{Actor} {Verb} {Action}";
+    }
 }
 
 public enum DisplayLevel
 {
     DEFAULT,
-    WHOOSH
+    WHOOSH,
+    CELEBRATE
 }
 
 public struct EncounterEnd
