@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdbhgvau850oy"]
+[gd_scene load_steps=13 format=3 uid="uid://cdbhgvau850oy"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_27rb4"]
 [ext_resource type="Script" path="res://Battle/RunEncounter.cs" id="1_dwbmd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Battle/GMScreen.cs" id="6_jr3u1"]
 [ext_resource type="Script" path="res://Battle/GameLog.cs" id="10_f45dp"]
 [ext_resource type="Script" path="res://Battle/PlayersList.cs" id="10_xq16r"]
+[ext_resource type="Script" path="res://Encounters/PlayersWinButton.cs" id="11_vguco"]
 [ext_resource type="Script" path="res://Encounters/EndEncounterButton.cs" id="12_2xgj5"]
 [ext_resource type="PackedScene" uid="uid://cxgjs17e7mmas" path="res://Battle/battle_window.tscn" id="14_c81va"]
 
@@ -120,14 +121,22 @@ what multiple lines
 look like"
 script = ExtResource("10_f45dp")
 
-[node name="EndEncounterButton" type="Button" parent="GMScreen/VBoxContainer"]
+[node name="VFlowContainer" type="HBoxContainer" parent="GMScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="EndEncounterButton" type="Button" parent="GMScreen/VBoxContainer/VFlowContainer"]
 layout_mode = 2
 text = "End Encounter"
 script = ExtResource("12_2xgj5")
-NextScreenPath = "res://node_2d.tscn"
+
+[node name="PlayersWinButton" type="Button" parent="GMScreen/VBoxContainer/VFlowContainer"]
+layout_mode = 2
+text = "Players Win"
+script = ExtResource("11_vguco")
 
 [node name="BattleWindow" parent="." instance=ExtResource("14_c81va")]
 visible = false
 
 [connection signal="pressed" from="GMScreen/VBoxContainer/ResetRoundButton" to="GMScreen/VBoxContainer/ResetRoundButton" method="HandlePressed"]
-[connection signal="pressed" from="GMScreen/VBoxContainer/EndEncounterButton" to="GMScreen/VBoxContainer/EndEncounterButton" method="OnButtonPressed"]
+[connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" to="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" method="OnButtonPressed"]
+[connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/PlayersWinButton" to="GMScreen/VBoxContainer/VFlowContainer/PlayersWinButton" method="HandlePressed"]

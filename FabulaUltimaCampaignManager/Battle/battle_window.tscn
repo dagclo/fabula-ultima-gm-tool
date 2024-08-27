@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cxgjs17e7mmas"]
+[gd_scene load_steps=14 format=3 uid="uid://cxgjs17e7mmas"]
 
 [ext_resource type="Script" path="res://Battle/BattleWindow.cs" id="1_m7k50"]
 [ext_resource type="SpriteFrames" uid="uid://c82vwyudb7xd2" path="res://Battle/Backgroudn.tres" id="2_inpd1"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://dtsiqen0mcy4f" path="res://Battle/PlayerPanel/Player.tscn" id="6_xpt3v"]
 [ext_resource type="Script" path="res://Battle/PlayerPanel/AnnouncementPanel.cs" id="7_l4fvx"]
 [ext_resource type="Script" path="res://Battle/PlayerPanel/Announcement.cs" id="8_2ab8g"]
+[ext_resource type="FontFile" uid="uid://1rq4iiyehcic" path="res://Font/CleanVictory.fnt" id="8_uopy3"]
+[ext_resource type="Script" path="res://Battle/WhooshLabel.cs" id="9_4e4n0"]
 
 [node name="BattleWindow" type="Window"]
 title = "Battle Window"
@@ -48,6 +50,22 @@ SlotIndex = 2
 [node name="BattleSlot4" parent="." instance=ExtResource("4_qo5g6")]
 position = Vector2(1075, 550)
 SlotIndex = 3
+
+[node name="WhooshLabel" type="Label" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -150.0
+offset_right = 413.0
+offset_bottom = -51.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("8_uopy3")
+theme_override_font_sizes/font_size = 66
+text = "Players Win!"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_4e4n0")
+TravelDistance = 1200.0
 
 [node name="DisplayPanel" type="VBoxContainer" parent="."]
 anchors_preset = -1

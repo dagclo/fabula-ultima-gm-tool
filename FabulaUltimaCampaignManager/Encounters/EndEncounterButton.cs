@@ -1,23 +1,19 @@
+using FirstProject.Messaging;
 using Godot;
 
 public partial class EndEncounterButton : Button
 {
-	[Export]
-	public string NextScreenPath { get; set; }
+    private MessagePublisher<EncounterEnd> _messagePublisher;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-        
+        var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
+        _messagePublisher = messageRouter.GetPublisher<EncounterEnd>();
     }
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
 
 	public void OnButtonPressed()
 	{
-		GetTree().ChangeSceneToFile(NextScreenPath);
+        _messagePublisher.Publish(new EncounterEnd().AsMessage());
     }
 }
