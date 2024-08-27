@@ -118,34 +118,40 @@ layout_mode = 2
 text = "Dead"
 script = ExtResource("6_4n0rd")
 
+[node name="VSeparator" type="VSeparator" parent="NpcStatus/Statuses"]
+layout_mode = 2
+
 [node name="DazedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
 layout_mode = 2
 text = "Dazed"
-
-[node name="EnragedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
-layout_mode = 2
-text = "Enraged"
-Status = 1
-
-[node name="PoisonedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
-layout_mode = 2
-text = "Poisoned"
-Status = 2
-
-[node name="ShakenToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
-layout_mode = 2
-text = "Shaken"
-Status = 3
 
 [node name="SlowToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
 layout_mode = 2
 text = "Slow"
 Status = 4
 
+[node name="EnragedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
+layout_mode = 2
+text = "Enraged"
+Status = 1
+
+[node name="VSeparator2" type="VSeparator" parent="NpcStatus/Statuses"]
+layout_mode = 2
+
 [node name="WeakToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
 layout_mode = 2
 text = "Weak"
 Status = 5
+
+[node name="ShakenToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
+layout_mode = 2
+text = "Shaken"
+Status = 3
+
+[node name="PoisonedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
+layout_mode = 2
+text = "Poisoned"
+Status = 2
 
 [node name="StudyLevelBar" type="HBoxContainer" parent="NpcStatus"]
 layout_mode = 2
