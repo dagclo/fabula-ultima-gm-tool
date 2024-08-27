@@ -70,8 +70,13 @@ text = "Show"
 script = ExtResource("7_23fly")
 StatWindowScene = ExtResource("8_dgv5w")
 
+[node name="RemoveButton" type="Button" parent="."]
+layout_mode = 2
+text = "Remove"
+
 [connection signal="text_submitted" from="Name/HBoxContainer/NameEdit" to="Name/HBoxContainer/NameEdit" method="OnTextSubmitted"]
 [connection signal="pressed" from="ShowStats" to="ShowStats" method="OnPressed"]
+[connection signal="pressed" from="RemoveButton" to="." method="HandleRemoveButtonPressed"]
 
 [editable path="Type"]
 [editable path="Level"]

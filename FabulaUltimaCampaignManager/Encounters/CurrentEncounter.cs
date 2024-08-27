@@ -57,4 +57,12 @@ public partial class CurrentEncounter : PanelContainer
 		Encounter.AddNpc(new NpcInstance(npc)); // use this to ensure change is emitted		
 		EmitSignal(SignalName.UpdateEncounter, Encounter);
     }
+
+	public void RemoveNpcFromEncounter(NpcInstance npc)
+	{
+        if (Encounter == null) return;
+        if (npc == null) return;
+		Encounter.RemoveNpc(npc);
+        EmitSignal(SignalName.UpdateEncounter, Encounter);
+    }
 }

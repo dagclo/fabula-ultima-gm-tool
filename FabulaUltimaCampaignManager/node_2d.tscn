@@ -418,6 +418,7 @@ fit_content = true
 [connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" method="OnTextChanged"]
 [connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/RunEncounterButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup" method="OnRunButton"]
 [connection signal="item_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" to="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" method="OnSelection"]
+[connection signal="RemoveNpc" from="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" to="HSplitContainer/CurrentEncounter" method="RemoveNpcFromEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot2" method="UpdateEncounter"]
