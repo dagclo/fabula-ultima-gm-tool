@@ -4,8 +4,7 @@ using System;
 
 public partial class PlayerPanel : PanelContainer, IPlayerTurnHandler
 {
-	private PlayerData _playerData;
-    private CallDeferrer _callDeferrer;
+	private PlayerData _playerData;    
 
     public Action CompletedTurn { get; set; }
 
@@ -25,15 +24,8 @@ public partial class PlayerPanel : PanelContainer, IPlayerTurnHandler
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-		this.Visible = false;
-        _callDeferrer = new CallDeferrer();
+		this.Visible = false;       
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-        _callDeferrer.RunNext()?.Invoke();
-    }
 
     public void ReadPlayer(PlayerData player)
     {
@@ -44,8 +36,8 @@ public partial class PlayerPanel : PanelContainer, IPlayerTurnHandler
     }
 
     public void OnRoundStart()
-    {
-        _callDeferrer.Defer(() => EmitSignal(SignalName.RoundStart));
+    {        
+        CallDeferred(MethodName.EmitSignal, SignalName.RoundStart);
         _playerData.IsActive = true;
     }
 
@@ -56,8 +48,8 @@ public partial class PlayerPanel : PanelContainer, IPlayerTurnHandler
     }
 
     public void OnTurnStart()
-    {
-        _callDeferrer.Defer(() => EmitSignal(SignalName.TurnStart));
+    {        
+        CallDeferred(MethodName.EmitSignal, SignalName.TurnStart);
     }
 
     public void OnRoundEnd()

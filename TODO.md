@@ -21,7 +21,6 @@ Project Description
 - [ ] Enable PC Theme Music  
 - [ ] Implement Cross Network Dice Rolls  
 - [ ] enable removing npc  
-- [ ] Get Rid of CallDeferrer and use CallDeferred  
 - [ ] get rid of any interface methods that don't need to be implemented  
 - [ ] nuke database to get rid of orphans (maybe add this as a clean up task?)  
 - [ ] list of impossible book creatures (Razorbird, Cutterpillar, Hivekin, Cockatrice, Alraune)  
@@ -30,10 +29,12 @@ Project Description
 
 ### In Progress
 
-- [ ] Fix PC buttons not updating after reset button  
 
 ### Done ✓
 
+- [x] Fix PC portraits not going dark when turn is done  
+- [x] Get Rid of CallDeferrer and use CallDeferred  
+- [x] Fix PC buttons not updating after reset button  
 - [x] Implement updating all beast attributes  
 - [x] implement leveling up npc  
 - [x] Enable Selection of Players  
