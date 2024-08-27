@@ -1,27 +1,37 @@
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
+using System;
 
-public partial class NpcAttributeLabel : PanelContainer, INpcReader
+public partial class NpcAttributeLabel : PanelContainer, INpcReader, INpcStatusReader
 {
 	[Export]
 	public string Attribute {  get; set; }
 
 	private Label Value;
+    private NpcInstance _npcInstance;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
 		Value = (Label) FindChild("Text"); // force exception if not found
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
     public void HandleNpcChanged(NpcInstance npc)
-    {	
-        Value.Text = npc.GetValueOf(Attribute);
+    {
+        _npcInstance = npc;
+        Value.Text = _npcInstance.GetValueOf(Attribute).ToString();
+    }
+
+    public void HandleStatusSet(BattleStatus status)
+    {
+        status.StatusChanged += UpdateAttribute;
+    }
+
+    private void UpdateAttribute(BattleStatus status)
+    {
+        var currentValue = _npcInstance.GetValueOf(Attribute);
+        var postStatus = status.ApplyStatus(Attribute, _npcInstance);
+        Value.Text = postStatus.ToString();
     }
 }

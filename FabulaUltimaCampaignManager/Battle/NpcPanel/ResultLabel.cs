@@ -20,25 +20,20 @@ public partial class ResultLabel : Label, INpcReader, INpcStatusReader
         _messagePublisher = messageRouter.GetPublisher<EncounterLog>();
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-
-	}
-
     public void OnResultReady(SignalWrapper<CheckResult> signalWrapper)
     {
         var checkResult = signalWrapper.Value;
-        var successText = checkResult.Success ? "Success" : "Failed";
-        var highRoll = checkResult.Success ? $" (hr: {checkResult.FinalHighRoll})" : string.Empty;
+        var successText = checkResult.Success ? "Successfully with" : "Failed with ";
+        var highRoll = checkResult.Success ? $"[hr+mod]=[{checkResult.HighRoll}+{checkResult.HighRollMod}={checkResult.FinalHighRoll}" : string.Empty;
+        var detailString = $"[{checkResult.Attribute1Name}+{checkResult.Attribute2Name}+mod]=[{checkResult.Attribute1Result}+{checkResult.Attribute2Result}+{checkResult.ResultMod}]=[{checkResult.TotalRoll}]";
         _messagePublisher.Publish((new EncounterLog
         {
             Id = Guid.NewGuid(),
-            Action = $"for {_checkModel.Action}",
+            Action = $"rolled",
             Actor = _instance.InstanceName,
-            Verb = $"rolled {successText}",
+            Verb = $"{_checkModel.Action} with {successText}|{detailString}|{highRoll}",
         }).AsMessage());
-        this.Text = $"{_instance.InstanceName} rolled a {successText} ({checkResult.TotalRoll}) {_checkModel.Action} check ({checkResult.Attribute1Result}, {checkResult.Attribute2Result}){highRoll}";
+        this.Text = $"{_instance.InstanceName} rolled for {_checkModel.Action} {successText} | {detailString} | {highRoll}";
     }
 
     public void OnActionSet(SignalWrapper<ICheckModel> signal)

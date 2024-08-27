@@ -118,34 +118,40 @@ layout_mode = 2
 text = "Dead"
 script = ExtResource("6_4n0rd")
 
+[node name="VSeparator" type="VSeparator" parent="NpcStatus/Statuses"]
+layout_mode = 2
+
 [node name="DazedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
 layout_mode = 2
 text = "Dazed"
-
-[node name="EnragedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
-layout_mode = 2
-text = "Enraged"
-Status = 1
-
-[node name="PoisonedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
-layout_mode = 2
-text = "Poisoned"
-Status = 2
-
-[node name="ShakenToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
-layout_mode = 2
-text = "Shaken"
-Status = 3
 
 [node name="SlowToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
 layout_mode = 2
 text = "Slow"
 Status = 4
 
+[node name="EnragedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
+layout_mode = 2
+text = "Enraged"
+Status = 1
+
+[node name="VSeparator2" type="VSeparator" parent="NpcStatus/Statuses"]
+layout_mode = 2
+
 [node name="WeakToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
 layout_mode = 2
 text = "Weak"
 Status = 5
+
+[node name="ShakenToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
+layout_mode = 2
+text = "Shaken"
+Status = 3
+
+[node name="PoisonedToggle" parent="NpcStatus/Statuses" instance=ExtResource("5_fwa0l")]
+layout_mode = 2
+text = "Poisoned"
+Status = 2
 
 [node name="StudyLevelBar" type="HBoxContainer" parent="NpcStatus"]
 layout_mode = 2
@@ -187,6 +193,9 @@ AttackScene = ExtResource("7_mbs67")
 [node name="AttackPanel" parent="NpcStatus/Attacks/AttackList" instance=ExtResource("7_mbs67")]
 layout_mode = 2
 
+[node name="HSeparator" type="HSeparator" parent="NpcStatus"]
+layout_mode = 2
+
 [node name="Spells" type="VBoxContainer" parent="NpcStatus"]
 layout_mode = 2
 
@@ -201,6 +210,9 @@ script = ExtResource("8_l6g8q")
 SpellScene = ExtResource("9_4q14p")
 
 [node name="SpellPanel" parent="NpcStatus/Spells/SpellList" instance=ExtResource("9_4q14p")]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="NpcStatus"]
 layout_mode = 2
 
 [node name="OtherActions" type="VBoxContainer" parent="NpcStatus"]
@@ -219,6 +231,9 @@ ActionScene = ExtResource("4_hy8io")
 [node name="OtherAction" parent="NpcStatus/OtherActions/OtherActionList" instance=ExtResource("4_hy8io")]
 layout_mode = 2
 
+[node name="HSeparator3" type="HSeparator" parent="NpcStatus"]
+layout_mode = 2
+
 [node name="SpecialRules" type="VBoxContainer" parent="NpcStatus"]
 layout_mode = 2
 
@@ -233,6 +248,9 @@ script = ExtResource("12_u0kj1")
 SkillScene = ExtResource("5_37xok")
 
 [node name="Skill" parent="NpcStatus/SpecialRules/RulesList" instance=ExtResource("5_37xok")]
+layout_mode = 2
+
+[node name="HSeparator4" type="HSeparator" parent="NpcStatus"]
 layout_mode = 2
 
 [node name="Roll" type="FlowContainer" parent="NpcStatus"]
@@ -310,6 +328,9 @@ layout_mode = 2
 text = "<unset>"
 script = ExtResource("21_xpnbq")
 
+[node name="HSeparator5" type="HSeparator" parent="NpcStatus"]
+layout_mode = 2
+
 [node name="Damage" type="HBoxContainer" parent="NpcStatus"]
 layout_mode = 2
 
@@ -349,6 +370,7 @@ script = ExtResource("15_1atgb")
 [node name="Notes" type="TextEdit" parent="NpcStatus"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+placeholder_text = "notes"
 
 [node name="FinishTurnButton" type="Button" parent="NpcStatus"]
 layout_mode = 2

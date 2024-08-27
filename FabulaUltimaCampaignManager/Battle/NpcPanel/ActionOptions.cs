@@ -1,8 +1,11 @@
+using FabulaUltimaDatabase;
 using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using FirstProject.Encounters;
+using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
+using System;
 using System.Collections.Generic;
 
 public partial class ActionOptions : OptionButton, INpcReader, INpcStatusReader
@@ -21,12 +24,12 @@ public partial class ActionOptions : OptionButton, INpcReader, INpcStatusReader
 		this.Disabled = true;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    public void OnResultReady(SignalWrapper<CheckResult> _)
+    {
+        this.Selected = 0; // reset to force new check model
+    }
 
-	private void CreateCheckFactory()
+    private void CreateCheckFactory()
 	{
 		if (_factory != null) return;
 		if (_beastTemplate == null) return;
@@ -52,6 +55,7 @@ public partial class ActionOptions : OptionButton, INpcReader, INpcStatusReader
     {
 		_battleStatus = status;
         CreateCheckFactory();
+        _battleStatus.StatusChanged += (BattleStatus _) => OnResultReady(null); // reuse method for now
     }
 
     public void OnItemSelected(int index)

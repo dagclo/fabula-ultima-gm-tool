@@ -139,6 +139,33 @@ public partial class BattleStatus : Resource
         return result;
     }
 
+    internal int ApplyStatus(string attribute, NpcInstance npcInstance)
+    {
+        int result;
+        switch (attribute)
+        {
+            case "PDef":
+                if (npcInstance.Template.HasDefenseOverride) // overrides are unaffected by status
+                {
+                    result = npcInstance.Template.Defense;
+                }
+                else
+                {
+                    var postStatusDexDie = ApplyStatus(nameof(IBeastTemplate.Dexterity), npcInstance.Template.Dexterity);
+                    result = npcInstance.Template.Defense + (postStatusDexDie.Sides - npcInstance.Template.Dexterity.Sides);
+                }                
+                break;
+            case "MDef":
+                var postIStatusInsightDie = ApplyStatus(nameof(IBeastTemplate.Insight), npcInstance.Template.Insight);
+                result = npcInstance.Template.MagicalDefense + (postIStatusInsightDie.Sides - npcInstance.Template.Insight.Sides);
+                break;
+            default:
+                result = 0;
+                break;
+        }
+        return result;
+    }
+
     public enum StudyLevelEnum
     {
         NO_INFO = 1,
