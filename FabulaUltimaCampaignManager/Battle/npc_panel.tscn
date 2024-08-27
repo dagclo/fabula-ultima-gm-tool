@@ -328,6 +328,9 @@ layout_mode = 2
 text = "<unset>"
 script = ExtResource("21_xpnbq")
 
+[node name="HSeparator5" type="HSeparator" parent="NpcStatus"]
+layout_mode = 2
+
 [node name="Damage" type="HBoxContainer" parent="NpcStatus"]
 layout_mode = 2
 
