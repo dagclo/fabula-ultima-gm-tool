@@ -57,7 +57,7 @@ public partial class AttributeRollAttributeOption : OptionButton
             default:
                 throw new ArgumentOutOfRangeException($"{Index} out of range");
         }
-
+        if (attributeToCheck == null) return;
         var id = Attributes.IndexOf(attributeToCheck.ShortenAttribute());
         this.Selected = GetItemIndex(id);
     }
