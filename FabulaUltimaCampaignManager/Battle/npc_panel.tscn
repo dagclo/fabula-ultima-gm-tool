@@ -193,6 +193,9 @@ AttackScene = ExtResource("7_mbs67")
 [node name="AttackPanel" parent="NpcStatus/Attacks/AttackList" instance=ExtResource("7_mbs67")]
 layout_mode = 2
 
+[node name="HSeparator" type="HSeparator" parent="NpcStatus"]
+layout_mode = 2
+
 [node name="Spells" type="VBoxContainer" parent="NpcStatus"]
 layout_mode = 2
 
@@ -207,6 +210,9 @@ script = ExtResource("8_l6g8q")
 SpellScene = ExtResource("9_4q14p")
 
 [node name="SpellPanel" parent="NpcStatus/Spells/SpellList" instance=ExtResource("9_4q14p")]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="NpcStatus"]
 layout_mode = 2
 
 [node name="OtherActions" type="VBoxContainer" parent="NpcStatus"]
@@ -225,6 +231,9 @@ ActionScene = ExtResource("4_hy8io")
 [node name="OtherAction" parent="NpcStatus/OtherActions/OtherActionList" instance=ExtResource("4_hy8io")]
 layout_mode = 2
 
+[node name="HSeparator3" type="HSeparator" parent="NpcStatus"]
+layout_mode = 2
+
 [node name="SpecialRules" type="VBoxContainer" parent="NpcStatus"]
 layout_mode = 2
 
@@ -239,6 +248,9 @@ script = ExtResource("12_u0kj1")
 SkillScene = ExtResource("5_37xok")
 
 [node name="Skill" parent="NpcStatus/SpecialRules/RulesList" instance=ExtResource("5_37xok")]
+layout_mode = 2
+
+[node name="HSeparator4" type="HSeparator" parent="NpcStatus"]
 layout_mode = 2
 
 [node name="Roll" type="FlowContainer" parent="NpcStatus"]
@@ -355,6 +367,7 @@ script = ExtResource("15_1atgb")
 [node name="Notes" type="TextEdit" parent="NpcStatus"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+placeholder_text = "notes"
 
 [node name="FinishTurnButton" type="Button" parent="NpcStatus"]
 layout_mode = 2
