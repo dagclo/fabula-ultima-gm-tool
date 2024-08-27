@@ -41,9 +41,14 @@ public partial class RollButton : Button, INpcReader
         {
             Success = result >= _checkModel.Difficulty,
             FinalHighRoll = highRoll + (_checkModel.HighRollMod ?? 0),
+            HighRoll = highRoll,
+            HighRollMod = _checkModel.HighRollMod ?? 0,
+            ResultMod = accMod,
             TotalRoll = result,
             Attribute1Result = attribute1Result,
             Attribute2Result = attribute2Result,
+            Attribute1Name = _checkModel.Attribute1Name,
+            Attribute2Name = _checkModel.Attribute2Name,
         };
         EmitSignal(SignalName.ResultReady, new SignalWrapper<CheckResult>(checkResult));
 	}
