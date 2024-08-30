@@ -1,6 +1,4 @@
-﻿using FirstProject.Npc;
-
-public struct RoundState
+﻿public struct RoundState
 {
     public int RoundNumber { get; set; }    
 }

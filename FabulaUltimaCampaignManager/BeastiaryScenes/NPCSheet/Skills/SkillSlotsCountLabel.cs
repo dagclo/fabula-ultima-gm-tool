@@ -1,6 +1,5 @@
 using FabulaUltimaGMTool.BeastiaryScenes;
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public partial class SkillSlotsCountLabel : Label, IValidatable

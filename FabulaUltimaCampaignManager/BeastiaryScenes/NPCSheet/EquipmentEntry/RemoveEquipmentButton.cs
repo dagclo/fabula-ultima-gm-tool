@@ -1,7 +1,6 @@
 using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using Godot;
-using System.Collections.Generic;
 using System.Linq;
 
 public partial class RemoveEquipmentButton : Button

@@ -1,7 +1,6 @@
 using FirstProject.Campaign;
 using FirstProject.Messaging;
 using Godot;
-using System;
 
 public partial class PlayerEnabled : CheckButton, IPlayerAttribute
 {

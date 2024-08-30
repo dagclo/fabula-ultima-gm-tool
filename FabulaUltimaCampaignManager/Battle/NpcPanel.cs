@@ -1,5 +1,3 @@
-using FabulaUltimaDatabase;
-using FirstProject.Beastiary;
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;

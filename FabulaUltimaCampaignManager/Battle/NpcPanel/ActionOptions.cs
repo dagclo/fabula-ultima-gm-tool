@@ -1,11 +1,8 @@
-using FabulaUltimaDatabase;
 using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using FirstProject.Encounters;
-using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public partial class ActionOptions : OptionButton, INpcReader, INpcStatusReader

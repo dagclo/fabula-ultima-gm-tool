@@ -17,6 +17,9 @@ public partial class Campaign : VBoxContainer
     [Export]
     public Configuration Configuration { get; set; }
 
+    [Export]
+    public double SaveTimeWindowSeconds { get; set; } = 2;
+
     [Signal]
     public delegate void UpdateCurrentCampaignEventHandler(SignalWrapper<CampaignData> campaign);
 
@@ -49,19 +52,26 @@ public partial class Campaign : VBoxContainer
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         messageRouter.RegisterSubscriber<SaveMessage>(this.ReceiveSaveMessage);
         _messagePublisher = messageRouter.GetPublisher<SaveMessage>();
+        CampaignData.Changed += HandleCampaignDataChanged;
     }
 
+    private void HandleCampaignDataChanged()
+    {
+        _messagePublisher.Publish((new SaveMessage()).AsMessage());
+    }
+
+    private SceneTreeTimer _saveTimer;
     private async Task ReceiveSaveMessage(IMessage message)
     {
         if (!(message is IMessage<SaveMessage> saveMessage)) return;                
-        var savePath = GetCampaignFilePath();        ;
-        await Task.Run(() => CampaignData.Save(savePath));
+        var savePath = GetCampaignFilePath();
+        if (_saveTimer != null) return;
+        _saveTimer = GetTree().CreateTimer(SaveTimeWindowSeconds);        
+        await ToSignal(_saveTimer, SceneTreeTimer.SignalName.Timeout); // adjust timing later
+        CampaignData.Save(savePath);
+        _saveTimer = null;
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-	{
-	}
 
     private string GetCampaignFilePath() => Configuration.CampaignFolder + $"{CampaignData.Id}.tres";
 

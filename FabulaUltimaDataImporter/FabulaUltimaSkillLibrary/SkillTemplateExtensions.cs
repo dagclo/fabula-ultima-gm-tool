@@ -1,5 +1,4 @@
 ﻿using FabulaUltimaNpc;
-using static Dapper.SqlBuilder;
 
 namespace FabulaUltimaSkillLibrary
 {

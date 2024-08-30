@@ -1,8 +1,6 @@
-using FirstProject.Beastiary;
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
-using System;
 using System.Linq;
 
 public partial class FinishTurnButton : Button, INpcReader, INpcStatusReader

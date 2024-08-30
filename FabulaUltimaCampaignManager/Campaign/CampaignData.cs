@@ -7,8 +7,18 @@ namespace FirstProject.Campaign
 {
     public partial class CampaignData : Resource
     {
+        private string _name;
         [Export]
-        public string Name { get; set; }
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if(_name ==  value) return;
+                _name = value;
+                EmitChanged();
+            }
+        }
 
         [Export]
         public Godot.Collections.Array<Encounter> Encounters { get; set; }
@@ -30,8 +40,8 @@ namespace FirstProject.Campaign
             string name, 
             Godot.Collections.Array<Encounter> encounters,
             Godot.Collections.Array<PlayerData> players) 
-        { 
-            Name = name;
+        {
+            _name = name;
             Encounters = encounters;            
             Id = id;
             Players = players;

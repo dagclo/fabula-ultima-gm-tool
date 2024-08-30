@@ -1,4 +1,3 @@
-using FirstProject.Encounters;
 using FirstProject.Messaging;
 using Godot;
 using System;

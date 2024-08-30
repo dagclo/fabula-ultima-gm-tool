@@ -1,5 +1,3 @@
-using FabulaUltimaDatabase.Models;
-using FabulaUltimaNpc;
 using FirstProject.Messaging;
 using Godot;
 

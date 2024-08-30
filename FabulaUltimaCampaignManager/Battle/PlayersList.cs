@@ -1,5 +1,4 @@
 using FirstProject.Messaging;
-using FirstProject.Npc;
 using Godot;
 using System;
 using System.Linq;

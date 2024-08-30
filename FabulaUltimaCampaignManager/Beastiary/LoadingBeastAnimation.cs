@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Reflection.Metadata;
 
 public partial class LoadingBeastAnimation : PanelContainer
 {

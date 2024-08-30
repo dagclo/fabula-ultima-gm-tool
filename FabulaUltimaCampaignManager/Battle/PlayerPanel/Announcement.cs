@@ -23,8 +23,8 @@ public partial class Announcement : Label
         if (!(message is IMessage<EncounterLog> typedMessage)) return;        
         var log = typedMessage.Value;
         var logActionNoExtraneousDetails = log.Action.Split('|').First();
-        var accouncement = $"{log.Actor} {log.Verb} {logActionNoExtraneousDetails}"; // using \n because the windows \r\n\ doesn't work
-        CallDeferred(MethodName.SetText, accouncement);        
+        var announcement = $"{log.Actor} {log.Verb} {logActionNoExtraneousDetails}"; // using \n because the windows \r\n\ doesn't work
+        CallDeferred(MethodName.SetText, announcement);        
         CallDeferred(MethodName.EmitSignal, SignalName.MessageReceived, _waitBetweenMessage);
         await ToSignal(GetTree().CreateTimer(_waitBetweenMessage), SceneTreeTimer.SignalName.Timeout); // adjust timing later
     }
