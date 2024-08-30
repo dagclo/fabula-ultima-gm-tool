@@ -6,6 +6,7 @@ Project Description
 
 ### Backlog
 
+- [ ] Implement upload of background images  
 - [ ] Add Loading Page for switch back to main page  
 - [ ] Add Size Modifiers to creatures  
 - [ ] Fix Cockatrice's Petrifying Peck  
