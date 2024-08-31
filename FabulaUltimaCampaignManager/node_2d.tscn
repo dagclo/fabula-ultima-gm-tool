@@ -123,7 +123,6 @@ hide_on_checkable_item_selection = false
 item_count = 1
 item_0/text = "Play Background Music"
 item_0/checkable = 1
-item_0/id = 0
 script = ExtResource("3_f7bcp")
 _configuration = ExtResource("8_qwns5")
 
@@ -131,7 +130,6 @@ _configuration = ExtResource("8_qwns5")
 title = "Help"
 item_count = 1
 item_0/text = "About"
-item_0/id = 0
 script = ExtResource("2_iyeul")
 AboutPanel = NodePath("../../AboutPanel")
 
@@ -228,6 +226,7 @@ layout_mode = 2
 
 [node name="CampaignManager" type="TabContainer" parent="HSplitContainer"]
 layout_mode = 2
+current_tab = 0
 script = ExtResource("17_8qoxa")
 
 [node name="Campaign" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
@@ -235,6 +234,7 @@ layout_mode = 2
 script = ExtResource("3_tscfl")
 CampaignData = ExtResource("4_wujyf")
 Configuration = ExtResource("8_qwns5")
+metadata/_tab_index = 0
 
 [node name="CampaignName" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
 layout_mode = 2
@@ -312,6 +312,7 @@ SlotIndex = 4
 [node name="Beastiary" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="FilteredSearch" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary"]
 layout_mode = 2
@@ -397,7 +398,7 @@ keep_title_visible = true
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 240.0
-offset_bottom = 510.0
+offset_bottom = 4814.0
 
 [node name="Title" type="Label" parent="AboutPanel/VBoxContainer"]
 layout_mode = 2

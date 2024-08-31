@@ -1,6 +1,7 @@
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
+using System.Linq;
 
 public partial class CurrentEncounter : PanelContainer
 {
@@ -9,6 +10,9 @@ public partial class CurrentEncounter : PanelContainer
 
     [Signal]
     public delegate void UpdateEncounterEventHandler(Encounter encounter);
+
+	[Export]
+	public int NPCLimit { get; set; } = 4;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -54,6 +58,8 @@ public partial class CurrentEncounter : PanelContainer
 	{
         if (Encounter == null) return;
 		if (npc == null) return;
+		//todo: enable adding more npcs
+		if (Encounter.NpcCollection.Count() >= NPCLimit) return;
 		Encounter.AddNpc(new NpcInstance(npc)); // use this to ensure change is emitted		
 		EmitSignal(SignalName.UpdateEncounter, Encounter);
     }

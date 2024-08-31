@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bwfobx7pek8br"]
+[gd_resource type="Resource" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://Configuration.cs" id="1_d73sm"]
 
@@ -6,3 +6,4 @@
 script = ExtResource("1_d73sm")
 CampaignFolder = "user://campaignData/"
 DatabaseFilePath = "user://BeastiaryDB.sqlite"
+BackgroundMusicEnabled = true
