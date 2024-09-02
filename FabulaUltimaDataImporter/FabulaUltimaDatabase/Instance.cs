@@ -270,6 +270,7 @@ namespace FabulaUltimaDatabase
                     IsMartial = e.IsMartial.Value,
                     Quality = e.Quality,
                     NumHands = e.NumHands,
+                    Cost = e.Cost,
                     BasicAttack = equipmentCategories[e.CategoryId.Value].IsWeapon ? new BasicAttackTemplate()
                     {
                         Id = e.Id.Value,
@@ -1036,6 +1037,7 @@ namespace FabulaUltimaDatabase
                     IsMartial = equipment.IsMartial.Value,
                     Quality = equipment.Quality,
                     NumHands = equipment.NumHands,
+                    Cost = equipment.Cost,
                     BasicAttack = equipmentCategories[equipment.CategoryId.Value].IsWeapon ? new BasicAttackTemplate()
                     {
                         Id = equipment.Id.Value,

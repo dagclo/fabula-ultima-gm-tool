@@ -1,5 +1,6 @@
 using FirstProject.Npc;
 using Godot;
+using Newtonsoft.Json;
 using QRCoder;
 using System;
 
@@ -10,17 +11,27 @@ public partial class EquipmentQrCodeDisplay : TextureRect
 	{
 	}
 
+	private static string ToJson(NpcEquipment equipment)
+	{
+		var obj = new
+		{
+			name = equipment.Name,
+			cost = equipment.Cost,
+			quality = equipment.Quality,
+		};
+		return JsonConvert.SerializeObject(obj);
+	}
+
 	public void HandleEquipmentUpdated(NpcEquipment equipment)
 	{
-		var data = equipment.Quality ?? "nothing here";
+		var data = ToJson(equipment);
 		using QRCodeGenerator qrGenerator = new QRCodeGenerator();
 		using QRCodeData qrCodeData = qrGenerator.CreateQrCode(data, QRCodeGenerator.ECCLevel.Q);
 		using var qrCode = new SvgQRCode(qrCodeData);
 		var qrCodeImage = qrCode.GetGraphic(20);
 		var image = new Image();
-		//var image = Image.lo
 		image.LoadSvgFromString(qrCodeImage);
-        Texture2D texture = ImageTexture.CreateFromImage(image);
+        Texture2D texture = ImageTexture.CreateFromImage(image);		
         this.Texture = texture;
     }
 }
