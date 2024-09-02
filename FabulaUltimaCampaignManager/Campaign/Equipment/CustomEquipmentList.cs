@@ -6,6 +6,7 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Linq;
+using static System.Formats.Asn1.AsnWriter;
 
 public partial class CustomEquipmentList : VBoxContainer
 {
@@ -55,6 +56,7 @@ public partial class CustomEquipmentList : VBoxContainer
             scene.OnShow += (NpcEquipment e) => HandleShow(e);
             scene.OnRemove += (NpcEquipment e) => HandleRemove(e);
             AddChild(scene);
+            scene.Owner = this;
         }
     }
 
@@ -77,6 +79,7 @@ public partial class CustomEquipmentList : VBoxContainer
         dialog.OnClose += () => HandleClosing(dialog);
         dialog.OnSave += HandleSave;        
         AddChild(dialog);
+        dialog.Owner = this;
     }
 
     private void HandleSave(NpcEquipment equipment)
