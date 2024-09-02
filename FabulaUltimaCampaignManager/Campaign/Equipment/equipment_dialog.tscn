@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhiapoj4nwud5"]
+
+[ext_resource type="Script" path="res://Campaign/Equipment/EquipmentDialog.cs" id="1_i5tw2"]
+[ext_resource type="Script" path="res://Campaign/Equipment/EquipmentQualityLineEdit.cs" id="2_f2jdh"]
+[ext_resource type="Script" path="res://Campaign/Equipment/EquipmentQrCodeDisplay.cs" id="3_hespv"]
+
+[node name="EquipmentDialog" type="Window"]
+title = "Equipment"
+size = Vector2i(500, 500)
+script = ExtResource("1_i5tw2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EquipmentTypeOptionButton" type="OptionButton" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="EquipmentDetails" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="EquipmentNameEdit" type="LineEdit" parent="VBoxContainer/EquipmentDetails"]
+layout_mode = 2
+placeholder_text = "Name"
+
+[node name="EquipmentCostEdit" type="LineEdit" parent="VBoxContainer/EquipmentDetails"]
+layout_mode = 2
+placeholder_text = "Cost"
+
+[node name="EquipmentQualityLineEdit" type="TextEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+placeholder_text = "Quality"
+script = ExtResource("2_f2jdh")
+
+[node name="QRCode" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("3_hespv")
+
+[connection signal="EquipmentUpdated" from="." to="VBoxContainer/QRCode" method="HandleEquipmentUpdated"]
