@@ -20,13 +20,14 @@ layout_mode = 2
 text = "<unsetCategory>"
 script = ExtResource("3_jfmjc")
 
-[node name="UpdateEquipmentButton" type="Button" parent="."]
+[node name="ShowEquipmentButton" type="Button" parent="."]
 layout_mode = 2
-disabled = true
-text = "Update"
+text = "Show"
 
 [node name="RemoveEquipmentButton" type="Button" parent="."]
 layout_mode = 2
-disabled = true
 icon = ExtResource("4_ftndy")
 script = ExtResource("5_myx82")
+
+[connection signal="pressed" from="ShowEquipmentButton" to="." method="HandleShowButtonPressed"]
+[connection signal="pressed" from="RemoveEquipmentButton" to="." method="HandleRemoveButtonPressed"]

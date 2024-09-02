@@ -7,6 +7,8 @@ public partial class NpcEquipmentEntry : HBoxContainer
 {
     public NpcEquipment Equipment { get; set; }
     private Action<NpcEquipment> EquipmentChanged { get; set; }
+    public Action<NpcEquipment> OnShow { get; internal set; }
+    public Action<NpcEquipment> OnRemove { get; internal set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -20,8 +22,13 @@ public partial class NpcEquipmentEntry : HBoxContainer
         this.EquipmentChanged?.Invoke(Equipment);
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-	{
-	}
+    public void HandleShowButtonPressed()
+    {
+        OnShow?.Invoke(Equipment);
+    }
+
+    public void HandleRemoveButtonPressed()
+    {
+        OnRemove?.Invoke(Equipment);
+    }
 }

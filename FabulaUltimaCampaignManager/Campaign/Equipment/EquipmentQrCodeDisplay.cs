@@ -11,15 +11,27 @@ public partial class EquipmentQrCodeDisplay : TextureRect
 	{
 	}
 
-	private static string ToJson(NpcEquipment equipment)
+	private static string ToJson(NpcEquipment npcEquipment)
 	{
-		var obj = new
+		var equipment = new
 		{
-			name = equipment.Name,
-			cost = equipment.Cost,
-			quality = equipment.Quality,
+			name = npcEquipment.Name,
+			cost = npcEquipment.Cost,
+			quality = npcEquipment.Quality,
+            //defenseConstant = npcEquipment.Modifiers.ini
+        };
+		var wrapper = new
+		{
+			category = npcEquipment.Category.Name,
+			equipment = equipment
 		};
-		return JsonConvert.SerializeObject(obj);
+		var serializerSettings = new JsonSerializerSettings
+		{
+			NullValueHandling = NullValueHandling.Ignore,
+			Formatting = Formatting.None
+		};
+
+        return JsonConvert.SerializeObject(wrapper, serializerSettings);
 	}
 
 	public void HandleEquipmentUpdated(NpcEquipment equipment)

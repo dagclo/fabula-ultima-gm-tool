@@ -21,7 +21,10 @@ public partial class EquipmentDialog : Window
 	{
 		if(Equipment == null)
 		{
-			Equipment = new NpcEquipment();
+			Equipment = new NpcEquipment()
+            {
+                Id = Guid.NewGuid().ToString()
+            };
 		}
         foreach (var child in this.FindChildren("*")
             .Where(c => c is INpcEquipmentReader))
@@ -32,6 +35,7 @@ public partial class EquipmentDialog : Window
 
         }
         this.EquipmentChanged?.Invoke(Equipment);
+        EmitSignal(SignalName.EquipmentUpdated, Equipment);
     }
 
     private void HandleEquipmentUpdated()

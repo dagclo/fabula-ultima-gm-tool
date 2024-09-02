@@ -43,7 +43,7 @@ namespace FirstProject.Npc
         {
             get
             {
-                return EquipmentCategory.Name;
+                return EquipmentCategory?.Name;
             }
             set
             {
@@ -56,7 +56,7 @@ namespace FirstProject.Npc
         {
             get
             {
-                return EquipmentCategory.IsWeapon;
+                return EquipmentCategory?.IsWeapon ?? false;
             }
             set
             {
@@ -69,7 +69,7 @@ namespace FirstProject.Npc
         {
             get
             {
-                return EquipmentCategory.IsArmor;
+                return EquipmentCategory?.IsArmor ?? false;
             }
             set
             {
@@ -82,7 +82,7 @@ namespace FirstProject.Npc
         {
             get
             {
-                return EquipmentCategory.IsRanged;
+                return EquipmentCategory?.IsRanged ?? false;
             }
             set
             {

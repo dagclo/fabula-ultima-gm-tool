@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=43 format=3 uid="uid://ec56818wobea"]
 
 [ext_resource type="Script" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
@@ -29,7 +29,6 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/AddNpcButton.cs" id="23_yxpob"]
 [ext_resource type="PackedScene" uid="uid://7xtkfi8kp6pg" path="res://BeastiaryScenes/new_npc_sheet.tscn" id="24_tvbgp"]
 [ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="25_0xra3"]
-[ext_resource type="Script" path="res://Campaign/Equipment/CustomEquipmentButton.cs" id="25_7hemd"]
 [ext_resource type="Script" path="res://Beastiary/SearchBeastsTextEdit.cs" id="25_dycy4"]
 [ext_resource type="PackedScene" uid="uid://bhiapoj4nwud5" path="res://Campaign/Equipment/equipment_dialog.tscn" id="26_3ixru"]
 [ext_resource type="Script" path="res://Beastiary/SpeciesOptionButton.cs" id="26_k15df"]
@@ -345,8 +344,6 @@ text = "Equipment"
 [node name="CustomEquipmentButton" type="Button" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection"]
 layout_mode = 2
 text = "Add Custom Equipment"
-script = ExtResource("25_7hemd")
-EquipmentDialog = ExtResource("26_3ixru")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection"]
 layout_mode = 2
@@ -356,6 +353,7 @@ size_flags_vertical = 3
 layout_mode = 2
 script = ExtResource("27_4odix")
 Entry = ExtResource("28_mfo4r")
+EquipmentDialog = ExtResource("26_3ixru")
 
 [node name="Beastiary" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
 visible = false
@@ -498,7 +496,6 @@ fit_content = true
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot3" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot4" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot5" method="UpdateEncounter"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/EquipmentSection/CustomEquipmentButton" method="HandleCampaignChanged"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/EquipmentSection/ScrollContainer/CustomEquipmentList" method="HandleCampaignChanged"]
 [connection signal="text_changed" from="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" to="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" method="OnTextChanged"]
 [connection signal="AddEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CampaignManager/Campaign" method="AddEncounter"]
@@ -509,7 +506,7 @@ fit_content = true
 [connection signal="DeleteEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CurrentEncounter" method="HideEncounterIfDeleted"]
 [connection signal="LoadEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnLoadEncounter"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Encounters/AddEncounterButton" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnAddEncounterButtonPressed"]
-[connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/EquipmentSection/CustomEquipmentButton" to="HSplitContainer/CampaignManager/Campaign/EquipmentSection/CustomEquipmentButton" method="HandlePressed"]
+[connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/EquipmentSection/CustomEquipmentButton" to="HSplitContainer/CampaignManager/Campaign/EquipmentSection/ScrollContainer/CustomEquipmentList" method="HandlePressed"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/AddNpcButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/AddNpcButton" method="HandlePressed"]
 [connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" method="HandledSearchFilterChanged"]
 [connection signal="text_submitted" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" method="OnTextSubmitted"]
