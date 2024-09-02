@@ -10,6 +10,7 @@
         public StatsModifications? StatsModifier { get; set; }
         public string Quality { get; set; }
         public int? NumHands { get; set; }
+        public int Cost { get; set; }
 
         public EquipmentTemplate Clone()
         {            
@@ -23,6 +24,7 @@
                 StatsModifier = StatsModifier?.Clone(),
                 Quality = Quality,
                 NumHands = NumHands,
+                Cost = Cost,
             };
         }
     }

@@ -1,4 +1,5 @@
 ﻿using FirstProject.Encounters;
+using FirstProject.Npc;
 using Godot;
 using System;
 using System.Linq;
@@ -28,6 +29,9 @@ namespace FirstProject.Campaign
 
         [Export]
         public Godot.Collections.Array<PlayerData> Players { get; set; }
+
+        [Export]
+        public Godot.Collections.Array<NpcEquipment> Equipment { get; set; }
 
         public CampaignData() : this(
             Guid.Empty.ToString(), 

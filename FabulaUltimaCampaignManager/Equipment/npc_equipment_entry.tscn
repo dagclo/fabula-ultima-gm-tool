@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://ch0falaaaeo6v"]
+
+[ext_resource type="Script" path="res://Equipment/NpcEquipmentEntry.cs" id="1_ioexq"]
+[ext_resource type="Script" path="res://Equipment/NpcEquipmentNameLabel.cs" id="2_pw7ro"]
+[ext_resource type="Script" path="res://Equipment/NpcEquipmentCategoryLabel.cs" id="3_jfmjc"]
+[ext_resource type="Texture2D" uid="uid://dg2847af7baoe" path="res://Icon/x-mark-16.png" id="4_ftndy"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/EquipmentEntry/RemoveEquipmentButton.cs" id="5_myx82"]
+
+[node name="NpcEquipmentEntry" type="HBoxContainer"]
+script = ExtResource("1_ioexq")
+
+[node name="NpcEquipmentNameLabel" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "<unset name>"
+script = ExtResource("2_pw7ro")
+
+[node name="NpcEquipmentCategoryLabel" type="Label" parent="."]
+layout_mode = 2
+text = "<unsetCategory>"
+script = ExtResource("3_jfmjc")
+
+[node name="ShowEquipmentButton" type="Button" parent="."]
+layout_mode = 2
+text = "Show"
+
+[node name="RemoveEquipmentButton" type="Button" parent="."]
+layout_mode = 2
+icon = ExtResource("4_ftndy")
+script = ExtResource("5_myx82")
+
+[connection signal="pressed" from="ShowEquipmentButton" to="." method="HandleShowButtonPressed"]
+[connection signal="pressed" from="RemoveEquipmentButton" to="." method="HandleRemoveButtonPressed"]

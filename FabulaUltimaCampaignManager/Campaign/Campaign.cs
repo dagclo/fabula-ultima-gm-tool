@@ -7,7 +7,7 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
-public partial class Campaign : VBoxContainer
+public partial class Campaign : Container
 {
     private MessagePublisher<SaveMessage> _messagePublisher;
 

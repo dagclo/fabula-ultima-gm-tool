@@ -59,6 +59,19 @@ namespace FirstProject.Npc
         }
 
         [Export]
+        public int Cost
+        {
+            get
+            {
+                return EquipmentTemplate.Cost;
+            }
+            set
+            {
+                EquipmentTemplate.Cost = value;
+            }
+        }
+
+        [Export]
         public string Quality
         {
             get
