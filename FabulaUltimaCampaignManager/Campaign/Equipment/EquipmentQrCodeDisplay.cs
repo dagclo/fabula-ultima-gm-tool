@@ -25,8 +25,10 @@ public partial class EquipmentQrCodeDisplay : TextureRect
 	public void HandleEquipmentUpdated(NpcEquipment equipment)
 	{
 		var data = ToJson(equipment);
+        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(data);
+        var encodedData = System.Convert.ToBase64String(plainTextBytes);
 		using QRCodeGenerator qrGenerator = new QRCodeGenerator();
-		using QRCodeData qrCodeData = qrGenerator.CreateQrCode(data, QRCodeGenerator.ECCLevel.Q);
+		using QRCodeData qrCodeData = qrGenerator.CreateQrCode(encodedData, QRCodeGenerator.ECCLevel.Q);
 		using var qrCode = new SvgQRCode(qrCodeData);
 		var qrCodeImage = qrCode.GetGraphic(20);
 		var image = new Image();

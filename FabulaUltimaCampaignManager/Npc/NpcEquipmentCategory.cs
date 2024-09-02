@@ -23,7 +23,7 @@ namespace FirstProject.Npc
         {
             get
             {
-                return EquipmentCategory.Id.ToString();
+                return EquipmentCategory?.Id.ToString();
             }
             set
             {

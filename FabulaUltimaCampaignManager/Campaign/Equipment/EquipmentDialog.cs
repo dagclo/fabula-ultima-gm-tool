@@ -13,7 +13,8 @@ public partial class EquipmentDialog : Window
     public delegate void EquipmentUpdatedEventHandler(NpcEquipment equipment);
 
     public Action OnClose { get; set; }
-    public Action<NpcEquipment> EquipmentChanged { get; private set; }
+    public Action<NpcEquipment> OnSave { get; set; }
+    private Action<NpcEquipment> EquipmentChanged { get; set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -40,7 +41,12 @@ public partial class EquipmentDialog : Window
 
     public void HandleClosedRequested()
     {
-        OnClose.Invoke();
+        OnClose?.Invoke();
+    }
+
+    public void HandleSaveButtonPressed()
+    {
+        OnSave?.Invoke(Equipment);
     }
 }
 
