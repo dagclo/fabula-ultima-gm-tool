@@ -23,9 +23,9 @@ public partial class EquipmentQualityLineEdit : TextEdit, INpcEquipmentReader
         this.Text = equipment.Quality;
     }
 
-    public void HandleTextChanged(string newText)
+    public void HandleTextChanged()
     {
-        _equipment.Quality = newText;
+        _equipment.Quality = this.Text;
         this.OnEquipmentUpdated?.Invoke();
     }
 }

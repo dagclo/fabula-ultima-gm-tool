@@ -1,5 +1,6 @@
 using FirstProject.Npc;
 using Godot;
+using QRCoder;
 using System;
 
 public partial class EquipmentQrCodeDisplay : TextureRect
@@ -9,13 +10,17 @@ public partial class EquipmentQrCodeDisplay : TextureRect
 	{
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
 	public void HandleEquipmentUpdated(NpcEquipment equipment)
 	{
-
-	}
+		var data = equipment.Quality ?? "nothing here";
+		using QRCodeGenerator qrGenerator = new QRCodeGenerator();
+		using QRCodeData qrCodeData = qrGenerator.CreateQrCode(data, QRCodeGenerator.ECCLevel.Q);
+		using var qrCode = new SvgQRCode(qrCodeData);
+		var qrCodeImage = qrCode.GetGraphic(20);
+		var image = new Image();
+		//var image = Image.lo
+		image.LoadSvgFromString(qrCodeImage);
+        Texture2D texture = ImageTexture.CreateFromImage(image);
+        this.Texture = texture;
+    }
 }

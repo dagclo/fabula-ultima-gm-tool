@@ -12,7 +12,7 @@ public partial class EquipmentDialog : Window
     [Signal]
     public delegate void EquipmentUpdatedEventHandler(NpcEquipment equipment);
 
-    public Action OnSave { get; set; }
+    public Action OnClose { get; set; }
     public Action<NpcEquipment> EquipmentChanged { get; private set; }
 
     // Called when the node enters the scene tree for the first time.
@@ -36,6 +36,11 @@ public partial class EquipmentDialog : Window
     private void HandleEquipmentUpdated()
     {
         EmitSignal(SignalName.EquipmentUpdated, Equipment);
+    }
+
+    public void HandleClosedRequested()
+    {
+        OnClose.Invoke();
     }
 }
 

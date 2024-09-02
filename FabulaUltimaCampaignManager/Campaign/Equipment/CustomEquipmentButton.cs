@@ -23,5 +23,13 @@ public partial class CustomEquipmentButton : Button
     public void HandlePressed()
     {
         var dialog = EquipmentDialog.Instantiate<EquipmentDialog>();
+        dialog.OnClose += () => HandleClosing(dialog);
+        AddChild(dialog);
+    }
+
+    private void HandleClosing(EquipmentDialog dialog)
+    {
+        RemoveChild(dialog);
+        dialog.QueueFree();
     }
 }
