@@ -64,7 +64,7 @@ public partial class CustomEquipmentList : VBoxContainer
     {
         _equipmentList.Remove(equipment);
         _messagePublisher.Publish((new SaveMessage()).AsMessage());
-        UpdateList();
+        CallDeferred(MethodName.UpdateList);
     }
 
     public void HandlePressed()
@@ -89,7 +89,7 @@ public partial class CustomEquipmentList : VBoxContainer
             _equipmentList.Add(equipment);
         }
         _messagePublisher.Publish((new SaveMessage()).AsMessage());
-        UpdateList();
+        CallDeferred(MethodName.UpdateList);
     }
 
     private void HandleClosing(EquipmentDialog dialog)
