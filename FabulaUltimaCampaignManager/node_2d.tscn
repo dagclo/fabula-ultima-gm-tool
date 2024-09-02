@@ -229,8 +229,9 @@ layout_mode = 2
 current_tab = 0
 script = ExtResource("17_8qoxa")
 
-[node name="Campaign" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
+[node name="Campaign" type="GridContainer" parent="HSplitContainer/CampaignManager"]
 layout_mode = 2
+columns = 2
 script = ExtResource("3_tscfl")
 CampaignData = ExtResource("4_wujyf")
 Configuration = ExtResource("8_qwns5")
@@ -238,6 +239,7 @@ metadata/_tab_index = 0
 
 [node name="CampaignName" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="CampaignNameLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/CampaignName"]
 layout_mode = 2
@@ -249,8 +251,12 @@ size_flags_horizontal = 3
 placeholder_text = "Campaign Name"
 script = ExtResource("20_n478f")
 
+[node name="PanelContainer" type="PanelContainer" parent="HSplitContainer/CampaignManager/Campaign"]
+layout_mode = 2
+
 [node name="Encounters" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("6_ful6c")
 
@@ -278,7 +284,12 @@ layout_mode = 2
 layout_mode = 2
 text = "Add Encounter"
 
-[node name="PlayerTitle" type="Label" parent="HSplitContainer/CampaignManager/Campaign"]
+[node name="PlayerSection" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlayerTitle" type="Label" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection"]
 layout_mode = 2
 size_flags_vertical = 8
 theme_type_variation = &"BoldLabel"
@@ -286,28 +297,57 @@ text = "Player Slots"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="Players" type="HFlowContainer" parent="HSplitContainer/CampaignManager/Campaign"]
+[node name="Players" type="HFlowContainer" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection"]
 layout_mode = 2
 size_flags_vertical = 2
 
-[node name="PlayerSlot" parent="HSplitContainer/CampaignManager/Campaign/Players" instance=ExtResource("4_6fi46")]
+[node name="PlayerSlot" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players" instance=ExtResource("4_6fi46")]
 layout_mode = 2
 
-[node name="PlayerSlot2" parent="HSplitContainer/CampaignManager/Campaign/Players" instance=ExtResource("4_6fi46")]
+[node name="PlayerSlot2" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players" instance=ExtResource("4_6fi46")]
 layout_mode = 2
 SlotIndex = 1
 
-[node name="PlayerSlot3" parent="HSplitContainer/CampaignManager/Campaign/Players" instance=ExtResource("4_6fi46")]
+[node name="PlayerSlot3" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players" instance=ExtResource("4_6fi46")]
 layout_mode = 2
 SlotIndex = 2
 
-[node name="PlayerSlot4" parent="HSplitContainer/CampaignManager/Campaign/Players" instance=ExtResource("4_6fi46")]
+[node name="PlayerSlot4" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players" instance=ExtResource("4_6fi46")]
 layout_mode = 2
 SlotIndex = 3
 
-[node name="PlayerSlot5" parent="HSplitContainer/CampaignManager/Campaign/Players" instance=ExtResource("4_6fi46")]
+[node name="PlayerSlot5" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players" instance=ExtResource("4_6fi46")]
 layout_mode = 2
 SlotIndex = 4
+
+[node name="VillainSection" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HSplitContainer/CampaignManager/Campaign/VillainSection"]
+layout_mode = 2
+text = "Villians (still Adding)"
+
+[node name="EquipmentSection" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EquipmentSectionLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection"]
+layout_mode = 2
+text = "Equipment"
+
+[node name="CustomEquipmentButton" type="Button" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection"]
+layout_mode = 2
+text = "Add Custom Equipment"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CustomEquipmentList" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection/ScrollContainer"]
+layout_mode = 2
 
 [node name="Beastiary" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
 visible = false
@@ -445,11 +485,11 @@ fit_content = true
 [connection signal="RemoveNpc" from="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" to="HSplitContainer/CurrentEncounter" method="RemoveNpcFromEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" method="HandleCampaignChanged"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="UpdateEncounter"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot" method="UpdateEncounter"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot2" method="UpdateEncounter"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot3" method="UpdateEncounter"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot4" method="UpdateEncounter"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Players/PlayerSlot5" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot2" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot3" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot4" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot5" method="UpdateEncounter"]
 [connection signal="text_changed" from="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" to="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" method="OnTextChanged"]
 [connection signal="AddEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CampaignManager/Campaign" method="AddEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter" method="HandleUpdateEncounter"]
