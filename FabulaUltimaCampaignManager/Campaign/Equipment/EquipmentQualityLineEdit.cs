@@ -12,12 +12,8 @@ public partial class EquipmentQualityLineEdit : TextEdit, INpcEquipmentReader
 	{
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
 
-    public void HandleEquipmentSet(NpcEquipment equipment)
+    public void HandleEquipmentInitialized(NpcEquipment equipment)
     {
         _equipment = equipment;
         this.Text = equipment.Quality;
@@ -27,5 +23,10 @@ public partial class EquipmentQualityLineEdit : TextEdit, INpcEquipmentReader
     {
         _equipment.Quality = this.Text;
         this.OnEquipmentUpdated?.Invoke();
+    }
+
+    public void HandleEquipmentChanged(NpcEquipment equipment)
+    {
+        // do nothing
     }
 }

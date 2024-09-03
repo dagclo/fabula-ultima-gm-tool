@@ -28,7 +28,7 @@ public partial class EquipmentTypeOptionButton : OptionButton, INpcEquipmentRead
         Selected = -1;
     }
 
-    public void HandleEquipmentSet(NpcEquipment equipment)
+    public void HandleEquipmentInitialized(NpcEquipment equipment)
     {
         _equipment = equipment;
         if(_equipment.Category.Id != null)
@@ -43,5 +43,10 @@ public partial class EquipmentTypeOptionButton : OptionButton, INpcEquipmentRead
         var category = _categoriesIndexMap[index];
         _equipment.Category = category;
         this.OnEquipmentUpdated?.Invoke();
+    }
+
+    public void HandleEquipmentChanged(NpcEquipment equipment)
+    {
+        // do nothing
     }
 }

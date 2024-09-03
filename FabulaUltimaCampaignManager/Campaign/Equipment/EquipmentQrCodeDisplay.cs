@@ -4,10 +4,12 @@ using Newtonsoft.Json;
 using QRCoder;
 using System;
 
-public partial class EquipmentQrCodeDisplay : TextureRect
+public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    public Action OnEquipmentUpdated { get; set; }
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
 	}
 
@@ -34,7 +36,7 @@ public partial class EquipmentQrCodeDisplay : TextureRect
         return JsonConvert.SerializeObject(wrapper, serializerSettings);
 	}
 
-	public void HandleEquipmentUpdated(NpcEquipment equipment)
+	public void HandleEquipmentChanged(NpcEquipment equipment)
 	{
 		var data = ToJson(equipment);
         var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(data);
@@ -47,5 +49,10 @@ public partial class EquipmentQrCodeDisplay : TextureRect
 		image.LoadSvgFromString(qrCodeImage);
         Texture2D texture = ImageTexture.CreateFromImage(image);		
         this.Texture = texture;
+    }
+
+    public void HandleEquipmentInitialized(NpcEquipment equipment)
+    {
+        // do nothing
     }
 }

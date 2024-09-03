@@ -17,7 +17,7 @@ public partial class NpcEquipmentEntry : HBoxContainer
             .Where(c => c is INpcEquipmentReader))
         {
             var equipmentAttribute = child as INpcEquipmentReader;
-            this.EquipmentChanged += equipmentAttribute.HandleEquipmentSet;
+            this.EquipmentChanged += equipmentAttribute.HandleEquipmentInitialized;
         }
         this.EquipmentChanged?.Invoke(Equipment);
     }

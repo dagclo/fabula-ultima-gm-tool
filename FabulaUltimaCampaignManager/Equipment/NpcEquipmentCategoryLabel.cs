@@ -11,8 +11,13 @@ public partial class NpcEquipmentCategoryLabel : Label, INpcEquipmentReader
     {
     }
 
-    public void HandleEquipmentSet(NpcEquipment equipment)
+    public void HandleEquipmentInitialized(NpcEquipment equipment)
     {
         this.Text = equipment.Category.Name;
+    }
+
+    public void HandleEquipmentChanged(NpcEquipment equipment)
+    {
+        // do nothing
     }
 }

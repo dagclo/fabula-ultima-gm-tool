@@ -15,7 +15,7 @@ public partial class EquipmentCostEdit : LineEdit, INpcEquipmentReader
         _currentText = this.Text;
 	}
 
-    public void HandleEquipmentSet(NpcEquipment equipment)
+    public void HandleEquipmentInitialized(NpcEquipment equipment)
     {
         _equipment = equipment;
         if(equipment.Cost != default) _currentText = equipment.Cost.ToString();
@@ -34,5 +34,10 @@ public partial class EquipmentCostEdit : LineEdit, INpcEquipmentReader
         {
             this.Text = _currentText;
         }        
+    }
+
+    public void HandleEquipmentChanged(NpcEquipment equipment)
+    {
+        // do nothing
     }
 }

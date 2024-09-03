@@ -9,12 +9,10 @@ public partial class EquipmentDialog : Window
 {
 	public NpcEquipment Equipment { get; set; }
 
-    [Signal]
-    public delegate void EquipmentUpdatedEventHandler(NpcEquipment equipment);
-
     public Action OnClose { get; set; }
     public Action<NpcEquipment> OnSave { get; set; }
-    private Action<NpcEquipment> EquipmentChanged { get; set; }
+    private Action<NpcEquipment> EquipmentInitialized { get; set; }
+    public Action<NpcEquipment> EquipmentChanged { get; private set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -30,17 +28,18 @@ public partial class EquipmentDialog : Window
             .Where(c => c is INpcEquipmentReader))
         {
             var equipmentAttribute = child as INpcEquipmentReader;
-            this.EquipmentChanged += equipmentAttribute.HandleEquipmentSet;
+            this.EquipmentInitialized += equipmentAttribute.HandleEquipmentInitialized;
             equipmentAttribute.OnEquipmentUpdated += HandleEquipmentUpdated;
+            this.EquipmentChanged += equipmentAttribute.HandleEquipmentChanged;
 
         }
+        this.EquipmentInitialized?.Invoke(Equipment);
         this.EquipmentChanged?.Invoke(Equipment);
-        EmitSignal(SignalName.EquipmentUpdated, Equipment);
     }
 
     private void HandleEquipmentUpdated()
     {
-        EmitSignal(SignalName.EquipmentUpdated, Equipment);
+        this.EquipmentChanged?.Invoke(Equipment);
     }
 
     public void HandleClosedRequested()
@@ -56,6 +55,7 @@ public partial class EquipmentDialog : Window
 
 public interface INpcEquipmentReader
 {
-    void HandleEquipmentSet(NpcEquipment equipment);
+    void HandleEquipmentInitialized(NpcEquipment equipment);
+    void HandleEquipmentChanged(NpcEquipment equipment);
     Action OnEquipmentUpdated { get; set; }
 }

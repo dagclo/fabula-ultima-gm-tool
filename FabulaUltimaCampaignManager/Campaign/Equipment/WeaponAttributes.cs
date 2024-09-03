@@ -2,10 +2,8 @@ using FirstProject.Npc;
 using Godot;
 using System;
 
-public partial class EquipmentNameEdit : LineEdit, INpcEquipmentReader
+public partial class WeaponAttributes : HBoxContainer, INpcEquipmentReader
 {
-    private NpcEquipment _equipment;
-
     public Action OnEquipmentUpdated { get; set; }
 
     // Called when the node enters the scene tree for the first time.
@@ -15,18 +13,11 @@ public partial class EquipmentNameEdit : LineEdit, INpcEquipmentReader
 
     public void HandleEquipmentInitialized(NpcEquipment equipment)
     {
-        _equipment = equipment;
-        this.Text = _equipment.Name;
-    }
-
-    public void HandleTextChanged(string newText)
-    {
-        _equipment.Name = newText;
-        this.OnEquipmentUpdated?.Invoke();
+        this.Visible = equipment.Category.IsWeapon;
     }
 
     public void HandleEquipmentChanged(NpcEquipment equipment)
     {
-        // do nothing
+        this.Visible = equipment.Category.IsWeapon;
     }
 }
