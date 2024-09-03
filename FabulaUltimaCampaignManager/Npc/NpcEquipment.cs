@@ -138,7 +138,7 @@ namespace FirstProject.Npc
             set
             {
                 _basicAttack = value;
-                EquipmentTemplate.BasicAttack = _basicAttack.BasicAttackTemplate;
+                EquipmentTemplate.BasicAttack = _basicAttack?.BasicAttackTemplate;
             }
         }
 

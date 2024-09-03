@@ -4,37 +4,55 @@ using Newtonsoft.Json;
 using QRCoder;
 using System;
 
-public partial class EquipmentQrCodeDisplay : TextureRect
+public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    public Action OnEquipmentUpdated { get; set; }
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
 	}
 
 	private static string ToJson(NpcEquipment npcEquipment)
 	{
+		string type;
+		if (npcEquipment.Category.IsWeapon)
+		{
+			type = "Weapon";
+		}
+		else if (npcEquipment.Category.IsArmor)
+		{
+			type = "Armor";
+		} 
+		else if(npcEquipment.Category.Name == "Shield")
+		{
+			type = "Shield";
+		}
+		else
+		{
+			type = "Accessory";
+		}
+
+
 		var equipment = new
 		{
 			name = npcEquipment.Name,
 			cost = npcEquipment.Cost,
 			quality = npcEquipment.Quality,
+			type = type,
             //defenseConstant = npcEquipment.Modifiers.ini
         };
-		var wrapper = new
-		{
-			category = npcEquipment.Category.Name,
-			equipment = equipment
-		};
+	
 		var serializerSettings = new JsonSerializerSettings
 		{
 			NullValueHandling = NullValueHandling.Ignore,
 			Formatting = Formatting.None
 		};
 
-        return JsonConvert.SerializeObject(wrapper, serializerSettings);
+        return JsonConvert.SerializeObject(equipment, serializerSettings);
 	}
 
-	public void HandleEquipmentUpdated(NpcEquipment equipment)
+	public void HandleEquipmentChanged(NpcEquipment equipment)
 	{
 		var data = ToJson(equipment);
         var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(data);
@@ -47,5 +65,10 @@ public partial class EquipmentQrCodeDisplay : TextureRect
 		image.LoadSvgFromString(qrCodeImage);
         Texture2D texture = ImageTexture.CreateFromImage(image);		
         this.Texture = texture;
+    }
+
+    public void HandleEquipmentInitialized(NpcEquipment equipment)
+    {
+        // do nothing
     }
 }

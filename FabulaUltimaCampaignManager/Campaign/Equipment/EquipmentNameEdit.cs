@@ -13,7 +13,7 @@ public partial class EquipmentNameEdit : LineEdit, INpcEquipmentReader
 	{
 	}
 
-    public void HandleEquipmentSet(NpcEquipment equipment)
+    public void HandleEquipmentInitialized(NpcEquipment equipment)
     {
         _equipment = equipment;
         this.Text = _equipment.Name;
@@ -23,5 +23,10 @@ public partial class EquipmentNameEdit : LineEdit, INpcEquipmentReader
     {
         _equipment.Name = newText;
         this.OnEquipmentUpdated?.Invoke();
+    }
+
+    public void HandleEquipmentChanged(NpcEquipment equipment)
+    {
+        // do nothing
     }
 }
