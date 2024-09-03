@@ -5,8 +5,7 @@ using System;
 using System.Linq;
 
 public partial class WeaponAttributeOptionButton : OptionButton, INpcEquipmentReader
-{
-    private NpcEquipment _equipment;
+{    
     private NpcBasicAttack _basicAttack;
 
     [Export]
@@ -23,11 +22,7 @@ public partial class WeaponAttributeOptionButton : OptionButton, INpcEquipmentRe
         {
             AddItem(val, index);
         }
-        Select(-1);
-        _basicAttack = new NpcBasicAttack()
-        {
-            Id = Guid.NewGuid().ToString()
-        };
+        Select(-1);       
     }
 
     public void OnSelected(int index)
@@ -37,26 +32,22 @@ public partial class WeaponAttributeOptionButton : OptionButton, INpcEquipmentRe
         switch (Index)
         {
             case 0:
-                _equipment.BasicAttack.Attribute1 = longAttributeName;
+                _basicAttack.Attribute1 = longAttributeName;
                 break;
             case 1:
-                _equipment.BasicAttack.Attribute2 = longAttributeName;
+                _basicAttack.Attribute2 = longAttributeName;
                 break;
             default:
                 throw new ArgumentOutOfRangeException($"{Index} out of range");
         }
+        OnEquipmentUpdated?.Invoke();
     }
 
-    public void HandleEquipmentInitialized(NpcEquipment equipment)
+    public void HandleBasicAttackSet(NpcBasicAttack basicAttack)
     {
-        _equipment = equipment;        
-    }
-
-    public void HandleEquipmentChanged(NpcEquipment equipment)
-    {        
-        if (_equipment.Category.IsWeapon)
-        {
-            _equipment.BasicAttack = _basicAttack;
+        _basicAttack = basicAttack;
+        if(_basicAttack != null)
+        {            
             string attributeToCheck;
             switch (Index)
             {
@@ -73,9 +64,15 @@ public partial class WeaponAttributeOptionButton : OptionButton, INpcEquipmentRe
             var id = Attributes.IndexOf(attributeToCheck.ShortenAttribute());
             this.Selected = GetItemIndex(id);
         }
-        else
-        {
-            if(_equipment.BasicAttack != null) _equipment.BasicAttack = null;
-        }
+    }
+
+    public void HandleEquipmentInitialized(NpcEquipment equipment)
+    {
+        // do nothing   
+    }
+
+    public void HandleEquipmentChanged(NpcEquipment equipment)
+    {
+        // do nothing       
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bhiapoj4nwud5"]
+[gd_scene load_steps=13 format=3 uid="uid://bhiapoj4nwud5"]
 
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentDialog.cs" id="1_i5tw2"]
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentNameEdit.cs" id="2_8a52t"]
@@ -6,9 +6,11 @@
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentQualityLineEdit.cs" id="2_f2jdh"]
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentTypeOptionButton.cs" id="2_hyy43"]
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentQrCodeDisplay.cs" id="3_hespv"]
+[ext_resource type="Script" path="res://Campaign/Equipment/WeaponAttributes.cs" id="5_3vupo"]
 [ext_resource type="Script" path="res://Campaign/Equipment/WeaponAttributeOptionButton.cs" id="5_yqdap"]
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentSaveButton.cs" id="6_blccf"]
 [ext_resource type="Texture2D" uid="uid://db6gv6ggi4fuj" path="res://Icon/paste_256.png" id="7_qe0k1"]
+[ext_resource type="Script" path="res://Campaign/Equipment/DamageModifierEdit.cs" id="7_x7k20"]
 [ext_resource type="Script" path="res://Campaign/Equipment/ClipboardButton.cs" id="8_a1fq8"]
 
 [node name="EquipmentDialog" type="Window"]
@@ -43,14 +45,28 @@ layout_mode = 2
 placeholder_text = "Cost"
 script = ExtResource("2_eru50")
 
-[node name="Attribute1OptionButton" type="OptionButton" parent="VBoxContainer/EquipmentDetails"]
+[node name="WeaponAttributes" type="HBoxContainer" parent="VBoxContainer/EquipmentDetails"]
+layout_mode = 2
+script = ExtResource("5_3vupo")
+
+[node name="WeaponAttributesLabel" type="Label" parent="VBoxContainer/EquipmentDetails/WeaponAttributes"]
+layout_mode = 2
+text = "Weapon Attributes"
+
+[node name="Attribute1OptionButton" type="OptionButton" parent="VBoxContainer/EquipmentDetails/WeaponAttributes"]
 layout_mode = 2
 script = ExtResource("5_yqdap")
 
-[node name="Attribute2OptionButton" type="OptionButton" parent="VBoxContainer/EquipmentDetails"]
+[node name="Attribute2OptionButton" type="OptionButton" parent="VBoxContainer/EquipmentDetails/WeaponAttributes"]
 layout_mode = 2
 script = ExtResource("5_yqdap")
 Index = 1
+
+[node name="DamageModLineEdit" type="LineEdit" parent="VBoxContainer/EquipmentDetails/WeaponAttributes"]
+layout_mode = 2
+placeholder_text = "Damage Mod"
+expand_to_text_length = true
+script = ExtResource("7_x7k20")
 
 [node name="EquipmentQualityLineEdit" type="TextEdit" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
@@ -84,8 +100,12 @@ script = ExtResource("3_hespv")
 [connection signal="item_selected" from="VBoxContainer/EquipmentTypeOptionButton" to="VBoxContainer/EquipmentTypeOptionButton" method="HandleSelected"]
 [connection signal="text_changed" from="VBoxContainer/EquipmentDetails/EquipmentNameEdit" to="VBoxContainer/EquipmentDetails/EquipmentNameEdit" method="HandleTextChanged"]
 [connection signal="text_changed" from="VBoxContainer/EquipmentDetails/EquipmentCostEdit" to="VBoxContainer/EquipmentDetails/EquipmentCostEdit" method="HandleTextChanged"]
-[connection signal="item_selected" from="VBoxContainer/EquipmentDetails/Attribute1OptionButton" to="VBoxContainer/EquipmentDetails/Attribute1OptionButton" method="OnSelected"]
-[connection signal="item_selected" from="VBoxContainer/EquipmentDetails/Attribute2OptionButton" to="VBoxContainer/EquipmentDetails/Attribute2OptionButton" method="OnSelected"]
+[connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute2OptionButton" method="HandleBasicAttackSet"]
+[connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute1OptionButton" method="HandleBasicAttackSet"]
+[connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageModLineEdit" method="HandleBasicAttackSet"]
+[connection signal="item_selected" from="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute1OptionButton" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute1OptionButton" method="OnSelected"]
+[connection signal="item_selected" from="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute2OptionButton" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute2OptionButton" method="OnSelected"]
+[connection signal="text_changed" from="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageModLineEdit" to="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageModLineEdit" method="HandleTextChanged"]
 [connection signal="text_changed" from="VBoxContainer/EquipmentQualityLineEdit" to="VBoxContainer/EquipmentQualityLineEdit" method="HandleTextChanged"]
 [connection signal="pressed" from="VBoxContainer/SaveButton" to="." method="HandleSaveButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/ClipboardButton" to="VBoxContainer/ClipboardButton" method="HandlePressed"]
