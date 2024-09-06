@@ -156,6 +156,7 @@ text = "Current Encounter"
 [node name="EncounterTitle" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "Encounter Name"
+max_length = 50
 script = ExtResource("3_3pve8")
 
 [node name="StartEncounterButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
@@ -272,11 +273,12 @@ uppercase = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EncounterList" type="VFlowContainer" parent="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer"]
+[node name="EncounterList" type="HFlowContainer" parent="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("7_275cp")
 PackedEncounter = ExtResource("3_eceqq")
 

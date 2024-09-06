@@ -17,7 +17,9 @@ layout_mode = 2
 text = "Name: "
 
 [node name="Text" parent="Name/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(150, 0)
 text = "Made up Encounter"
+autowrap_mode = 2
 script = ExtResource("3_d5kal")
 
 [node name="NumNpcs" parent="." instance=ExtResource("1_gn58d")]
