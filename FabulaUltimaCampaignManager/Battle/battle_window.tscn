@@ -38,34 +38,42 @@ volume_db = -28.924
 
 [node name="BattleSlot1" parent="." instance=ExtResource("4_qo5g6")]
 position = Vector2(450, 200)
+ColorMark = Color(0.4, 0.760784, 0.647059, 1)
 
 [node name="BattleSlot2" parent="." instance=ExtResource("4_qo5g6")]
 position = Vector2(775, 200)
 SlotIndex = 1
+ColorMark = Color(0.988235, 0.552941, 0.384314, 1)
 
 [node name="BattleSlot3" parent="." instance=ExtResource("4_qo5g6")]
 position = Vector2(450, 550)
 SlotIndex = 2
+ColorMark = Color(0.552941, 0.627451, 0.796078, 1)
 
 [node name="BattleSlot4" parent="." instance=ExtResource("4_qo5g6")]
 position = Vector2(775, 550)
 SlotIndex = 3
+ColorMark = Color(0.905882, 0.541176, 0.764706, 1)
 
 [node name="BattleSlot5" parent="." instance=ExtResource("4_qo5g6")]
 position = Vector2(125, 200)
 SlotIndex = 4
+ColorMark = Color(0.65098, 0.847059, 0.329412, 1)
 
 [node name="BattleSlot6" parent="." instance=ExtResource("4_qo5g6")]
 position = Vector2(1100, 200)
 SlotIndex = 5
+ColorMark = Color(1, 0.85098, 0.184314, 1)
 
 [node name="BattleSlot7" parent="." instance=ExtResource("4_qo5g6")]
 position = Vector2(125, 550)
 SlotIndex = 6
+ColorMark = Color(0.898039, 0.768627, 0.580392, 1)
 
 [node name="BattleSlot8" parent="." instance=ExtResource("4_qo5g6")]
 position = Vector2(1100, 550)
 SlotIndex = 7
+ColorMark = Color(0.701961, 0.701961, 0.701961, 1)
 
 [node name="WhooshLabel" type="Label" parent="."]
 anchors_preset = 4

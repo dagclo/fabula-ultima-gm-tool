@@ -9,11 +9,17 @@ public partial class BattleSlot : Node2D, INpcInstanceReader
 	[Export]
     public int SlotIndex { get; set; }
 
+    [Export]
+    public Color ColorMark { get; set; } = Colors.Aqua;
+
     [Signal]
     public delegate void BattleStatusChangedEventHandler(BattleStatus status);
 
     [Signal]
     public delegate void NpcStudyLevelChangedEventHandler(BattleStatus status);
+
+    [Signal]
+    public delegate void NpcColorSetEventHandler(Color color);
 
     private Action<NpcInstance> NpcChanged { get; set; }
 
@@ -44,6 +50,7 @@ public partial class BattleSlot : Node2D, INpcInstanceReader
         battleStatus.StatusChanged += this.StatusChanged;
         battleStatus.StudyLevelChanged += this.HandleStudyLevelChanged;
         EmitSignal(SignalName.NpcStudyLevelChanged, battleStatus);
+        EmitSignal(SignalName.NpcColorSet, ColorMark);
     }
 
     private void HandleStudyLevelChanged(BattleStatus newStatus)

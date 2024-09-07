@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://b54cktmhcq4dq"]
+[gd_scene load_steps=50 format=3 uid="uid://b54cktmhcq4dq"]
 
 [ext_resource type="Script" path="res://Battle/BattleSlot.cs" id="1_q5xa3"]
 [ext_resource type="Texture2D" uid="uid://i7qlj5i8k4cu" path="res://Battle/Monster Unknown.png" id="2_icy35"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" path="res://Battle/SpeciesLabel.cs" id="20_hm40t"]
 [ext_resource type="PackedScene" uid="uid://pu4lsn15c8yk" path="res://Battle/study_info.tscn" id="20_hq4hi"]
 [ext_resource type="Texture2D" uid="uid://csn2i0kg01qfw" path="res://Battle/Resources/shield-sapphire-3.png" id="21_pk6ic"]
+[ext_resource type="Script" path="res://Battle/BattleSlot/BattleColorMark.cs" id="22_ch6yg"]
 [ext_resource type="Texture2D" uid="uid://dsmn0g2p50jw2" path="res://Battle/Resources/shield-master-12.png" id="22_k5na8"]
 [ext_resource type="Script" path="res://Battle/MaxMPContainer.cs" id="26_xw66u"]
 [ext_resource type="Script" path="res://Battle/MaxMPValue.cs" id="27_cqtnf"]
@@ -309,7 +310,7 @@ grow_horizontal = 2
 grow_vertical = 2
 tooltip_text = "testing"
 theme = ExtResource("7_yxys7")
-columns = 2
+columns = 3
 script = ExtResource("19_oqi14")
 ToolTip = ExtResource("20_hq4hi")
 
@@ -317,6 +318,12 @@ ToolTip = ExtResource("20_hq4hi")
 layout_mode = 2
 text = "BEAST"
 script = ExtResource("20_hm40t")
+
+[node name="ColorMark" type="ColorRect" parent="NpcInfo"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+script = ExtResource("22_ch6yg")
 
 [node name="Name" type="Label" parent="NpcInfo"]
 layout_mode = 2
@@ -432,6 +439,7 @@ UberChampion = ExtResource("22_k5na8")
 [connection signal="BattleStatusChanged" from="." to="StatusList/Poisoned" method="StatusChanged"]
 [connection signal="BattleStatusChanged" from="." to="StatusList/Shaken" method="StatusChanged"]
 [connection signal="BattleStatusChanged" from="." to="Hp" method="StatusChanged"]
+[connection signal="NpcColorSet" from="." to="NpcInfo/ColorMark" method="HandleColorMarkSet"]
 [connection signal="NpcStudyLevelChanged" from="." to="Hp" method="StudyLevelChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="NpcInfo/Species" method="StudyLevelChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="RankIcon" method="StudyLevelChanged"]
