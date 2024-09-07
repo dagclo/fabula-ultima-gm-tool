@@ -2,7 +2,7 @@ using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
 
-public partial class NpcInfo : HBoxContainer, INpcReader
+public partial class NpcInfo : Container, INpcReader
 {
     private NpcInstance _npc;
     private BattleStatus.StudyLevelEnum _studyLevel;

@@ -283,10 +283,10 @@ script = ExtResource("7_4m4uy")
 Target = 3
 
 [node name="Hp" type="TextureProgressBar" parent="."]
-offset_left = -78.0
-offset_top = -175.0
-offset_right = 322.0
-offset_bottom = -125.0
+offset_left = -76.0
+offset_top = -191.0
+offset_right = 324.0
+offset_bottom = -141.0
 scale = Vector2(0.5, 0.5)
 size_flags_horizontal = 3
 theme = ExtResource("7_yxys7")
@@ -297,18 +297,19 @@ texture_over = ExtResource("7_gogc4")
 texture_progress = ExtResource("8_sy7u1")
 script = ExtResource("9_qsfe8")
 
-[node name="NpcInfo" type="HBoxContainer" parent="."]
+[node name="NpcInfo" type="GridContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -35.0
-offset_top = -153.0
-offset_right = 135.0
-offset_bottom = -116.0
+offset_left = -58.0
+offset_top = -161.0
+offset_right = 117.0
+offset_bottom = -87.0
 grow_horizontal = 2
 grow_vertical = 2
 tooltip_text = "testing"
 theme = ExtResource("7_yxys7")
+columns = 2
 script = ExtResource("19_oqi14")
 ToolTip = ExtResource("20_hq4hi")
 
@@ -326,17 +327,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("9_vyohd")
 
-[node name="RankIcon" type="TextureRect" parent="NpcInfo"]
-layout_mode = 2
-texture = ExtResource("18_5yvjv")
-expand_mode = 3
-script = ExtResource("17_xmcw2")
-Soldier = ExtResource("18_5yvjv")
-Elite = ExtResource("19_gy17o")
-Champion = ExtResource("20_7621w")
-SuperChampion = ExtResource("21_pk6ic")
-UberChampion = ExtResource("22_k5na8")
-
 [node name="MaxMPContainer" type="HBoxContainer" parent="NpcInfo"]
 layout_mode = 2
 script = ExtResource("26_xw66u")
@@ -352,9 +342,9 @@ script = ExtResource("27_cqtnf")
 
 [node name="Affinities" type="HFlowContainer" parent="."]
 offset_left = -105.0
-offset_top = 155.0
+offset_top = 84.0
 offset_right = 167.0
-offset_bottom = 195.0
+offset_bottom = 124.0
 theme = ExtResource("7_yxys7")
 script = ExtResource("29_lw6im")
 
@@ -420,6 +410,20 @@ TargetDamageType = "Poison"
 [node name="AffinityTexture" parent="Affinities/Poison" index="0"]
 texture = ExtResource("39_yysij")
 
+[node name="RankIcon" type="TextureRect" parent="."]
+offset_left = -125.0
+offset_top = -203.0
+offset_right = -71.0
+offset_bottom = -149.0
+texture = ExtResource("18_5yvjv")
+expand_mode = 4
+script = ExtResource("17_xmcw2")
+Soldier = ExtResource("18_5yvjv")
+Elite = ExtResource("19_gy17o")
+Champion = ExtResource("20_7621w")
+SuperChampion = ExtResource("21_pk6ic")
+UberChampion = ExtResource("22_k5na8")
+
 [connection signal="BattleStatusChanged" from="." to="BeastSprite" method="HandleStatusChanged"]
 [connection signal="BattleStatusChanged" from="." to="StatusList/Enraged" method="StatusChanged"]
 [connection signal="BattleStatusChanged" from="." to="StatusList/Dazed" method="StatusChanged"]
@@ -429,11 +433,11 @@ texture = ExtResource("39_yysij")
 [connection signal="BattleStatusChanged" from="." to="StatusList/Shaken" method="StatusChanged"]
 [connection signal="BattleStatusChanged" from="." to="Hp" method="StatusChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="Hp" method="StudyLevelChanged"]
-[connection signal="NpcStudyLevelChanged" from="." to="NpcInfo" method="HandleStudyLevelChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="NpcInfo/Species" method="StudyLevelChanged"]
-[connection signal="NpcStudyLevelChanged" from="." to="NpcInfo/RankIcon" method="StudyLevelChanged"]
+[connection signal="NpcStudyLevelChanged" from="." to="RankIcon" method="StudyLevelChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="NpcInfo/MaxMPContainer" method="StudyLevelChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="Affinities" method="StudyLevelChanged"]
+[connection signal="NpcStudyLevelChanged" from="." to="NpcInfo" method="HandleStudyLevelChanged"]
 [connection signal="HpChanged" from="Hp" to="BeastSprite" method="OnHpChanged"]
 
 [editable path="Affinities/Physical"]
