@@ -53,7 +53,7 @@ public partial class NpcPanel : PanelContainer, INpcInstanceReader
         StatusSet?.Invoke(battleStatus);
         _status.StatusChanged += OnStatusChanged;
         OnStatusChanged(_status);
-        this.SetTabIcon?.Invoke(CreateTexture(ColorMark));
+        this.SetTabIcon?.Invoke(NpcPanel.CreateTexture(ColorMark));
     }
 
     private static Texture2D CreateTexture(Color colorMark)

@@ -150,7 +150,7 @@ public partial class Sprite : Sprite2D, INpcReader
                 Verb  = "has died",
             }.AsMessage());
         }
-        else if (_state == State.DEATH && hpState.Contains(HpState.REVIVING)) // this should be gone
+        else if (_state == State.ACTIVE && hpState.Contains(HpState.REVIVING)) // this should be gone
         {
             _messagePublisher.Publish(new EncounterLog
             {
@@ -166,12 +166,13 @@ public partial class Sprite : Sprite2D, INpcReader
         }
     }
 
+    [Flags]
     private enum State
     {
-        ACTIVE,
-        HIT,
-        IDLE,
-        DEATH,
-        REVIVAL
+        ACTIVE = 0,
+        HIT = 1,
+        IDLE = 2,
+        DEATH = 4,
+        REVIVAL = 8
     }
 }

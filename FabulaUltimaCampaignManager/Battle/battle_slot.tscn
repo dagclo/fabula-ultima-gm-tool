@@ -441,11 +441,11 @@ UberChampion = ExtResource("22_k5na8")
 [connection signal="BattleStatusChanged" from="." to="Hp" method="StatusChanged"]
 [connection signal="NpcColorSet" from="." to="NpcInfo/ColorMark" method="HandleColorMarkSet"]
 [connection signal="NpcStudyLevelChanged" from="." to="Hp" method="StudyLevelChanged"]
+[connection signal="NpcStudyLevelChanged" from="." to="NpcInfo" method="HandleStudyLevelChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="NpcInfo/Species" method="StudyLevelChanged"]
-[connection signal="NpcStudyLevelChanged" from="." to="RankIcon" method="StudyLevelChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="NpcInfo/MaxMPContainer" method="StudyLevelChanged"]
 [connection signal="NpcStudyLevelChanged" from="." to="Affinities" method="StudyLevelChanged"]
-[connection signal="NpcStudyLevelChanged" from="." to="NpcInfo" method="HandleStudyLevelChanged"]
+[connection signal="NpcStudyLevelChanged" from="." to="RankIcon" method="StudyLevelChanged"]
 [connection signal="HpChanged" from="Hp" to="BeastSprite" method="OnHpChanged"]
 
 [editable path="Affinities/Physical"]
