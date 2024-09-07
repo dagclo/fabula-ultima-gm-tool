@@ -53,15 +53,14 @@ public partial class NpcPanel : PanelContainer, INpcInstanceReader
         StatusSet?.Invoke(battleStatus);
         _status.StatusChanged += OnStatusChanged;
         OnStatusChanged(_status);
-        //this.SetTabIcon?.Invoke(CreateTexture(ColorMark));
+        this.SetTabIcon?.Invoke(CreateTexture(ColorMark));
     }
 
     private static Texture2D CreateTexture(Color colorMark)
-    {
-        var result = new Texture2D();
-        var image = Image.CreateEmpty(20, 20, false, Image.Format.Dxt5);
-        
-        return result;
+    {        
+        var image = Image.CreateEmpty(20, 20, false, Image.Format.Rgba8);
+        image.Fill(colorMark);
+        return ImageTexture.CreateFromImage(image);
     }
 
     private void OnStatusChanged(BattleStatus status)
