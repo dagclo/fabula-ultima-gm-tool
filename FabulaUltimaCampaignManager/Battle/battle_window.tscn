@@ -75,6 +75,7 @@ offset_top = -150.0
 offset_right = 413.0
 offset_bottom = -51.0
 grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("8_uopy3")
 theme_override_font_sizes/font_size = 66
 text = "Players Win!"
