@@ -37,5 +37,7 @@ public partial class LevelEdit : OptionButton, IBeastAttribute
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
         _beastTemplate = beastTemplate;
+        var index = GetItemIndex(_beastTemplate.Level);
+        this.Selected = index;
     }
 }

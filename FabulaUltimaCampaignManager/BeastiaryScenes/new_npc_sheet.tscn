@@ -74,6 +74,7 @@ layout_mode = 2
 size_flags_vertical = 4
 expand_icon = true
 selected = 0
+allow_reselect = true
 item_count = 5
 popup/item_0/text = "Soldier"
 popup/item_0/id = 1

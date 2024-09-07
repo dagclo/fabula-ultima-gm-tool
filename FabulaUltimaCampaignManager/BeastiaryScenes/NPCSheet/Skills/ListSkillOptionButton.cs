@@ -38,6 +38,8 @@ public partial class ListSkillOptionButton : OptionButton
             foreach (var skill in skillGroup.OrderBy(s => s.Name))
             {
                 AddItem(skill.Name, index);
+                var curIndex = GetItemIndex(index);
+                SetItemTooltip(curIndex, skill.Text);
                 _skillMap[index] = skill;
                 index++;
             }            
