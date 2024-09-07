@@ -145,6 +145,7 @@ dragger_visibility = 2
 
 [node name="CurrentEncounter" type="PanelContainer" parent="HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 script = ExtResource("2_w6myd")
 NPCLimit = 8
 
@@ -232,6 +233,8 @@ layout_mode = 2
 
 [node name="CampaignManager" type="TabContainer" parent="HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
 current_tab = 0
 script = ExtResource("17_8qoxa")
 
