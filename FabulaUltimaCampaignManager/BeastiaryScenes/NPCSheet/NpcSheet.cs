@@ -32,11 +32,11 @@ public partial class NpcSheet : Window
         // figure out window size
         GD.Print(this.Size.X);
         var screenSize = DisplayServer.ScreenGetSize();
-        
-        var xMultiplier = screenSize.X / 1920;
-        GD.Print(xMultiplier);
-        this.ContentScaleFactor = Math.Clamp( xMultiplier, 0.5f, 8);
-        this.Size = new Vector2I( this.Size.X * xMultiplier, this.Size.Y * xMultiplier);
+        GD.Print(screenSize);
+        var yMultiplier = screenSize.Y / 1080;
+        GD.Print(yMultiplier);
+        this.ContentScaleFactor = Math.Clamp( yMultiplier, 0.5f, 8);
+        this.Size = new Vector2I( this.Size.X * yMultiplier, this.Size.Y * yMultiplier);
         GD.Print(this.Size.X);
 
         this.Title = string.IsNullOrWhiteSpace(TitleOverride) ? this.Title : TitleOverride;
