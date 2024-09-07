@@ -13,7 +13,7 @@ public partial class EncounterEntry : VBoxContainer
     private Encounter _encounter = null;
 
     public Action OnSave { get; set; }
-    public Action<Encounter, EncounterEntry>  OnDeleteEncounter { get; set; }
+    public Action<Encounter, EncounterEntry>  OnDeleteArchiveEncounter { get; set; }
     public Action<Encounter> OnLoadEncounter { get; set; }
 
     // Called when the node enters the scene tree for the first time.
@@ -48,11 +48,11 @@ public partial class EncounterEntry : VBoxContainer
 
     private void OnDeleteButtonPressed()
     {
-        OnDeleteEncounter?.Invoke(_encounter, this);
+        OnDeleteArchiveEncounter?.Invoke(_encounter, this);
     }
 
     private void OnLoadButtonPressed()
-    {
+    {        
         OnLoadEncounter?.Invoke(_encounter);
     }
 }

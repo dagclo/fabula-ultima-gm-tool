@@ -3,11 +3,17 @@ using FirstProject.Campaign;
 using FirstProject.Encounters;
 using FirstProject.Messaging;
 using Godot;
+using System.Linq;
 
 public partial class EncounterList : Node
 {
 	[Export]
 	public PackedScene PackedEncounter { get; set; }
+
+    [Export]
+    public Tag ArchiveTag { get; set; }
+
+	private bool _showArchived = false;
 
     [Signal]
     public delegate void LoadEncounterEventHandler(Encounter encounter);
@@ -24,6 +30,13 @@ public partial class EncounterList : Node
 	{
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         _messagePublisher = messageRouter.GetPublisher<SaveMessage>();
+
+        // remove any existing children
+        foreach (var child in this.GetChildren())
+        {
+            this.RemoveChild(child);
+            child.QueueFree();
+        }
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -32,32 +45,44 @@ public partial class EncounterList : Node
 	}
 
     public void UpdateEncounter(SignalWrapper<CampaignData> signalWrapper)
-    {	
-		// remove any existing children
-		foreach(var child in this.GetChildren())
-		{
-            this.RemoveChild(child);
-			child.QueueFree();
-        }
+    {
+        _campaign = signalWrapper.Value;
+        Refresh();
+    }
 
-		_campaign = signalWrapper.Value;
-		if (_campaign == null) return;
-		foreach(var encounter in _campaign.Encounters)
-		{
-			var node = PackedEncounter.Instantiate<EncounterEntry>();
+    private void Refresh()
+    {
+        if (_campaign == null) return;
+        // remove any existing children
+        foreach (var child in this.GetChildren())
+        {
+            this.RemoveChild(child);
+            child.QueueFree();
+        }
+        foreach (var encounter in _campaign.Encounters.Where(e => _showArchived || !e.HasTag(ArchiveTag)))
+        {
+            var node = PackedEncounter.Instantiate<EncounterEntry>();
             this.AddChild(node);
             node.SetEncounter(encounter);
-			node.OnSave += SaveCampaign;
-			node.OnDeleteEncounter += OnDeleteEncounter;
-			node.OnLoadEncounter += OnLoadEncounter;
+            node.OnSave += SaveCampaign;
+            node.OnDeleteArchiveEncounter += OnDeleteArchiveEncounter;
+            node.OnLoadEncounter += OnLoadEncounter;
         }
     }
 
-    private void OnDeleteEncounter(Encounter encounter, EncounterEntry entry)
+    private void OnDeleteArchiveEncounter(Encounter encounter, EncounterEntry entry)
     {
 		var targetEncounterIndex = _campaign?.Encounters.IndexOf(encounter) ?? -1;
 		if (targetEncounterIndex < 0) return;
-		_campaign.Encounters.RemoveAt(targetEncounterIndex);
+		if (encounter.HasTag(ArchiveTag))
+		{
+            _campaign.Encounters.RemoveAt(targetEncounterIndex);
+		}
+		else
+		{
+			encounter.AddTags(ArchiveTag);
+		}
+		
 		this.RemoveChild(entry);
 		entry.QueueFree();
 		SaveCampaign();
@@ -71,6 +96,14 @@ public partial class EncounterList : Node
 
 	private void OnLoadEncounter(Encounter encounter)
 	{
+        encounter.RemoveTag(ArchiveTag); // encounters that are loaded can't be deleted
 		EmitSignal(SignalName.LoadEncounter, encounter);
+        Refresh();
+    }
+
+	public void HandleToggleArchive(bool toggleOn)
+	{
+		_showArchived = toggleOn;
+        Refresh();
 	}
 }
