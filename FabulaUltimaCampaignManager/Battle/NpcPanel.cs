@@ -12,11 +12,15 @@ public partial class NpcPanel : PanelContainer, INpcInstanceReader
     [Export]
     public string TurnCounterCharacter { get; set; } = "*";
 
+    [Export]
+    public Color ColorMark { get; set; } = Colors.Aqua;
+
     [Signal]
     public delegate void RoundChangedEventHandler();
 
     public Action<NpcInstance> NpcChanged { get; set; }
     public Action<string> SetTabTitle { get; set; }
+    public Action<Texture2D> SetTabIcon { get; internal set; }
 
     private Action<BattleStatus> StatusSet;
     private NpcInstance _instance;
@@ -49,6 +53,15 @@ public partial class NpcPanel : PanelContainer, INpcInstanceReader
         StatusSet?.Invoke(battleStatus);
         _status.StatusChanged += OnStatusChanged;
         OnStatusChanged(_status);
+        //this.SetTabIcon?.Invoke(CreateTexture(ColorMark));
+    }
+
+    private static Texture2D CreateTexture(Color colorMark)
+    {
+        var result = new Texture2D();
+        var image = Image.CreateEmpty(20, 20, false, Image.Format.Dxt5);
+        
+        return result;
     }
 
     private void OnStatusChanged(BattleStatus status)

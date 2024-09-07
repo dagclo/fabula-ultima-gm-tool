@@ -25,6 +25,7 @@ public partial class NpcTabs : TabContainer
             var npcPanel = child as NpcPanel;
             npcPanel.NpcChanged += (NpcInstance npc) => EnableTab(index, npc);
             npcPanel.SetTabTitle += (string s) => SetTabTitle(index, s);
+            npcPanel.SetTabIcon += (Texture2D t) => SetTabIcon(index, t);
             this.RoundChanged += npcPanel.OnRoundChanged;
             SetTabHidden(index, true);            
         }
