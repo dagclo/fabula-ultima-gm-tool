@@ -231,11 +231,10 @@ layout_mode = 2
 
 [node name="CampaignManager" type="TabContainer" parent="HSplitContainer"]
 layout_mode = 2
-current_tab = 1
+current_tab = 0
 script = ExtResource("17_8qoxa")
 
 [node name="Campaign" type="GridContainer" parent="HSplitContainer/CampaignManager"]
-visible = false
 layout_mode = 2
 columns = 2
 script = ExtResource("3_tscfl")
@@ -360,6 +359,7 @@ Entry = ExtResource("28_mfo4r")
 EquipmentDialog = ExtResource("26_3ixru")
 
 [node name="Beastiary" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 

@@ -114,6 +114,7 @@ ok_button_text = "Open"
 file_mode = 0
 access = 2
 filters = PackedStringArray("*.png ; PNG Images", "*.jpg; JPG Images")
+use_native_dialog = true
 script = ExtResource("5_rvk4d")
 
 [node name="DescriptionText" type="GridContainer" parent="ScrollContainer/BeastEntryNode/Attributes/Description"]
