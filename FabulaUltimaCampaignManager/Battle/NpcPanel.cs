@@ -58,7 +58,7 @@ public partial class NpcPanel : PanelContainer, INpcInstanceReader
 
     private static Texture2D CreateTexture(Color colorMark)
     {        
-        var image = Image.CreateEmpty(20, 20, false, Image.Format.Rgba8);
+        var image = Image.CreateEmpty(5, 20, false, Image.Format.Rgba8);
         image.Fill(colorMark);
         return ImageTexture.CreateFromImage(image);
     }

@@ -24,8 +24,7 @@ public partial class BattleWindow : Window, IEncounterReader
         this.Visible = true;
 
         var npcsPlusStatus = encounter.NpcCollection
-           .Zip(battleStatuses, (c, s) => (c, s))
-           .OrderByDescending(p => p.c.Template.Initiative);
+           .Zip(battleStatuses, (c, s) => (c, s));
 
         var npcInstanceReadersQueue = new Queue<INpcInstanceReader>
             (this.FindChildren("*")
