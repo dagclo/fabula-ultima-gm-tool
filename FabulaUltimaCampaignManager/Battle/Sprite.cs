@@ -111,8 +111,9 @@ public partial class Sprite : Sprite2D, INpcReader
         this.ApplyScale(new Vector2(scaleFactor, scaleFactor));         
     }
 
-    private float CalculateScaleFactor(int max, float value)
+    private static float CalculateScaleFactor(int max, float value)
     {
+        if (max >= value) return 1;
         return max / value;
     }
 

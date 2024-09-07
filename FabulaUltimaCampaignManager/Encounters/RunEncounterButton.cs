@@ -1,12 +1,14 @@
 
 using FirstProject.Encounters;
 using Godot;
+using System;
 
 public partial class RunEncounterButton : Button, IInitiativeSeedReader
 {
 	private InitiativeSeed _seed;
     private PackedScene _targetScene;
-     // Called when the node enters the scene tree for the first time.
+    public Action OnSubmit { get; set; }
+    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
 		this.Disabled = true;
@@ -33,5 +35,10 @@ public partial class RunEncounterButton : Button, IInitiativeSeedReader
     internal void OnTargetSceneReady(PackedScene scene)
     {
         _targetScene = scene;
+    }
+
+    public void HandlePressed()
+    {
+        OnSubmit?.Invoke();
     }
 }
