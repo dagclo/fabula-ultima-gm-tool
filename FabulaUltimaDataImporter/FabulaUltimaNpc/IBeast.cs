@@ -21,14 +21,15 @@
         public IReadOnlyCollection<BasicAttackTemplate> BasicAttacks { get; }
         public IReadOnlyCollection<SpellTemplate> Spells { get; }
         public IReadOnlyCollection<EquipmentTemplate> Equipment { get; }
-        public IReadOnlyCollection<SkillTemplate> Skills { get; }
+        public IReadOnlyCollection<SkillTemplate> Skills { get; }        
+        void AddSkill(SkillTemplate skill);
         public IReadOnlyCollection<ActionTemplate> Actions { get; }
 
         void AddEquipment(EquipmentTemplate equipment);
         void RemoveEquipment(EquipmentTemplate equipment);
-        bool HasEquipment(EquipmentTemplate equipment);
-        void AddSkill(SkillTemplate skill);
+        bool HasEquipment(EquipmentTemplate equipment);        
         void RemoveSkill(SkillTemplate skill);
+        void RemoveSkill(Guid skillId);
 
         void AddBasicAttack(BasicAttackTemplate basicAttack);
         void RemoveBasicAttack(BasicAttackTemplate basicAttack);

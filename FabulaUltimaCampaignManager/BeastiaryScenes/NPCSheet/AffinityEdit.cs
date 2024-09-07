@@ -9,7 +9,7 @@ using System.Linq;
 
 public partial class AffinityEdit : Control, IBeastAttribute
 {
-    private SkilledBeastTemplateWrapper _beastTemplate;
+    private IBeastTemplate _beastTemplate;
 
     [Signal]
     public delegate void UpdateAffinityEventHandler(SignalWrapper<BeastResistance> affinityValue);
@@ -30,9 +30,8 @@ public partial class AffinityEdit : Control, IBeastAttribute
 
     public void HandleBeastChanged(IBeastTemplate beastTemplate)
     {
-        if (beastTemplate == null) return;
-        if (beastTemplate is not SkilledBeastTemplateWrapper skilledBeast) return;
-        _beastTemplate = skilledBeast;
+        if (beastTemplate == null) return;        
+        _beastTemplate = beastTemplate;
         string affinity = string.Empty;
         if(_beastTemplate.Resistances.TryGetValue(AffinityName.ToLowerInvariant(), out var resistance))
         {
@@ -61,8 +60,8 @@ public partial class AffinityEdit : Control, IBeastAttribute
                 break;           
         }
         var skillId = _beastTemplate.Resistances[AffinityName.ToLowerInvariant()].SkillId ?? throw new Exception("unset skill id");
-        _beastTemplate.RemoveAffinitySkill(skillId);
-        if (skill != null) _beastTemplate.AddSkill(skill);
+        _beastTemplate.Model.RemoveSkill(skillId);
+        if (skill != null) _beastTemplate.Model.AddSkill(skill);
         BeastTemplateAction.Invoke(new[] { BeastEntryNode.Action.TRIGGER }.ToHashSet());
     }
 }

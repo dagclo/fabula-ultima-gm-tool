@@ -298,7 +298,7 @@ namespace FirstProject.Npc
             }
 
             int? rankSkillIndex = null;
-            foreach (var (skill, index) in RankSkills.Select((s, i) => (s, i)))
+            foreach (var (skill, index) in RankSkills?.Select((s, i) => (s, i)) ?? Array.Empty<(NpcSkill skill, int index)>())
             {
                 if (Guid.Parse(skill.Id) == targetSkill.Id)
                 {
@@ -309,7 +309,7 @@ namespace FirstProject.Npc
 
             if (rankSkillIndex != null)
             {
-                RankSkills.RemoveAt(rankSkillIndex.Value);
+                RankSkills?.RemoveAt(rankSkillIndex.Value);
                 return;
             }
         }
@@ -351,6 +351,11 @@ namespace FirstProject.Npc
             NpcActions.Add(new NpcAction(action));
         }
 
+        public void RemoveSkill(Guid skillId)
+        {
+            var skill = NpcSkills.FirstOrDefault(s => Guid.Parse(s.Id) == skillId);
+            if (skill != null) NpcSkills.Remove(skill);
+        }
 
         private Godot.Collections.Array<NpcSkill> _rankSkills;
         [Export]

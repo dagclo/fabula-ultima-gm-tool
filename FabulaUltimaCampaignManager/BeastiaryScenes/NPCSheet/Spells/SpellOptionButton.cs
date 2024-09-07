@@ -18,14 +18,16 @@ public partial class SpellOptionButton : OptionButton
 	{   
         var beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;
 
-        var index = 0;
-        AddItem("Create New Spell", index++);
+        var id = 0;
+        AddItem("Create New Spell", id++);
         _spellMap = new Dictionary<int, SpellTemplate>();
         foreach (var spell in beastRepository.Database.GetSpellTemplates().OrderBy(s => s.Name))
         {
-            AddItem(spell.Name, index);
-            _spellMap[index] = spell;
-            index++;
+            AddItem(spell.Name, id);
+            var curIndex = GetItemIndex(id);
+            SetItemTooltip(curIndex, string.IsNullOrEmpty(spell.Description) ? spell.Name : spell.Description); // attempt to fix off by 1 tooltips
+            _spellMap[id] = spell;
+            id++;
         }
         this.Selected = -1;
     }

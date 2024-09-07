@@ -369,19 +369,7 @@ namespace FabulaUltimaSkillLibrary.Models
 
         public Die GetDie(string attributeName) => _beastTemplate.GetDie(attributeName);
 
-        public void AddSkill(SkillTemplate skill)
-        {
-            if (this.Skills is not ICollection<SkillTemplate> skillCollection) return;
-            if (skillCollection.Any(s => s.Id == skill.Id)) return;
-            skillCollection.Add(skill);
-        }
 
-        public void RemoveAffinitySkill(Guid skillId)
-        {
-            if (this.Skills is not ICollection<SkillTemplate> skillCollection) return;
-            if (!skillCollection.Any(s => s.Id == skillId)) return;
-            skillCollection.Remove(skillCollection.Single(s => s.Id == skillId));
-        }
 
         public void UpdateSkills()
         {           

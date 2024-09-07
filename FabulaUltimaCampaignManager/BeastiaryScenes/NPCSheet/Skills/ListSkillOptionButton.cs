@@ -39,7 +39,7 @@ public partial class ListSkillOptionButton : OptionButton
             {
                 AddItem(skill.Name, index);
                 var curIndex = GetItemIndex(index);
-                SetItemTooltip(curIndex, skill.Text);
+                SetItemTooltip(curIndex, string.IsNullOrEmpty(skill.Text) ? skill.Name : skill.Text); // attempt to fix off by 1 tooltips
                 _skillMap[index] = skill;
                 index++;
             }            

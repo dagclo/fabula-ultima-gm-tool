@@ -80,5 +80,11 @@ namespace FabulaUltimaDatabase.Models
 
         public void RemoveSkill(SkillTemplate skill) => _skillTemplates.Remove(skill);
         public void AddSkill(SkillTemplate skill) => _skillTemplates.Add(skill);
+
+        public void RemoveSkill(Guid skillId)
+        {
+            var skill = _skillTemplates.FirstOrDefault(s => s.Id == skillId);
+            if(skill != null) _skillTemplates.Remove(skill);
+        }
     }
 }
