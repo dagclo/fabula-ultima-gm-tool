@@ -291,7 +291,7 @@ namespace FabulaUltimaSkillLibrary.Models
 
             bool AffinityTrumps(SkillTemplate skill, BeastResistance beastResistance)
             {
-                if (skill.IsVulnerabilitySkill()) return false;
+                if (skill.IsVulnerabilitySkill() || skill.IsAbsorptionSkill()) return false;
                 var trumps = skill.OtherAttributes?.TryGetValue(DamageConstants.AFFINITY_TRUMPS, out var trumpString) ?? false ? trumpString?.Split(',').Select(i => Guid.Parse(i)).ToHashSet<Guid>() : null;
                 return trumps?.Contains(beastResistance.AffinityId) ?? throw new ArgumentException($"Skill '{skill.Name}' has no trumps");
             }

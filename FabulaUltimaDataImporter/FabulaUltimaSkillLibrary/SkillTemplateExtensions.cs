@@ -21,6 +21,12 @@ namespace FabulaUltimaSkillLibrary
             return skillTemplate.IsAffinitySkill(DamageConstants.RESISTANT);
         }
 
+        public static bool IsAbsorptionSkill(this SkillTemplate skillTemplate)
+        {
+            if (skillTemplate.OtherAttributes == null) return false;
+            return skillTemplate.IsAffinitySkill(DamageConstants.ABSORBS);
+        }
+
         public static bool IsAffinitySkill(this SkillTemplate skillTemplate, Guid affinityId)
         {
             if (skillTemplate.OtherAttributes == null) return false;
