@@ -81,6 +81,7 @@ ok_button_text = "Open"
 file_mode = 0
 access = 2
 filters = PackedStringArray("*.png ; PNG Images", "*.jpg; JPG Images")
+use_native_dialog = true
 script = ExtResource("5_i30y8")
 
 [node name="DescriptionText" type="VBoxContainer" parent="VBoxContainer/Description"]

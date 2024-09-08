@@ -45,6 +45,7 @@ content_scale_mode = 1
 ok_button_text = "Open"
 file_mode = 0
 access = 2
+use_native_dialog = true
 script = ExtResource("5_tiwgs")
 
 [node name="Attributes" type="VBoxContainer" parent="HBoxContainer"]

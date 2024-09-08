@@ -48,6 +48,8 @@
 title = "New Npc"
 initial_position = 1
 size = Vector2i(1000, 800)
+content_scale_mode = 1
+content_scale_aspect = 4
 script = ExtResource("1_3svqs")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
@@ -56,9 +58,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="BeastEntryNode" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_f0gy2")
 
 [node name="Attributes" type="VBoxContainer" parent="ScrollContainer/BeastEntryNode"]
@@ -114,6 +120,7 @@ ok_button_text = "Open"
 file_mode = 0
 access = 2
 filters = PackedStringArray("*.png ; PNG Images", "*.jpg; JPG Images")
+use_native_dialog = true
 script = ExtResource("5_rvk4d")
 
 [node name="DescriptionText" type="GridContainer" parent="ScrollContainer/BeastEntryNode/Attributes/Description"]

@@ -29,6 +29,8 @@ public partial class NpcSheet : Window
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
+        this.ResizeForResolution();
+
         this.Title = string.IsNullOrWhiteSpace(TitleOverride) ? this.Title : TitleOverride;
         _skillResolver = GetNode<SkillResolver>("/root/SkillResolver").Instance;
         _beastRepository = GetNode<DbAccess>("/root/DbAccess").Repository;

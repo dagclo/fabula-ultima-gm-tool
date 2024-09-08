@@ -40,6 +40,7 @@
 [ext_resource type="Script" path="res://Beastiary/BeastListScroll.cs" id="28_yuje5"]
 [ext_resource type="Texture2D" uid="uid://cc364hyjqh7yb" path="res://Icon/64px-Loading_spinner.svg.png" id="32_fx1uk"]
 [ext_resource type="Script" path="res://Beastiary/LoadingBeastAnimation.cs" id="32_gxmwi"]
+[ext_resource type="Script" path="res://AboutPanel.cs" id="38_3f044"]
 
 [sub_resource type="Animation" id="Animation_romfh"]
 length = 0.001
@@ -453,6 +454,7 @@ initial_position = 1
 size = Vector2i(244, 514)
 borderless = false
 keep_title_visible = true
+script = ExtResource("38_3f044")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AboutPanel"]
 offset_left = 4.0
