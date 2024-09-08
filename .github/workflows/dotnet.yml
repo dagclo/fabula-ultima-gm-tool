@@ -29,7 +29,7 @@ jobs:
           global-json-file: global.json
 
       - name: 📦 Restore Dependencies
-        run: dotnet restore
+        run: dotnet restore FabulaUltimaCampaignManager
 
       - uses: chickensoft-games/setup-godot@v1
         name: 🤖 Setup Godot
@@ -48,9 +48,9 @@ jobs:
           godot --version
 
       - name: 🧑‍🔬 Generate .NET Bindings
-        run: godot --headless --build-solutions --quit || exit 0
+        run: godot --headless --build-solutions --quit --path FabulaUltimaCampaignManager || exit 0
 
       - name: 🦺 Build Projects
-        run: dotnet build
+        run: dotnet build FabulaUltimaCampaignManager
 
       # Do whatever you want!
