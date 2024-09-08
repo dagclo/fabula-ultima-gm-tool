@@ -3,10 +3,10 @@
 
 
 ## How to build
-1. Download Godot 4.1.2: https://godotengine.org/download/windows/
-2. Add Godot to PATH variable
-3. Run the Importer to build the database
-4. Copy built databse to <root>/BeastiaryDB.sqlite
+1. Download Godot 4.3.0: https://godotengine.org/download/windows/
+2. Close down all instances of Godot and Visual Studio
+3. Add Godot to PATH variable
+
 
 
 ## What's Next

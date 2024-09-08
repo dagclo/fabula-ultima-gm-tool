@@ -36,7 +36,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_83a5u")
 script = ExtResource("1_g5bm3")
-TurnCounterCharacter = "⎊"
 
 [node name="NpcStatus" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -373,7 +372,7 @@ placeholder_text = "notes"
 layout_mode = 2
 text = "Finish Turn"
 script = ExtResource("15_6xvc4")
-TurnCounterCharacter = "⎊"
+TurnCounterCharacter = "⊕"
 
 [connection signal="RoundChanged" from="." to="NpcStatus/FinishTurnButton" method="OnRoundChanged"]
 [connection signal="toggled" from="NpcStatus/Statuses/DeadToggle" to="NpcStatus/Statuses/DeadToggle" method="OnToggleDeath"]

@@ -27,6 +27,7 @@
 [ext_resource type="Script" path="res://CampaignManager.cs" id="17_8qoxa"]
 [ext_resource type="Script" path="res://Campaign/CampaignNameEdit.cs" id="20_n478f"]
 [ext_resource type="Script" path="res://BeastiaryScenes/AddNpcButton.cs" id="23_yxpob"]
+[ext_resource type="Resource" uid="uid://bmc76hiwu7v3r" path="res://Tags/archive_tag.tres" id="24_4ibeb"]
 [ext_resource type="PackedScene" uid="uid://7xtkfi8kp6pg" path="res://BeastiaryScenes/new_npc_sheet.tscn" id="24_tvbgp"]
 [ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="25_0xra3"]
 [ext_resource type="Script" path="res://Beastiary/SearchBeastsTextEdit.cs" id="25_dycy4"]
@@ -145,6 +146,7 @@ dragger_visibility = 2
 
 [node name="CurrentEncounter" type="PanelContainer" parent="HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 script = ExtResource("2_w6myd")
 NPCLimit = 8
 
@@ -232,6 +234,8 @@ layout_mode = 2
 
 [node name="CampaignManager" type="TabContainer" parent="HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
 current_tab = 0
 script = ExtResource("17_8qoxa")
 
@@ -266,12 +270,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("6_ful6c")
 
-[node name="Label" type="Label" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
+[node name="EncounterLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
 layout_mode = 2
 theme_type_variation = &"BoldLabel"
 text = "Encounters"
 horizontal_alignment = 1
 uppercase = true
+
+[node name="ArchiveFilterCheckButton" type="CheckButton" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Show Archived"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
 layout_mode = 2
@@ -283,6 +292,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("7_275cp")
 PackedEncounter = ExtResource("3_eceqq")
+ArchiveTag = ExtResource("24_4ibeb")
 
 [node name="Encounter" parent="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" instance=ExtResource("3_eceqq")]
 layout_mode = 2
@@ -494,7 +504,8 @@ fit_content = true
 [connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton" method="OnButtonPressed"]
 [connection signal="SwitchScene" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton" method="OnSwitchScene"]
 [connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" method="OnTextChanged"]
-[connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/RunEncounterButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup" method="OnRunButton"]
+[connection signal="text_submitted" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" method="HandleTextSubmitted"]
+[connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/RunEncounterButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/RunEncounterButton" method="HandlePressed"]
 [connection signal="item_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" to="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" method="OnSelection"]
 [connection signal="RemoveNpc" from="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" to="HSplitContainer/CurrentEncounter" method="RemoveNpcFromEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" method="HandleCampaignChanged"]
@@ -511,6 +522,7 @@ fit_content = true
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
+[connection signal="toggled" from="HSplitContainer/CampaignManager/Campaign/Encounters/ArchiveFilterCheckButton" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="HandleToggleArchive"]
 [connection signal="DeleteEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CurrentEncounter" method="HideEncounterIfDeleted"]
 [connection signal="LoadEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnLoadEncounter"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Encounters/AddEncounterButton" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnAddEncounterButtonPressed"]

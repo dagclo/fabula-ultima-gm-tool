@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bmc76hiwu7v3r"]
+
+[ext_resource type="Script" path="res://Encounters/Tag.cs" id="1_yjorr"]
+
+[resource]
+script = ExtResource("1_yjorr")
+Name = "Archive"

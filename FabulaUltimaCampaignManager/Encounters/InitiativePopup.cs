@@ -26,6 +26,7 @@ public partial class InitiativePopup : PopupPanel
         {
             var node = child as IInitiativeSeedReader;
             this.InitiativeSeedReady += node.OnInitiativeSeedReady;
+            node.OnSubmit += HandleSubmit;
             if(child is InitiativeDifficulty initDiff)
             {
                 this.NpcsReady += initDiff.OnNpcsReady;
@@ -37,11 +38,6 @@ public partial class InitiativePopup : PopupPanel
             }
         }
     }
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
 
     internal void OnStartEncounter(PackedScene scene, Encounter encounter)
     {
@@ -59,10 +55,9 @@ public partial class InitiativePopup : PopupPanel
         this.Show();
     }
 
-    public void OnRunButton()
+    public void HandleSubmit()
     {        
-        this.Hide();
-        //GetTree().ChangeSceneToPacked(_targetScene);
+        this.Hide();        
         EmitSignal(SignalName.SwitchScene);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FirstProject.Npc;
 using Godot;
 using System;
+using System.Linq;
 
 namespace FirstProject.Encounters
 {
@@ -38,6 +39,33 @@ namespace FirstProject.Encounters
             EmitChanged();
         }
 
+        internal bool HasTag(Tag tag)
+        {
+            return Tags?.Any(t => t.Name == tag.Name) ?? false;
+        }
+
+        internal void AddTags(params Tag[] tags)
+        {
+            Tags = Tags ?? new Godot.Collections.Array<Tag>();
+            Tags.AddRange(tags);
+        }
+
+        internal void RemoveTag(Tag tag)
+        {
+            if (!HasTag(tag)) return;
+            int? foundIndex = null;
+            foreach((Tag candidate, int index) in Tags.Select((t, i) => (t, i)))
+            {
+                if(candidate.Name == tag.Name)
+                {
+                    foundIndex = index;
+                    break;
+                }
+            }
+            if (foundIndex == null) return;
+            Tags.RemoveAt(foundIndex.Value);
+        }
+
         [Export]
         public string Id { get; set; }
 
@@ -54,7 +82,10 @@ namespace FirstProject.Encounters
                 _background = value;
                 this.EmitChanged();
             }
-        } 
+        }
+
+        [Export]
+        public Godot.Collections.Array<Tag> Tags { get; set; }
 
         public InitiativeSeed InitiativeSeed { get; set; }
 

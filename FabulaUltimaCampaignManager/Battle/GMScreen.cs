@@ -21,8 +21,7 @@ public partial class GMScreen : HSplitContainer, IEncounterReader
         if (encounter == null) return;
 
         var npcsPlusStatus = encounter.NpcCollection
-            .Zip(battleStatuses, (c, s) => (c, s))
-            .OrderByDescending(p => p.c.Template.Initiative);
+            .Zip(battleStatuses, (c, s) => (c, s));            
 
         var npcInstanceReadersQueue = new Queue<INpcInstanceReader>
             (this.FindChildren("*")
