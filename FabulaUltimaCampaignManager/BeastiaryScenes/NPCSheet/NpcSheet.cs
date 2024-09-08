@@ -29,15 +29,7 @@ public partial class NpcSheet : Window
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-        // figure out window size
-        GD.Print(this.Size.X);
-        var screenSize = DisplayServer.ScreenGetSize();
-        GD.Print(screenSize);
-        var yMultiplier = screenSize.Y / 1080;
-        GD.Print(yMultiplier);
-        this.ContentScaleFactor = Math.Clamp( yMultiplier, 0.5f, 8);
-        this.Size = new Vector2I( this.Size.X * yMultiplier, this.Size.Y * yMultiplier);
-        GD.Print(this.Size.X);
+        this.ResizeForResolution();
 
         this.Title = string.IsNullOrWhiteSpace(TitleOverride) ? this.Title : TitleOverride;
         _skillResolver = GetNode<SkillResolver>("/root/SkillResolver").Instance;

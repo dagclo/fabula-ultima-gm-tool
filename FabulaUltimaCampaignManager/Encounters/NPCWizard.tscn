@@ -42,6 +42,7 @@ script = ExtResource("3_t4msy")
 visible = false
 layout_mode = 2
 script = ExtResource("4_1jtec")
+metadata/_tab_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/InstanceDetail"]
 layout_mode = 2
@@ -83,8 +84,8 @@ layout_mode = 2
 tooltip_text = "disabled until level up is completed"
 theme_override_fonts/font = ExtResource("2_uou5l")
 disabled = true
-item_count = 1
 selected = 0
+item_count = 1
 popup/item_0/text = "5"
 popup/item_0/id = 5
 script = ExtResource("8_237r0")
@@ -102,10 +103,9 @@ layout_mode = 2
 size_flags_vertical = 0
 tooltip_text = "disabled until level up is completed"
 theme_override_fonts/font = ExtResource("2_uou5l")
-item_count = 1
 selected = 0
+item_count = 1
 popup/item_0/text = "SOLDIER"
-popup/item_0/id = 0
 script = ExtResource("9_f78dt")
 
 [node name="NextButton" type="Button" parent="TabContainer/InstanceDetail/VBoxContainer"]
@@ -120,6 +120,7 @@ script = ExtResource("9_23wcm")
 visible = false
 layout_mode = 2
 script = ExtResource("9_hi8oj")
+metadata/_tab_index = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/SkillDetail"]
 layout_mode = 2
@@ -143,6 +144,7 @@ script = ExtResource("14_adso8")
 [node name="ResultDetail" type="PanelContainer" parent="TabContainer"]
 layout_mode = 2
 script = ExtResource("15_67juc")
+metadata/_tab_index = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/ResultDetail"]
 layout_mode = 2

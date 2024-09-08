@@ -35,6 +35,7 @@ public partial class EquipmentDialog : Window
         }
         this.EquipmentInitialized?.Invoke(Equipment);
         this.EquipmentChanged?.Invoke(Equipment);
+        this.ResizeForResolution();
     }
 
     private void HandleEquipmentUpdated()
