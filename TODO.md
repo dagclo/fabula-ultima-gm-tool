@@ -12,11 +12,13 @@ Project Description
 - [ ] Fix all Build Warnings  
 - [ ] Investigate Whited Out Text remediation  
 - [ ] In RunEncounter, tab titles get covered by tab content  
-- [ ] Add Victory music  
 - [ ] Fix Godot Disposed error when exiting Battle  
 - [ ] Fix Image Load Warning  
 - [ ] Implement Godot level unit tests  
+- [ ] Implement PC Death  
+- [ ] Add Victory music  
 - [ ] -----------------V 1.0 Cut-----------------------------------------------------  
+- [ ] Implement Custom Music  
 - [ ] Add Loading Page for switch back to main page  
 - [ ] Add Size Modifiers to creatures  
 - [ ] Fix Cockatrice's Petrifying Peck  
@@ -27,7 +29,6 @@ Project Description
 - [ ] implement clocks  
 - [ ] Add After Encounter Result  
 - [ ] Update NPC Image Button only appears when hovering over Image  
-- [ ] Implement PC Death  
 - [ ] Enable PC Theme Music  
 - [ ] Implement Cross Network Dice Rolls  
 - [ ] enable removing npc  
