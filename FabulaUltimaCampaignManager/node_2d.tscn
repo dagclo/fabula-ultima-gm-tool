@@ -20,7 +20,7 @@
 [ext_resource type="Script" path="res://Encounters/Encounters.cs" id="6_ful6c"]
 [ext_resource type="Script" path="res://Encounters/EncounterList.cs" id="7_275cp"]
 [ext_resource type="Script" path="res://Encounters/InitiativeDifficulty.cs" id="7_nprtx"]
-[ext_resource type="Resource" path="res://configuration.tres" id="8_qwns5"]
+[ext_resource type="Resource" uid="uid://2biq1o4sj4tb" path="res://configuration.tres" id="8_qwns5"]
 [ext_resource type="Script" path="res://Encounters/GroupCheck.cs" id="8_vnw2q"]
 [ext_resource type="Script" path="res://Encounters/RunEncounterButton.cs" id="9_buhfi"]
 [ext_resource type="Script" path="res://Encounters/BattleBackOptions.cs" id="11_5ov2a"]

@@ -1,4 +1,4 @@
-# Project
+# Hobsphere - Fabula Ultima Campaign Manager
 
 Project Description
 
@@ -6,7 +6,19 @@ Project Description
 
 ### Backlog
 
-- [ ] Implement upload of background images  
+- [ ] When Clicking Spell/Attack, load their stats into the action bar  
+- [ ] Implement Custom Weapon QR code  
+- [ ] Implement upload of background images (replace ff5 system)  
+- [ ] Fix all Build Warnings  
+- [ ] Investigate Whited Out Text remediation  
+- [ ] In RunEncounter, tab titles get covered by tab content  
+- [ ] Fix Godot Disposed error when exiting Battle  
+- [ ] Fix Image Load Warning  
+- [ ] Implement Godot level unit tests  
+- [ ] Implement PC Death  
+- [ ] Add Victory music  
+- [ ] -----------------V 1.0 Cut-----------------------------------------------------  
+- [ ] Implement Custom Music  
 - [ ] Add Loading Page for switch back to main page  
 - [ ] Add Size Modifiers to creatures  
 - [ ] Fix Cockatrice's Petrifying Peck  
@@ -17,7 +29,6 @@ Project Description
 - [ ] implement clocks  
 - [ ] Add After Encounter Result  
 - [ ] Update NPC Image Button only appears when hovering over Image  
-- [ ] Implement PC Death  
 - [ ] Enable PC Theme Music  
 - [ ] Implement Cross Network Dice Rolls  
 - [ ] enable removing npc  
