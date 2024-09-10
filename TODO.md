@@ -1,4 +1,4 @@
-# Project
+# Hobsphere - Fabula Ultima Campaign Manager
 
 Project Description
 
