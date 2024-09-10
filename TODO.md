@@ -6,6 +6,16 @@ Project Description
 
 ### Backlog
 
+- [ ] When Clicking Spell/Attack, load their stats into the action bar  
+- [ ] Fix Godot Disposed error when exiting Battle  
+- [ ] Fix Image Load Warning  
+- [ ] Fix all Build Warnings  
+- [ ] Investigate Whited Out Text remediation  
+- [ ] In RunEncounter, tab titles get covered by tab content  
+- [ ] Implement  
+- [ ] Add Victory music  
+- [ ] Implement Godot level unit tests  
+- [ ] -----------------V 1.0 Cut-----------------------------------------------------  
 - [ ] Implement upload of background images  
 - [ ] Add Loading Page for switch back to main page  
 - [ ] Add Size Modifiers to creatures  
