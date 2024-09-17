@@ -4,6 +4,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Dapper.SqlBuilder;
 
 public partial class BattleStatus : Resource
 {
@@ -134,33 +135,47 @@ public partial class BattleStatus : Resource
         Die result = attributeDie;
         foreach(var effect in _attributesToStatusEffect[attributeName].Where(s => IsStatusInEffect(s)))
         {
-            result = Die.Downgrade(attributeDie);
+            result = Die.Downgrade(result);
         }
         return result;
     }
 
-    internal int ApplyStatus(string attribute, NpcInstance npcInstance)
+    internal string? ApplyStatus(string attribute, NpcInstance npcInstance)
     {
-        int result;
+        string result;
+        var postStatusInsightDie = ApplyStatus(nameof(IBeastTemplate.Insight), npcInstance.Template.Insight);
+        var postStatusDexDie = ApplyStatus(nameof(IBeastTemplate.Dexterity), npcInstance.Template.Dexterity);
         switch (attribute)
         {
             case "PDef":
                 if (npcInstance.Template.HasDefenseOverride) // overrides are unaffected by status
                 {
-                    result = npcInstance.Template.Defense;
+                    result = npcInstance.Template.Defense.ToString();
                 }
                 else
                 {
-                    var postStatusDexDie = ApplyStatus(nameof(IBeastTemplate.Dexterity), npcInstance.Template.Dexterity);
-                    result = npcInstance.Template.Defense + (postStatusDexDie.Sides - npcInstance.Template.Dexterity.Sides);
+                    
+                    result = (npcInstance.Template.Defense + (postStatusDexDie.Sides - npcInstance.Template.Dexterity.Sides)).ToString();
                 }                
                 break;
             case "MDef":
-                var postIStatusInsightDie = ApplyStatus(nameof(IBeastTemplate.Insight), npcInstance.Template.Insight);
-                result = npcInstance.Template.MagicalDefense + (postIStatusInsightDie.Sides - npcInstance.Template.Insight.Sides);
+                
+                result = (npcInstance.Template.MagicalDefense + (postStatusInsightDie.Sides - npcInstance.Template.Insight.Sides)).ToString();
+                break;
+            case nameof(IBeastTemplate.Might):                
+                result = ApplyStatus(nameof(IBeastTemplate.Might), npcInstance.Template.Might).ToString();
+                break;
+            case nameof(IBeastTemplate.Dexterity):
+                result = postStatusDexDie.ToString();
+                break;
+            case nameof(IBeastTemplate.Insight):
+                result = postStatusInsightDie.ToString();
+                break;
+            case nameof(IBeastTemplate.WillPower):
+                result = ApplyStatus(nameof(IBeastTemplate.WillPower), npcInstance.Template.WillPower).ToString();
                 break;
             default:
-                result = 0;
+                result = null;
                 break;
         }
         return result;
