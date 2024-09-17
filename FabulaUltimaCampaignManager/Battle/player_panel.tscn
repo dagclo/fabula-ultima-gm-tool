@@ -1,79 +1,92 @@
-[gd_scene load_steps=6 format=3 uid="uid://erwugkr5gcel"]
+[gd_scene load_steps=7 format=3 uid="uid://erwugkr5gcel"]
 
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="1_fn1gu"]
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_n1cmj"]
 [ext_resource type="Script" path="res://Battle/PlayerPanel.cs" id="1_sesvu"]
 [ext_resource type="Script" path="res://Battle/CompleteTurnButton.cs" id="4_d45na"]
 [ext_resource type="Script" path="res://Battle/PlayerPanel/BattlePlayerName.cs" id="4_up2s2"]
+[ext_resource type="Script" path="res://Battle/PlayerPanel/BattleCharacterName.cs" id="5_n7vw1"]
 
 [node name="PlayerPanel" type="PanelContainer"]
 theme = ExtResource("1_n1cmj")
 script = ExtResource("1_sesvu")
 
-[node name="PlayerStatus" type="VBoxContainer" parent="."]
+[node name="PlayerData" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="LabeledText" parent="PlayerStatus" instance=ExtResource("1_fn1gu")]
+[node name="PlayerName" parent="PlayerData" instance=ExtResource("1_fn1gu")]
 layout_mode = 2
 
-[node name="Label" parent="PlayerStatus/LabeledText/HBoxContainer" index="0"]
-text = "Name: "
+[node name="Label" parent="PlayerData/PlayerName/HBoxContainer" index="0"]
+text = "Player Name: "
 
-[node name="Text" parent="PlayerStatus/LabeledText/HBoxContainer" index="1"]
+[node name="Text" parent="PlayerData/PlayerName/HBoxContainer" index="1"]
 text = "<unset>"
 script = ExtResource("4_up2s2")
 
-[node name="TopStatusSection" type="HBoxContainer" parent="PlayerStatus"]
+[node name="CharacterName" parent="PlayerData" instance=ExtResource("1_fn1gu")]
 layout_mode = 2
 
-[node name="SingleAttributeSection" type="VBoxContainer" parent="PlayerStatus/TopStatusSection"]
+[node name="Label" parent="PlayerData/CharacterName/HBoxContainer" index="0"]
+text = "Character Name: "
+
+[node name="Text" parent="PlayerData/CharacterName/HBoxContainer" index="1"]
+text = "<unset>"
+script = ExtResource("5_n7vw1")
+
+[node name="TopStatusSection" type="HBoxContainer" parent="PlayerData"]
 layout_mode = 2
 
-[node name="DazedStatusButton" type="CheckButton" parent="PlayerStatus/TopStatusSection/SingleAttributeSection"]
+[node name="SingleAttributeSection" type="VBoxContainer" parent="PlayerData/TopStatusSection"]
+layout_mode = 2
+
+[node name="DazedStatusButton" type="CheckButton" parent="PlayerData/TopStatusSection/SingleAttributeSection"]
 layout_mode = 2
 text = "Dazed"
 
-[node name="SlowStatusButton" type="CheckButton" parent="PlayerStatus/TopStatusSection/SingleAttributeSection"]
+[node name="SlowStatusButton" type="CheckButton" parent="PlayerData/TopStatusSection/SingleAttributeSection"]
 layout_mode = 2
 text = "Slow"
 
-[node name="EnragedStatusButton" type="CheckButton" parent="PlayerStatus/TopStatusSection"]
+[node name="EnragedStatusButton" type="CheckButton" parent="PlayerData/TopStatusSection"]
 layout_mode = 2
 text = "Enraged"
 
-[node name="BottomStatusSection" type="HBoxContainer" parent="PlayerStatus"]
+[node name="BottomStatusSection" type="HBoxContainer" parent="PlayerData"]
 layout_mode = 2
 
-[node name="SingleAttributeSection" type="VBoxContainer" parent="PlayerStatus/BottomStatusSection"]
+[node name="SingleAttributeSection" type="VBoxContainer" parent="PlayerData/BottomStatusSection"]
 layout_mode = 2
 
-[node name="ShakenStatusButton" type="CheckButton" parent="PlayerStatus/BottomStatusSection/SingleAttributeSection"]
+[node name="ShakenStatusButton" type="CheckButton" parent="PlayerData/BottomStatusSection/SingleAttributeSection"]
 layout_mode = 2
 text = "Shaken"
 
-[node name="WeakStatusButton" type="CheckButton" parent="PlayerStatus/BottomStatusSection/SingleAttributeSection"]
+[node name="WeakStatusButton" type="CheckButton" parent="PlayerData/BottomStatusSection/SingleAttributeSection"]
 layout_mode = 2
 text = "Weak"
 
-[node name="PoisonedStatusButton" type="CheckButton" parent="PlayerStatus/BottomStatusSection"]
+[node name="PoisonedStatusButton" type="CheckButton" parent="PlayerData/BottomStatusSection"]
 layout_mode = 2
 text = "Poisoned"
 
-[node name="TextEdit" type="TextEdit" parent="PlayerStatus"]
+[node name="TextEdit" type="TextEdit" parent="PlayerData"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 placeholder_text = "Notes"
 
-[node name="CompleteTurnButton" type="Button" parent="PlayerStatus"]
+[node name="CompleteTurnButton" type="Button" parent="PlayerData"]
 layout_mode = 2
 text = "Complete Turn"
 script = ExtResource("4_d45na")
 
-[connection signal="PlayerUpdated" from="." to="PlayerStatus/LabeledText/HBoxContainer/Text" method="ReadPlayer"]
-[connection signal="RoundEnd" from="." to="PlayerStatus/CompleteTurnButton" method="OnRoundEnd"]
-[connection signal="RoundStart" from="." to="PlayerStatus/CompleteTurnButton" method="OnRoundStart"]
-[connection signal="TurnStart" from="." to="PlayerStatus/CompleteTurnButton" method="OnTurnStart"]
-[connection signal="pressed" from="PlayerStatus/CompleteTurnButton" to="." method="OnCompletedTurn"]
-[connection signal="pressed" from="PlayerStatus/CompleteTurnButton" to="PlayerStatus/CompleteTurnButton" method="OnButtonPressed"]
+[connection signal="PlayerUpdated" from="." to="PlayerData/PlayerName/HBoxContainer/Text" method="ReadPlayer"]
+[connection signal="PlayerUpdated" from="." to="PlayerData/CharacterName/HBoxContainer/Text" method="ReadPlayer"]
+[connection signal="RoundEnd" from="." to="PlayerData/CompleteTurnButton" method="OnRoundEnd"]
+[connection signal="RoundStart" from="." to="PlayerData/CompleteTurnButton" method="OnRoundStart"]
+[connection signal="TurnStart" from="." to="PlayerData/CompleteTurnButton" method="OnTurnStart"]
+[connection signal="pressed" from="PlayerData/CompleteTurnButton" to="." method="OnCompletedTurn"]
+[connection signal="pressed" from="PlayerData/CompleteTurnButton" to="PlayerData/CompleteTurnButton" method="OnButtonPressed"]
 
-[editable path="PlayerStatus/LabeledText"]
+[editable path="PlayerData/PlayerName"]
+[editable path="PlayerData/CharacterName"]

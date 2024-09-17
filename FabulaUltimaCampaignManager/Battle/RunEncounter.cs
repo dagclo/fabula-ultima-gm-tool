@@ -6,7 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 public partial class RunEncounter : Control
-{    
+{
+    private MessageRouter _messageRouter;
     private MessagePublisher<EncounterLog> _messagePublisher;
 
     [Export]
@@ -17,9 +18,9 @@ public partial class RunEncounter : Control
 	{		
         var runState = GetNode<RunState>("/root/RunState");
 		var encounter = runState.RunningEncounter ?? throw new Exception("No encounter set");
-        var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
-        _messagePublisher = messageRouter.GetPublisher<EncounterLog>();
-        messageRouter.RegisterSubscriber<EncounterEnd>(ExitEncounterAsync);
+        _messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
+        _messagePublisher = _messageRouter.GetPublisher<EncounterLog>();
+        _messageRouter.RegisterSubscriber<EncounterEnd>(ExitEncounterAsync);
 
         var statuses = encounter.NpcCollection.Select((c, i) => new BattleStatus(c)).ToList();
         
@@ -58,5 +59,14 @@ public partial class RunEncounter : Control
             DisplayLevel = DisplayLevel.WHOOSH
         };
         _messagePublisher.Publish(log.AsMessage());
+    }
+
+    public void HandleTreeExiting()
+    {
+        foreach(var player in GetNode<RunState>("/root/RunState").Campaign.Players.Where(p => p.IsValid))
+        {
+            player.ActiveChanged = null;
+        }
+        _messageRouter.TearDown();
     }
 }

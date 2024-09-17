@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=45 format=3 uid="uid://ec56818wobea"]
 
 [ext_resource type="Script" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
