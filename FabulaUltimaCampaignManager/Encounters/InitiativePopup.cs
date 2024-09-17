@@ -1,4 +1,5 @@
 using FirstProject.Encounters;
+using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
 using System;
@@ -57,7 +58,9 @@ public partial class InitiativePopup : PopupPanel
 
     public void HandleSubmit()
     {        
-        this.Hide();        
+        this.Hide();
+        var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
+        messageRouter.TearDown();
         EmitSignal(SignalName.SwitchScene);
     }
 }

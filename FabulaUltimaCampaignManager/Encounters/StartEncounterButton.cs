@@ -31,9 +31,6 @@ public partial class StartEncounterButton : Button
 			// error popup
 			return;
 		}
-		
-		var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
-		messageRouter.TearDown();
 
         this.OnStartEncounter?.Invoke(RunEncounterScene, runState.RunningEncounter);        
     }
