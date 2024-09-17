@@ -182,6 +182,7 @@ script = ExtResource("11_vguco")
 [node name="BattleWindow" parent="." instance=ExtResource("14_c81va")]
 visible = false
 
+[connection signal="tree_exiting" from="." to="." method="HandleTreeExiting"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/ResetRoundButton" to="GMScreen/VBoxContainer/ResetRoundButton" method="HandlePressed"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" to="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" method="OnButtonPressed"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/PlayersWinButton" to="GMScreen/VBoxContainer/VFlowContainer/PlayersWinButton" method="HandlePressed"]

@@ -19,7 +19,7 @@ public partial class NpcAttributeLabel : PanelContainer, INpcReader, INpcStatusR
     public void HandleNpcChanged(NpcInstance npc)
     {
         _npcInstance = npc;
-        Value.Text = _npcInstance.GetValueOf(Attribute).ToString();
+        Value.Text = _npcInstance.GetStringValueOf(Attribute).ToString();
     }
 
     public void HandleStatusSet(BattleStatus status)
@@ -29,8 +29,7 @@ public partial class NpcAttributeLabel : PanelContainer, INpcReader, INpcStatusR
 
     private void UpdateAttribute(BattleStatus status)
     {
-        var currentValue = _npcInstance.GetValueOf(Attribute);
         var postStatus = status.ApplyStatus(Attribute, _npcInstance);
-        Value.Text = postStatus.ToString();
+        Value.Text = postStatus ?? Value.Text;
     }
 }

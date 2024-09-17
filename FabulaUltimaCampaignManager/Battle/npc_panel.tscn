@@ -40,7 +40,7 @@ script = ExtResource("1_g5bm3")
 [node name="NpcStatus" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Attributes" type="HBoxContainer" parent="NpcStatus"]
+[node name="Attributes" type="VFlowContainer" parent="NpcStatus"]
 layout_mode = 2
 
 [node name="Name" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
@@ -76,17 +76,6 @@ text = "MP: "
 [node name="Text" parent="NpcStatus/Attributes/MP/HBoxContainer" index="1"]
 text = "<unset>"
 
-[node name="Type" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
-layout_mode = 2
-script = ExtResource("3_novmc")
-Attribute = "Type"
-
-[node name="Label" parent="NpcStatus/Attributes/Type/HBoxContainer" index="0"]
-text = "Type: "
-
-[node name="Text" parent="NpcStatus/Attributes/Type/HBoxContainer" index="1"]
-text = "<unset>"
-
 [node name="Mdef" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
 layout_mode = 2
 script = ExtResource("3_novmc")
@@ -107,6 +96,50 @@ Attribute = "PDef"
 text = "P Def: "
 
 [node name="Text" parent="NpcStatus/Attributes/PDef/HBoxContainer" index="1"]
+text = "<unset>"
+
+[node name="Might" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
+layout_mode = 2
+script = ExtResource("3_novmc")
+Attribute = "Might"
+
+[node name="Label" parent="NpcStatus/Attributes/Might/HBoxContainer" index="0"]
+text = "MIG: "
+
+[node name="Text" parent="NpcStatus/Attributes/Might/HBoxContainer" index="1"]
+text = "<unset>"
+
+[node name="Dexterity" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
+layout_mode = 2
+script = ExtResource("3_novmc")
+Attribute = "Dexterity"
+
+[node name="Label" parent="NpcStatus/Attributes/Dexterity/HBoxContainer" index="0"]
+text = "DEX: "
+
+[node name="Text" parent="NpcStatus/Attributes/Dexterity/HBoxContainer" index="1"]
+text = "<unset>"
+
+[node name="Insight" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
+layout_mode = 2
+script = ExtResource("3_novmc")
+Attribute = "Insight"
+
+[node name="Label" parent="NpcStatus/Attributes/Insight/HBoxContainer" index="0"]
+text = "INS: "
+
+[node name="Text" parent="NpcStatus/Attributes/Insight/HBoxContainer" index="1"]
+text = "<unset>"
+
+[node name="Willpower" parent="NpcStatus/Attributes" instance=ExtResource("1_1ptjk")]
+layout_mode = 2
+script = ExtResource("3_novmc")
+Attribute = "WillPower"
+
+[node name="Label" parent="NpcStatus/Attributes/Willpower/HBoxContainer" index="0"]
+text = "WLP: "
+
+[node name="Text" parent="NpcStatus/Attributes/Willpower/HBoxContainer" index="1"]
 text = "<unset>"
 
 [node name="Statuses" type="HBoxContainer" parent="NpcStatus"]
@@ -404,6 +437,9 @@ TurnCounterCharacter = "⊕"
 [editable path="NpcStatus/Attributes/Name"]
 [editable path="NpcStatus/Attributes/HP"]
 [editable path="NpcStatus/Attributes/MP"]
-[editable path="NpcStatus/Attributes/Type"]
 [editable path="NpcStatus/Attributes/Mdef"]
 [editable path="NpcStatus/Attributes/PDef"]
+[editable path="NpcStatus/Attributes/Might"]
+[editable path="NpcStatus/Attributes/Dexterity"]
+[editable path="NpcStatus/Attributes/Insight"]
+[editable path="NpcStatus/Attributes/Willpower"]

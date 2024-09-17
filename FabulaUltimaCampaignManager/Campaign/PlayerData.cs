@@ -33,8 +33,20 @@ namespace FirstProject.Campaign
             {
                 var oldValue = _isActive;                
                 _isActive = value;
-                if (oldValue != value) ActiveChanged.Invoke(value);
+                if (oldValue != value) ActiveChanged?.Invoke(value);
             }
+        }
+
+        internal PlayerData Clone()
+        {
+            return new PlayerData
+            {
+                Name = Name,
+                CharacterName = CharacterName,
+                CharacterTitle = CharacterTitle,
+                PortraitFile = PortraitFile,
+                Enabled = Enabled,
+            };
         }
     }
 }

@@ -69,19 +69,34 @@ namespace FirstProject.Npc
 
         public IReadOnlyDictionary<string, Affinity> Resistances => this.Template.Resistances.ToDictionary(p => p.Key, p => p.Value.ToAffinity());
 
-        public int GetValueOf(string attributeName)
+        public string GetStringValueOf(string attributeName)
         {
-            int val;
+            string val;
             switch (attributeName)
             {
                 case "PDef":
-                    val = Template.Defense;
+                    val = Template.Defense.ToString();
                     break;
                 case "MDef":
-                    val = Template.MagicalDefense;
+                    val = Template.MagicalDefense.ToString();
+                    break;
+                case nameof(Template.Might):
+                    val = Template.Might.ToString();
+                    break;
+                case nameof(Template.Dexterity):
+                    val = Template.Dexterity.ToString();
+                    break;
+                case nameof(Template.Insight):
+                    val = Template.Insight.ToString();
+                    break;
+                case nameof(Template.WillPower):
+                    val = Template.WillPower.ToString();
+                    break;
+                case nameof(Template.Name):
+                    val = Template.Name;
                     break;
                 default:
-                    val = 0;
+                    val = string.Empty;
                     break;
             }
 
