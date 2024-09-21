@@ -1,11 +1,14 @@
+using FabulaUltimaDatabase;
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
 
 public partial class NpcType : Label, INpcReader
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    private NpcInstance _instance;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
 	}
 
@@ -16,6 +19,7 @@ public partial class NpcType : Label, INpcReader
 
     public void HandleNpcChanged(NpcInstance npc)
     {
-		this.Text = npc?.Template.Name;
+        _instance = npc;
+        this.Text = _instance?.Template.Name;
     }
 }

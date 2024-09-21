@@ -17,6 +17,7 @@ script = ExtResource("1_cbp4a")
 
 [node name="Name" type="PanelContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Name"]
 layout_mode = 2
@@ -35,6 +36,7 @@ script = ExtResource("3_eb1qw")
 
 [node name="Type" parent="." instance=ExtResource("1_3dubo")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="Label" parent="Type/HBoxContainer" index="0"]
 text = "Type:"
