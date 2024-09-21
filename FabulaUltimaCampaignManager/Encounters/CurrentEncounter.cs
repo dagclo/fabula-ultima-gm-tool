@@ -1,4 +1,5 @@
 using FirstProject.Encounters;
+using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
 using System.Linq;
@@ -70,5 +71,17 @@ public partial class CurrentEncounter : PanelContainer
         if (npc == null) return;
 		Encounter.RemoveNpc(npc);
         EmitSignal(SignalName.UpdateEncounter, Encounter);
+    }
+
+    public override bool _CanDropData(Vector2 atPosition, Variant data)
+    {
+        if (!(data.As<GodotObject>() is NpcInstance npc)) return false;
+        return true;
+    }
+
+    public override void _DropData(Vector2 atPosition, Variant data)
+    {
+        var original = data.As<NpcInstance>();
+		AddNpcToEncounter(original);
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dn3nwxahhysgn"]
+[gd_scene load_steps=11 format=3 uid="uid://dn3nwxahhysgn"]
 
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="1_3dubo"]
 [ext_resource type="Script" path="res://Encounters/NPCShortEntry.cs" id="1_cbp4a"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://Npc/NpcLevel.cs" id="5_o07c8"]
 [ext_resource type="Script" path="res://Encounters/ShowStats.cs" id="7_23fly"]
 [ext_resource type="Script" path="res://Npc/NpcRank.cs" id="7_b5hw3"]
+[ext_resource type="Script" path="res://Encounters/NpcVillianRank.cs" id="7_impxn"]
+[ext_resource type="Script" path="res://Encounters/VillianRankText.cs" id="8_6hg6c"]
 [ext_resource type="PackedScene" uid="uid://c8y0lhlyoaa45" path="res://Encounters/NpcStatWindow.tscn" id="8_dgv5w"]
 
 [node name="NPCShortEntry" type="VBoxContainer"]
@@ -65,6 +67,16 @@ text = "Rank:"
 text = "Soldier"
 script = ExtResource("7_b5hw3")
 
+[node name="VillianRank" parent="." instance=ExtResource("1_3dubo")]
+layout_mode = 2
+script = ExtResource("7_impxn")
+
+[node name="Label" parent="VillianRank/HBoxContainer" index="0"]
+text = "Villian Rank: "
+
+[node name="Text" parent="VillianRank/HBoxContainer" index="1"]
+script = ExtResource("8_6hg6c")
+
 [node name="ShowStats" type="Button" parent="."]
 layout_mode = 2
 text = "Show"
@@ -75,6 +87,7 @@ StatWindowScene = ExtResource("8_dgv5w")
 layout_mode = 2
 text = "Remove"
 
+[connection signal="VillianRankStatus" from="." to="VillianRank" method="HandleVillianRankStatus"]
 [connection signal="text_submitted" from="Name/HBoxContainer/NameEdit" to="Name/HBoxContainer/NameEdit" method="OnTextSubmitted"]
 [connection signal="pressed" from="ShowStats" to="ShowStats" method="OnPressed"]
 [connection signal="pressed" from="RemoveButton" to="." method="HandleRemoveButtonPressed"]
@@ -82,3 +95,4 @@ text = "Remove"
 [editable path="Type"]
 [editable path="Level"]
 [editable path="Rank"]
+[editable path="VillianRank"]
