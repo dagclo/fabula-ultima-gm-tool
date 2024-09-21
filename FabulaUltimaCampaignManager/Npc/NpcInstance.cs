@@ -23,6 +23,7 @@ namespace FirstProject.Npc
         {
             Model = npc.Model;
             InstanceName = npc.InstanceName;
+            VillainStats = npc.VillainStats;
         }
 
         [Export]
@@ -66,6 +67,11 @@ namespace FirstProject.Npc
                 EmitChanged();
             }
         }
+
+        [Export]
+        public VillainStats VillainStats { get; set; }
+
+        public bool IsVillian => VillainStats != null;
 
         public IReadOnlyDictionary<string, Affinity> Resistances => this.Template.Resistances.ToDictionary(p => p.Key, p => p.Value.ToAffinity());
 

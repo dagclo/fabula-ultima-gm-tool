@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=47 format=3 uid="uid://ec56818wobea"]
 
 [ext_resource type="Script" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
@@ -33,8 +33,10 @@
 [ext_resource type="Script" path="res://Beastiary/SearchBeastsTextEdit.cs" id="25_dycy4"]
 [ext_resource type="PackedScene" uid="uid://bhiapoj4nwud5" path="res://Campaign/Equipment/equipment_dialog.tscn" id="26_3ixru"]
 [ext_resource type="Script" path="res://Beastiary/SpeciesOptionButton.cs" id="26_k15df"]
+[ext_resource type="Script" path="res://Campaign/Villians/VillainsList.cs" id="26_k46bg"]
 [ext_resource type="FontFile" uid="uid://dya0rxr7wqedx" path="res://Font/NicoBold-Regular.ttf" id="26_wiiue"]
 [ext_resource type="Script" path="res://Campaign/Equipment/CustomEquipmentList.cs" id="27_4odix"]
+[ext_resource type="PackedScene" uid="uid://b84lercvne5c2" path="res://Campaign/Villians/villian_entry.tscn" id="27_ffedu"]
 [ext_resource type="Script" path="res://Beastiary/LevelOptionButton.cs" id="27_rlqv4"]
 [ext_resource type="PackedScene" uid="uid://ch0falaaaeo6v" path="res://Equipment/npc_equipment_entry.tscn" id="28_mfo4r"]
 [ext_resource type="Script" path="res://Beastiary/BeastListScroll.cs" id="28_yuje5"]
@@ -147,6 +149,7 @@ dragger_visibility = 2
 [node name="CurrentEncounter" type="PanelContainer" parent="HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 script = ExtResource("2_w6myd")
 NPCLimit = 8
 
@@ -344,7 +347,18 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="HSplitContainer/CampaignManager/Campaign/VillainSection"]
 layout_mode = 2
-text = "Villians (still Adding)"
+text = "Villians"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/VillainSection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VillainsList" type="VFlowContainer" parent="HSplitContainer/CampaignManager/Campaign/VillainSection/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("26_k46bg")
+VillianEntryScene = ExtResource("27_ffedu")
 
 [node name="EquipmentSection" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
 layout_mode = 2
@@ -515,6 +529,7 @@ fit_content = true
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot3" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot4" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot5" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/VillainSection/ScrollContainer/VillainsList" method="HandleCampaignChanged"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/EquipmentSection/ScrollContainer/CustomEquipmentList" method="HandleCampaignChanged"]
 [connection signal="text_changed" from="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" to="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" method="OnTextChanged"]
 [connection signal="AddEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CampaignManager/Campaign" method="AddEncounter"]

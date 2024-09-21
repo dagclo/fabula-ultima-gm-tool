@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://btyqcwcw47tqx"]
 
 [node name="LabeledText" type="PanelContainer"]
+mouse_filter = 2
 metadata/Testing = "default"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

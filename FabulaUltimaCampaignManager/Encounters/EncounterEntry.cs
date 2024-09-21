@@ -1,4 +1,6 @@
+using FabulaUltimaDatabase.Models;
 using FirstProject.Encounters;
+using FirstProject.Npc;
 using Godot;
 using System;
 using System.Linq;
@@ -54,5 +56,21 @@ public partial class EncounterEntry : VBoxContainer
     private void OnLoadButtonPressed()
     {        
         OnLoadEncounter?.Invoke(_encounter);
+    }
+
+    public override bool _CanDropData(Vector2 atPosition, Variant data)
+    {
+        if (!(data.As<GodotObject>() is NpcInstance npc)) return false;
+        if (_encounter.NpcCollection.Contains(npc)) return false;
+        return true;
+    }
+
+    public override void _DropData(Vector2 atPosition, Variant data)
+    {        
+        var original = data.As<NpcInstance>();
+        //todo: see if deep clone is needed
+        var clone = new NpcInstance(original);
+        _encounter.NpcCollection.Add(clone);
+        this.EncounterChanged?.Invoke(_encounter);
     }
 }

@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://b84lercvne5c2"]
+
+[ext_resource type="PackedScene" uid="uid://dn3nwxahhysgn" path="res://Encounters/npc_short_entry.tscn" id="1_e5o2a"]
+[ext_resource type="Script" path="res://Campaign/Villians/VillianEntry.cs" id="1_v6jd6"]
+[ext_resource type="Script" path="res://Campaign/Villians/VillianLevelButton.cs" id="3_ccinr"]
+[ext_resource type="Script" path="res://Campaign/Villians/UltimaOptionButton.cs" id="4_6ayaj"]
+
+[node name="VillianEntry" type="VBoxContainer"]
+offset_right = 205.0
+offset_bottom = 310.0
+script = ExtResource("1_v6jd6")
+
+[node name="NPCShortEntry" parent="." instance=ExtResource("1_e5o2a")]
+layout_mode = 2
+
+[node name="LevelSectionContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VillianLevelLabel" type="Label" parent="LevelSectionContainer"]
+layout_mode = 2
+text = "Villian Level: "
+
+[node name="VillianLevelButton" type="OptionButton" parent="LevelSectionContainer"]
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Minor"
+popup/item_0/id = 5
+popup/item_1/text = "Major"
+popup/item_1/id = 10
+popup/item_2/text = "Supreme"
+popup/item_2/id = 15
+script = ExtResource("3_ccinr")
+
+[node name="UltimaPointSection" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="UltimaPoints" type="Label" parent="UltimaPointSection"]
+layout_mode = 2
+text = "Ultima Points:"
+
+[node name="VillianUltimaOptionButton" type="OptionButton" parent="UltimaPointSection"]
+layout_mode = 2
+script = ExtResource("4_6ayaj")
+
+[connection signal="VillianLevelUpdated" from="LevelSectionContainer/VillianLevelButton" to="UltimaPointSection/VillianUltimaOptionButton" method="HandleVillianLevelUpdated"]
+[connection signal="item_selected" from="LevelSectionContainer/VillianLevelButton" to="LevelSectionContainer/VillianLevelButton" method="HandleItemSelected"]
+[connection signal="item_selected" from="UltimaPointSection/VillianUltimaOptionButton" to="UltimaPointSection/VillianUltimaOptionButton" method="OnItemSelected"]

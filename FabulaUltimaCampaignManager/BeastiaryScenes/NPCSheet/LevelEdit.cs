@@ -21,7 +21,7 @@ public partial class LevelEdit : OptionButton, IBeastAttribute
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{   
-        foreach (var level in Enumerable.Range(Min, (Max - Min) + 1).Where(i => i % 5 == 0))
+        foreach (var level in Enumerable.Range(Min, (Max - Min) + 1).Where(i => i % Multiple == 0))
         {
             AddItem(level.ToString(), level);
         }
