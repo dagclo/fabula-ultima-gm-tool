@@ -33,11 +33,10 @@ public partial class NPCShortEntry : VBoxContainer
 
     public override Variant _GetDragData(Vector2 atPosition)
     {
-        //todo: see if deep clone is needed
-        NpcInstance instanceClone = new NpcInstance(_instance);
+                
         var dragPreview = new Label();
-        dragPreview.Text = instanceClone.Model.Name;
+        dragPreview.Text = _instance.Model.Name;
         SetDragPreview(dragPreview);
-        return instanceClone;
+        return _instance;
     }
 }
