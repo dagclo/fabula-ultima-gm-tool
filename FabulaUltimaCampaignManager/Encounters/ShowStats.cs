@@ -21,7 +21,7 @@ public partial class ShowStats : Button, INpcReader
         _statWindow = StatWindowScene.Instantiate<NpcStatWindow>();
         _statWindow.OnClose += OnClose;
         AddChild(_statWindow);
-        _statWindow.SetBeast(_npcInstance.Template);
+        _statWindow.SetBeast(_npcInstance);
         _statWindow.Show();
         this.Disabled = true;
     }
