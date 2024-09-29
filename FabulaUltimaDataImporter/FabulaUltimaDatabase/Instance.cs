@@ -281,7 +281,7 @@ namespace FabulaUltimaDatabase
                         DamageMod = e.DamageMod.Value,
                         DamageType = damageTypes[e.DamageType.Value].ToDamageType(),
                         IsRanged = equipmentCategories[e.CategoryId.Value].IsRanged,
-                        AttackSkills = specialAttacks.Where(s => s.BasicAttackId == e.Id.Value).Select(s => skillMap[s.SkillId]).ToArray(),
+                        AttackSkills = specialAttacks.Where(s => s.BasicAttackId == e.Id.Value).Select(s => skillMap[s.SkillId]).ToList(),
                         IsEquipmentAttack = true,
                     } : null,
                     StatsModifier = equipmentCategories[e.CategoryId.Value].IsArmor ?
@@ -396,7 +396,7 @@ namespace FabulaUltimaDatabase
                     AccuracyMod = a.AttackMod,
                     DamageMod = a.DamageMod.Value,
                     IsRanged = a.IsRanged.Value,
-                    AttackSkills = specialAttacks.Where(s => s.BasicAttackId == a.Id.Value).Select(s => skillMap[s.SkillId]).ToArray()
+                    AttackSkills = specialAttacks.Where(s => s.BasicAttackId == a.Id.Value).Select(s => skillMap[s.SkillId]).ToList()
                 });
         }
 
