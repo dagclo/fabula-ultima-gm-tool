@@ -67,7 +67,10 @@ script = ExtResource("6_8o3ct")
 [node name="SpellTextEdit" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+size_flags_vertical = 3
 editable = false
+wrap_mode = 1
+scroll_fit_content_height = true
 script = ExtResource("7_8ixf4")
 
 [node name="RemoveSpellButton" type="Button" parent="."]

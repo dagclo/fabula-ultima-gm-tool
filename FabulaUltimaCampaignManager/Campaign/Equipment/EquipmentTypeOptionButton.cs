@@ -1,11 +1,8 @@
-using FabulaUltimaNpc;
 using FirstProject;
 using FirstProject.Npc;
 using Godot;
-using Godot.Collections;
 using System;
 using System.Linq;
-using System.Reflection;
 
 public partial class EquipmentTypeOptionButton : OptionButton, INpcEquipmentReader
 {

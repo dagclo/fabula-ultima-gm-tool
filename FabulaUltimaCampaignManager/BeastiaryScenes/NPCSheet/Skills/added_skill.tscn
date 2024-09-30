@@ -36,8 +36,10 @@ script = ExtResource("4_ufr2p")
 
 [node name="SkillDescriptionTextEdit" type="TextEdit" parent="."]
 layout_mode = 2
+size_flags_vertical = 3
 placeholder_text = "Skill Description"
 editable = false
+wrap_mode = 1
 scroll_fit_content_height = true
 script = ExtResource("5_jxy4s")
 

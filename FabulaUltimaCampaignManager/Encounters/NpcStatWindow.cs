@@ -1,4 +1,5 @@
 using FabulaUltimaNpc;
+using FirstProject.Npc;
 using Godot;
 using System;
 using System.Linq;
@@ -19,9 +20,10 @@ public partial class NpcStatWindow : Window
         this.ResizeForResolution();
     }
 
-	public void SetBeast(IBeastTemplate beast)
+	public void SetBeast(NpcInstance instance)
 	{     
-        _beastEntyNode.Beast = beast;        
+        _beastEntyNode.Beast = instance.Template;
+        Title = $"{instance.Model.Rank}: {instance.InstanceName}";
 	}
 
     public void OnCloseRequested()

@@ -7,19 +7,24 @@
 [node name="OtherAction" type="VBoxContainer"]
 script = ExtResource("1_yf32p")
 
-[node name="ActionDescription" type="VFlowContainer" parent="."]
+[node name="ActionDescription" type="VBoxContainer" parent="."]
 layout_mode = 2
 
 [node name="ActionNameEdit" type="LineEdit" parent="ActionDescription"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 placeholder_text = "Action Name"
 expand_to_text_length = true
 script = ExtResource("2_exa4m")
 
-[node name="DescriptionEdit" type="LineEdit" parent="ActionDescription"]
+[node name="DescriptionEdit" type="TextEdit" parent="ActionDescription"]
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+size_flags_vertical = 3
 placeholder_text = "Enter Description"
-expand_to_text_length = true
+wrap_mode = 1
+scroll_fit_content_height = true
 script = ExtResource("3_1due5")
 
 [node name="RemoveActionButton" type="Button" parent="."]

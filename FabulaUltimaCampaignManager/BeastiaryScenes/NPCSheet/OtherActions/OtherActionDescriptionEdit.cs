@@ -2,7 +2,7 @@ using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using Godot;
 
-public partial class OtherActionDescriptionEdit : LineEdit
+public partial class OtherActionDescriptionEdit : TextEdit
 {
     private ActionTemplate _action;
 
@@ -13,8 +13,8 @@ public partial class OtherActionDescriptionEdit : LineEdit
     }
 
 
-    public void HandleTextChanged(string text)
+    public void HandleTextChanged()
     {
-        _action.Effect = text;
+        _action.Effect = Text;
     }
 }
