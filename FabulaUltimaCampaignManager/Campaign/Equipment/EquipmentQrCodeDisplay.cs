@@ -82,8 +82,9 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
         return JsonConvert.SerializeObject(equipment, serializerSettings);
 	}
 
-	private static bool NotValid(NpcEquipment equipment)
+	private static bool IsValid(NpcEquipment equipment)
 	{
+		if (string.IsNullOrWhiteSpace(equipment.Name)) return false;
         if (equipment.Category.IsWeapon)
         {
 			if (equipment.BasicAttack?.Attribute1 == null) return false;
@@ -98,8 +99,9 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 
 	public void HandleEquipmentChanged(NpcEquipment equipment)
 	{
-		if (NotValid(equipment)) return;
+		if (!IsValid(equipment)) return;
 		var data = ToJson(equipment);
+		GD.Print(data);
         var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(data);
         var encodedData = System.Convert.ToBase64String(plainTextBytes);
 		using QRCodeGenerator qrGenerator = new QRCodeGenerator();
