@@ -64,13 +64,14 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 			range = rangeValue,
 			martial = npcEquipment.IsMartial,
 			category = npcEquipment.Category.Name,
-			defense = npcEquipment.Modifiers?.DefenseModifier,
-			mDefense = npcEquipment.Modifiers?.MagicDefenseModifier,
-			initiative = npcEquipment.Modifiers?.InitiativeModifier,
+            defense = npcEquipment.Modifiers?.DefenseModifier,
+            mDefense = npcEquipment.Modifiers?.MagicDefenseModifier,
+            initiative = npcEquipment.Modifiers?.InitiativeModifier,
 			dice1 = npcEquipment.BasicAttack?.Attribute1?.ShortenAttribute(),
             dice2 = npcEquipment.BasicAttack?.Attribute2?.ShortenAttribute(),
             accuracyConstant = npcEquipment.BasicAttack?.AttackMod,
             damageConstant = npcEquipment.BasicAttack?.DamageMod,
+			basic = false,
         };
 	
 		var serializerSettings = new JsonSerializerSettings
