@@ -58,17 +58,19 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 			cost = npcEquipment.Cost,
 			quality = npcEquipment.Quality,
 			type = type,
-			accuracy = npcEquipment.BasicAttack != null ? $"\u3010{npcEquipment.BasicAttack.Attribute1.ShortenAttribute()} + {npcEquipment.BasicAttack.Attribute2.ShortenAttribute()}\u3011" : null,
+			accuracy = npcEquipment.BasicAttack != null ? $"\u3010{npcEquipment.BasicAttack.Attribute1?.ShortenAttribute()} + {npcEquipment.BasicAttack.Attribute2?.ShortenAttribute()}\u3011" : null,
 			damage = npcEquipment.BasicAttack != null ? $"\u3010HR + {npcEquipment.BasicAttack.DamageMod}\u3011{npcEquipment.BasicAttack.DamageType.Name}" : null,
 			handedness = checkHandedNess ? $"{ToEnglish(npcEquipment.NumHands)} Handed"  : null,
 			range = rangeValue,
 			martial = npcEquipment.IsMartial,
 			category = npcEquipment.Category.Name,
-			defense = npcEquipment.Modifiers.DefenseModifier,
-			mDefense = npcEquipment.Modifiers.MagicDefenseModifier,
-			initiative = npcEquipment.Modifiers.InitiativeModifier,
-			dice1 = npcEquipment.BasicAttack != null ? npcEquipment.BasicAttack.Attribute1.ShortenAttribute()
-            //defenseConstant = npcEquipment.Modifiers.ini
+			defense = npcEquipment.Modifiers?.DefenseModifier,
+			mDefense = npcEquipment.Modifiers?.MagicDefenseModifier,
+			initiative = npcEquipment.Modifiers?.InitiativeModifier,
+			dice1 = npcEquipment.BasicAttack?.Attribute1?.ShortenAttribute(),
+            dice2 = npcEquipment.BasicAttack?.Attribute2?.ShortenAttribute(),
+            accuracyConstant = npcEquipment.BasicAttack?.AttackMod,
+            damageConstant = npcEquipment.BasicAttack?.DamageMod,
         };
 	
 		var serializerSettings = new JsonSerializerSettings
@@ -80,8 +82,23 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
         return JsonConvert.SerializeObject(equipment, serializerSettings);
 	}
 
+	private static bool NotValid(NpcEquipment equipment)
+	{
+        if (equipment.Category.IsWeapon)
+        {
+			if (equipment.BasicAttack?.Attribute1 == null) return false;
+            if (equipment.BasicAttack?.Attribute2 == null) return false;
+        }
+		else if (equipment.Category.IsArmor)
+		{
+			if (equipment.Modifiers == null) return false;
+		}
+        return true;
+	}
+
 	public void HandleEquipmentChanged(NpcEquipment equipment)
 	{
+		if (NotValid(equipment)) return;
 		var data = ToJson(equipment);
         var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(data);
         var encodedData = System.Convert.ToBase64String(plainTextBytes);

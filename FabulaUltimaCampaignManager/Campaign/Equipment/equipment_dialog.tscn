@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bhiapoj4nwud5"]
+[gd_scene load_steps=15 format=3 uid="uid://bhiapoj4nwud5"]
 
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentDialog.cs" id="1_i5tw2"]
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentNameEdit.cs" id="2_8a52t"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://db6gv6ggi4fuj" path="res://Icon/paste_256.png" id="7_qe0k1"]
 [ext_resource type="Script" path="res://Campaign/Equipment/DamageModifierEdit.cs" id="7_x7k20"]
 [ext_resource type="Script" path="res://Campaign/Equipment/ClipboardButton.cs" id="8_a1fq8"]
+[ext_resource type="Script" path="res://Campaign/Equipment/HandedNessOptionButton.cs" id="8_o2q6n"]
+[ext_resource type="Script" path="res://Campaign/Equipment/WeaponDamageTypeOptionButton.cs" id="8_tcctv"]
 
 [node name="EquipmentDialog" type="Window"]
 title = "Equipment"
@@ -68,6 +70,20 @@ placeholder_text = "Damage Mod"
 expand_to_text_length = true
 script = ExtResource("7_x7k20")
 
+[node name="DamageTypeOptionButton" type="OptionButton" parent="VBoxContainer/EquipmentDetails/WeaponAttributes"]
+layout_mode = 2
+script = ExtResource("8_tcctv")
+
+[node name="HandedNessOptionButton" type="OptionButton" parent="VBoxContainer/EquipmentDetails"]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "One Handed"
+popup/item_0/id = 1
+popup/item_1/text = "Two Handed"
+popup/item_1/id = 2
+script = ExtResource("8_o2q6n")
+
 [node name="EquipmentQualityLineEdit" type="TextEdit" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
@@ -103,9 +119,12 @@ script = ExtResource("3_hespv")
 [connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute1OptionButton" method="HandleBasicAttackSet"]
 [connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute2OptionButton" method="HandleBasicAttackSet"]
 [connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageModLineEdit" method="HandleBasicAttackSet"]
+[connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageTypeOptionButton" method="HandleBasicAttackSet"]
 [connection signal="item_selected" from="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute1OptionButton" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute1OptionButton" method="OnSelected"]
 [connection signal="item_selected" from="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute2OptionButton" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute2OptionButton" method="OnSelected"]
 [connection signal="text_changed" from="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageModLineEdit" to="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageModLineEdit" method="HandleTextChanged"]
+[connection signal="item_selected" from="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageTypeOptionButton" to="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageTypeOptionButton" method="HandleSelected"]
+[connection signal="item_selected" from="VBoxContainer/EquipmentDetails/HandedNessOptionButton" to="VBoxContainer/EquipmentDetails/HandedNessOptionButton" method="HandleSelected"]
 [connection signal="text_changed" from="VBoxContainer/EquipmentQualityLineEdit" to="VBoxContainer/EquipmentQualityLineEdit" method="HandleTextChanged"]
 [connection signal="pressed" from="VBoxContainer/SaveButton" to="." method="HandleSaveButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/ClipboardButton" to="VBoxContainer/ClipboardButton" method="HandlePressed"]
