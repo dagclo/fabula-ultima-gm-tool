@@ -1,3 +1,4 @@
+using FirstProject.Beastiary;
 using FirstProject.Npc;
 using Godot;
 using Newtonsoft.Json;
@@ -13,13 +14,29 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 	{
 	}
 
+	private static string ToEnglish(int num)
+	{
+		switch (num)
+		{
+			case 1: return "One";
+            case 2: return "Two";
+			default:
+				throw new NotImplementedException();
+        }
+	}
+
 	private static string ToJson(NpcEquipment npcEquipment)
 	{
 		string type;
-		if (npcEquipment.Category.IsWeapon)
+		bool checkHandedNess = false;
+        string rangeValue = null;
+        if (npcEquipment.Category.IsWeapon)
 		{
 			type = "Weapon";
-		}
+			checkHandedNess = true;
+			rangeValue = npcEquipment.BasicAttack.IsRanged ? "Ranged" : "Melee";
+
+        }
 		else if (npcEquipment.Category.IsArmor)
 		{
 			type = "Armor";
@@ -27,7 +44,8 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 		else if(npcEquipment.Category.Name == "Shield")
 		{
 			type = "Shield";
-		}
+            checkHandedNess = true;
+        }
 		else
 		{
 			type = "Accessory";
@@ -40,6 +58,16 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 			cost = npcEquipment.Cost,
 			quality = npcEquipment.Quality,
 			type = type,
+			accuracy = npcEquipment.BasicAttack != null ? $"\u3010{npcEquipment.BasicAttack.Attribute1.ShortenAttribute()} + {npcEquipment.BasicAttack.Attribute2.ShortenAttribute()}\u3011" : null,
+			damage = npcEquipment.BasicAttack != null ? $"\u3010HR + {npcEquipment.BasicAttack.DamageMod}\u3011{npcEquipment.BasicAttack.DamageType.Name}" : null,
+			handedness = checkHandedNess ? $"{ToEnglish(npcEquipment.NumHands)} Handed"  : null,
+			range = rangeValue,
+			martial = npcEquipment.IsMartial,
+			category = npcEquipment.Category.Name,
+			defense = npcEquipment.Modifiers.DefenseModifier,
+			mDefense = npcEquipment.Modifiers.MagicDefenseModifier,
+			initiative = npcEquipment.Modifiers.InitiativeModifier,
+			dice1 = npcEquipment.BasicAttack != null ? npcEquipment.BasicAttack.Attribute1.ShortenAttribute()
             //defenseConstant = npcEquipment.Modifiers.ini
         };
 	
