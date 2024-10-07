@@ -1,15 +1,13 @@
-using FirstProject.Beastiary;
 using FirstProject.Npc;
 using Godot;
 using System;
 
-public partial class DamageModifierEdit : LineEdit, INpcEquipmentReader
+public partial class AccuracyModLineEdit : LineEdit, INpcEquipmentReader
 {
     public Action OnEquipmentUpdated { get; set; }
-    private int? _damageMod = null;
-    private const int DEFAULT_MOD = 5;
+    private int? _accuracyMod = null;
+    private const int DEFAULT_MOD = 0;
     private NpcBasicAttack _basicAttack;
-
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -28,31 +26,30 @@ public partial class DamageModifierEdit : LineEdit, INpcEquipmentReader
     public void HandleBasicAttackSet(NpcBasicAttack basicAttack)
     {
         _basicAttack = basicAttack;
-        _basicAttack = basicAttack;
         if (_basicAttack == null) return;
-        _damageMod = _damageMod ?? _basicAttack.DamageMod;
+        _accuracyMod = _accuracyMod ?? _basicAttack.AttackMod;
 
-        _basicAttack.DamageMod = _damageMod.Value;
-        this.Text = _damageMod.ToString();
+        _basicAttack.AttackMod = _accuracyMod.Value;
+        this.Text = _accuracyMod.ToString();
     }
 
     public void HandleTextChanged(string newText)
     {
         if (string.IsNullOrEmpty(newText))
         {
-            _damageMod = DEFAULT_MOD;
+            _accuracyMod = DEFAULT_MOD;
             OnEquipmentUpdated?.Invoke();
             return;
         }
         if (int.TryParse(newText, out var mod))
         {
-            _damageMod = mod;
-            _basicAttack.DamageMod = _damageMod.Value;
+            _accuracyMod = mod;
+            _basicAttack.AttackMod = _accuracyMod.Value;
             OnEquipmentUpdated?.Invoke();
         }
         else
         {
-            this.Text = _damageMod.ToString();
+            this.Text = _accuracyMod.ToString();
         }
     }
 }

@@ -30,12 +30,13 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 		string type;
 		bool checkHandedNess = false;
         string rangeValue = null;
+		int? defaultModValue = null;
         if (npcEquipment.Category.IsWeapon)
 		{
 			type = "Weapon";
 			checkHandedNess = true;
 			rangeValue = npcEquipment.BasicAttack.IsRanged ? "Ranged" : "Melee";
-
+			defaultModValue = 0;
         }
 		else if (npcEquipment.Category.IsArmor)
 		{
@@ -64,9 +65,9 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 			range = rangeValue,
 			martial = npcEquipment.IsMartial,
 			category = npcEquipment.Category.Name,
-            defense = npcEquipment.Modifiers?.DefenseModifier,
-            mDefense = npcEquipment.Modifiers?.MagicDefenseModifier,
-            initiative = npcEquipment.Modifiers?.InitiativeModifier,
+            defense = npcEquipment.Modifiers?.DefenseModifier ?? defaultModValue,
+            mDefense = npcEquipment.Modifiers?.MagicDefenseModifier ?? defaultModValue,
+            initiative = npcEquipment.Modifiers?.InitiativeModifier ?? defaultModValue,
 			dice1 = npcEquipment.BasicAttack?.Attribute1?.ShortenAttribute(),
             dice2 = npcEquipment.BasicAttack?.Attribute2?.ShortenAttribute(),
             accuracyConstant = npcEquipment.BasicAttack?.AttackMod,
