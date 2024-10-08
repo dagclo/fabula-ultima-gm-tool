@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bhiapoj4nwud5"]
+[gd_scene load_steps=22 format=3 uid="uid://bhiapoj4nwud5"]
 
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentDialog.cs" id="1_i5tw2"]
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentNameEdit.cs" id="2_8a52t"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentTypeOptionButton.cs" id="2_hyy43"]
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentQrCodeDisplay.cs" id="3_hespv"]
 [ext_resource type="Script" path="res://Campaign/Equipment/WeaponAttributes.cs" id="5_3vupo"]
+[ext_resource type="Script" path="res://Campaign/Equipment/IsMartialButton.cs" id="5_yju6y"]
 [ext_resource type="Script" path="res://Campaign/Equipment/WeaponAttributeOptionButton.cs" id="5_yqdap"]
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentSaveButton.cs" id="6_blccf"]
 [ext_resource type="Script" path="res://Campaign/Equipment/AccuracyModLineEdit.cs" id="7_evmjt"]
@@ -55,6 +56,11 @@ layout_mode = 2
 size_flags_horizontal = 0
 placeholder_text = "Cost"
 script = ExtResource("2_eru50")
+
+[node name="IsMartialButton" type="CheckButton" parent="VBoxContainer/EquipmentDetails"]
+layout_mode = 2
+text = "Is Martial"
+script = ExtResource("5_yju6y")
 
 [node name="WeaponAttributes" type="HBoxContainer" parent="VBoxContainer/EquipmentDetails"]
 layout_mode = 2
@@ -167,6 +173,7 @@ script = ExtResource("3_hespv")
 [connection signal="item_selected" from="VBoxContainer/EquipmentTypeOptionButton" to="VBoxContainer/EquipmentTypeOptionButton" method="HandleSelected"]
 [connection signal="text_changed" from="VBoxContainer/EquipmentDetails/EquipmentNameEdit" to="VBoxContainer/EquipmentDetails/EquipmentNameEdit" method="HandleTextChanged"]
 [connection signal="text_changed" from="VBoxContainer/EquipmentDetails/EquipmentCostEdit" to="VBoxContainer/EquipmentDetails/EquipmentCostEdit" method="HandleTextChanged"]
+[connection signal="toggled" from="VBoxContainer/EquipmentDetails/IsMartialButton" to="VBoxContainer/EquipmentDetails/IsMartialButton" method="HandleToggle"]
 [connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute1OptionButton" method="HandleBasicAttackSet"]
 [connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute2OptionButton" method="HandleBasicAttackSet"]
 [connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/AccuracyModLineEdit" method="HandleBasicAttackSet"]
