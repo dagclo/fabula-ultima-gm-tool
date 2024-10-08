@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bhiapoj4nwud5"]
+[gd_scene load_steps=17 format=3 uid="uid://bhiapoj4nwud5"]
 
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentDialog.cs" id="1_i5tw2"]
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentNameEdit.cs" id="2_8a52t"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Campaign/Equipment/ClipboardButton.cs" id="8_a1fq8"]
 [ext_resource type="Script" path="res://Campaign/Equipment/HandedNessOptionButton.cs" id="8_o2q6n"]
 [ext_resource type="Script" path="res://Campaign/Equipment/WeaponDamageTypeOptionButton.cs" id="8_tcctv"]
+[ext_resource type="Script" path="res://Campaign/Equipment/ArmorAttributes.cs" id="11_j0kml"]
 
 [node name="EquipmentDialog" type="Window"]
 title = "Equipment"
@@ -93,6 +94,39 @@ popup/item_1/text = "Two Handed"
 popup/item_1/id = 2
 script = ExtResource("8_o2q6n")
 
+[node name="ArmorAttributes" type="HBoxContainer" parent="VBoxContainer/EquipmentDetails"]
+layout_mode = 2
+script = ExtResource("11_j0kml")
+
+[node name="ArmorAttributesLabel" type="Label" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
+layout_mode = 2
+text = "Armor Attributes"
+
+[node name="MDefLabel" type="Label" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
+layout_mode = 2
+text = "M. Def"
+
+[node name="MDefLineEdit" type="LineEdit" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
+layout_mode = 2
+
+[node name="PDefLabel" type="Label" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
+layout_mode = 2
+text = "P. Def"
+
+[node name="PDefLineEdit" type="LineEdit" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
+layout_mode = 2
+
+[node name="PDefOverrideCheckButton" type="CheckButton" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
+layout_mode = 2
+text = "Is Override"
+
+[node name="InitiativeLabel" type="Label" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
+layout_mode = 2
+text = "Initiative"
+
+[node name="InitiativeLineEdit" type="LineEdit" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
+layout_mode = 2
+
 [node name="EquipmentQualityLineEdit" type="TextEdit" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
@@ -127,9 +161,9 @@ script = ExtResource("3_hespv")
 [connection signal="text_changed" from="VBoxContainer/EquipmentDetails/EquipmentCostEdit" to="VBoxContainer/EquipmentDetails/EquipmentCostEdit" method="HandleTextChanged"]
 [connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute1OptionButton" method="HandleBasicAttackSet"]
 [connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute2OptionButton" method="HandleBasicAttackSet"]
+[connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/AccuracyModLineEdit" method="HandleBasicAttackSet"]
 [connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageModLineEdit" method="HandleBasicAttackSet"]
 [connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageTypeOptionButton" method="HandleBasicAttackSet"]
-[connection signal="BasicAttackUpdated" from="VBoxContainer/EquipmentDetails/WeaponAttributes" to="VBoxContainer/EquipmentDetails/WeaponAttributes/AccuracyModLineEdit" method="HandleBasicAttackSet"]
 [connection signal="item_selected" from="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute1OptionButton" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute1OptionButton" method="OnSelected"]
 [connection signal="item_selected" from="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute2OptionButton" to="VBoxContainer/EquipmentDetails/WeaponAttributes/Attribute2OptionButton" method="OnSelected"]
 [connection signal="text_changed" from="VBoxContainer/EquipmentDetails/WeaponAttributes/AccuracyModLineEdit" to="VBoxContainer/EquipmentDetails/WeaponAttributes/AccuracyModLineEdit" method="HandleTextChanged"]
