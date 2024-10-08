@@ -30,7 +30,7 @@ public partial class ArmorAttributes : HBoxContainer, INpcEquipmentReader
         }
         else
         {
-            if (equipment.BasicAttack != null) equipment.BasicAttack = null;
+            if (equipment.Modifiers != null) equipment.Modifiers = null;
         }
         EmitSignal(SignalName.ModifiersUpdated, equipment.Modifiers);
     }

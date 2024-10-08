@@ -45,11 +45,11 @@ namespace FabulaUltimaGMTool.Adaptors
             }
             else if (npcEquipment.Category.IsArmor)
             {
-                type = null;
+                return AsArmor(npcEquipment);
             }
             else
             {
-                type = "Accessory";
+                return AsAccessory(npcEquipment);
             }
 
 
@@ -64,22 +64,45 @@ namespace FabulaUltimaGMTool.Adaptors
                 handedness = checkHandedNess ? $"{ToEnglish(npcEquipment.NumHands)} Handed" : emptyStringDefault,
                 range = rangeValue,
                 martial = npcEquipment.IsMartial,
-                category = npcEquipment.Category.IsWeapon ? npcEquipment.Category.Name : null,
-                defense = npcEquipment.Category.IsWeapon ? (npcEquipment.Modifiers?.DefenseModifier ?? defaultModValue) : null,
-                mDefense = npcEquipment.Category.IsWeapon ? (npcEquipment.Modifiers?.MagicDefenseModifier ?? defaultModValue) : null,
+                category = npcEquipment.Category.IsWeapon ? npcEquipment.Category.Name : emptyStringDefault,
+                defense = npcEquipment.Category.IsArmor ? (npcEquipment.Modifiers?.DefenseModifier ?? defaultModValue) : 0,
+                mDefense = npcEquipment.Category.IsArmor ? (npcEquipment.Modifiers?.MagicDefenseModifier ?? defaultModValue) : 0,
                 dice1 = npcEquipment.BasicAttack?.Attribute1?.ShortenAttribute() ?? emptyStringDefault,
                 dice2 = npcEquipment.BasicAttack?.Attribute2?.ShortenAttribute() ?? emptyStringDefault,
                 accuracyConstant = npcEquipment.BasicAttack?.AttackMod ?? emptyIntDefault,
                 damageConstant = npcEquipment.BasicAttack?.DamageMod ?? emptyIntDefault,
-                basic = true,
-                defenseDice = npcEquipment.Category.IsArmor && !npcEquipment.Modifiers.DefenseOverrides ? "DEX" : null,
-                defenseConstant = npcEquipment.Category.IsArmor ? npcEquipment.Modifiers.DefenseModifier : (int?)null,
-                mDefenseDice = npcEquipment.Category.IsArmor ? "INS" : null,
-                mDefenseConstant = npcEquipment.Category.IsArmor ? npcEquipment.Modifiers.DefenseModifier : (int?)null,
-                initiative = npcEquipment.Category.IsArmor ? npcEquipment.Modifiers.InitiativeModifier : (int?)null,
+                basic = true,              
+                initiative = npcEquipment.Category.IsArmor ? npcEquipment.Modifiers.InitiativeModifier : 0,
             };
 
             return equipment;
+        }
+
+        private static dynamic AsArmor(NpcEquipment npcEquipment)
+        {
+            return new
+            {
+                name = npcEquipment.Name,
+                cost = npcEquipment.Cost,
+                defenseDice = npcEquipment.Modifiers.DefenseOverrides ? string.Empty : "DEX",
+                defenseConstant = npcEquipment.Modifiers.DefenseModifier,
+                mDefenseDice = "INS",
+                mDefenseConstant = npcEquipment.Modifiers.MagicDefenseModifier,
+                initiative = npcEquipment.Modifiers.InitiativeModifier,
+                quality = npcEquipment.Quality,
+                martial = npcEquipment.IsMartial,
+                basic = true
+            };
+        }
+
+        private static dynamic AsAccessory(NpcEquipment npcEquipment)
+        {
+            return new
+            {
+                name = npcEquipment.Name,
+                cost = npcEquipment.Cost,
+                quality = npcEquipment.Quality
+            };
         }
     }
 }

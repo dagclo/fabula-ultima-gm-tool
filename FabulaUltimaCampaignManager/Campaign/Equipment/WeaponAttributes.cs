@@ -26,6 +26,7 @@ public partial class WeaponAttributes : Container, INpcEquipmentReader
             {
                 Id = Guid.NewGuid().ToString()
             };
+            _basicAttack.IsRanged = equipment.Category.IsRanged;
             equipment.BasicAttack = _basicAttack;
         }
         else
