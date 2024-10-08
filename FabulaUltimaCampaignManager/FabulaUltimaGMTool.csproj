@@ -19,7 +19,12 @@
     <Folder Include="BeastiaryScenes\NPCSheet\OtherActions\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="QRCoder" Version="1.6.0" />
-    <PackageReference Include="gdUnit4.api" Version="4.2.*" />
+    <None Include="default.runsettings" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="QRCoder" Version="1.6.0" />    
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="gdUnit4.api" Version="4.3.*" />
+    <PackageReference Include="gdUnit4.test.adapter" Version="2.*" />
   </ItemGroup>
 </Project>
