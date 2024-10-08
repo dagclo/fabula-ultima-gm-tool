@@ -44,6 +44,10 @@ project/solution_directory="."
 
 movie_writer/movie_file="F:/Videos/Gameplay/Captures/godot_capture.avi"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+
 [gui]
 
 theme/custom="res://node_2d.tres"
