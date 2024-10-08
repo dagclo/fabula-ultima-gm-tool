@@ -25,71 +25,76 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
         }
 	}
 
-	private static string ToJson(NpcEquipment npcEquipment)
-	{
-		string type;
-		bool checkHandedNess = false;
+    public static dynamic ToDataFormat(NpcEquipment npcEquipment)
+    {
+        string type;
+        bool checkHandedNess = false;
         string rangeValue = null;
-		int? defaultModValue = null;
-		string emptyStringDefault = null;
-		int? emptyIntDefault = null;
+        int? defaultModValue = null;
+        string emptyStringDefault = null;
+        int? emptyIntDefault = null;
         if (npcEquipment.Category.IsWeapon)
-		{
-			type = "Weapon";
-			checkHandedNess = true;
-			rangeValue = npcEquipment.BasicAttack.IsRanged ? "Ranged" : "Melee";
-			defaultModValue = 0;
-        }		
-		else if(npcEquipment.Category.Name == "Shield")
-		{
-			type = "Shield";
+        {
+            type = "Weapon";
+            checkHandedNess = true;
+            rangeValue = npcEquipment.BasicAttack.IsRanged ? "Ranged" : "Melee";
+            defaultModValue = 0;
+        }
+        else if (npcEquipment.Category.Name == "Shield")
+        {
+            type = "Shield";
             emptyStringDefault = string.Empty;
-			rangeValue = emptyStringDefault;
-			emptyIntDefault = 0;
+            rangeValue = emptyStringDefault;
+            emptyIntDefault = 0;
         }
         else if (npcEquipment.Category.IsArmor)
         {
             type = null;
         }
         else
-		{
-			type = "Accessory";
-		}
+        {
+            type = "Accessory";
+        }
 
 
-		var equipment = new
-		{
-			name = npcEquipment.Name,
-			cost = npcEquipment.Cost,
-			quality = npcEquipment.Quality,
-			type = type,
-			accuracy = npcEquipment.BasicAttack != null ? $"\u3010{npcEquipment.BasicAttack.Attribute1?.ShortenAttribute()} + {npcEquipment.BasicAttack.Attribute2?.ShortenAttribute()}\u3011" : emptyStringDefault,
-			damage = npcEquipment.BasicAttack != null ? $"\u3010HR + {npcEquipment.BasicAttack.DamageMod}\u3011{npcEquipment.BasicAttack.DamageType.Name}" : emptyStringDefault,
-			handedness = checkHandedNess ? $"{ToEnglish(npcEquipment.NumHands)} Handed"  : emptyStringDefault,
-			range = rangeValue,
-			martial = npcEquipment.IsMartial,
-			category = npcEquipment.Category.IsWeapon ? npcEquipment.Category.Name : null,
+        var equipment = new
+        {
+            name = npcEquipment.Name,
+            cost = npcEquipment.Cost,
+            quality = npcEquipment.Quality,
+            type = type,
+            accuracy = npcEquipment.BasicAttack != null ? $"\u3010{npcEquipment.BasicAttack.Attribute1?.ShortenAttribute()} + {npcEquipment.BasicAttack.Attribute2?.ShortenAttribute()}\u3011" : emptyStringDefault,
+            damage = npcEquipment.BasicAttack != null ? $"\u3010HR + {npcEquipment.BasicAttack.DamageMod}\u3011{npcEquipment.BasicAttack.DamageType.Name}" : emptyStringDefault,
+            handedness = checkHandedNess ? $"{ToEnglish(npcEquipment.NumHands)} Handed" : emptyStringDefault,
+            range = rangeValue,
+            martial = npcEquipment.IsMartial,
+            category = npcEquipment.Category.IsWeapon ? npcEquipment.Category.Name : null,
             defense = npcEquipment.Category.IsWeapon ? (npcEquipment.Modifiers?.DefenseModifier ?? defaultModValue) : null,
-            mDefense = npcEquipment.Category.IsWeapon ? (npcEquipment.Modifiers?.MagicDefenseModifier ?? defaultModValue) : null,            
-			dice1 = npcEquipment.BasicAttack?.Attribute1?.ShortenAttribute() ?? emptyStringDefault,
+            mDefense = npcEquipment.Category.IsWeapon ? (npcEquipment.Modifiers?.MagicDefenseModifier ?? defaultModValue) : null,
+            dice1 = npcEquipment.BasicAttack?.Attribute1?.ShortenAttribute() ?? emptyStringDefault,
             dice2 = npcEquipment.BasicAttack?.Attribute2?.ShortenAttribute() ?? emptyStringDefault,
             accuracyConstant = npcEquipment.BasicAttack?.AttackMod ?? emptyIntDefault,
             damageConstant = npcEquipment.BasicAttack?.DamageMod ?? emptyIntDefault,
-			basic = true,
-			defenseDice = npcEquipment.Category.IsArmor && !npcEquipment.Modifiers.DefenseOverrides ? "DEX" : null,
-			defenseConstant = npcEquipment.Category.IsArmor ? npcEquipment.Modifiers.DefenseModifier : (int?) null,
+            basic = true,
+            defenseDice = npcEquipment.Category.IsArmor && !npcEquipment.Modifiers.DefenseOverrides ? "DEX" : null,
+            defenseConstant = npcEquipment.Category.IsArmor ? npcEquipment.Modifiers.DefenseModifier : (int?)null,
             mDefenseDice = npcEquipment.Category.IsArmor ? "INS" : null,
-            mDefenseConstant = npcEquipment.Category.IsArmor ? npcEquipment.Modifiers.DefenseModifier : (int?) null,
+            mDefenseConstant = npcEquipment.Category.IsArmor ? npcEquipment.Modifiers.DefenseModifier : (int?)null,
             initiative = npcEquipment.Category.IsArmor ? npcEquipment.Modifiers.InitiativeModifier : (int?)null,
         };
-	
+
+        return equipment;
+    }
+
+    private static string ToJson(dynamic data)
+	{
 		var serializerSettings = new JsonSerializerSettings
 		{
 			NullValueHandling = NullValueHandling.Ignore,
 			Formatting = Formatting.None
 		};
 
-        return JsonConvert.SerializeObject(equipment, serializerSettings);
+        return JsonConvert.SerializeObject(data, serializerSettings);
 	}
 
 	private static bool IsValid(NpcEquipment equipment)
@@ -110,9 +115,10 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 	public void HandleEquipmentChanged(NpcEquipment equipment)
 	{
 		if (!IsValid(equipment)) return;
-		var data = ToJson(equipment);
-		GD.Print(data);
-        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(data);
+		var data = ToDataFormat(equipment);
+		var json = ToJson(data);
+		GD.Print(json);
+        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(json);
         var encodedData = System.Convert.ToBase64String(plainTextBytes);
 		using QRCodeGenerator qrGenerator = new QRCodeGenerator();
 		using QRCodeData qrCodeData = qrGenerator.CreateQrCode(encodedData, QRCodeGenerator.ECCLevel.Q);
