@@ -155,3 +155,5 @@ mono_crash.*.json
 /Resources/*
 
 /ImageFolder
+/FabulaUltimaCampaignManager/addons/gdUnit4/tmp-update/
+/FabulaUltimaCampaignManager/addons/gdUnit4/GdUnitRunner.cfg
