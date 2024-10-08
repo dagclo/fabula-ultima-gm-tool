@@ -31,23 +31,27 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 		bool checkHandedNess = false;
         string rangeValue = null;
 		int? defaultModValue = null;
+		string emptyStringDefault = null;
+		int? emptyIntDefault = null;
         if (npcEquipment.Category.IsWeapon)
 		{
 			type = "Weapon";
 			checkHandedNess = true;
 			rangeValue = npcEquipment.BasicAttack.IsRanged ? "Ranged" : "Melee";
 			defaultModValue = 0;
-        }
-		else if (npcEquipment.Category.IsArmor)
-		{
-			type = "Armor";
-		} 
+        }		
 		else if(npcEquipment.Category.Name == "Shield")
 		{
 			type = "Shield";
-            checkHandedNess = true;
+            emptyStringDefault = string.Empty;
+			rangeValue = emptyStringDefault;
+			emptyIntDefault = 0;
         }
-		else
+        else if (npcEquipment.Category.IsArmor)
+        {
+            type = null;
+        }
+        else
 		{
 			type = "Accessory";
 		}
@@ -59,20 +63,24 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 			cost = npcEquipment.Cost,
 			quality = npcEquipment.Quality,
 			type = type,
-			accuracy = npcEquipment.BasicAttack != null ? $"\u3010{npcEquipment.BasicAttack.Attribute1?.ShortenAttribute()} + {npcEquipment.BasicAttack.Attribute2?.ShortenAttribute()}\u3011" : null,
-			damage = npcEquipment.BasicAttack != null ? $"\u3010HR + {npcEquipment.BasicAttack.DamageMod}\u3011{npcEquipment.BasicAttack.DamageType.Name}" : null,
-			handedness = checkHandedNess ? $"{ToEnglish(npcEquipment.NumHands)} Handed"  : null,
+			accuracy = npcEquipment.BasicAttack != null ? $"\u3010{npcEquipment.BasicAttack.Attribute1?.ShortenAttribute()} + {npcEquipment.BasicAttack.Attribute2?.ShortenAttribute()}\u3011" : emptyStringDefault,
+			damage = npcEquipment.BasicAttack != null ? $"\u3010HR + {npcEquipment.BasicAttack.DamageMod}\u3011{npcEquipment.BasicAttack.DamageType.Name}" : emptyStringDefault,
+			handedness = checkHandedNess ? $"{ToEnglish(npcEquipment.NumHands)} Handed"  : emptyStringDefault,
 			range = rangeValue,
 			martial = npcEquipment.IsMartial,
-			category = npcEquipment.Category.Name,
-            defense = npcEquipment.Modifiers?.DefenseModifier ?? defaultModValue,
-            mDefense = npcEquipment.Modifiers?.MagicDefenseModifier ?? defaultModValue,
-            initiative = npcEquipment.Modifiers?.InitiativeModifier ?? defaultModValue,
-			dice1 = npcEquipment.BasicAttack?.Attribute1?.ShortenAttribute(),
-            dice2 = npcEquipment.BasicAttack?.Attribute2?.ShortenAttribute(),
-            accuracyConstant = npcEquipment.BasicAttack?.AttackMod,
-            damageConstant = npcEquipment.BasicAttack?.DamageMod,
-			basic = false,
+			category = npcEquipment.Category.IsWeapon ? npcEquipment.Category.Name : null,
+            defense = npcEquipment.Category.IsWeapon ? (npcEquipment.Modifiers?.DefenseModifier ?? defaultModValue) : null,
+            mDefense = npcEquipment.Category.IsWeapon ? (npcEquipment.Modifiers?.MagicDefenseModifier ?? defaultModValue) : null,            
+			dice1 = npcEquipment.BasicAttack?.Attribute1?.ShortenAttribute() ?? emptyStringDefault,
+            dice2 = npcEquipment.BasicAttack?.Attribute2?.ShortenAttribute() ?? emptyStringDefault,
+            accuracyConstant = npcEquipment.BasicAttack?.AttackMod ?? emptyIntDefault,
+            damageConstant = npcEquipment.BasicAttack?.DamageMod ?? emptyIntDefault,
+			basic = true,
+			defenseDice = npcEquipment.Category.IsArmor && !npcEquipment.Modifiers.DefenseOverrides ? "DEX" : null,
+			defenseConstant = npcEquipment.Category.IsArmor ? npcEquipment.Modifiers.DefenseModifier : (int?) null,
+            mDefenseDice = npcEquipment.Category.IsArmor ? "INS" : null,
+            mDefenseConstant = npcEquipment.Category.IsArmor ? npcEquipment.Modifiers.DefenseModifier : (int?) null,
+            initiative = npcEquipment.Category.IsArmor ? npcEquipment.Modifiers.InitiativeModifier : (int?)null,
         };
 	
 		var serializerSettings = new JsonSerializerSettings

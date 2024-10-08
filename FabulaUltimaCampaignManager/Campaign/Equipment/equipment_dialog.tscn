@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bhiapoj4nwud5"]
+[gd_scene load_steps=21 format=3 uid="uid://bhiapoj4nwud5"]
 
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentDialog.cs" id="1_i5tw2"]
 [ext_resource type="Script" path="res://Campaign/Equipment/EquipmentNameEdit.cs" id="2_8a52t"]
@@ -16,6 +16,10 @@
 [ext_resource type="Script" path="res://Campaign/Equipment/HandedNessOptionButton.cs" id="8_o2q6n"]
 [ext_resource type="Script" path="res://Campaign/Equipment/WeaponDamageTypeOptionButton.cs" id="8_tcctv"]
 [ext_resource type="Script" path="res://Campaign/Equipment/ArmorAttributes.cs" id="11_j0kml"]
+[ext_resource type="Script" path="res://Campaign/Equipment/MDefLineEdit.cs" id="12_3e4i7"]
+[ext_resource type="Script" path="res://Campaign/Equipment/PDefLineEdit.cs" id="13_30pai"]
+[ext_resource type="Script" path="res://Campaign/Equipment/PDefOverrideCheckButton.cs" id="14_ygnn5"]
+[ext_resource type="Script" path="res://Campaign/Equipment/InitiativeLineEdit.cs" id="15_bk771"]
 
 [node name="EquipmentDialog" type="Window"]
 title = "Equipment"
@@ -108,6 +112,7 @@ text = "M. Def"
 
 [node name="MDefLineEdit" type="LineEdit" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
 layout_mode = 2
+script = ExtResource("12_3e4i7")
 
 [node name="PDefLabel" type="Label" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
 layout_mode = 2
@@ -115,10 +120,12 @@ text = "P. Def"
 
 [node name="PDefLineEdit" type="LineEdit" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
 layout_mode = 2
+script = ExtResource("13_30pai")
 
 [node name="PDefOverrideCheckButton" type="CheckButton" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
 layout_mode = 2
 text = "Is Override"
+script = ExtResource("14_ygnn5")
 
 [node name="InitiativeLabel" type="Label" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
 layout_mode = 2
@@ -126,6 +133,7 @@ text = "Initiative"
 
 [node name="InitiativeLineEdit" type="LineEdit" parent="VBoxContainer/EquipmentDetails/ArmorAttributes"]
 layout_mode = 2
+script = ExtResource("15_bk771")
 
 [node name="EquipmentQualityLineEdit" type="TextEdit" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
@@ -170,6 +178,14 @@ script = ExtResource("3_hespv")
 [connection signal="text_changed" from="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageModLineEdit" to="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageModLineEdit" method="HandleTextChanged"]
 [connection signal="item_selected" from="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageTypeOptionButton" to="VBoxContainer/EquipmentDetails/WeaponAttributes/DamageTypeOptionButton" method="HandleSelected"]
 [connection signal="item_selected" from="VBoxContainer/EquipmentDetails/WeaponAttributes/HandedNessOptionButton" to="VBoxContainer/EquipmentDetails/WeaponAttributes/HandedNessOptionButton" method="HandleSelected"]
+[connection signal="ModifiersUpdated" from="VBoxContainer/EquipmentDetails/ArmorAttributes" to="VBoxContainer/EquipmentDetails/ArmorAttributes/MDefLineEdit" method="HandleModifiersSet"]
+[connection signal="ModifiersUpdated" from="VBoxContainer/EquipmentDetails/ArmorAttributes" to="VBoxContainer/EquipmentDetails/ArmorAttributes/PDefLineEdit" method="HandleModifiersSet"]
+[connection signal="ModifiersUpdated" from="VBoxContainer/EquipmentDetails/ArmorAttributes" to="VBoxContainer/EquipmentDetails/ArmorAttributes/InitiativeLineEdit" method="HandleModifiersSet"]
+[connection signal="ModifiersUpdated" from="VBoxContainer/EquipmentDetails/ArmorAttributes" to="VBoxContainer/EquipmentDetails/ArmorAttributes/PDefOverrideCheckButton" method="HandleModifiersSet"]
+[connection signal="text_changed" from="VBoxContainer/EquipmentDetails/ArmorAttributes/MDefLineEdit" to="VBoxContainer/EquipmentDetails/ArmorAttributes/MDefLineEdit" method="HandleTextChanged"]
+[connection signal="text_changed" from="VBoxContainer/EquipmentDetails/ArmorAttributes/PDefLineEdit" to="VBoxContainer/EquipmentDetails/ArmorAttributes/PDefLineEdit" method="HandleTextChanged"]
+[connection signal="toggled" from="VBoxContainer/EquipmentDetails/ArmorAttributes/PDefOverrideCheckButton" to="VBoxContainer/EquipmentDetails/ArmorAttributes/PDefOverrideCheckButton" method="HandleToggle"]
+[connection signal="text_changed" from="VBoxContainer/EquipmentDetails/ArmorAttributes/InitiativeLineEdit" to="VBoxContainer/EquipmentDetails/ArmorAttributes/InitiativeLineEdit" method="HandleTextChanged"]
 [connection signal="text_changed" from="VBoxContainer/EquipmentQualityLineEdit" to="VBoxContainer/EquipmentQualityLineEdit" method="HandleTextChanged"]
 [connection signal="pressed" from="VBoxContainer/SaveButton" to="." method="HandleSaveButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/ClipboardButton" to="VBoxContainer/ClipboardButton" method="HandlePressed"]
