@@ -6,7 +6,8 @@ using System;
 public partial class DamageModifierEdit : LineEdit, INpcEquipmentReader
 {
     public Action OnEquipmentUpdated { get; set; }
-    private int _damageMod = 5;
+    private int? _damageMod = null;
+    private const int DEFAULT_MOD = 5;
     private NpcBasicAttack _basicAttack;
 
     // Called when the node enters the scene tree for the first time.
@@ -27,18 +28,27 @@ public partial class DamageModifierEdit : LineEdit, INpcEquipmentReader
     public void HandleBasicAttackSet(NpcBasicAttack basicAttack)
     {
         _basicAttack = basicAttack;
-        if (_basicAttack != null)
-        {
-            _basicAttack.DamageMod = _damageMod;
-        }
+        _basicAttack = basicAttack;
+        if (_basicAttack == null) return;
+        _damageMod = _damageMod ?? _basicAttack.DamageMod;
+
+        _basicAttack.DamageMod = _damageMod.Value;
+        this.Text = _damageMod.ToString();
     }
 
     public void HandleTextChanged(string newText)
     {
-        if(int.TryParse(newText, out var mod))
+        if (string.IsNullOrEmpty(newText))
+        {
+            _damageMod = DEFAULT_MOD;
+            OnEquipmentUpdated?.Invoke();
+            return;
+        }
+        if (int.TryParse(newText, out var mod))
         {
             _damageMod = mod;
-            _basicAttack.DamageMod = _damageMod;
+            _basicAttack.DamageMod = _damageMod.Value;
+            OnEquipmentUpdated?.Invoke();
         }
         else
         {

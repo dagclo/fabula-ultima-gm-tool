@@ -3,7 +3,7 @@ using FirstProject.Npc;
 using Godot;
 using System;
 
-public partial class WeaponAttributes : HBoxContainer, INpcEquipmentReader
+public partial class WeaponAttributes : Container, INpcEquipmentReader
 {
     public Action OnEquipmentUpdated { get; set; }
     private NpcBasicAttack _basicAttack;
@@ -19,12 +19,14 @@ public partial class WeaponAttributes : HBoxContainer, INpcEquipmentReader
     public void HandleEquipmentInitialized(NpcEquipment equipment)
     {
         this.Visible = equipment.Category.IsWeapon;
+
         if (this.Visible)
         {
-            _basicAttack = _basicAttack ?? new NpcBasicAttack()
+            _basicAttack = equipment.BasicAttack ?? new NpcBasicAttack()
             {
                 Id = Guid.NewGuid().ToString()
             };
+            _basicAttack.IsRanged = equipment.Category.IsRanged;
             equipment.BasicAttack = _basicAttack;
         }
         else

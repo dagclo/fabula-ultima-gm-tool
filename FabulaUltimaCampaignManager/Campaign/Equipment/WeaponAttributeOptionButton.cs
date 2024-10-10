@@ -68,7 +68,7 @@ public partial class WeaponAttributeOptionButton : OptionButton, INpcEquipmentRe
 
     public void HandleEquipmentInitialized(NpcEquipment equipment)
     {
-        // do nothing   
+        // do nothing
     }
 
     public void HandleEquipmentChanged(NpcEquipment equipment)

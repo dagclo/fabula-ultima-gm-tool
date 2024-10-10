@@ -1,3 +1,5 @@
+using FabulaUltimaGMTool.Adaptors;
+using FirstProject.Beastiary;
 using FirstProject.Npc;
 using Godot;
 using Newtonsoft.Json;
@@ -13,49 +15,41 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 	{
 	}
 
-	private static string ToJson(NpcEquipment npcEquipment)
+
+
+    private static string ToJson(dynamic data)
 	{
-		string type;
-		if (npcEquipment.Category.IsWeapon)
-		{
-			type = "Weapon";
-		}
-		else if (npcEquipment.Category.IsArmor)
-		{
-			type = "Armor";
-		} 
-		else if(npcEquipment.Category.Name == "Shield")
-		{
-			type = "Shield";
-		}
-		else
-		{
-			type = "Accessory";
-		}
-
-
-		var equipment = new
-		{
-			name = npcEquipment.Name,
-			cost = npcEquipment.Cost,
-			quality = npcEquipment.Quality,
-			type = type,
-            //defenseConstant = npcEquipment.Modifiers.ini
-        };
-	
 		var serializerSettings = new JsonSerializerSettings
 		{
 			NullValueHandling = NullValueHandling.Ignore,
 			Formatting = Formatting.None
 		};
 
-        return JsonConvert.SerializeObject(equipment, serializerSettings);
+        return JsonConvert.SerializeObject(data, serializerSettings);
+	}
+
+	private static bool IsValid(NpcEquipment equipment)
+	{
+		if (string.IsNullOrWhiteSpace(equipment.Name)) return false;
+        if (equipment.Category.IsWeapon)
+        {
+			if (equipment.BasicAttack?.Attribute1 == null) return false;
+            if (equipment.BasicAttack?.Attribute2 == null) return false;
+        }
+		else if (equipment.Category.IsArmor)
+		{
+			if (equipment.Modifiers == null) return false;
+		}
+        return true;
 	}
 
 	public void HandleEquipmentChanged(NpcEquipment equipment)
 	{
-		var data = ToJson(equipment);
-        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(data);
+		if (!IsValid(equipment)) return;
+		var data = PHSAdapter.ToDataFormat(equipment);
+		var json = ToJson(data);
+		GD.Print(json);
+        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(json);
         var encodedData = System.Convert.ToBase64String(plainTextBytes);
 		using QRCodeGenerator qrGenerator = new QRCodeGenerator();
 		using QRCodeData qrCodeData = qrGenerator.CreateQrCode(encodedData, QRCodeGenerator.ECCLevel.Q);
