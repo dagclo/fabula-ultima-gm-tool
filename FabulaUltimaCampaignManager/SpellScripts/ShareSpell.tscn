@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://budv5wb410vkh"]
+
+[ext_resource type="Script" path="res://SpellScripts/ShareSpellDialog.cs" id="1_wnwbu"]
+[ext_resource type="Script" path="res://SpellScripts/SpellQrCode.cs" id="2_hmb5s"]
+[ext_resource type="Texture2D" uid="uid://db6gv6ggi4fuj" path="res://Icon/paste_256.png" id="2_iw8ns"]
+[ext_resource type="Script" path="res://SpellScripts/SpellClipboardButton.cs" id="4_3ajg2"]
+
+[node name="ShareSpell" type="Window"]
+title = "Spell"
+initial_position = 1
+size = Vector2i(400, 400)
+script = ExtResource("1_wnwbu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="QRCode" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("2_hmb5s")
+
+[node name="ClipboardButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Paste to Clipboard"
+icon = ExtResource("2_iw8ns")
+expand_icon = true
+script = ExtResource("4_3ajg2")
+
+[connection signal="SpellUpdated" from="." to="VBoxContainer/QRCode" method="HandleSpellSet"]
+[connection signal="close_requested" from="." to="." method="OnCloseRequested"]

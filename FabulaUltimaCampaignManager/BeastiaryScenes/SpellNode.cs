@@ -10,7 +10,7 @@ public partial class SpellNode : PanelContainer
     public override void _Ready()
 	{
 		if (SpellObject == null) return;
-		foreach(var child in this.FindChildren("*", "Label").Where(c => c is ISpellReader)) 
+		foreach(var child in this.FindChildren("*", "").Where(c => c is ISpellReader)) 
 		{ 
 			var spellReader = child as ISpellReader;
 			spellReader.Read(SpellObject);
