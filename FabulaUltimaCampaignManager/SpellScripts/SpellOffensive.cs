@@ -24,4 +24,10 @@ public partial class SpellOffensive : Label , ISpellReader
 			this.Text = string.Empty;
 		}
     }
+
+    public void Read(IBeastTemplate beast)
+    {
+        // do nothing
+
+    }
 }

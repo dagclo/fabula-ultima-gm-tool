@@ -14,17 +14,23 @@ public partial class SpellCastRoll : Label, ISpellReader
 	{
 	}
 
-    public void Read(SpellTemplate spellTemplate)
-    {
+	public void Read(SpellTemplate spellTemplate)
+	{
 		string roll;
-		if(spellTemplate.IsOffensive) 
+		if (spellTemplate.IsOffensive)
 		{
-            roll = $"[{spellTemplate.Attribute1.ShortenAttribute()} + {spellTemplate.Attribute2.ShortenAttribute()}]";
+			roll = $"[{spellTemplate.Attribute1.ShortenAttribute()} + {spellTemplate.Attribute2.ShortenAttribute()}]";
 		}
 		else
 		{
 			roll = string.Empty;
 		}
 		this.Text = roll;
-    }
+	}
+
+	public void Read(IBeastTemplate beast)
+	{
+		// do nothing
+
+	}
 }

@@ -1,4 +1,5 @@
-﻿using FirstProject.Beastiary;
+﻿using FabulaUltimaNpc;
+using FirstProject.Beastiary;
 using FirstProject.Npc;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,34 @@ namespace FabulaUltimaGMTool.Adaptors
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        public static object ToDataFormat(SpellTemplate spell, string speciesName)
+        {
+            string source;
+            switch (speciesName)
+            {
+                case "Monster":
+                case "Beast":
+                case "Plant":
+                    source = "Chimerist";
+                    break;
+                default:
+                    source = "Unknown Class";
+                    break;
+            }
+
+            return new
+            {
+                name = $"{spell.Name}",
+                source = source,
+                mp = $"{spell.MagicPointCost}",
+                target = spell.Target,
+                duration = spell.Duration,
+                description = $"{speciesName.ToUpperInvariant()} spell. {spell.Description}",
+                offensive = spell.IsOffensive,
+                type = "Spell"
+            };
         }
 
         public static dynamic ToDataFormat(NpcEquipment npcEquipment)

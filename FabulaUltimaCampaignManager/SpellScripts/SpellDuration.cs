@@ -17,4 +17,10 @@ public partial class SpellDuration : Label, ISpellReader
     {
 		this.Text = spellTemplate.Duration;
     }
+
+    public void Read(IBeastTemplate beast)
+    {
+        // do nothing
+
+    }
 }

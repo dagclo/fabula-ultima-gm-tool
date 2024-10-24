@@ -15,8 +15,6 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 	{
 	}
 
-
-
     private static string ToJson(dynamic data)
 	{
 		var serializerSettings = new JsonSerializerSettings
@@ -48,7 +46,7 @@ public partial class EquipmentQrCodeDisplay : TextureRect, INpcEquipmentReader
 		if (!IsValid(equipment)) return;
 		var data = PHSAdapter.ToDataFormat(equipment);
 		var json = ToJson(data);
-		GD.Print(json);
+		
         var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(json);
         var encodedData = System.Convert.ToBase64String(plainTextBytes);
 		using QRCodeGenerator qrGenerator = new QRCodeGenerator();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://l57ucy852qf2"]
+[gd_scene load_steps=11 format=3 uid="uid://l57ucy852qf2"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/SpellNode.cs" id="1_8ob2u"]
 [ext_resource type="Script" path="res://SpellScripts/SpellTitle.cs" id="2_a0dvv"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://SpellScripts/SpellTarget.cs" id="6_5wnrd"]
 [ext_resource type="Script" path="res://SpellScripts/SpellDuration.cs" id="7_lv5yf"]
 [ext_resource type="Script" path="res://SpellScripts/SpellDescription.cs" id="8_6qtqp"]
+[ext_resource type="Script" path="res://SpellScripts/ShareSpellButton.cs" id="9_5wo3d"]
+[ext_resource type="PackedScene" uid="uid://budv5wb410vkh" path="res://SpellScripts/ShareSpell.tscn" id="10_t0v2w"]
 
 [node name="Spell" type="PanelContainer"]
 size_flags_horizontal = 3
@@ -57,3 +59,11 @@ size_flags_vertical = 3
 text = "The target suffers (choose one: dazed, shaken, slow, weak)."
 autowrap_mode = 2
 script = ExtResource("8_6qtqp")
+
+[node name="ShareButton" type="Button" parent="SpellDetails"]
+layout_mode = 2
+text = "Share"
+script = ExtResource("9_5wo3d")
+ShareSpellDialog = ExtResource("10_t0v2w")
+
+[connection signal="pressed" from="SpellDetails/ShareButton" to="SpellDetails/ShareButton" method="OnPressed"]
