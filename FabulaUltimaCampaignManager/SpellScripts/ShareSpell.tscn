@@ -38,4 +38,5 @@ expand_icon = true
 script = ExtResource("4_3ajg2")
 
 [connection signal="SpellUpdated" from="." to="VBoxContainer/QRCode" method="HandleSpellSet"]
+[connection signal="SpellUpdated" from="." to="VBoxContainer/ClipboardButton" method="HandleSpellSet"]
 [connection signal="close_requested" from="." to="." method="OnCloseRequested"]
