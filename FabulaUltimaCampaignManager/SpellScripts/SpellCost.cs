@@ -18,4 +18,10 @@ public partial class SpellCost : Label, ISpellReader
     {
 		this.Text = $"{spellTemplate.MagicPointCost} {nameof(IBeastTemplate.MagicPoints).ShortenAttribute()}";
     }
+    public void Read(IBeastTemplate beast)
+    {
+        // do nothing
+
+    }
+
 }

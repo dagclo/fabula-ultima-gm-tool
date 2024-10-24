@@ -22,17 +22,31 @@ namespace FabulaUltimaGMTool.Adaptors
             }
         }
 
-        public static object ToDataFormat(SpellTemplate spell)
+        public static object ToDataFormat(SpellTemplate spell, string speciesName)
         {
+            string source;
+            switch (speciesName)
+            {
+                case "Monster":
+                case "Beast":
+                case "Plant":
+                    source = "Chimerist";
+                    break;
+                default:
+                    source = "Unknown Class";
+                    break;
+            }
+
             return new
             {
-                name = spell.Name,
-                source = "Custom",
-                mp = spell.MagicPointCost,
+                name = $"{spell.Name}",
+                source = source,
+                mp = $"{spell.MagicPointCost}",
                 target = spell.Target,
                 duration = spell.Duration,
-                description = spell.Description,
-                offensive = spell.IsOffensive
+                description = $"{speciesName.ToUpperInvariant()} spell. {spell.Description}",
+                offensive = spell.IsOffensive,
+                type = "Spell"
             };
         }
 

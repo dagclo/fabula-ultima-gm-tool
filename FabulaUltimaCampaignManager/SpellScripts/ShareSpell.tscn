@@ -23,7 +23,8 @@ size_flags_vertical = 3
 [node name="QRCode" type="TextureRect" parent="VBoxContainer"]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 6
 expand_mode = 1
 stretch_mode = 4
 script = ExtResource("2_hmb5s")

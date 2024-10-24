@@ -12,10 +12,10 @@ public partial class SpellQrCode : TextureRect
 	{
 	}
 
-    public void HandleSpellSet(SignalWrapper<SpellTemplate> signal)
+    public void HandleSpellSet(SignalWrapper<SpellTemplate> signal, string speciesName)
 	{
 		var spellTemplate = signal.Value;
-		var data = PHSAdapter.ToDataFormat(spellTemplate);
+		var data = PHSAdapter.ToDataFormat(spellTemplate, speciesName);
 		var texture = data.ToQRCode();
 		this.Texture = texture;
     }

@@ -7,7 +7,7 @@ using System;
 public partial class ShareSpellDialog : Window
 {
     [Signal]
-    public delegate void SpellUpdatedEventHandler(SignalWrapper<SpellTemplate> spell);
+    public delegate void SpellUpdatedEventHandler(SignalWrapper<SpellTemplate> spell, string speciesName);
 
     public Action OnClose { get; set; }
 
@@ -16,10 +16,10 @@ public partial class ShareSpellDialog : Window
 	{
 	}
 
-    internal void SetSpell(SpellTemplate spellTemplate)
+    internal void SetSpellAttributes(SpellTemplate spellTemplate, string speciesName)
     {
         this.Title = spellTemplate.Name;
-        EmitSignal(SignalName.SpellUpdated, new SignalWrapper<SpellTemplate>(spellTemplate));
+        EmitSignal(SignalName.SpellUpdated, new SignalWrapper<SpellTemplate>(spellTemplate), speciesName);
     }
 
     public void OnCloseRequested()

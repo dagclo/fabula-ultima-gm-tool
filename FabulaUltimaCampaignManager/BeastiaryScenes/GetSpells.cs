@@ -35,6 +35,7 @@ public partial class GetSpells : VBoxContainer, IBeastAttribute
         {
             var scene = SpellScene.Instantiate<SpellNode>();
             scene.SpellObject = spell;
+            scene.Beast = beastTemplate;
             this.AddChild(scene);
         }
     }

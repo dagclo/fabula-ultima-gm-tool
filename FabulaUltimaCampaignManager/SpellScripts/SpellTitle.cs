@@ -17,4 +17,10 @@ public partial class SpellTitle : Label, ISpellReader
     {
 		this.Text = spellTemplate.Name;
     }
+
+    public void Read(IBeastTemplate beast)
+    {
+        // do nothing
+
+    }
 }

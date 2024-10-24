@@ -2,16 +2,17 @@ using FabulaUltimaNpc;
 using FirstProject.Npc;
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class ShareSpellButton : Button, ISpellReader
 {
     private SpellTemplate _spellTemplate;
+    private SpeciesType _species;
 
     [Export]
     public PackedScene ShareSpellDialog { get; set; }
 
-    private ShareSpellDialog _shareSpellDialog { get; set; }
-    
+    private ShareSpellDialog _shareSpellDialog { get; set; }    
 
     public void Read(SpellTemplate spellTemplate)
     {
@@ -28,7 +29,7 @@ public partial class ShareSpellButton : Button, ISpellReader
         _shareSpellDialog = ShareSpellDialog.Instantiate<ShareSpellDialog>();
         _shareSpellDialog.OnClose += OnClose;
         AddChild(_shareSpellDialog);
-        _shareSpellDialog.SetSpell(_spellTemplate);
+        _shareSpellDialog.SetSpellAttributes(_spellTemplate, _species.Name);
         _shareSpellDialog.Show();
         this.Disabled = true;
     }
@@ -40,5 +41,10 @@ public partial class ShareSpellButton : Button, ISpellReader
         _shareSpellDialog.QueueFree();
         _shareSpellDialog = null;
         this.Disabled = false;
+    }
+
+    public void Read(IBeastTemplate beast)
+    {
+        _species = beast.Species;
     }
 }
