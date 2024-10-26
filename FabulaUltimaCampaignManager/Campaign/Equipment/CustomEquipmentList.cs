@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using static System.Formats.Asn1.AsnWriter;
 
-public partial class CustomEquipmentList : VBoxContainer
+public partial class CustomEquipmentList : Container
 {
     private Array<NpcEquipment> _equipmentList;
     private MessagePublisher<SaveMessage> _messagePublisher;
