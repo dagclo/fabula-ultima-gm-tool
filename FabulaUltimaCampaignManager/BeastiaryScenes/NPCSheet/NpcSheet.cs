@@ -23,7 +23,7 @@ public partial class NpcSheet : Window
     public Action<ISet<BeastEntryNode.Action>> OnBeastChanged { get; private set; }
     public IBeast BeastModel { get; internal set; }
     public NpcInstance NpcInstance { get; set; }
-    public Action OnSave { get; internal set; }
+    public Action<NpcInstance> OnSave { get; internal set; }
     public string TitleOverride { get; internal set; }
 
     // Called when the node enters the scene tree for the first time.
@@ -47,7 +47,7 @@ public partial class NpcSheet : Window
             var node = child as BeastEntryNode;
             node.Beast = new SkilledBeastTemplateWrapper(new BeastTemplate(beast));
             node.OnTrigger += HandleTrigger;
-            if(OnSave != null) node.OverrideSave += OnSave;
+            if(OnSave != null) node.OverrideSave += () => OnSave(NpcInstance);
             this.OnBeastChanged = node.ActionTemplate;
         }
 

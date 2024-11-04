@@ -21,7 +21,7 @@ namespace FirstProject.Npc
 
         public NpcInstance(NpcInstance npc) : this()
         {
-            Model = npc.Model;
+            Model = new NpcModel(npc.Model);
             InstanceName = npc.InstanceName;
             VillainStats = npc.VillainStats;
         }

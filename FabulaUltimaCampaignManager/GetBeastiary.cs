@@ -63,13 +63,13 @@ public partial class GetBeastiary : VBoxContainer
             var node = BeastEntryScene.Instantiate<BeastEntryNode>();
             node.Beast = beast;
             this.AddChild(node);
-            node.OnAddToEncounter += HandleAddEncounter;
+            node.OnAddToEncounter += HandleAddToEncounter;
             node.OnDeleteBeast += HandleDeleteBeast;
         }
         EmitSignal(SignalName.LoadingBeasts, false);
     }
 
-    private void HandleAddEncounter(IBeastTemplate template)
+    private void HandleAddToEncounter(IBeastTemplate template)
     {
 		var instance = new NpcInstance
 		{	
@@ -84,7 +84,7 @@ public partial class GetBeastiary : VBoxContainer
         npcSheet.TitleOverride = "Add NPC to Encounter";
         npcSheet.NpcInstance = instance;        
         npcSheet.Closing += () => OnNpcSheetClose(npcSheet);
-        npcSheet.OnSave += () => AddInstanceToEncounter(instance);
+        npcSheet.OnSave += AddInstanceToEncounter;
         this.AddChild(npcSheet);
     }
 
@@ -97,7 +97,7 @@ public partial class GetBeastiary : VBoxContainer
     }
 
     private void AddInstanceToEncounter(NpcInstance instance)
-    {
+    {        
         CallDeferred(MethodName.EmitSignal, SignalName.AddBeastToEncounter, instance);
     }
 
