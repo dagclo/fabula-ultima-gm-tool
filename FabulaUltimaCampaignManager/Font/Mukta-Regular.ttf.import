@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Mukta-Regular.ttf-6c211698a7c941181cbd1a5042f
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
