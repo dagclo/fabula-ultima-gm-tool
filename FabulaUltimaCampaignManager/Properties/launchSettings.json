@@ -3,7 +3,7 @@
     " Run Campaign Manager": {
       "commandName": "Executable",
       "executablePath": "Godot_v4.3-stable_mono_win64.exe",
-      "commandLineArgs": "--path . --verbose",
+      "commandLineArgs": "--verbose --path . ",
       "workingDirectory": ".",
       "nativeDebugging": true
     }
