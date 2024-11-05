@@ -10,7 +10,7 @@ namespace FirstProject.Npc
 
         public NpcAction(ActionTemplate template)
         {
-            ActionTemplate = template;
+            ActionTemplate = template.Clone();
         }
 
         public ActionTemplate ActionTemplate { get; set; }

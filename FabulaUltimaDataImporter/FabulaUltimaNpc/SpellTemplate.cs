@@ -11,5 +11,21 @@
         public string Target { get; set; }
         public int MagicPointCost { get; set; }
         public string Description { get; set; }
+
+        public SpellTemplate Clone()
+        {
+            return new SpellTemplate
+            {
+                Id = Id,
+                Name = Name,
+                Attribute1 = Attribute1,
+                Attribute2 = Attribute2,
+                IsOffensive = IsOffensive,
+                Duration = Duration,
+                Target = Target,
+                MagicPointCost = MagicPointCost,
+                Description = Description
+            };
+        }
     }
 }

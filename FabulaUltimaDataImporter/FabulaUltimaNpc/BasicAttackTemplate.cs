@@ -2,6 +2,7 @@
 {
     public class BasicAttackTemplate
     {
+
         public DamageType DamageType { get; set; }
         public Guid Id { get; set; }
         public string Name { get; set; }
