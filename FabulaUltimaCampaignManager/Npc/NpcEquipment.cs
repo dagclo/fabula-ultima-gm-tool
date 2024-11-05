@@ -13,7 +13,7 @@ namespace FirstProject.Npc
 
         public NpcEquipment(EquipmentTemplate template)
         {
-            EquipmentTemplate = template;
+            EquipmentTemplate = template.Clone();
             Category = new NpcEquipmentCategory(EquipmentTemplate.Category);
             if(EquipmentTemplate.BasicAttack != null) BasicAttack = new NpcBasicAttack(EquipmentTemplate.BasicAttack);
             if(EquipmentTemplate.StatsModifier != null)  Modifiers = new NpcEquipmentModifiers(EquipmentTemplate.StatsModifier);
