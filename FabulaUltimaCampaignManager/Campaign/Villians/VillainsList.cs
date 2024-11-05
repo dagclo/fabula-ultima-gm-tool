@@ -53,6 +53,7 @@ public partial class VillainsList : VFlowContainer
         instance.VillainStats.Changed -= HandleVillianChanged;
         _campaign.Villains.Remove(instance);
         RemoveChild(entry);
+        entry.QueueFree();
         _messagePublisher.Publish((new SaveMessage()).AsMessage());
     }
 
