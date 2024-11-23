@@ -134,7 +134,8 @@ namespace FabulaUltimaSkillLibrary.Models
             if (_skillCountMap.TryGetValue(KnownSkills.ImprovedHitPoints.Id, out var numTimesApplied))
             {
                 var targetSkill = _skillMap[KnownSkills.ImprovedHitPoints.Id];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.HP_BOOST]) * numTimesApplied);
+                var rankHpMultiplier = Model.Rank.GetNumSoldiersReplaced();
+                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.HP_BOOST]) * numTimesApplied * rankHpMultiplier);
             }
             return result;
         }

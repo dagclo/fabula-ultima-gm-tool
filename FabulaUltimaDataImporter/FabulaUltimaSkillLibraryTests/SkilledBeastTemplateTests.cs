@@ -7,17 +7,24 @@ namespace FabulaUltimaSkillLibraryTests
 {
     internal class SkilledBeastTemplateTests
     {
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void ImprovedHPApplied(int numTimesApplied)
+        [TestCase(0, Rank.Soldier)]
+        [TestCase(1, Rank.Soldier)]
+        [TestCase(1, Rank.Elite)]
+        [TestCase(1, Rank.Champion)]
+        [TestCase(1, Rank.Super_Champion)]
+        [TestCase(1, Rank.Uber_Champion)]
+        [TestCase(2, Rank.Soldier)]
+        public void ImprovedHPApplied(int numTimesApplied, Rank modelRank)
         {
             // Arrange
             const int mockHP = 10;
             var templateMock = Substitute.For<IBeastTemplate>();
             templateMock.HealthPoints.Returns(mockHP);
+            var modelMock = Substitute.For<IBeast>();
+            modelMock.Rank.Returns(modelRank);
+            templateMock.Model.Returns(modelMock);
             var skill = KnownSkills.ImprovedHitPoints;
-            var hpBonus = int.Parse(skill.OtherAttributes[StatsConstants.HP_BOOST]) * numTimesApplied;
+            var hpBonus = int.Parse(skill.OtherAttributes[StatsConstants.HP_BOOST]) * numTimesApplied * modelRank.GetNumSoldiersReplaced();
             templateMock.Skills.Returns(Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray());
 
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);
