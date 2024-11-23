@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Mukta-Bold.ttf-98cc39c692aa74e45a1d77f88076de
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
