@@ -46,12 +46,7 @@ public partial class AddedSpellEntry : VBoxContainer, IValidatable
         {
             _beastTemplate.Model.RemoveSpell(Spell);
             allowUpdate = false;
-        }
-        else if(!spellList.Contains(Spell))
-        {
-            _beastTemplate.Model.AddSpell(Spell);
-            OnUpdateBeast?.Invoke();
-        }
+        }   
 
         if(allowUpdate && IsEditable)
         {

@@ -29,6 +29,7 @@ public partial class NpcTabs : TabContainer
             this.RoundChanged += npcPanel.OnRoundChanged;
             SetTabHidden(index, true);            
         }
+        this.CurrentTab = 0; // fix bizarre issue where this is being set to one for some reason
     }
 
     private Task ReceiveRoundStateMessage(IMessage message)
@@ -36,11 +37,6 @@ public partial class NpcTabs : TabContainer
         if (!(message is IMessage<RoundState> roundStateMessage)) return Task.CompletedTask;      
         RoundChanged?.Invoke();
         return Task.CompletedTask;
-    }
-
-    private void SwitchTab(int index)
-    {
-        this.CurrentTab = index;
     }
 
     private void EnableTab(int index, NpcInstance npc)

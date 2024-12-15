@@ -377,7 +377,7 @@ text = "Add Custom Equipment"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CustomEquipmentList" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection/ScrollContainer"]
+[node name="CustomEquipmentList" type="HFlowContainer" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection/ScrollContainer"]
 layout_mode = 2
 script = ExtResource("27_4odix")
 Entry = ExtResource("28_mfo4r")
@@ -437,7 +437,7 @@ size_flags_vertical = 3
 script = ExtResource("28_yuje5")
 
 [node name="BeastList" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
 script = ExtResource("1_4mhff")

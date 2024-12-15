@@ -1,4 +1,5 @@
 ﻿using FabulaUltimaNpc;
+using FabulaUltimaSkillLibrary;
 using Godot;
 using Godot.Collections;
 using System;
