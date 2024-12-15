@@ -18,7 +18,7 @@ namespace FirstProject.Npc
 
         public NpcSkill(SkillTemplate skill) 
         {
-            SkillTemplate = skill.Clone();
+            SkillTemplate = skill;
         }
 
         [Export]

@@ -32,7 +32,8 @@ namespace FirstProject.Npc
             this.NpcSpells = new Godot.Collections.Array<NpcSpell>(otherModel.Spells.Select(s => new NpcSpell(s.Clone())));
             this.NpcEquipment = new Godot.Collections.Array<NpcEquipment>(otherModel.Equipment.Select(e => new NpcEquipment(e.Clone())));
             this.NpcSkills = new Godot.Collections.Array<NpcSkill>(otherModel.Skills.Select(s => new NpcSkill(s.Clone()))); 
-            this.NpcActions = new Godot.Collections.Array<NpcAction>(otherModel.Actions.Select(a => new NpcAction(a.Clone())));            
+            this.NpcActions = new Godot.Collections.Array<NpcAction>(otherModel.Actions.Select(a => new NpcAction(a.Clone())));
+            this.Rank = otherModel.Rank;
         }
 
         private FabulaUltimaNpc.Rank _instanceRank = FabulaUltimaNpc.Rank.Soldier;
