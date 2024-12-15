@@ -1,4 +1,5 @@
 ﻿using FabulaUltimaNpc;
+using FabulaUltimaSkillLibrary;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,11 @@ namespace FirstProject.Npc
             this.NpcSpecies = new NpcSpecies(otherModel.Species);
             this.ImageFile = otherModel.ImageFile;
             this.NpcResistances = new Godot.Collections.Dictionary<string, NpcResistance>(otherModel.Resistances.ToDictionary(p => p.Key, p => new NpcResistance(p.Value)));
-            this.NpcAttacks = new Godot.Collections.Array<NpcBasicAttack>(otherModel.BasicAttacks.Select(a => new NpcBasicAttack(a)));
-            this.NpcSpells = new Godot.Collections.Array<NpcSpell>(otherModel.Spells.Select(s => new NpcSpell(s)));
-            this.NpcEquipment = new Godot.Collections.Array<NpcEquipment>(otherModel.Equipment.Select(e => new NpcEquipment(e)));
-            this.NpcSkills = new Godot.Collections.Array<NpcSkill>(otherModel.Skills.Select(s => new NpcSkill(s))); 
-            this.NpcActions = new Godot.Collections.Array<NpcAction>(otherModel.Actions.Select(a => new NpcAction(a)));            
+            this.NpcAttacks = new Godot.Collections.Array<NpcBasicAttack>(otherModel.BasicAttacks.Select(a => new NpcBasicAttack(a.Clone())));
+            this.NpcSpells = new Godot.Collections.Array<NpcSpell>(otherModel.Spells.Select(s => new NpcSpell(s.Clone())));
+            this.NpcEquipment = new Godot.Collections.Array<NpcEquipment>(otherModel.Equipment.Select(e => new NpcEquipment(e.Clone())));
+            this.NpcSkills = new Godot.Collections.Array<NpcSkill>(otherModel.Skills.Select(s => new NpcSkill(s.Clone()))); 
+            this.NpcActions = new Godot.Collections.Array<NpcAction>(otherModel.Actions.Select(a => new NpcAction(a.Clone())));            
         }
 
         private FabulaUltimaNpc.Rank _instanceRank = FabulaUltimaNpc.Rank.Soldier;
