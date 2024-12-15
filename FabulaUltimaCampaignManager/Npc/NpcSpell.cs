@@ -10,7 +10,7 @@ namespace FirstProject.Npc
 
         public NpcSpell(SpellTemplate template) 
         {
-            SpellTemplate = template.Clone();
+            SpellTemplate = template;
         }
 
         public SpellTemplate SpellTemplate { get; set; }

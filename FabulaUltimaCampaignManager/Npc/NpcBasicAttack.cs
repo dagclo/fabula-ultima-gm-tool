@@ -15,7 +15,7 @@ namespace FirstProject.Npc
 
         public NpcBasicAttack(BasicAttackTemplate basicAttackTemplate)
         {
-            BasicAttackTemplate = basicAttackTemplate.Clone();
+            BasicAttackTemplate = basicAttackTemplate;
             // this have to be set here because Godot does not like return new instances in its properties
             _damageType = new NpcDamageType(BasicAttackTemplate.DamageType);
             IEnumerable<NpcSkill> skills = BasicAttackTemplate.AttackSkills?.Select(s => new NpcSkill(s)) ?? new NpcSkill[0];

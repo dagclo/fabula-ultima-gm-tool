@@ -34,7 +34,7 @@ public partial class VillainsList : VFlowContainer
         }
 
         foreach (var villian in _campaign.Villains)
-        {
+        {            
             villian.VillainStats.Changed += HandleVillianChanged;
             var npcNode = VillianEntryScene.Instantiate<VillianEntry>();
             npcNode.UpdateNpc(villian);
