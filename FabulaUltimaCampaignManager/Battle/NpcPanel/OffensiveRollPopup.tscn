@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://dj7jduftql2vh"]
+[gd_scene load_steps=2 format=3 uid="uid://dj7jduftql2vh"]
+
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup.cs" id="1_4vul5"]
 
 [node name="OffensiveRollPopup" type="PopupPanel"]
 title = "<type> Roll"
@@ -7,6 +9,7 @@ size = Vector2i(300, 200)
 visible = true
 borderless = false
 always_on_top = true
+script = ExtResource("1_4vul5")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 anchors_preset = 15
