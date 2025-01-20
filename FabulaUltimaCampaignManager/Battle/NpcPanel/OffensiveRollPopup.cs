@@ -13,9 +13,11 @@ using System.Threading.Tasks;
 public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader, ISpellReader
 {
     private NpcInstance _npc;
-
-    [Signal]
-    public delegate void OnPlayerListUpdateEventHandler(Godot.Collections.Array<PlayerData> playerList);
+    private string _actionType = string.Empty;
+    private string _attribute1;
+    private string _attribute2;
+    private int _accMod;
+    private int _damageMod;
 
     [Signal]
     public delegate void OnNpcTargetListUpdateEventHandler(Godot.Collections.Array<NpcInstance> npcList);
@@ -24,16 +26,11 @@ public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader,
     public delegate void OnActionUpdateEventHandler(string name, string type, string defense);
 
     [Signal]
-    public delegate void OnNpcUpdateEventHandler(NpcInstance npc);
-
-    [Signal]
-    public delegate void OnStatusUpdateEventHandler(BattleStatus status);
+    public delegate void OnCheckModelSetEventHandler(SignalWrapper<ICheckModel> signal);
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
-	{
-        var players = GetNode<RunState>("/root/RunState").Campaign.Players.Where(p => p.IsValid);
-        EmitSignal(SignalName.OnPlayerListUpdate, new Godot.Collections.Array<PlayerData>(players));
+	{  
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         messageRouter.RegisterSubscriber<EncounterInitialize>(ReceiveMessage);
     }	
@@ -50,29 +47,45 @@ public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader,
 
     private void Update(Godot.Collections.Array<NpcInstance> npcs, BattleStatus status)
     {        
-        EmitSignal(SignalName.OnNpcTargetListUpdate, npcs);
-        EmitSignal(SignalName.OnStatusUpdate, status);
+        EmitSignal(SignalName.OnNpcTargetListUpdate, npcs);        
+        var factory = new CheckFactory(_npc.Template, status, true);
+        var checkModel = factory.GetCheck(_actionType, _attribute1, _attribute2);
+        checkModel.AccuracyMod = _accMod;
+        checkModel.HighRollMod = _damageMod;
+        EmitSignal(SignalName.OnCheckModelSet, new SignalWrapper<ICheckModel>(checkModel));
     }
 
     public void ReadAttack(BasicAttackTemplate attack)
     {
-        EmitSignal(SignalName.OnActionUpdate, attack.Name, "Attack", "Def");
+        _actionType = "Attack";
+        _attribute1 = attack.Attribute1;
+        _attribute2 = attack.Attribute2;
+        _accMod = attack.AccuracyMod;
+        _damageMod = attack.DamageMod;
+        this.Title = $"{_actionType} Roll";
+        EmitSignal(SignalName.OnActionUpdate, attack.Name, _actionType, "Def");
     }
 
     public void HandleNpcChanged(NpcInstance npc)
     {
         _npc = npc;
-        EmitSignal(SignalName.OnNpcUpdate, npc);
     }
 
     public void Read(SpellTemplate spellTemplate)
     {
-        EmitSignal(SignalName.OnActionUpdate, spellTemplate.Name, "Spell", "M Def");
+        _actionType = "Spell";
+        _attribute1 = spellTemplate.Attribute1;
+        _attribute2 = spellTemplate.Attribute2;
+        _accMod = 0; // need to figure out based on skills and level
+        _damageMod = 0; // same as above.
+        this.Title = $"{_actionType} Roll";
+        EmitSignal(SignalName.OnActionUpdate, spellTemplate.Name, _actionType, "M Def");
+        
     }
 
     public void Read(IBeastTemplate beast)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public void HandleOpen()

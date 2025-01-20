@@ -1,3 +1,4 @@
+using FabulaUltimaDatabase;
 using FabulaUltimaGMTool.Battle.NpcPanel;
 using FirstProject.Beastiary;
 using FirstProject.Encounters;
@@ -6,17 +7,16 @@ using FirstProject.Npc;
 using Godot;
 using System;
 
-public partial class ResultLabel : Label, INpcReader, INpcStatusReader
+public partial class RollResultLabel : Label, INpcReader
 {
-    private ICheckModel _checkModel;    
-    private BattleStatus _battleStatus;
     private MessagePublisher<EncounterLog> _messagePublisher;
     private NpcInstance _instance;
+    private ICheckModel _checkModel;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
-	{
-		this.Text = string.Empty;
+    {
+        this.Text = string.Empty;
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         _messagePublisher = messageRouter.GetPublisher<EncounterLog>();
     }
@@ -29,18 +29,13 @@ public partial class ResultLabel : Label, INpcReader, INpcStatusReader
         this.Text = log.Action;
     }
 
-    public void OnActionSet(SignalWrapper<ICheckModel> signal)
-    {
-        _checkModel = signal.Value;       
-    }
-
     public void HandleNpcChanged(NpcInstance npc)
     {
         _instance = npc;
     }
 
-    public void HandleStatusSet(BattleStatus status)
-    {
-        _battleStatus = status;
+    public void OnActionSet(SignalWrapper<ICheckModel> signal)
+    {  
+        _checkModel = signal.Value;     
     }
 }

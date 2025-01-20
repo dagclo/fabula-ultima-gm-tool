@@ -2,7 +2,7 @@
 using System;
 
 public class BasicCheckModel : ICheckModel
-{
+{    
     public string Action { get; set; }
 
     private Die _attribute1die;
@@ -82,5 +82,18 @@ public class BasicCheckModel : ICheckModel
     public bool IsValid =>
         Difficulty > 0
         && !string.IsNullOrWhiteSpace(Attribute1Name)
-        && !string.IsNullOrWhiteSpace(Attribute2Name);
+        && !string.IsNullOrWhiteSpace(Attribute2Name)
+        &&(!string.IsNullOrWhiteSpace(Target) || !TargetRequired); // only care if target required and no target
+    public bool TargetRequired { private get; set; }
+
+    private string _target;
+    public string Target
+    {
+        get => _target;
+        set
+        {
+            _target = value;
+            Changed?.Invoke();
+        }
+    }
 }

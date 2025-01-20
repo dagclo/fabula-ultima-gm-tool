@@ -13,4 +13,5 @@ public interface ICheckModel
 	int? HighRollMod { get; set; }
     Action Changed { get; set; }
     bool IsValid { get; }
+    string Target { get; set; }
 }

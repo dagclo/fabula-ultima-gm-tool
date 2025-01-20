@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dj7jduftql2vh"]
+[gd_scene load_steps=9 format=3 uid="uid://dj7jduftql2vh"]
 
 [ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup.cs" id="1_4vul5"]
 [ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/ActionNameLabel.cs" id="2_55h3r"]
 [ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/ActionLabel.cs" id="3_c24l3"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/TargetOptionButton.cs" id="4_b5lra"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/DefenseLabel.cs" id="4_xxw0x"]
+[ext_resource type="Script" path="res://Battle/RollButton.cs" id="6_7ua0e"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/DefenseLineEdit.cs" id="6_oyqn7"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/RollResultLabel.cs" id="7_iqech"]
 
 [node name="OffensiveRollPopup" type="PopupPanel"]
 title = "<type> Roll"
@@ -10,7 +15,6 @@ initial_position = 1
 size = Vector2i(300, 200)
 visible = true
 borderless = false
-always_on_top = true
 script = ExtResource("1_4vul5")
 
 [node name="GridContainer" type="GridContainer" parent="."]
@@ -47,23 +51,38 @@ horizontal_alignment = 2
 
 [node name="TargetOptionButton" type="OptionButton" parent="GridContainer"]
 layout_mode = 2
+script = ExtResource("4_b5lra")
 
 [node name="DefenseLabel" type="Label" parent="GridContainer"]
 layout_mode = 2
 theme_type_variation = &"BoldLabel"
 text = "<defense>:"
 horizontal_alignment = 2
+script = ExtResource("4_xxw0x")
 
 [node name="DefenseLineEdit" type="LineEdit" parent="GridContainer"]
 layout_mode = 2
+max_length = 2
+script = ExtResource("6_oyqn7")
 
 [node name="RollButton" type="Button" parent="GridContainer"]
 layout_mode = 2
 text = "Roll"
+script = ExtResource("6_7ua0e")
 
 [node name="ResultLabel" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("7_iqech")
 
 [connection signal="OnActionUpdate" from="." to="GridContainer/ActionNameLabel" method="HandleActionSet"]
+[connection signal="OnActionUpdate" from="." to="GridContainer/DefenseLabel" method="HandleActionSet"]
 [connection signal="OnActionUpdate" from="." to="GridContainer/ActionLabel" method="HandleActionSet"]
+[connection signal="OnCheckModelSet" from="." to="GridContainer/TargetOptionButton" method="HandleCheckModelSet"]
+[connection signal="OnCheckModelSet" from="." to="GridContainer/DefenseLineEdit" method="HandleCheckModelSet"]
+[connection signal="OnCheckModelSet" from="." to="GridContainer/RollButton" method="OnActionSet"]
+[connection signal="OnCheckModelSet" from="." to="GridContainer/ResultLabel" method="OnActionSet"]
+[connection signal="OnNpcTargetListUpdate" from="." to="GridContainer/TargetOptionButton" method="HandleTargetListUpdate"]
+[connection signal="item_selected" from="GridContainer/TargetOptionButton" to="GridContainer/TargetOptionButton" method="HandleSelected"]
+[connection signal="text_changed" from="GridContainer/DefenseLineEdit" to="GridContainer/DefenseLineEdit" method="HandleTextChanged"]
+[connection signal="ResultReady" from="GridContainer/RollButton" to="GridContainer/ResultLabel" method="OnResultReady"]

@@ -60,7 +60,7 @@ public partial class RollButton : Button, INpcReader
             _checkModel.Changed -= this.OnCheckChanged; // make sure to prevent memory leaks
         }
         _checkModel = signal.Value;
-        _checkModel.Changed += this.OnCheckChanged;        
+        _checkModel.Changed += this.OnCheckChanged;     
     }
 
     private void OnCheckChanged()
