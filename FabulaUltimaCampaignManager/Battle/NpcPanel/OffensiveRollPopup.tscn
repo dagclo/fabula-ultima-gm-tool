@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://dj7jduftql2vh"]
+
+[node name="OffensiveRollPopup" type="PopupPanel"]
+title = "<type> Roll"
+initial_position = 1
+size = Vector2i(300, 200)
+visible = true
+borderless = false
+always_on_top = true
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="ActionNameLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "<Action>:"
+horizontal_alignment = 2
+
+[node name="ActionLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "<unset>"
+
+[node name="TargetLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "Target:"
+horizontal_alignment = 2
+
+[node name="TargetOptionButton" type="OptionButton" parent="GridContainer"]
+layout_mode = 2
+
+[node name="DefenseLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "<defense>:"
+horizontal_alignment = 2
+
+[node name="DefenseLineEdit" type="LineEdit" parent="GridContainer"]
+layout_mode = 2
+
+[node name="RollButton" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Roll"
+
+[node name="ResultLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
