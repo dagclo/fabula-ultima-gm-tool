@@ -1,3 +1,4 @@
+using FabulaUltimaGMTool.Battle;
 using FirstProject.Encounters;
 using FirstProject.Messaging;
 using Godot;
@@ -7,8 +8,7 @@ using System.Threading.Tasks;
 
 public partial class RunEncounter : Control
 {
-    private MessageRouter _messageRouter;
-    private MessagePublisher<EncounterLog> _messagePublisher;
+    private MessageRouter _messageRouter;    
 
     [Export]
     public string NextScreenPath { get; set; } = "res://node_2d.tscn";
@@ -19,10 +19,10 @@ public partial class RunEncounter : Control
         var runState = GetNode<RunState>("/root/RunState");
 		var encounter = runState.RunningEncounter ?? throw new Exception("No encounter set");
         _messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
-        _messagePublisher = _messageRouter.GetPublisher<EncounterLog>();
+        
         _messageRouter.RegisterSubscriber<EncounterEnd>(ExitEncounterAsync);
 
-        var statuses = encounter.NpcCollection.Select((c, i) => new BattleStatus(c)).ToList();
+        var statuses = new Godot.Collections.Array<BattleStatus>(encounter.NpcCollection.Select((c) => new BattleStatus(c)));
         
         foreach (var child in this.FindChildren("*")
           .Where(l => l is IEncounterReader))
@@ -32,12 +32,12 @@ public partial class RunEncounter : Control
         }
 
        
-        CallDeferred(MethodName.DeferAction, encounter); // post initiative winner to log
+        CallDeferred(MethodName.InitializeEncounter, encounter, statuses); // post initiative winner to log
     }
 
     private Task ExitEncounterAsync(IMessage message)
     {
-        if (!(message is IMessage<EncounterEnd> encounterEnd)) return Task.CompletedTask;
+        if (!(message is IMessage<EncounterEnd> _)) return Task.CompletedTask;
         CallDeferred(MethodName.ExitEncounter);
         return Task.CompletedTask;
     }
@@ -47,7 +47,7 @@ public partial class RunEncounter : Control
         GetTree().ChangeSceneToFile(NextScreenPath);
     }
 
-    public void DeferAction(Encounter encounter)
+    public void InitializeEncounter(Encounter encounter, Godot.Collections.Array<BattleStatus> statuses)
     {
         var initiativeWinner = encounter.InitiativeSeed.PlayersWon ? "Players" : "Npcs";
         var log = new EncounterLog
@@ -58,7 +58,15 @@ public partial class RunEncounter : Control
             Actor = "Round",
             DisplayLevel = DisplayLevel.WHOOSH
         };
-        _messagePublisher.Publish(log.AsMessage());
+        var logMessagePublisher = _messageRouter.GetPublisher<EncounterLog>();
+        logMessagePublisher.Publish(log.AsMessage());
+
+        var initMessagePublisher = _messageRouter.GetPublisher<EncounterInitialize>();
+        var initial = new EncounterInitialize
+        {
+            Npcs = statuses.Select(s => (encounter.NpcCollection.Single(n => n.Id.Equals(s.ToString())), s)).ToArray()
+        };
+        initMessagePublisher.Publish(initial.AsMessage());
     }
 
     public void HandleTreeExiting()
