@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cerx6ejkwe1tc"]
+[gd_scene load_steps=5 format=3 uid="uid://cerx6ejkwe1tc"]
 
 [ext_resource type="PackedScene" uid="uid://cwsegr0yegay2" path="res://BeastiaryScenes/attack.tscn" id="1_dmhor"]
 [ext_resource type="Script" path="res://Battle/NpcAttack.cs" id="1_wanax"]
 [ext_resource type="Script" path="res://Battle/UseAttackButton.cs" id="3_e6yql"]
+[ext_resource type="PackedScene" uid="uid://dj7jduftql2vh" path="res://Battle/NpcPanel/OffensiveRollPopup.tscn" id="4_g5vtq"]
 
 [node name="AttackPanel" type="PanelContainer"]
 script = ExtResource("1_wanax")
@@ -18,4 +19,7 @@ layout_mode = 2
 text = "Use"
 script = ExtResource("3_e6yql")
 
-[connection signal="pressed" from="UseAttack/Use" to="UseAttack/Use" method="OnUseAttack"]
+[node name="OffensiveRollPopup" parent="UseAttack/Use" instance=ExtResource("4_g5vtq")]
+visible = false
+
+[connection signal="pressed" from="UseAttack/Use" to="UseAttack/Use/OffensiveRollPopup" method="HandleOpen"]
