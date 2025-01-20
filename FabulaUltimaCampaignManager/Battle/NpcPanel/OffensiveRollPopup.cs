@@ -1,11 +1,14 @@
+using FabulaUltimaGMTool.Battle;
 using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using FirstProject.Campaign;
 using FirstProject.Encounters;
+using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader, ISpellReader
 {
@@ -29,11 +32,21 @@ public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader,
 	{
         var players = GetNode<RunState>("/root/RunState").Campaign.Players.Where(p => p.IsValid);
         EmitSignal(SignalName.OnPlayerListUpdate, new Godot.Collections.Array<PlayerData>(players));
+        var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
+        messageRouter.RegisterSubscriber<EncounterInitialize>(UpdateNpcTargets);
     }	
 
-	public void UpdateNpcTargets(IEnumerable<NpcInstance> npcs)
+	public Task UpdateNpcTargets(IMessage message)
 	{
-        EmitSignal(SignalName.OnNpcTargetListUpdate, new Godot.Collections.Array<NpcInstance>(npcs));
+        if (!(message is IMessage<EncounterInitialize> initialize)) return Task.CompletedTask;
+        var npcs = initialize.Npcs.Select(p => p.npc);
+        CallDeferred(MethodName.UpdateNpcTargetsInternal, new Godot.Collections.Array<NpcInstance>(npcs));
+        return Task.CompletedTask;
+    }
+
+    private void UpdateNpcTargetsInternal(Godot.Collections.Array<NpcInstance> npcs)
+    {        
+        EmitSignal(SignalName.OnNpcTargetListUpdate, npcs);
     }
 
 	public void UpdateNpcStatus(BattleStatus status)
