@@ -13,7 +13,7 @@ public partial class TargetOptionButton : OptionButton
         var players = GetNode<RunState>("/root/RunState").Campaign.Players.Where(p => p.IsValid);
         foreach(var player in players)
         {
-            this.AddItem(player.Name, index++);
+            this.AddItem($"{player.CharacterName} - {player.Name}", index++);
         }
         AddItem($"====NPCs====", index);
         SetItemDisabled(index, true);

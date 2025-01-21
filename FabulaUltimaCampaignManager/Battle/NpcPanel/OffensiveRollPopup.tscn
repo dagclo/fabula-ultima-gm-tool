@@ -83,6 +83,7 @@ script = ExtResource("7_iqech")
 [connection signal="OnCheckModelSet" from="." to="GridContainer/RollButton" method="OnActionSet"]
 [connection signal="OnCheckModelSet" from="." to="GridContainer/ResultLabel" method="OnActionSet"]
 [connection signal="OnNpcTargetListUpdate" from="." to="GridContainer/TargetOptionButton" method="HandleTargetListUpdate"]
+[connection signal="tree_exiting" from="." to="." method="HandleTreeExiting"]
 [connection signal="item_selected" from="GridContainer/TargetOptionButton" to="GridContainer/TargetOptionButton" method="HandleSelected"]
 [connection signal="text_changed" from="GridContainer/DefenseLineEdit" to="GridContainer/DefenseLineEdit" method="HandleTextChanged"]
 [connection signal="ResultReady" from="GridContainer/RollButton" to="GridContainer/ResultLabel" method="OnResultReady"]

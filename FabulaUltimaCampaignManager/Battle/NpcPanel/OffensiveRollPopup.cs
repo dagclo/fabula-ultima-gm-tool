@@ -6,6 +6,7 @@ using FirstProject.Encounters;
 using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader,
     private string _attribute2;
     private int _accMod;
     private int _damageMod;
+    private Action _deregister;
 
     [Signal]
     public delegate void OnNpcTargetListUpdateEventHandler(Godot.Collections.Array<NpcInstance> npcList);
@@ -32,10 +34,15 @@ public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader,
     public override void _Ready()
 	{  
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
-        messageRouter.RegisterSubscriber<EncounterInitialize>(ReceiveMessage);
-    }	
+        _deregister = messageRouter.RegisterSubscriber<EncounterInitialize>(ReceiveMessage);
+    }
 
-	public Task ReceiveMessage(IMessage message)
+    public void HandleTreeExiting()
+    {
+        _deregister?.Invoke();
+    }
+
+    public Task ReceiveMessage(IMessage message)
 	{
         if (_npc == null || !(message is IMessage<EncounterInitialize> initialize)) return Task.CompletedTask;
         var otherNpcs = initialize.Value.Npcs.Select(p => p.npc).Where(n => n.Id != _npc.Id );
@@ -48,8 +55,8 @@ public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader,
     private void Update(Godot.Collections.Array<NpcInstance> npcs, BattleStatus status)
     {        
         EmitSignal(SignalName.OnNpcTargetListUpdate, npcs);        
-        var factory = new CheckFactory(_npc.Template, status, true);
-        var checkModel = factory.GetCheck(_actionType, _attribute1, _attribute2);
+        var factory = new CheckFactory(_npc.Template, status, true);        
+        var checkModel = factory.GetCheck(_actionType, _attribute1.ToLowerInvariant().FirstCharToUpper(), _attribute2.ToLowerInvariant().FirstCharToUpper());
         checkModel.AccuracyMod = _accMod;
         checkModel.HighRollMod = _damageMod;
         EmitSignal(SignalName.OnCheckModelSet, new SignalWrapper<ICheckModel>(checkModel));
@@ -62,7 +69,7 @@ public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader,
         _attribute2 = attack.Attribute2;
         _accMod = attack.AccuracyMod;
         _damageMod = attack.DamageMod;
-        this.Title = $"{_actionType} Roll";
+        this.Title = $"{_actionType} {attack.Name} Roll";
         EmitSignal(SignalName.OnActionUpdate, attack.Name, _actionType, "Def");
     }
 

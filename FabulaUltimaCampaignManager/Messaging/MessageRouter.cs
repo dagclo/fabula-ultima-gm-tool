@@ -22,14 +22,14 @@ namespace FirstProject.Messaging
             return new MessagePublisher<T>(_queueMap[typeof(T)]);
         }
 
-        public void RegisterSubscriber<T>(Func<IMessage, Task> func) where T : struct
+        public Action RegisterSubscriber<TMessageType>(Func<IMessage, Task> func) where TMessageType : struct
         {
-            if (!_queueMap.ContainsKey(typeof(T)))
+            if (!_queueMap.ContainsKey(typeof(TMessageType)))
             {
-                _queueMap.TryAdd(typeof(T), new ConcurrentBag<BlockingCollection<IMessage>>());
+                _queueMap.TryAdd(typeof(TMessageType), new ConcurrentBag<BlockingCollection<IMessage>>());
             }
             var queue = new BlockingCollection<IMessage>();
-            if(_queueMap.TryGetValue(typeof(T), out var bag))
+            if(_queueMap.TryGetValue(typeof(TMessageType), out var bag))
             {
                 bag.Add(queue);
             }
@@ -41,6 +41,10 @@ namespace FirstProject.Messaging
                 }
             });
             _runningTasks.Add(task);
+            return () =>
+            {
+                queue.CompleteAdding(); //todo: make it possible to completely remove queues
+            };
         }
 
         public async Task TearDown()
