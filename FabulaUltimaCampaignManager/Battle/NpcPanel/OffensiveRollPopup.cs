@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader, ISpellReader
+public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISpellReader
 {
     private NpcInstance _npc;
     private string _actionType = string.Empty;
@@ -29,6 +29,9 @@ public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader,
 
     [Signal]
     public delegate void OnCheckModelSetEventHandler(SignalWrapper<ICheckModel> signal);
+
+    [Signal]
+    public delegate void OnResetEventHandler();
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -59,6 +62,7 @@ public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader,
         var checkModel = factory.GetCheck(_actionType, _attribute1.ToLowerInvariant().FirstCharToUpper(), _attribute2.ToLowerInvariant().FirstCharToUpper());
         checkModel.AccuracyMod = _accMod;
         checkModel.HighRollMod = _damageMod;
+        checkModel.Difficulty = 0;
         EmitSignal(SignalName.OnCheckModelSet, new SignalWrapper<ICheckModel>(checkModel));
     }
 
@@ -98,5 +102,11 @@ public partial class OffensiveRollPopup : PopupPanel, IAttackReader, INpcReader,
     public void HandleOpen()
     {
         this.Visible = true;
+    }
+
+    public void HandleClosed()
+    {
+        this.Visible = false;
+        EmitSignal(SignalName.OnReset);
     }
 }

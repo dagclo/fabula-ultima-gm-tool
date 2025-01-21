@@ -21,6 +21,11 @@ public partial class RollResultLabel : Label, INpcReader
         _messagePublisher = messageRouter.GetPublisher<EncounterLog>();
     }
 
+    public void HandleReset()
+    {
+        this.Text = string.Empty;
+    }
+
     public void OnResultReady(SignalWrapper<CheckResult> signalWrapper)
     {
         var checkResult = signalWrapper.Value;

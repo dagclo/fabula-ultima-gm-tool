@@ -9,12 +9,12 @@
 [ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/DefenseLineEdit.cs" id="6_oyqn7"]
 [ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/RollResultLabel.cs" id="7_iqech"]
 
-[node name="OffensiveRollPopup" type="PopupPanel"]
+[node name="OffensiveRollPopup" type="Window"]
 title = "<type> Roll"
 initial_position = 1
 size = Vector2i(300, 200)
-visible = true
-borderless = false
+wrap_controls = true
+transient = true
 script = ExtResource("1_4vul5")
 
 [node name="GridContainer" type="GridContainer" parent="."]
@@ -23,8 +23,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_right = 296.0
+offset_bottom = 196.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -83,7 +83,11 @@ script = ExtResource("7_iqech")
 [connection signal="OnCheckModelSet" from="." to="GridContainer/RollButton" method="OnActionSet"]
 [connection signal="OnCheckModelSet" from="." to="GridContainer/ResultLabel" method="OnActionSet"]
 [connection signal="OnNpcTargetListUpdate" from="." to="GridContainer/TargetOptionButton" method="HandleTargetListUpdate"]
+[connection signal="OnReset" from="." to="GridContainer/RollButton" method="HandleReset"]
+[connection signal="OnReset" from="." to="GridContainer/ResultLabel" method="HandleReset"]
+[connection signal="close_requested" from="." to="." method="HandleClosed"]
 [connection signal="tree_exiting" from="." to="." method="HandleTreeExiting"]
 [connection signal="item_selected" from="GridContainer/TargetOptionButton" to="GridContainer/TargetOptionButton" method="HandleSelected"]
 [connection signal="text_changed" from="GridContainer/DefenseLineEdit" to="GridContainer/DefenseLineEdit" method="HandleTextChanged"]
 [connection signal="ResultReady" from="GridContainer/RollButton" to="GridContainer/ResultLabel" method="OnResultReady"]
+[connection signal="pressed" from="GridContainer/RollButton" to="GridContainer/RollButton" method="OnRoll"]
