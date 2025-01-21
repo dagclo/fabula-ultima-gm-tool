@@ -71,8 +71,10 @@ text = "Roll"
 script = ExtResource("6_7ua0e")
 
 [node name="ResultLabel" type="Label" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+autowrap_mode = 2
 script = ExtResource("7_iqech")
 
 [connection signal="OnActionUpdate" from="." to="GridContainer/ActionNameLabel" method="HandleActionSet"]
@@ -83,6 +85,8 @@ script = ExtResource("7_iqech")
 [connection signal="OnCheckModelSet" from="." to="GridContainer/RollButton" method="OnActionSet"]
 [connection signal="OnCheckModelSet" from="." to="GridContainer/ResultLabel" method="OnActionSet"]
 [connection signal="OnNpcTargetListUpdate" from="." to="GridContainer/TargetOptionButton" method="HandleTargetListUpdate"]
+[connection signal="OnReset" from="." to="GridContainer/TargetOptionButton" method="HandleReset"]
+[connection signal="OnReset" from="." to="GridContainer/DefenseLineEdit" method="HandleReset"]
 [connection signal="OnReset" from="." to="GridContainer/RollButton" method="HandleReset"]
 [connection signal="OnReset" from="." to="GridContainer/ResultLabel" method="HandleReset"]
 [connection signal="close_requested" from="." to="." method="HandleClosed"]

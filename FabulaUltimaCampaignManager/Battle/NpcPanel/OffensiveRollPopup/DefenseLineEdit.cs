@@ -19,4 +19,10 @@ public partial class DefenseLineEdit : LineEdit
         }
         _checkModel.Difficulty = defense;
     }
+
+
+    public void HandleReset()
+    {
+        this.Text = string.Empty;
+    }
 }

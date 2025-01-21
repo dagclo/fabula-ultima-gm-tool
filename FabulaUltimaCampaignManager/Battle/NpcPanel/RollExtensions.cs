@@ -8,7 +8,7 @@ namespace FabulaUltimaGMTool.Battle.NpcPanel
         { 
             
             var successText = result.Success ? "Successful" : "Failed";
-            var highRoll = result.Success ? $"[hr+mod]=[{result.HighRoll}+{result.HighRollMod}={result.FinalHighRoll}" : string.Empty;
+            var highRoll = result.Success ? $"[hr+mod]=[{result.HighRoll}+{result.HighRollMod}]={result.FinalHighRoll}" : string.Empty;
             var detailString = $"[{result.Attribute1Name}+{result.Attribute2Name}+mod]=[{result.Attribute1Result}+{result.Attribute2Result}+{result.ResultMod}]=[{result.TotalRoll}]";
             var targetString = string.IsNullOrWhiteSpace(result.Target) ? string.Empty : $" {result.Target}";
             return new EncounterLog
