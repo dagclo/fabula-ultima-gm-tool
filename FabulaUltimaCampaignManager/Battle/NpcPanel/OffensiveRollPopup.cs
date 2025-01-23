@@ -59,7 +59,7 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
     {        
         EmitSignal(SignalName.OnNpcTargetListUpdate, npcs);        
         var factory = new CheckFactory(_npc.Template, status, true);        
-        var checkModel = factory.GetCheck(_actionType, _attribute1.ToLowerInvariant().FirstCharToUpper(), _attribute2.ToLowerInvariant().FirstCharToUpper());
+        var checkModel = factory.GetCheck(_actionType, _attribute1.ToLowerInvariant().ToCamelCase(), _attribute2.ToLowerInvariant().ToCamelCase());
         checkModel.AccuracyMod = _accMod;
         checkModel.HighRollMod = _damageMod;
         checkModel.Difficulty = 0;

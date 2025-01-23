@@ -10,11 +10,11 @@ namespace FabulaUltimaGMTool.Battle.NpcPanel
             var successText = result.Success ? "Successful" : "Failed";
             var highRoll = result.Success ? $"[hr+mod]=[{result.HighRoll}+{result.HighRollMod}]={result.FinalHighRoll}" : string.Empty;
             var detailString = $"[{result.Attribute1Name}+{result.Attribute2Name}+mod]=[{result.Attribute1Result}+{result.Attribute2Result}+{result.ResultMod}]=[{result.TotalRoll}]";
-            var targetString = string.IsNullOrWhiteSpace(result.Target) ? string.Empty : $" {result.Target}";
+            var targetString = string.IsNullOrWhiteSpace(result.Target) ? string.Empty : $"Target: {result.Target}";
             return new EncounterLog
             {
                 Id = Guid.NewGuid(),
-                Action = $"{action}{targetString} {successText}|{detailString}|{highRoll}",
+                Action = $"{action} | {targetString} | Result: {successText}|{detailString}|{highRoll}",
                 Actor = actorName,
                 Verb = "rolled",
             };
