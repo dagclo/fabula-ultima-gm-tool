@@ -157,13 +157,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Log" type="Label" parent="GMScreen/VBoxContainer/GameLog/GameLog/ScrollContainer/PanelContainer"]
+[node name="Log" type="RichTextLabel" parent="GMScreen/VBoxContainer/GameLog/GameLog/ScrollContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 10
 text = "testing
 what multiple lines
 look like"
+fit_content = true
+scroll_following = true
 script = ExtResource("10_f45dp")
 
 [node name="VFlowContainer" type="HBoxContainer" parent="GMScreen/VBoxContainer"]

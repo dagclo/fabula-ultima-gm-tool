@@ -2,7 +2,7 @@ using FirstProject.Messaging;
 using Godot;
 using System.Threading.Tasks;
 
-public partial class GameLog : Label
+public partial class GameLog : RichTextLabel
 {
     [Export]
     public int LagInMilliseconds { get; set; } = 30;    

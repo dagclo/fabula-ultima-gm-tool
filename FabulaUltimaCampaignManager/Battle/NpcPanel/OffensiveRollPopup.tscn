@@ -79,8 +79,8 @@ autowrap_mode = 2
 script = ExtResource("7_iqech")
 
 [connection signal="OnActionUpdate" from="." to="GridContainer/ActionNameLabel" method="HandleActionSet"]
-[connection signal="OnActionUpdate" from="." to="GridContainer/DefenseLabel" method="HandleActionSet"]
 [connection signal="OnActionUpdate" from="." to="GridContainer/ActionLabel" method="HandleActionSet"]
+[connection signal="OnActionUpdate" from="." to="GridContainer/DefenseLabel" method="HandleActionSet"]
 [connection signal="OnCheckModelSet" from="." to="GridContainer/TargetOptionButton" method="HandleCheckModelSet"]
 [connection signal="OnCheckModelSet" from="." to="GridContainer/DefenseLineEdit" method="HandleCheckModelSet"]
 [connection signal="OnCheckModelSet" from="." to="GridContainer/RollButton" method="OnActionSet"]
