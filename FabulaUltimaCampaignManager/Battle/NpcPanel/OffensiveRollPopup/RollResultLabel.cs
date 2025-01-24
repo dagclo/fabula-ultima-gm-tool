@@ -7,7 +7,7 @@ using FirstProject.Npc;
 using Godot;
 using System;
 
-public partial class RollResultLabel : Label, INpcReader
+public partial class RollResultLabel : RichTextLabel, INpcReader
 {
     private MessagePublisher<EncounterLog> _messagePublisher;
     private NpcInstance _instance;
@@ -31,7 +31,9 @@ public partial class RollResultLabel : Label, INpcReader
         var checkResult = signalWrapper.Value;
         var log = checkResult.ToEncounterLog(_checkModel.Action, _instance.InstanceName);
         _messagePublisher.Publish(log.AsMessage());
-        this.Text = log.Action;
+        this.Text = string.Empty;
+        this.AppendText(checkResult.Success ? "[color=green]Success[/c]" : "[color=red]Failed[/c]");
+        this.TooltipText = log.Action;
     }
 
     public void HandleNpcChanged(NpcInstance npc)

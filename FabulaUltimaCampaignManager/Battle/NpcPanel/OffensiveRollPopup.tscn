@@ -71,10 +71,12 @@ layout_mode = 2
 text = "Roll"
 script = ExtResource("6_7ua0e")
 
-[node name="ResultLabel" type="Label" parent="GridContainer"]
+[node name="ResultLabel" type="RichTextLabel" parent="GridContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+bbcode_enabled = true
+fit_content = true
 autowrap_mode = 2
 script = ExtResource("7_iqech")
 
