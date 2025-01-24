@@ -32,7 +32,7 @@ public partial class RollResultLabel : RichTextLabel, INpcReader
         var log = checkResult.ToEncounterLog(_checkModel.Action, _instance.InstanceName);
         _messagePublisher.Publish(log.AsMessage());
         this.Text = string.Empty;
-        this.AppendText(checkResult.Success ? "[color=green]Success[/c]" : "[color=red]Failed[/c]");
+        this.AppendText(checkResult.Success ? "[color=green]Success[/color]" : "[color=red]Failed[/color]");
         this.TooltipText = log.Action;
     }
 
