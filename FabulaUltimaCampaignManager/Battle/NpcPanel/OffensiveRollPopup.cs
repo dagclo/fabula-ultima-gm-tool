@@ -19,6 +19,7 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
     private string _attribute2;
     private int _accMod;
     private int _damageMod;
+    private string _damageType;
     private Action _deregister;
 
     [Signal]
@@ -63,6 +64,7 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
         checkModel.AccuracyMod = _accMod;
         checkModel.HighRollMod = _damageMod;
         checkModel.Difficulty = 0;
+        checkModel.DamageType = _damageType ?? "";
         EmitSignal(SignalName.OnCheckModelSet, new SignalWrapper<ICheckModel>(checkModel));
     }
 
@@ -73,6 +75,7 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
         _attribute2 = attack.Attribute2;
         _accMod = attack.AccuracyMod;
         _damageMod = attack.DamageMod;
+        _damageType = attack.DamageType.Name;
         this.Title = $"{_actionType} {attack.Name} Roll";
         EmitSignal(SignalName.OnActionUpdate, attack.Name, _actionType, "Def");
     }
