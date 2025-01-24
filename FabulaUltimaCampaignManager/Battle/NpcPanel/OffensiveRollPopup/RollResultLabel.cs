@@ -1,3 +1,4 @@
+using FabulaUltimaDatabase;
 using FabulaUltimaGMTool.Battle.NpcPanel;
 using FirstProject.Beastiary;
 using FirstProject.Encounters;
@@ -6,19 +7,23 @@ using FirstProject.Npc;
 using Godot;
 using System;
 
-public partial class ResultLabel : Label, INpcReader, INpcStatusReader
+public partial class RollResultLabel : RichTextLabel, INpcReader
 {
-    private ICheckModel _checkModel;    
-    private BattleStatus _battleStatus;
     private MessagePublisher<EncounterLog> _messagePublisher;
     private NpcInstance _instance;
+    private ICheckModel _checkModel;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
-	{
-		this.Text = string.Empty;
+    {
+        this.Text = string.Empty;
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         _messagePublisher = messageRouter.GetPublisher<EncounterLog>();
+    }
+
+    public void HandleReset()
+    {
+        this.Text = string.Empty;
     }
 
     public void OnResultReady(SignalWrapper<CheckResult> signalWrapper)
@@ -26,12 +31,9 @@ public partial class ResultLabel : Label, INpcReader, INpcStatusReader
         var checkResult = signalWrapper.Value;
         var log = checkResult.ToEncounterLog(_checkModel.Action, _instance.InstanceName);
         _messagePublisher.Publish(log.AsMessage());
-        this.Text = log.Action;
-    }
-
-    public void OnActionSet(SignalWrapper<ICheckModel> signal)
-    {
-        _checkModel = signal.Value;       
+        this.Text = string.Empty;
+        this.AppendText(checkResult.Success ? "[color=green]Success[/color]" : "[color=red]Failed[/color]");
+        this.TooltipText = log.Action;
     }
 
     public void HandleNpcChanged(NpcInstance npc)
@@ -39,8 +41,8 @@ public partial class ResultLabel : Label, INpcReader, INpcStatusReader
         _instance = npc;
     }
 
-    public void HandleStatusSet(BattleStatus status)
-    {
-        _battleStatus = status;
+    public void OnActionSet(SignalWrapper<ICheckModel> signal)
+    {  
+        _checkModel = signal.Value;     
     }
 }

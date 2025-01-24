@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=3 uid="uid://dj7jduftql2vh"]
+
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup.cs" id="1_4vul5"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/ActionNameLabel.cs" id="2_55h3r"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/ActionLabel.cs" id="3_c24l3"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/TargetOptionButton.cs" id="4_b5lra"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/DefenseLabel.cs" id="4_xxw0x"]
+[ext_resource type="Script" path="res://Battle/RollButton.cs" id="6_7ua0e"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/DefenseLineEdit.cs" id="6_oyqn7"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/RollResultLabel.cs" id="7_iqech"]
+
+[node name="OffensiveRollPopup" type="Window"]
+title = "<type> Roll"
+initial_position = 1
+size = Vector2i(300, 200)
+wrap_controls = true
+transient = true
+keep_title_visible = true
+script = ExtResource("1_4vul5")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 296.0
+offset_bottom = 196.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="ActionNameLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "<Action>:"
+horizontal_alignment = 2
+script = ExtResource("2_55h3r")
+
+[node name="ActionLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "<unset>"
+script = ExtResource("3_c24l3")
+
+[node name="TargetLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "Target:"
+horizontal_alignment = 2
+
+[node name="TargetOptionButton" type="OptionButton" parent="GridContainer"]
+layout_mode = 2
+script = ExtResource("4_b5lra")
+
+[node name="DefenseLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "<defense>:"
+horizontal_alignment = 2
+script = ExtResource("4_xxw0x")
+
+[node name="DefenseLineEdit" type="LineEdit" parent="GridContainer"]
+layout_mode = 2
+max_length = 2
+script = ExtResource("6_oyqn7")
+
+[node name="RollButton" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Roll"
+script = ExtResource("6_7ua0e")
+
+[node name="ResultLabel" type="RichTextLabel" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 2
+script = ExtResource("7_iqech")
+
+[connection signal="OnActionUpdate" from="." to="GridContainer/ActionNameLabel" method="HandleActionSet"]
+[connection signal="OnActionUpdate" from="." to="GridContainer/ActionLabel" method="HandleActionSet"]
+[connection signal="OnActionUpdate" from="." to="GridContainer/DefenseLabel" method="HandleActionSet"]
+[connection signal="OnCheckModelSet" from="." to="GridContainer/TargetOptionButton" method="HandleCheckModelSet"]
+[connection signal="OnCheckModelSet" from="." to="GridContainer/DefenseLineEdit" method="HandleCheckModelSet"]
+[connection signal="OnCheckModelSet" from="." to="GridContainer/RollButton" method="OnActionSet"]
+[connection signal="OnCheckModelSet" from="." to="GridContainer/ResultLabel" method="OnActionSet"]
+[connection signal="OnNpcTargetListUpdate" from="." to="GridContainer/TargetOptionButton" method="HandleTargetListUpdate"]
+[connection signal="OnReset" from="." to="GridContainer/TargetOptionButton" method="HandleReset"]
+[connection signal="OnReset" from="." to="GridContainer/DefenseLineEdit" method="HandleReset"]
+[connection signal="OnReset" from="." to="GridContainer/RollButton" method="HandleReset"]
+[connection signal="OnReset" from="." to="GridContainer/ResultLabel" method="HandleReset"]
+[connection signal="close_requested" from="." to="." method="HandleClosed"]
+[connection signal="tree_exiting" from="." to="." method="HandleTreeExiting"]
+[connection signal="item_selected" from="GridContainer/TargetOptionButton" to="GridContainer/TargetOptionButton" method="HandleSelected"]
+[connection signal="text_changed" from="GridContainer/DefenseLineEdit" to="GridContainer/DefenseLineEdit" method="HandleTextChanged"]
+[connection signal="ResultReady" from="GridContainer/RollButton" to="GridContainer/ResultLabel" method="OnResultReady"]
+[connection signal="pressed" from="GridContainer/RollButton" to="GridContainer/RollButton" method="OnRoll"]

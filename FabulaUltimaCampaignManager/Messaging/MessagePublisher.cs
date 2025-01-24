@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Linq;
 
 namespace FirstProject.Messaging
 {
@@ -13,7 +14,7 @@ namespace FirstProject.Messaging
 
         public void Publish(IMessage<T> message)
         {
-            foreach(var queue in _queueCollection)
+            foreach(var queue in _queueCollection.Where(q => !q.IsAddingCompleted))
             {
                 queue.TryAdd(message);
             }

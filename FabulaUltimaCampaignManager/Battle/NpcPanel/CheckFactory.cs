@@ -9,26 +9,26 @@ public class CheckFactory
     private readonly IBeastTemplate _beast;
     private readonly BattleStatus _status;
 
-    public CheckFactory(IBeastTemplate beast, BattleStatus status) 
+    public CheckFactory(IBeastTemplate beast, BattleStatus status, bool targetRequired = false) 
 	{
 		_beast = beast;
 		_status = status;
 		_factoryMap = new Dictionary<string, Func<string, string, ICheckModel>>()
 		{
 			["Objective"] = new Func<string, string, ICheckModel>( (string attr1, string attr2) => 
-                GenerateBasicCheck("Objective", attr1 ?? nameof(IBeastTemplate.Insight), attr2 ?? nameof(IBeastTemplate.Insight))),
+                GenerateBasicCheck("Objective", attr1 ?? nameof(IBeastTemplate.Insight), attr2 ?? nameof(IBeastTemplate.Insight), targetRequired)),
             ["Study"] = new Func<string, string, ICheckModel>((string attr1, string attr2) => 
-                GenerateBasicCheck("Study", attr1 ?? nameof(IBeastTemplate.Insight), attr2 ?? nameof(IBeastTemplate.Insight))),
+                GenerateBasicCheck("Study", attr1 ?? nameof(IBeastTemplate.Insight), attr2 ?? nameof(IBeastTemplate.Insight), targetRequired)),
             ["Skill"] = new Func<string, string, ICheckModel>((string attr1, string attr2) => 
-                GenerateBasicCheck("Skill", attr1 ?? nameof(IBeastTemplate.Dexterity), attr2 ?? nameof(IBeastTemplate.Insight))),
+                GenerateBasicCheck("Skill", attr1 ?? nameof(IBeastTemplate.Dexterity), attr2 ?? nameof(IBeastTemplate.Insight), targetRequired)),
             ["Hinder"] = new Func<string, string, ICheckModel>((string attr1, string attr2) => 
-                GenerateBasicCheck("Hinder", attr1 ?? nameof(IBeastTemplate.Might), attr2 ?? nameof(IBeastTemplate.Insight))),
+                GenerateBasicCheck("Hinder", attr1 ?? nameof(IBeastTemplate.Might), attr2 ?? nameof(IBeastTemplate.Insight), targetRequired)),
             ["Attack"] = new Func<string, string, ICheckModel>((string attr1, string attr2) =>
-                GenerateBasicCheck("Attack", attr1 ?? nameof(IBeastTemplate.Might), attr2 ?? nameof(IBeastTemplate.Dexterity), highRollMod: 5)), // todo: generate more actions using spells and attacks
+                GenerateBasicCheck("Attack", attr1 ?? nameof(IBeastTemplate.Might), attr2 ?? nameof(IBeastTemplate.Dexterity), targetRequired, highRollMod: 5)), // todo: generate more actions using spells and attacks
         };
     }
 
-    private ICheckModel GenerateBasicCheck(string action, string attributeName1, string attributeName2, int? accuracyMod = null, int? highRollMod = null)
+    private ICheckModel GenerateBasicCheck(string action, string attributeName1, string attributeName2, bool targetRequired, int? accuracyMod = null, int? highRollMod = null)
     {
         var attributeDie1 = _beast.GetDie(attributeName1);
         var attributeDie2 = _beast.GetDie(attributeName2);
@@ -45,6 +45,7 @@ public class CheckFactory
             Attribute2Name = attributeName2,
             AccuracyMod = accuracyMod,
             HighRollMod = highRollMod,
+            TargetRequired = targetRequired
         };
     }
 

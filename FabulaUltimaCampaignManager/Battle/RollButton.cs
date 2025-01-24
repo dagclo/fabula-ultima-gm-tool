@@ -27,6 +27,11 @@ public partial class RollButton : Button, INpcReader
 		_instance = npc;
     }
 
+    public void HandleReset()
+    {
+        this.Disabled = true;
+    }
+
 	public void OnRoll()
 	{
         if (!_checkModel.IsValid) return;
@@ -49,6 +54,7 @@ public partial class RollButton : Button, INpcReader
             Attribute2Result = attribute2Result,
             Attribute1Name = _checkModel.Attribute1Name,
             Attribute2Name = _checkModel.Attribute2Name,
+            Target = _checkModel.Target,
         };
         EmitSignal(SignalName.ResultReady, new SignalWrapper<CheckResult>(checkResult));
 	}
@@ -60,7 +66,7 @@ public partial class RollButton : Button, INpcReader
             _checkModel.Changed -= this.OnCheckChanged; // make sure to prevent memory leaks
         }
         _checkModel = signal.Value;
-        _checkModel.Changed += this.OnCheckChanged;        
+        _checkModel.Changed += this.OnCheckChanged;     
     }
 
     private void OnCheckChanged()

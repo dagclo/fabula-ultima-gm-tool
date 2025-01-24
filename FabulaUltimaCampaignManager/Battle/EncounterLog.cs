@@ -13,15 +13,3 @@ public struct EncounterLog
         return $"{Actor} {Verb} {Action}";
     }
 }
-
-public enum DisplayLevel
-{
-    DEFAULT,
-    WHOOSH,
-    CELEBRATE
-}
-
-public struct EncounterEnd
-{
-
-}

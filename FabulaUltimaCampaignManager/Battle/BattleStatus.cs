@@ -15,7 +15,7 @@ public partial class BattleStatus : Resource
     {
         _currentHP = c.Template.HealthPoints;
         _currentMP = c.Template.MagicPoints;
-        _instanceId = Guid.NewGuid();
+        _instanceId = Guid.Parse(c.Id);
         _maxTurns = c.Model.Rank.GetNumSoldiersReplaced();
         _numTurnsLeft = _maxTurns;
     }

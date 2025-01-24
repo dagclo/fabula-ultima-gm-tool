@@ -10,4 +10,5 @@
     public int ResultMod { get; internal set; }
     public int HighRollMod { get; internal set; }
     public int HighRoll { get; internal set; }
+    public string Target { get; internal set; }
 }
