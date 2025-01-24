@@ -17,6 +17,7 @@ namespace FabulaUltimaGMTool.Battle.NpcPanel
                 Action = $"{action} | {targetString} | Result: {successText}|{detailString}|{highRoll}",
                 Actor = actorName,
                 Verb = "rolled",
+                DisplayLevel = result.Success ? DisplayLevel.SUCCESS : DisplayLevel.FAILED
             };
         }
     }

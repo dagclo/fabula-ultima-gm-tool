@@ -33,7 +33,7 @@ public partial class WhooshLabel : Label
     {
         if (!(message is IMessage<EncounterLog> typedMessage)) return Task.CompletedTask;
         var log = typedMessage.Value;
-        if(log.DisplayLevel == DisplayLevel.DEFAULT) return Task.CompletedTask;
+        if(log.DisplayLevel != DisplayLevel.WHOOSH && log.DisplayLevel != DisplayLevel.CELEBRATE) return Task.CompletedTask;
         var runText = log.ToString();        
         CallDeferred(MethodName.RunTween, runText, log.DisplayLevel == DisplayLevel.CELEBRATE);
         return Task.CompletedTask;

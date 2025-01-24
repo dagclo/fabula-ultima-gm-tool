@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdbhgvau850oy"]
+[gd_scene load_steps=15 format=3 uid="uid://cdbhgvau850oy"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_27rb4"]
 [ext_resource type="Script" path="res://Battle/RunEncounter.cs" id="1_dwbmd"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://Battle/GMScreen.cs" id="6_jr3u1"]
 [ext_resource type="Script" path="res://Battle/GameLog.cs" id="10_f45dp"]
 [ext_resource type="Script" path="res://Battle/PlayersList.cs" id="10_xq16r"]
+[ext_resource type="FontFile" uid="uid://ypuiap2spg2i" path="res://Font/BoldTwilight.fnt" id="10_ywu3j"]
+[ext_resource type="FontFile" uid="uid://1rq4iiyehcic" path="res://Font/CleanVictory.fnt" id="11_42xhc"]
 [ext_resource type="Script" path="res://Encounters/PlayersWinButton.cs" id="11_vguco"]
 [ext_resource type="Script" path="res://Encounters/EndEncounterButton.cs" id="12_2xgj5"]
 [ext_resource type="PackedScene" uid="uid://cxgjs17e7mmas" path="res://Battle/battle_window.tscn" id="14_c81va"]
@@ -160,12 +162,14 @@ size_flags_vertical = 3
 [node name="Log" type="RichTextLabel" parent="GMScreen/VBoxContainer/GameLog/GameLog/ScrollContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "testing
-what multiple lines
-look like"
-fit_content = true
+bbcode_enabled = true
+text = "[color=green]testing[/color]
+[b]what multiple lines[/b]
+[font=Font/CleanVictory.fnt]looks like[/font]"
 scroll_following = true
 script = ExtResource("10_f45dp")
+PlayerWinFont = ExtResource("10_ywu3j")
+WhooshFont = ExtResource("11_42xhc")
 
 [node name="VFlowContainer" type="HBoxContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2

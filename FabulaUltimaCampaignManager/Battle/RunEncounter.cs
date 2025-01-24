@@ -52,7 +52,7 @@ public partial class RunEncounter : Control
         var initiativeWinner = encounter.InitiativeSeed.PlayersWon ? "Players" : "Npcs";
         var log = new EncounterLog
         {
-            Action = $"\n{initiativeWinner} Start",
+            Action = $"{initiativeWinner} Start",
             Id = Guid.NewGuid(),
             Verb = "1",
             Actor = "Round",

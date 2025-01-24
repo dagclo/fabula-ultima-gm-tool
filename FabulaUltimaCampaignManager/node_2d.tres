@@ -25,3 +25,4 @@ Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 1
 Label/font_sizes/font_size = 16
 Label/styles/normal = SubResource("StyleBoxFlat_jf365")
+RichTextLabel/fonts/bold_font = ExtResource("1_05gy6")

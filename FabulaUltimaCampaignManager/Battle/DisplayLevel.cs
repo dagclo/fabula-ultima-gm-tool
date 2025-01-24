@@ -2,5 +2,7 @@
 {
     DEFAULT,
     WHOOSH,
-    CELEBRATE
+    CELEBRATE,
+    FAILED,
+    SUCCESS
 }
