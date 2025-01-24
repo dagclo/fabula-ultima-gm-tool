@@ -4,7 +4,7 @@ namespace FabulaUltimaGMTool.Battle.NpcPanel
 {
     public static class RollExtensions
     {
-        public static EncounterLog ToEncounterLog(this CheckResult result, string action, string actorName, string damageType = string.Empty)
+        public static EncounterLog ToEncounterLog(this CheckResult result, string action, string actorName, string damageType = "")
         { 
             
             var successText = result.Success ? "Successful" : "Failed";
