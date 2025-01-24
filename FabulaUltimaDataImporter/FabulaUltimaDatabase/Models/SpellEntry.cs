@@ -11,5 +11,7 @@
         public string Attribute1 { get; set; }
         public string Attribute2 { get; set; }
         public bool? IsOffensive { get; set; }
+        public Guid? DamageType { get; set; }
+        public int? DamageModifier { get; set; }
     }
 }

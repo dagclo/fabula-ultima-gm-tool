@@ -156,7 +156,7 @@ namespace FabulaUltimaDatabase
                         ImageFile = b.ImageFile,
                         Resistances = resistance,
                         BasicAttacks = ExtractAttacks(id, attacks, ownedAttacks, damageTypes, skills, assignedSkills).ToArray(),
-                        Spells = ExtractSpells(id, spells, ownedSpells).ToArray(),
+                        Spells = ExtractSpells(id, spells, ownedSpells, damageTypes).ToArray(),
                         Equipment = ExtractEquipment(id, equipment, ownedEquipment, damageTypes, equipmentCategories, skills, assignedSkills).ToArray(),
                         Skills = ExtractSkills(id, skills, assignedSkills).ToArray(),
                         Actions = ExtractActions(id, actions, ownedActions).ToArray(),
@@ -315,7 +315,11 @@ namespace FabulaUltimaDatabase
             }
         }
 
-        private IEnumerable<SpellTemplate> ExtractSpells(Guid id, IDictionary<Guid?, SpellEntry> spellMap, IDictionary<Guid, IEnumerable<BeastSpell>> ownedSpells)
+        private IEnumerable<SpellTemplate> ExtractSpells(
+            Guid id, 
+            IDictionary<Guid?, SpellEntry> spellMap, 
+            IDictionary<Guid, IEnumerable<BeastSpell>> ownedSpells, 
+            IDictionary<Guid, DamageTypeEntry> damageTypes)
         {
             if (!ownedSpells.ContainsKey(id))
             {
@@ -336,7 +340,9 @@ namespace FabulaUltimaDatabase
                    Duration = s.Duration,
                    Target = s.Target,
                    MagicPointCost = s.MagicPointCost,
-                   Description = s.Description
+                   Description = s.Description,
+                   DamageModifier = s.DamageModifier,
+                   DamageType = s.DamageType != null ? damageTypes[s.DamageType.Value].ToDamageType() : null,
                });
         }
 
@@ -555,7 +561,7 @@ namespace FabulaUltimaDatabase
             {
                 connection.Open();
                 var attacks = connection.Query(@"
-                    SELECT Id, Name, Duration, Target, MagicPointCost, Description, Attribute1, Attribute2, IsOffensive FROM Spell
+                    SELECT Id, Name, Duration, Target, MagicPointCost, Description, Attribute1, Attribute2, IsOffensive, DamageType, DamageModifier FROM Spell
                 ");
                 return attacks.Select(a => new SpellEntry
                 {
@@ -568,6 +574,8 @@ namespace FabulaUltimaDatabase
                     Attribute1 = a.Attribute1,
                     Attribute2 = a.Attribute2,
                     IsOffensive = a.IsOffensive == 0 ? false : true,
+                    DamageType = string.IsNullOrWhiteSpace(a.DamageType) ? null : Guid.Parse(a.DamageType),
+                    DamageModifier = a.DamageModifier == null ? null : (int) a.DamageModifier,
                 }).ToList();
             }
         }
@@ -1066,6 +1074,7 @@ namespace FabulaUltimaDatabase
 
         public IEnumerable<SpellTemplate> GetSpellTemplates()
         {
+            var damageTypes = GetDamageTypes().ToDictionary(d => d.Id, d => d);
             return GetSpells().Select(s => new SpellTemplate
             {
                 Id = s.Id.Value,
@@ -1077,6 +1086,8 @@ namespace FabulaUltimaDatabase
                 IsOffensive = s.IsOffensive ?? false,
                 MagicPointCost = s.MagicPointCost,
                 Target = s.Target,
+                DamageModifier = s.DamageModifier,
+                DamageType = s.DamageType != null ? damageTypes[s.DamageType.Value].ToDamageType() : null,
             });
         }
 

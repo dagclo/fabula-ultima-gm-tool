@@ -11,6 +11,8 @@
         public string Target { get; set; }
         public int MagicPointCost { get; set; }
         public string Description { get; set; }
+        public int? DamageModifier { get; set; }
+        public DamageType? DamageType { get; set; }
 
         public SpellTemplate Clone()
         {
