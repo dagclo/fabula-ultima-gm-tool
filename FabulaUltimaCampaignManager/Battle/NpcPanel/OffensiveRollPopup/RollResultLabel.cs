@@ -29,7 +29,7 @@ public partial class RollResultLabel : RichTextLabel, INpcReader
     public void OnResultReady(SignalWrapper<CheckResult> signalWrapper)
     {
         var checkResult = signalWrapper.Value;
-        var log = checkResult.ToEncounterLog(_checkModel.Action, _checkModel.DamageType, _instance.InstanceName);
+        var log = checkResult.ToEncounterLog(_checkModel.Action, _instance.InstanceName, _checkModel.DamageType);
         _messagePublisher.Publish(log.AsMessage());
         this.Text = string.Empty;
         this.AppendText(checkResult.Success ? $"[color=green]Success[/color] for {checkResult.FinalHighRoll} damage" : "[color=red]Failed[/color]");
