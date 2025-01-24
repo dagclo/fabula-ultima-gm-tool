@@ -1,5 +1,6 @@
 using FabulaUltimaGMTool.Battle;
 using FabulaUltimaNpc;
+using FabulaUltimaSkillLibrary;
 using FirstProject.Beastiary;
 using FirstProject.Campaign;
 using FirstProject.Encounters;
@@ -17,8 +18,8 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
     private string _actionType = string.Empty;
     private string _attribute1;
     private string _attribute2;
-    private int _accMod;
-    private int _damageMod;
+    private int? _accMod;
+    private int? _damageMod;
     private string _damageType;
     private Action _deregister;
 
@@ -61,11 +62,19 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
         EmitSignal(SignalName.OnNpcTargetListUpdate, npcs);        
         var factory = new CheckFactory(_npc.Template, status, true);        
         var checkModel = factory.GetCheck(_actionType, _attribute1.ToLowerInvariant().ToCamelCase(), _attribute2.ToLowerInvariant().ToCamelCase());
-        checkModel.AccuracyMod = _accMod;
-        checkModel.HighRollMod = _damageMod;
+        checkModel.AccuracyMod = _accMod ?? _npc.Template.MagicCheckModifier;
+        checkModel.HighRollMod = _damageMod ?? GetMagicalDamageBoost();
         checkModel.Difficulty = 0;
         checkModel.DamageType = _damageType ?? "";
         EmitSignal(SignalName.OnCheckModelSet, new SignalWrapper<ICheckModel>(checkModel));
+    }
+
+    private int GetMagicalDamageBoost()
+    {        
+        var numApplied = _npc.Template.Skills.Count(s => s.Id == KnownSkills.ImprovedDamageSpell.Id);
+        if (numApplied == 0) return 0;
+        var damageBoost = _npc.Template.Skills.First(s => s.Id == KnownSkills.ImprovedDamageSpell.Id).OtherAttributes[DamageConstants.DAMAGE_BOOST];
+        return int.Parse(damageBoost) * numApplied;
     }
 
     public void ReadAttack(BasicAttackTemplate attack)
@@ -90,8 +99,8 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
         _actionType = "Spell";
         _attribute1 = spellTemplate.Attribute1;
         _attribute2 = spellTemplate.Attribute2;
-        _accMod = 0; // need to figure out based on skills and level
-        _damageMod = 0; // same as above.
+        _accMod = null; // need to figure out based on skills and level
+        _damageMod = null; // same as above.
         this.Title = $"{_actionType} Roll";
         EmitSignal(SignalName.OnActionUpdate, spellTemplate.Name, _actionType, "M Def");
         

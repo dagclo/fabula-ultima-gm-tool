@@ -4,23 +4,16 @@ using Godot;
 
 public partial class SpellCastRoll : Label, ISpellReader
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    private int _accuracyBonus;
 
 	public void Read(SpellTemplate spellTemplate)
 	{
 		string roll;
-		if (spellTemplate.IsOffensive)
+		if (!string.IsNullOrWhiteSpace(spellTemplate.Attribute1) && !string.IsNullOrWhiteSpace(spellTemplate.Attribute2))
 		{
-			roll = $"[{spellTemplate.Attribute1.ShortenAttribute()} + {spellTemplate.Attribute2.ShortenAttribute()}]";
-		}
+            var checkModifier = _accuracyBonus == 0 ? string.Empty : $" + {_accuracyBonus}";
+            roll = $"[{spellTemplate.Attribute1.ShortenAttribute()} + {spellTemplate.Attribute2.ShortenAttribute()}]{checkModifier}";
+        }
 		else
 		{
 			roll = string.Empty;
@@ -31,6 +24,6 @@ public partial class SpellCastRoll : Label, ISpellReader
 	public void Read(IBeastTemplate beast)
 	{
 		// do nothing
-
+		_accuracyBonus = beast.MagicCheckModifier;
 	}
 }
