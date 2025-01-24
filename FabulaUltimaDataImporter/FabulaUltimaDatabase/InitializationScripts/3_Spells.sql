@@ -8,7 +8,9 @@
 	Description TEXT NOT NULL,
 	Attribute1 TEXT NULL, -- use full name
 	Attribute2 TEXT  NULL, -- use full name
-	IsOffensive INTEGER NOT NULL -- a "boolean"
+	IsOffensive INTEGER NOT NULL, -- a "boolean"
+	DamageType TEXT NULL, -- GUID reference to damage types
+	DamageModifier INTEGER NULL
 );
 
 CREATE TABLE BeastSpell

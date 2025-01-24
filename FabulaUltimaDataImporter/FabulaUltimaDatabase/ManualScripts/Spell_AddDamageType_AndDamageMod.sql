@@ -1,0 +1,5 @@
+﻿ALTER TABLE Spell
+ADD DamageType TEXT NULL;
+
+ALTER TABLE Spell
+ADD DamageModifier INTEGER NULL;
