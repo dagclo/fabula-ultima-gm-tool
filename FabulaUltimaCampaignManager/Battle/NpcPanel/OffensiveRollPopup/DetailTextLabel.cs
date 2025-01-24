@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public partial class ActionNameLabel : Label
+public partial class DetailTextLabel : Label
 {
     public void HandleActionSet(string name, string type, string defense, string detail)
     {
-        this.Text = $"{type} Name";
+        this.Text = detail;
     }
 }

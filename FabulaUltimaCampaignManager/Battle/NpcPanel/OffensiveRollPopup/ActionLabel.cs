@@ -3,7 +3,7 @@ using System;
 
 public partial class ActionLabel : Label
 {
-	public void HandleActionSet(string name, string type, string defense)
+	public void HandleActionSet(string name, string type, string defense, string detail)
 	{
 		this.Text = name;
 	}

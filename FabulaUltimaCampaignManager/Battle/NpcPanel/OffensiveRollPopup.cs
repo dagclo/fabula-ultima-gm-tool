@@ -10,6 +10,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISpellReader
@@ -21,13 +22,14 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
     private int? _accMod;
     private int? _damageMod;
     private string _damageType;
+    private string _detail;
     private Action _deregister;
 
     [Signal]
     public delegate void OnNpcTargetListUpdateEventHandler(Godot.Collections.Array<NpcInstance> npcList);
 
     [Signal]
-    public delegate void OnActionUpdateEventHandler(string name, string type, string defense);
+    public delegate void OnActionUpdateEventHandler(string name, string type, string defense, string detail);
 
     [Signal]
     public delegate void OnCheckModelSetEventHandler(SignalWrapper<ICheckModel> signal);
@@ -85,8 +87,24 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
         _accMod = attack.AccuracyMod;
         _damageMod = attack.DamageMod;
         _damageType = attack.DamageType.Name;
+        if (attack.AttackSkills != null)
+        {
+            var stringBuilder = new StringBuilder();
+            bool first = true;
+            foreach (var skill in attack.AttackSkills.Where(s => s.OtherAttributes?.IsSpecialAttack == true))
+            {
+                if (!first)
+                {
+                    stringBuilder.Append("; ");
+                }
+                first = false;
+                stringBuilder.Append(skill.Text);
+            }
+            _detail = stringBuilder.ToString();
+        }
+       
         this.Title = $"{_actionType} {attack.Name} Roll";
-        EmitSignal(SignalName.OnActionUpdate, attack.Name, _actionType, "Def");
+        EmitSignal(SignalName.OnActionUpdate, attack.Name, _actionType, "Def", _detail);
     }
 
     public void HandleNpcChanged(NpcInstance npc)
@@ -101,9 +119,9 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
         _attribute2 = spellTemplate.Attribute2;
         _accMod = null; // need to figure out based on skills and level
         _damageMod = null; // same as above.
+        _detail = spellTemplate.Description;
         this.Title = $"{_actionType} Roll";
-        EmitSignal(SignalName.OnActionUpdate, spellTemplate.Name, _actionType, "M Def");
-        
+        EmitSignal(SignalName.OnActionUpdate, spellTemplate.Name, _actionType, "M Def", _detail);        
     }
 
     public void Read(IBeastTemplate beast)
