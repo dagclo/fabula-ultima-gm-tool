@@ -1,15 +1,19 @@
+using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
+using System;
 
-public partial class RollButton : Button, INpcReader
+public partial class RollButton : Button, INpcReader, ISpellReader
 {
     [Signal]
     public delegate void ResultReadyEventHandler(SignalWrapper<CheckResult> signalWrapper);
 
 	private NpcInstance _instance;
     private ICheckModel _checkModel;
+    private BattleStatus _status;
+    private int? _mpCost;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -17,10 +21,10 @@ public partial class RollButton : Button, INpcReader
         this.Disabled = true;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    public void HandleTreeExiting()
+    {
+        if(_status != null) _status.Changed -= HandleNpcStatusChanged;
+    }
 
     public void HandleNpcChanged(NpcInstance npc)
     {
@@ -59,19 +63,37 @@ public partial class RollButton : Button, INpcReader
         EmitSignal(SignalName.ResultReady, new SignalWrapper<CheckResult>(checkResult));
 	}
 
-    public void OnActionSet(SignalWrapper<ICheckModel> signal)
+    public void OnActionSet(SignalWrapper<ICheckModel> signal, BattleStatus status)
     {
         if(_checkModel != null)
         {
             _checkModel.Changed -= this.OnCheckChanged; // make sure to prevent memory leaks
         }
         _checkModel = signal.Value;
-        _checkModel.Changed += this.OnCheckChanged;     
+        _checkModel.Changed += this.OnCheckChanged;
+        _status = status;
+        _status.Changed += HandleNpcStatusChanged; 
+    }
+
+    private void HandleNpcStatusChanged()
+    {
+        if (_mpCost != null) return;
+        _status.CurrentMP -= _mpCost.Value;
     }
 
     private void OnCheckChanged()
     {
         if (!_checkModel.IsValid) return;
         this.Disabled = false;        
+    }
+
+    public void Read(SpellTemplate spellTemplate)
+    {
+        _mpCost = spellTemplate.MagicPointCost;
+    }
+
+    public void Read(IBeastTemplate beast)
+    {
+        // do nothing
     }
 }

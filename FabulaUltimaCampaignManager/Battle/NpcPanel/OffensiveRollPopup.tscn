@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dj7jduftql2vh"]
+[gd_scene load_steps=10 format=3 uid="uid://dj7jduftql2vh"]
 
 [ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup.cs" id="1_4vul5"]
 [ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/ActionNameLabel.cs" id="2_55h3r"]
@@ -8,11 +8,12 @@
 [ext_resource type="Script" path="res://Battle/RollButton.cs" id="6_7ua0e"]
 [ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/DefenseLineEdit.cs" id="6_oyqn7"]
 [ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/RollResultLabel.cs" id="7_iqech"]
+[ext_resource type="Script" path="res://Battle/NpcPanel/OffensiveRollPopup/DetailTextLabel.cs" id="7_rek72"]
 
 [node name="OffensiveRollPopup" type="Window"]
 title = "<type> Roll"
 initial_position = 1
-size = Vector2i(300, 200)
+size = Vector2i(300, 394)
 wrap_controls = true
 transient = true
 keep_title_visible = true
@@ -66,6 +67,18 @@ layout_mode = 2
 max_length = 2
 script = ExtResource("6_oyqn7")
 
+[node name="DetailLabel" type="Label" parent="GridContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "Detail:"
+horizontal_alignment = 2
+autowrap_mode = 3
+
+[node name="DetailTextLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+script = ExtResource("7_rek72")
+
 [node name="RollButton" type="Button" parent="GridContainer"]
 layout_mode = 2
 text = "Roll"
@@ -83,6 +96,7 @@ script = ExtResource("7_iqech")
 [connection signal="OnActionUpdate" from="." to="GridContainer/ActionNameLabel" method="HandleActionSet"]
 [connection signal="OnActionUpdate" from="." to="GridContainer/ActionLabel" method="HandleActionSet"]
 [connection signal="OnActionUpdate" from="." to="GridContainer/DefenseLabel" method="HandleActionSet"]
+[connection signal="OnActionUpdate" from="." to="GridContainer/DetailTextLabel" method="HandleActionSet"]
 [connection signal="OnCheckModelSet" from="." to="GridContainer/TargetOptionButton" method="HandleCheckModelSet"]
 [connection signal="OnCheckModelSet" from="." to="GridContainer/DefenseLineEdit" method="HandleCheckModelSet"]
 [connection signal="OnCheckModelSet" from="." to="GridContainer/RollButton" method="OnActionSet"]

@@ -29,11 +29,10 @@
 [ext_resource type="Script" path="res://Battle/NpcPanel/ResultLabel.cs" id="21_xpnbq"]
 
 [node name="NPCPanel" type="PanelContainer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 1062.0
+offset_bottom = 756.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("1_83a5u")
 script = ExtResource("1_g5bm3")
 

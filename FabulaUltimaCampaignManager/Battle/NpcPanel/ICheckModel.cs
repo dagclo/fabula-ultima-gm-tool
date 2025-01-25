@@ -14,4 +14,5 @@ public interface ICheckModel
     Action Changed { get; set; }
     bool IsValid { get; }
     string Target { get; set; }
+    string DamageType { get; set; }
 }

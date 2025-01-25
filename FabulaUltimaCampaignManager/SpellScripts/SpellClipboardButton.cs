@@ -14,6 +14,7 @@ public partial class SpellClipboardButton : Button
     public void HandleSpellSet(SignalWrapper<SpellTemplate> signal, string speciesName)
     {
         var spellTemplate = signal.Value;
+        var offensiveInfo = spellTemplate.IsOffensive ? $"[HR + {spellTemplate.DamageModifier}] {spellTemplate.DamageType.Name} damage" : string.Empty;
         var text = 
 $"""
 --------------
@@ -26,6 +27,7 @@ Is Offensive: {spellTemplate.IsOffensive}
 tags: {speciesName}
 Description: 
 {spellTemplate.Description}
+{offensiveInfo}
 --------------
 """;
         DisplayServer.ClipboardSet(text);

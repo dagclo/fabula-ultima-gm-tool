@@ -37,6 +37,8 @@ namespace FabulaUltimaGMTool.Adaptors
                     break;
             }
 
+            var offensiveInfo = spell.IsOffensive ? $"[HR + {spell.DamageModifier}] {spell.DamageType.Name} damage" : string.Empty;
+
             return new
             {
                 name = $"{spell.Name}",
@@ -44,7 +46,7 @@ namespace FabulaUltimaGMTool.Adaptors
                 mp = $"{spell.MagicPointCost}",
                 target = spell.Target,
                 duration = spell.Duration,
-                description = $"{speciesName.ToUpperInvariant()} spell. {spell.Description}",
+                description = $"{speciesName.ToUpperInvariant()} spell. {spell.Description}. {offensiveInfo}",
                 offensive = spell.IsOffensive,
                 type = "Spell"
             };

@@ -14,8 +14,8 @@ public partial class SpellNode : PanelContainer
 		foreach(var child in this.FindChildren("*", "").Where(c => c is ISpellReader)) 
 		{ 
 			var spellReader = child as ISpellReader;
-			spellReader.Read(SpellObject);
             spellReader.Read(Beast);
+            spellReader.Read(SpellObject);            
         }
 	}
 }

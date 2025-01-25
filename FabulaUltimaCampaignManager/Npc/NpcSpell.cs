@@ -11,6 +11,7 @@ namespace FirstProject.Npc
         public NpcSpell(SpellTemplate template) 
         {
             SpellTemplate = template;
+            _damageType = template.DamageType != null ? new NpcDamageType(template.DamageType) : null;
         }
 
         public SpellTemplate SpellTemplate { get; set; }
@@ -136,6 +137,36 @@ namespace FirstProject.Npc
             set
             {
                 SpellTemplate.IsOffensive = value;
+            }
+        }
+
+        [Export]
+        public int DamageModifier
+        {
+            get
+            {
+                return SpellTemplate.DamageModifier ?? 0;
+            }
+            set
+            {
+                SpellTemplate.DamageModifier = value;
+            }
+        }
+
+        private NpcDamageType _damageType;
+
+        [Export]
+        public NpcDamageType DamageType
+        {
+            get
+            {
+                return _damageType;
+            }
+            set
+            {
+
+                _damageType = value;
+                SpellTemplate.DamageType = _damageType.DamageType;
             }
         }
     }

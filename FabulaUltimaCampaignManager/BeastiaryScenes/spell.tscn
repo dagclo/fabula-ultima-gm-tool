@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://l57ucy852qf2"]
+[gd_scene load_steps=12 format=3 uid="uid://l57ucy852qf2"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/SpellNode.cs" id="1_8ob2u"]
 [ext_resource type="Script" path="res://SpellScripts/SpellTitle.cs" id="2_a0dvv"]
 [ext_resource type="Script" path="res://SpellScripts/SpellOffensive.cs" id="3_ass7v"]
 [ext_resource type="Script" path="res://SpellScripts/SpellCastRoll.cs" id="4_obmq7"]
+[ext_resource type="Script" path="res://SpellScripts/SpellDamageModifier.cs" id="5_5hofx"]
 [ext_resource type="Script" path="res://SpellScripts/SpellCost.cs" id="5_nr4ad"]
 [ext_resource type="Script" path="res://SpellScripts/SpellTarget.cs" id="6_5wnrd"]
 [ext_resource type="Script" path="res://SpellScripts/SpellDuration.cs" id="7_lv5yf"]
@@ -36,6 +37,11 @@ script = ExtResource("3_ass7v")
 layout_mode = 2
 text = "[INS + WLP]"
 script = ExtResource("4_obmq7")
+
+[node name="DamageRoll" type="Label" parent="SpellDetails/HBoxContainer"]
+layout_mode = 2
+text = "【HR + 10】"
+script = ExtResource("5_5hofx")
 
 [node name="MP Cost" type="Label" parent="SpellDetails/HBoxContainer"]
 layout_mode = 2

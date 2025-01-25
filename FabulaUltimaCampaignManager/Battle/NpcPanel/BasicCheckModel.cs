@@ -77,6 +77,7 @@ public class BasicCheckModel : ICheckModel
         }
     }
     public int? HighRollMod { get; set; }
+    public string DamageType { get; set; }
     public Action Changed { get; set; }
 
     public bool IsValid =>

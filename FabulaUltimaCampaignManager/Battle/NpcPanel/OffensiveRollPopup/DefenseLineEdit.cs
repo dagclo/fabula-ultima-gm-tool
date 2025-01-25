@@ -6,7 +6,7 @@ public partial class DefenseLineEdit : LineEdit
 {
     private ICheckModel _checkModel;
 
-    public void HandleCheckModelSet(SignalWrapper<ICheckModel> signal)
+    public void HandleCheckModelSet(SignalWrapper<ICheckModel> signal, BattleStatus status)
     {
         _checkModel = signal.Value;
     }
