@@ -4,7 +4,7 @@ namespace FabulaUltimaGMTool.Battle.NpcPanel
 {
     public static class RollExtensions
     {
-        public static EncounterLog ToEncounterLog(this CheckResult result, string action, string actorName, string damageType = "")
+        public static EncounterLog ToEncounterLog(this CheckResult result, string action, string actorName, string damageType = "", string verb = "rolled")
         { 
             
             var successText = result.Success ? "Successful" : "Failed";
@@ -16,7 +16,7 @@ namespace FabulaUltimaGMTool.Battle.NpcPanel
                 Id = Guid.NewGuid(),
                 Action = $"{action} | {targetString} | Result: {successText}|{detailString}|{highRoll}",
                 Actor = actorName,
-                Verb = "rolled",
+                Verb = verb,
                 DisplayLevel = result.Success ? DisplayLevel.SUCCESS : DisplayLevel.FAILED
             };
         }

@@ -16,13 +16,14 @@ using System.Threading.Tasks;
 public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISpellReader
 {
     private NpcInstance _npc;
-    private string _actionType = string.Empty;
+    private string _actionType = null;
     private string _attribute1;
     private string _attribute2;
     private int? _accMod;
     private int? _damageMod;
     private string _damageType;
     private string _detail;
+    private string _offensiveActionName;
     private Action _deregister;
     private bool _enabled = false;
 
@@ -62,14 +63,17 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
     }
 
     private void Update(Godot.Collections.Array<NpcInstance> npcs, BattleStatus status)
-    {        
+    {
+        if (_actionType == null) return;
         EmitSignal(SignalName.OnNpcTargetListUpdate, npcs);        
         var factory = new CheckFactory(_npc.Template, status, true);        
-        var checkModel = factory.GetCheck(_actionType, _attribute1.ToLowerInvariant().ToCamelCase(), _attribute2.ToLowerInvariant().ToCamelCase());
+        var checkModel = factory.GetCheck(_actionType, _attribute1?.ToLowerInvariant().ToCamelCase(), _attribute2?.ToLowerInvariant().ToCamelCase());
         checkModel.AccuracyMod = _accMod ?? _npc.Template.MagicCheckModifier;
-        checkModel.HighRollMod = _damageMod ?? GetMagicalDamageBoost();
+        var currentMod = _damageMod ?? 0;
+        checkModel.HighRollMod = currentMod + GetMagicalDamageBoost();
         checkModel.Difficulty = 0;
         checkModel.DamageType = _damageType ?? "";
+        checkModel.Action = _offensiveActionName ?? checkModel.Action;
         EmitSignal(SignalName.OnCheckModelSet, new SignalWrapper<ICheckModel>(checkModel), status);
     }
 
@@ -89,6 +93,7 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
         _accMod = attack.AccuracyMod;
         _damageMod = attack.DamageMod;
         _damageType = attack.DamageType.Name;
+        _offensiveActionName = attack.Name;
         if (attack.AttackSkills != null)
         {
             var stringBuilder = new StringBuilder();
@@ -116,13 +121,15 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
 
     public void Read(SpellTemplate spellTemplate)
     {
-        if (!spellTemplate.IsOffensive) return;
+        if (string.IsNullOrWhiteSpace(spellTemplate.Attribute1) || string.IsNullOrWhiteSpace(spellTemplate.Attribute2)) return;
         _actionType = "Spell";
         _attribute1 = spellTemplate.Attribute1;
         _attribute2 = spellTemplate.Attribute2;
         _accMod = null; // need to figure out based on skills and level
-        _damageMod = null; // same as above.
+        _damageMod = spellTemplate.DamageModifier; // same as above.
+        _damageType = spellTemplate.DamageType?.Name;
         _detail = spellTemplate.Description;
+        _offensiveActionName = spellTemplate.Name;
         this.Title = $"{_actionType} Roll";
         EmitSignal(SignalName.OnActionUpdate, spellTemplate.Name, _actionType, "M Def", _detail);        
     }

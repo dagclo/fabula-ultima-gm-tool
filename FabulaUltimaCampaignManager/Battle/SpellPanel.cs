@@ -1,4 +1,5 @@
 using FabulaUltimaNpc;
+using FirstProject.Encounters;
 using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
@@ -29,17 +30,20 @@ public partial class SpellPanel : PanelContainer
 	{
 	}
 
-    internal void UpdateSpell(SpellTemplate spell, FirstProject.Npc.NpcInstance npc)
+    internal void UpdateSpell(SpellTemplate spell, NpcInstance npc)
     {
         _spell = spell;
         _instance = npc;
         if (_spell == null) return;
-        foreach (var reader in this.FindChildren("*").Where(c => c is ISpellReader))
+        foreach (var reader in this.FindChildren("*").Where(c => (c is ISpellReader) || (c is INpcReader)))
         {
-            var spellReader = reader as ISpellReader;
-            spellReader.Read(_spell);
-            spellReader.Read(_instance.Template);
-            if(reader is FirstProject.Encounters.INpcReader npcReader)
+            if(reader is ISpellReader spellReader)
+            {
+                spellReader.Read(_spell);
+                spellReader.Read(_instance.Template);
+            }            
+            
+            if(reader is INpcReader npcReader)
             {
                 npcReader.HandleNpcChanged(_instance);
             }
@@ -54,7 +58,7 @@ public partial class SpellPanel : PanelContainer
 
     public void OnUseSpell()
     {
-        if (_spell.IsOffensive)
+        if (_spell.IsOffensive && _spell.DamageType != null && _spell.DamageModifier != null)
         {
             EmitSignal(SignalName.OnCastOffensiveSpell);
         }

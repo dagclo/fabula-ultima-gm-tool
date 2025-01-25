@@ -26,7 +26,9 @@
                 Duration = Duration,
                 Target = Target,
                 MagicPointCost = MagicPointCost,
-                Description = Description
+                Description = Description,
+                DamageModifier = DamageModifier,
+                DamageType = DamageType,
             };
         }
     }

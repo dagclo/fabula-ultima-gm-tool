@@ -12,7 +12,7 @@ public partial class SpellDamageModifier : Label, ISpellReader
 
     public void Read(SpellTemplate spellTemplate)
     {
-        if (spellTemplate.DamageModifier == null) return;
+        if (spellTemplate.DamageType == null) return;
         this.Text = $"[HR + {spellTemplate.DamageModifier}] {spellTemplate.DamageType.Name} damage";
         this.Visible = true;
     }
