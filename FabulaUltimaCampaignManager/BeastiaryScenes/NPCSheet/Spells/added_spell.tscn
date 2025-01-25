@@ -14,25 +14,6 @@
 [node name="Spell" type="VBoxContainer"]
 script = ExtResource("1_s3fmt")
 
-[node name="OffensiveAttributes" type="HBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="IsOffensiveCheckButton" type="CheckButton" parent="OffensiveAttributes"]
-layout_mode = 2
-disabled = true
-text = "Is Offensive"
-script = ExtResource("3_c1575")
-
-[node name="DamageModifierEdit" type="LineEdit" parent="OffensiveAttributes"]
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Damage Modifier"
-script = ExtResource("3_xhg60")
-
-[node name="DamageTypeOptionsButton" type="OptionButton" parent="OffensiveAttributes"]
-layout_mode = 2
-script = ExtResource("4_k32a6")
-
 [node name="SpellAttributes" type="HBoxContainer" parent="."]
 layout_mode = 2
 
@@ -80,6 +61,26 @@ editable = false
 expand_to_text_length = true
 script = ExtResource("6_8o3ct")
 
+[node name="OffensiveAttributes" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="IsOffensiveCheckButton" type="CheckButton" parent="OffensiveAttributes"]
+layout_mode = 2
+disabled = true
+text = "Is Offensive"
+script = ExtResource("3_c1575")
+
+[node name="DamageModifierEdit" type="LineEdit" parent="OffensiveAttributes"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+placeholder_text = "Damage Modifier"
+script = ExtResource("3_xhg60")
+
+[node name="DamageTypeOptionsButton" type="OptionButton" parent="OffensiveAttributes"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_k32a6")
+
 [node name="SpellTextEdit" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -101,16 +102,18 @@ text = "Remove"
 [connection signal="SpellSet" from="." to="SpellAttributes/TargetEdit" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/DurationEdit" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellTextEdit" method="HandleSpellSet"]
-[connection signal="toggled" from="OffensiveAttributes/IsOffensiveCheckButton" to="OffensiveAttributes/IsOffensiveCheckButton" method="HandleToggled"]
-[connection signal="toggled" from="OffensiveAttributes/IsOffensiveCheckButton" to="OffensiveAttributes/DamageModifierEdit" method="HandleToggled"]
-[connection signal="toggled" from="OffensiveAttributes/IsOffensiveCheckButton" to="OffensiveAttributes/DamageTypeOptionsButton" method="HandleToggled"]
-[connection signal="text_changed" from="OffensiveAttributes/DamageModifierEdit" to="OffensiveAttributes/DamageModifierEdit" method="HandleTextChanged"]
-[connection signal="item_selected" from="OffensiveAttributes/DamageTypeOptionsButton" to="OffensiveAttributes/DamageTypeOptionsButton" method="OnSelected"]
+[connection signal="SpellSet" from="." to="OffensiveAttributes/DamageModifierEdit" method="HandleSpellSet"]
+[connection signal="SpellSet" from="." to="OffensiveAttributes/DamageTypeOptionsButton" method="HandleSpellSet"]
 [connection signal="text_changed" from="SpellAttributes/SpellName" to="SpellAttributes/SpellName" method="HandleTextChanged"]
 [connection signal="text_changed" from="SpellAttributes/MpCostEdit" to="SpellAttributes/MpCostEdit" method="HandleTextChanged"]
 [connection signal="item_selected" from="SpellAttributes/AttributeRoll1" to="SpellAttributes/AttributeRoll1" method="HandleSelected"]
 [connection signal="item_selected" from="SpellAttributes/AttributeRoll2" to="SpellAttributes/AttributeRoll2" method="HandleSelected"]
 [connection signal="text_changed" from="SpellAttributes/TargetEdit" to="SpellAttributes/TargetEdit" method="HandleTextChanged"]
 [connection signal="text_changed" from="SpellAttributes/DurationEdit" to="SpellAttributes/DurationEdit" method="HandleTextChanged"]
+[connection signal="toggled" from="OffensiveAttributes/IsOffensiveCheckButton" to="OffensiveAttributes/IsOffensiveCheckButton" method="HandleToggled"]
+[connection signal="toggled" from="OffensiveAttributes/IsOffensiveCheckButton" to="OffensiveAttributes/DamageModifierEdit" method="HandleToggled"]
+[connection signal="toggled" from="OffensiveAttributes/IsOffensiveCheckButton" to="OffensiveAttributes/DamageTypeOptionsButton" method="HandleToggled"]
+[connection signal="text_changed" from="OffensiveAttributes/DamageModifierEdit" to="OffensiveAttributes/DamageModifierEdit" method="HandleTextChanged"]
+[connection signal="item_selected" from="OffensiveAttributes/DamageTypeOptionsButton" to="OffensiveAttributes/DamageTypeOptionsButton" method="OnSelected"]
 [connection signal="text_changed" from="SpellTextEdit" to="SpellTextEdit" method="OnTextChanged"]
 [connection signal="pressed" from="RemoveSpellButton" to="." method="HandleRemoveSpell"]

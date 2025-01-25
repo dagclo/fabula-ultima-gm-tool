@@ -75,14 +75,18 @@ public partial class AddedSpellEntry : VBoxContainer, IValidatable
     {
         if (Spell == null || !IsEditable) yield break;
         if (string.IsNullOrWhiteSpace(Spell.Name)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "Name Not Set" };
-        if (string.IsNullOrWhiteSpace(Spell.Description)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "Description Not Set" };
-        if (string.IsNullOrWhiteSpace(Spell.Duration)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "Duration Not Set" };
-        if (string.IsNullOrWhiteSpace(Spell.Target)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "Target Not Set" };
-        if (Spell.MagicPointCost <= 0) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "MP Cost must be greater than 0" };
+        if (string.IsNullOrWhiteSpace(Spell.Description)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = $"{Spell.Name} Description Not Set" };
+        if (string.IsNullOrWhiteSpace(Spell.Duration)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = $"{Spell.Name} Duration Not Set" };
+        if (string.IsNullOrWhiteSpace(Spell.Target)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = $"{Spell.Name} Target Not Set" };
+        if (Spell.MagicPointCost <= 0) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = $"{Spell.Name} MP Cost must be greater than 0" };
         if (Spell.IsOffensive)
         {
-            if (string.IsNullOrWhiteSpace(Spell.Attribute1)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "Attribute 1 not set. Required for Offensive Spells." };
-            if (string.IsNullOrWhiteSpace(Spell.Attribute2)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = "Attribute 2 not set. Required for Offensive Spells." };
+            if (string.IsNullOrWhiteSpace(Spell.Attribute1)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = $"{Spell.Name} Attribute 1 not set. Required for Offensive Spells." };
+            if (string.IsNullOrWhiteSpace(Spell.Attribute2)) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = $"{Spell.Name} Attribute 2 not set. Required for Offensive Spells." };
+            if((Spell.DamageModifier ?? 0) > 0)
+            {
+                if (Spell.DamageType == null) yield return new TemplateValidation { Level = ValidationLevel.ERROR, Message = $"{Spell.Name} Damage Type not set. Required for Offensive spells with damage modifiers." };
+            }            
         }
     }
 }

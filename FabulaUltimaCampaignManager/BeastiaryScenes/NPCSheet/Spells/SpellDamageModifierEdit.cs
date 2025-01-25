@@ -11,8 +11,9 @@ public partial class SpellDamageModifierEdit : LineEdit
     {
         this.Text = $"{signal.Value.DamageModifier ?? 0}";
         _lastInput = this.Text;
-        this.Editable = editable;
+        this.Editable = editable;        
         _spell = signal.Value;
+        this.Visible = _spell.IsOffensive;
     }
 
     private string _lastInput = null;

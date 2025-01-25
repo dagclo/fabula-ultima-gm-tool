@@ -40,6 +40,7 @@ public partial class SpellDamageTypeOptionsButton : OptionButton
         var spell = signal.Value;
         _spellTemplate = spell;
         this.Disabled = !editable;
+        this.Visible = _spellTemplate.IsOffensive;
         if (_spellTemplate.DamageType == null) return;
         var id = DamageTypes.IndexOf(_spellTemplate.DamageType.Name.ToLowerInvariant());
         Select(GetItemIndex(id));
