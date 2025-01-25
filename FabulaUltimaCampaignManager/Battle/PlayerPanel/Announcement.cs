@@ -24,7 +24,7 @@ public partial class Announcement : Label
         var log = typedMessage.Value;
         var objectString = string.IsNullOrWhiteSpace(log.Object) ? string.Empty : $"on {log.Object}";
         var logActionNoExtraneousDetails = log.Action?.Split('|').FirstOrDefault() ?? string.Empty;
-        var announcement = $"{log.Actor} {log.Verb} {logActionNoExtraneousDetails}";
+        var announcement = $"{log.Actor} {log.Verb} {objectString} {logActionNoExtraneousDetails}";
         CallDeferred(MethodName.SetText, announcement);        
         CallDeferred(MethodName.EmitSignal, SignalName.MessageReceived, _waitBetweenMessage);
         await ToSignal(GetTree().CreateTimer(_waitBetweenMessage), SceneTreeTimer.SignalName.Timeout); // adjust timing later
