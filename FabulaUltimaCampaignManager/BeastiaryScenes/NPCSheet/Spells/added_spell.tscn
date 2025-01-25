@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cqtoubns32l31"]
+[gd_scene load_steps=11 format=3 uid="uid://cqtoubns32l31"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/AddedSpellEntry.cs" id="1_s3fmt"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellNameEdit.cs" id="2_2m218"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/IsOffensiveCheckButton.cs" id="3_c1575"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellDamageModifierEdit.cs" id="3_xhg60"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/MpCostEdit.cs" id="4_f5nyv"]
+[ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellDamageTypeOptionsButton.cs" id="4_k32a6"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellAttributeRollOptions.cs" id="5_1uyss"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellTargetEdit.cs" id="5_k5812"]
 [ext_resource type="Script" path="res://BeastiaryScenes/NPCSheet/Spells/SpellDurationEdit.cs" id="6_8o3ct"]
@@ -11,6 +13,25 @@
 
 [node name="Spell" type="VBoxContainer"]
 script = ExtResource("1_s3fmt")
+
+[node name="OffensiveAttributes" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="IsOffensiveCheckButton" type="CheckButton" parent="OffensiveAttributes"]
+layout_mode = 2
+disabled = true
+text = "Is Offensive"
+script = ExtResource("3_c1575")
+
+[node name="DamageModifierEdit" type="LineEdit" parent="OffensiveAttributes"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Damage Modifier"
+script = ExtResource("3_xhg60")
+
+[node name="DamageTypeOptionsButton" type="OptionButton" parent="OffensiveAttributes"]
+layout_mode = 2
+script = ExtResource("4_k32a6")
 
 [node name="SpellAttributes" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -22,14 +43,9 @@ editable = false
 expand_to_text_length = true
 script = ExtResource("2_2m218")
 
-[node name="IsOffensiveCheckButton" type="CheckButton" parent="SpellAttributes"]
-layout_mode = 2
-disabled = true
-text = "Is Offensive"
-script = ExtResource("3_c1575")
-
 [node name="MPLabel" type="Label" parent="SpellAttributes"]
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "MP:"
 
 [node name="MpCostEdit" type="LineEdit" parent="SpellAttributes"]
@@ -78,15 +94,19 @@ layout_mode = 2
 text = "Remove"
 
 [connection signal="SpellSet" from="." to="SpellAttributes/SpellName" method="HandleSpellSet"]
-[connection signal="SpellSet" from="." to="SpellAttributes/IsOffensiveCheckButton" method="HandleSpellSet"]
+[connection signal="SpellSet" from="." to="OffensiveAttributes/IsOffensiveCheckButton" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/MpCostEdit" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/AttributeRoll1" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/AttributeRoll2" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/TargetEdit" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/DurationEdit" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellTextEdit" method="HandleSpellSet"]
+[connection signal="toggled" from="OffensiveAttributes/IsOffensiveCheckButton" to="OffensiveAttributes/IsOffensiveCheckButton" method="HandleToggled"]
+[connection signal="toggled" from="OffensiveAttributes/IsOffensiveCheckButton" to="OffensiveAttributes/DamageModifierEdit" method="HandleToggled"]
+[connection signal="toggled" from="OffensiveAttributes/IsOffensiveCheckButton" to="OffensiveAttributes/DamageTypeOptionsButton" method="HandleToggled"]
+[connection signal="text_changed" from="OffensiveAttributes/DamageModifierEdit" to="OffensiveAttributes/DamageModifierEdit" method="HandleTextChanged"]
+[connection signal="item_selected" from="OffensiveAttributes/DamageTypeOptionsButton" to="OffensiveAttributes/DamageTypeOptionsButton" method="OnSelected"]
 [connection signal="text_changed" from="SpellAttributes/SpellName" to="SpellAttributes/SpellName" method="HandleTextChanged"]
-[connection signal="toggled" from="SpellAttributes/IsOffensiveCheckButton" to="SpellAttributes/IsOffensiveCheckButton" method="HandleToggled"]
 [connection signal="text_changed" from="SpellAttributes/MpCostEdit" to="SpellAttributes/MpCostEdit" method="HandleTextChanged"]
 [connection signal="item_selected" from="SpellAttributes/AttributeRoll1" to="SpellAttributes/AttributeRoll1" method="HandleSelected"]
 [connection signal="item_selected" from="SpellAttributes/AttributeRoll2" to="SpellAttributes/AttributeRoll2" method="HandleSelected"]
