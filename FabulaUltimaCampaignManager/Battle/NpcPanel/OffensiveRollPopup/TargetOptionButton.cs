@@ -33,7 +33,7 @@ public partial class TargetOptionButton : OptionButton
         }
     }
 
-    public void HandleCheckModelSet(SignalWrapper<ICheckModel> signal)
+    public void HandleCheckModelSet(SignalWrapper<ICheckModel> signal, BattleStatus status)
     {
         _checkModel = signal.Value;
     }

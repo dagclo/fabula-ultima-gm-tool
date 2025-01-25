@@ -13,7 +13,7 @@
 [node name="OffensiveRollPopup" type="Window"]
 title = "<type> Roll"
 initial_position = 1
-size = Vector2i(300, 210)
+size = Vector2i(300, 394)
 wrap_controls = true
 transient = true
 keep_title_visible = true
@@ -68,6 +68,7 @@ max_length = 2
 script = ExtResource("6_oyqn7")
 
 [node name="DetailLabel" type="Label" parent="GridContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_type_variation = &"BoldLabel"
 text = "Detail:"

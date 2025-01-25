@@ -41,7 +41,7 @@ public partial class RollResultLabel : RichTextLabel, INpcReader
         _instance = npc;
     }
 
-    public void OnActionSet(SignalWrapper<ICheckModel> signal)
+    public void OnActionSet(SignalWrapper<ICheckModel> signal, BattleStatus status)
     {  
         _checkModel = signal.Value;     
     }

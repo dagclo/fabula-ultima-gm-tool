@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dywmh38jaem58"]
+[gd_scene load_steps=5 format=3 uid="uid://dywmh38jaem58"]
 
 [ext_resource type="PackedScene" uid="uid://l57ucy852qf2" path="res://BeastiaryScenes/spell.tscn" id="1_2ohnr"]
 [ext_resource type="Script" path="res://Battle/SpellPanel.cs" id="1_vf5y5"]
 [ext_resource type="Script" path="res://Battle/NpcPanel/UseSpellButton.cs" id="3_ovmff"]
+[ext_resource type="PackedScene" uid="uid://dj7jduftql2vh" path="res://Battle/NpcPanel/OffensiveRollPopup.tscn" id="4_fyift"]
 
 [node name="SpellPanel" type="PanelContainer"]
 script = ExtResource("1_vf5y5")
@@ -18,5 +19,9 @@ layout_mode = 2
 text = "Use"
 script = ExtResource("3_ovmff")
 
+[node name="OffensiveRollPopup" parent="UseSpell/Use" instance=ExtResource("4_fyift")]
+visible = false
+
 [connection signal="NotEnoughMP" from="." to="UseSpell/Use" method="OnNotEnoughMP"]
+[connection signal="OnCastOffensiveSpell" from="." to="UseSpell/Use/OffensiveRollPopup" method="HandleOpen"]
 [connection signal="pressed" from="UseSpell/Use" to="." method="OnUseSpell"]

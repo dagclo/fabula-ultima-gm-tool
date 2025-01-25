@@ -24,6 +24,7 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
     private string _damageType;
     private string _detail;
     private Action _deregister;
+    private bool _enabled = false;
 
     [Signal]
     public delegate void OnNpcTargetListUpdateEventHandler(Godot.Collections.Array<NpcInstance> npcList);
@@ -32,7 +33,7 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
     public delegate void OnActionUpdateEventHandler(string name, string type, string defense, string detail);
 
     [Signal]
-    public delegate void OnCheckModelSetEventHandler(SignalWrapper<ICheckModel> signal);
+    public delegate void OnCheckModelSetEventHandler(SignalWrapper<ICheckModel> signal, BattleStatus status);
 
     [Signal]
     public delegate void OnResetEventHandler();
@@ -52,6 +53,7 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
     public Task ReceiveMessage(IMessage message)
 	{
         if (_npc == null || !(message is IMessage<EncounterInitialize> initialize)) return Task.CompletedTask;
+        _enabled = true;
         var otherNpcs = initialize.Value.Npcs.Select(p => p.npc).Where(n => n.Id != _npc.Id );
         var statuses = initialize.Value.Npcs.Select(p => p.status);
         var npcStatus = statuses.Single(s => s.ToString() == _npc.Id);
@@ -68,7 +70,7 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
         checkModel.HighRollMod = _damageMod ?? GetMagicalDamageBoost();
         checkModel.Difficulty = 0;
         checkModel.DamageType = _damageType ?? "";
-        EmitSignal(SignalName.OnCheckModelSet, new SignalWrapper<ICheckModel>(checkModel));
+        EmitSignal(SignalName.OnCheckModelSet, new SignalWrapper<ICheckModel>(checkModel), status);
     }
 
     private int GetMagicalDamageBoost()
@@ -114,6 +116,7 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
 
     public void Read(SpellTemplate spellTemplate)
     {
+        if (!spellTemplate.IsOffensive) return;
         _actionType = "Spell";
         _attribute1 = spellTemplate.Attribute1;
         _attribute2 = spellTemplate.Attribute2;
@@ -131,6 +134,7 @@ public partial class OffensiveRollPopup : Window, IAttackReader, INpcReader, ISp
 
     public void HandleOpen()
     {
+        if (!_enabled) return;
         this.Visible = true;
     }
 

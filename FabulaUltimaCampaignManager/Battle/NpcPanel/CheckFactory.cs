@@ -25,6 +25,8 @@ public class CheckFactory
                 GenerateBasicCheck("Hinder", attr1 ?? nameof(IBeastTemplate.Might), attr2 ?? nameof(IBeastTemplate.Insight), targetRequired)),
             ["Attack"] = new Func<string, string, ICheckModel>((string attr1, string attr2) =>
                 GenerateBasicCheck("Attack", attr1 ?? nameof(IBeastTemplate.Might), attr2 ?? nameof(IBeastTemplate.Dexterity), targetRequired, highRollMod: 5)), // todo: generate more actions using spells and attacks
+            ["Spell"] = new Func<string, string, ICheckModel>((string attr1, string attr2) =>
+                GenerateBasicCheck("Spell", attr1 ?? nameof(IBeastTemplate.Insight), attr2 ?? nameof(IBeastTemplate.WillPower), targetRequired, highRollMod: 5)),
         };
     }
 
