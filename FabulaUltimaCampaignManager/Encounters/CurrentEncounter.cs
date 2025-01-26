@@ -1,7 +1,11 @@
+using FirstProject;
 using FirstProject.Encounters;
 using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
+using Godot.Collections;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class CurrentEncounter : PanelContainer
@@ -9,11 +13,16 @@ public partial class CurrentEncounter : PanelContainer
 	private Encounter Encounter { get; set; }
 	private RunState RunState { get; set; }
 
+	private Func<string> GetNextName { get; set; }
+
     [Signal]
     public delegate void UpdateEncounterEventHandler(Encounter encounter);
 
 	[Export]
 	public int NPCLimit { get; set; } = 4;
+
+    [Export]
+    public Configuration _configuration { get; set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -24,13 +33,23 @@ public partial class CurrentEncounter : PanelContainer
             this.Visible = false;
         }
 		RunState = GetNode<RunState>("/root/RunState");
+
+        var nameQueue = new Queue<string>();
+		GetNextName = new Func<string>(() =>
+		{
+			if (!nameQueue.Any())
+			{
+                var nameList = new Godot.Collections.Array<string>(_configuration.InstanceNames);
+                nameList.Shuffle();
+				foreach(var name in nameList)
+				{
+					nameQueue.Enqueue(name);
+				}	
+            }
+			return nameQueue.Dequeue();
+		});
     }
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
+	
 	public void HandleUpdateEncounter(Encounter encounter)
 	{
         Encounter = encounter;
@@ -61,7 +80,12 @@ public partial class CurrentEncounter : PanelContainer
 		if (npc == null) return;
 		//todo: enable adding more npcs
 		if (Encounter.NpcCollection.Count() >= NPCLimit) return;
-		Encounter.AddNpc(new NpcInstance(npc)); // use this to ensure change is emitted		
+		var clone = new NpcInstance(npc);
+		if (string.IsNullOrWhiteSpace(clone.InstanceName))
+		{
+			clone.InstanceName = GetNextName();
+		}
+        Encounter.AddNpc(clone); // use this to ensure change is emitted		
 		EmitSignal(SignalName.UpdateEncounter, Encounter);
     }
 

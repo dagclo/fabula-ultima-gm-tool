@@ -14,6 +14,9 @@ namespace FirstProject
         [Export]
         public bool BackgroundMusicEnabled { get; set; }
 
+        [Export]
+        public string[] InstanceNames { get; set; }
+
         internal void MakeDirectories()
         {
             DirAccess.MakeDirRecursiveAbsolute(CampaignFolder);
