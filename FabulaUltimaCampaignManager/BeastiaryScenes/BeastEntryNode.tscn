@@ -379,7 +379,7 @@ layout_mode = 2
 
 [node name="AddToEncounterButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Add To Current Encounter"
+text = "Add To Current Scene"
 script = ExtResource("39_l5v3b")
 
 [node name="DeleteButton" type="Button" parent="VBoxContainer" node_paths=PackedStringArray("DeleteDialog")]

@@ -159,17 +159,17 @@ layout_mode = 2
 
 [node name="Window Title" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2
-text = "Current Encounter"
+text = "Current Scene"
 
 [node name="EncounterTitle" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2
-placeholder_text = "Encounter Name"
+placeholder_text = "Scene Name"
 max_length = 50
 script = ExtResource("3_3pve8")
 
 [node name="StartEncounterButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2
-text = "Start Encounter"
+text = "Start Scene"
 script = ExtResource("4_t2e78")
 RunEncounterScene = ExtResource("5_tr8nu")
 
@@ -277,7 +277,7 @@ script = ExtResource("6_ful6c")
 [node name="EncounterLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
 layout_mode = 2
 theme_type_variation = &"BoldLabel"
-text = "Encounters"
+text = "Scenes"
 horizontal_alignment = 1
 uppercase = true
 
@@ -303,7 +303,7 @@ layout_mode = 2
 
 [node name="AddEncounterButton" type="Button" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
 layout_mode = 2
-text = "Add Encounter"
+text = "Add Scene"
 
 [node name="PlayerSection" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
 layout_mode = 2
@@ -475,7 +475,7 @@ script = ExtResource("38_3f044")
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 240.0
-offset_bottom = 5774.0
+offset_bottom = 510.0
 
 [node name="Title" type="Label" parent="AboutPanel/VBoxContainer"]
 layout_mode = 2
@@ -509,7 +509,17 @@ SeraphCircle - [url]https://seraphcircle.itch.io/[/url]
 [ul]
 Shapeforms [url]https://shapeforms.itch.io/[/url]
 NOX Sound Design [url]https://nox-sound-design.itch.io/[/url]
-[/ul]"
+[/ul]
+
+[b]BattleBacks:[/b] 
+Library Night image by Pixabay: [url]https://www.pexels.com/photo/pile-of-covered-books-159751/[/url]
+Library Day image by Pixabay: [url]Photo by marco: https://www.pexels.com/photo/a-library-in-florence-italy-12916351/[/url]
+Astral Image by Pixabay [url] https://www.pexels.com/photo/red-and-orange-galaxy-illustration-41951/[/url]
+
+Ansimuz [url]https://ansimuz.itch.io/[/url]
+
+Battlebacks [url]https://battlebacks-landscapes.itch.io/[/url]
+Craftpix.net [url]https://free-game-assets.itch.io/[/url]"
 fit_content = true
 
 [connection signal="id_pressed" from="MenuBar/Settings" to="MenuBar/Settings" method="OnOptionPressed"]

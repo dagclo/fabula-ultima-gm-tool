@@ -6,15 +6,9 @@ Project Description
 
 ### Backlog
 
-- [ ] When Clicking Spell/Attack, load their stats into the action bar  
-- [ ] Implement Custom Weapon QR code  
-- [ ] Implement upload of background images (replace ff5 system)  
 - [ ] Fix all Build Warnings  
-- [ ] Investigate Whited Out Text remediation  
-- [ ] In RunEncounter, tab titles get covered by tab content  
 - [ ] Fix Godot Disposed error when exiting Battle  
 - [ ] Fix Image Load Warning  
-- [ ] Implement Godot level unit tests  
 - [ ] Implement PC Death  
 - [ ] Add Victory music  
 - [ ] -----------------V 1.0 Cut-----------------------------------------------------  
@@ -43,6 +37,11 @@ Project Description
 
 ### Done ✓
 
+- [x] In RunEncounter, tab titles get covered by tab content  
+- [x] Investigate Whited Out Text remediation  
+- [x] Implement Godot level unit tests  
+- [x] Implement upload of background images (replace ff5 system)  
+- [x] When Clicking Spell/Attack, load their stats into the action bar  
 - [x] Implement basic search  
 - [x] Fix PC portraits not going dark when turn is done  
 - [x] Get Rid of CallDeferrer and use CallDeferred  

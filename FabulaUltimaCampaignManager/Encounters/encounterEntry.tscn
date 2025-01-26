@@ -20,7 +20,7 @@ text = "Name: "
 
 [node name="Text" parent="Name/HBoxContainer" index="1"]
 custom_minimum_size = Vector2(150, 0)
-text = "Made up Encounter"
+text = "Made up Scene"
 autowrap_mode = 2
 script = ExtResource("3_d5kal")
 
@@ -37,7 +37,7 @@ script = ExtResource("4_wf6x0")
 
 [node name="LoadEncounterButton" type="Button" parent="."]
 layout_mode = 2
-tooltip_text = "This will unarchive encounter"
+tooltip_text = "This will unarchive scene"
 theme = ExtResource("5_8r10l")
 text = "Load"
 
