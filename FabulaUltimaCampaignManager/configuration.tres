@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=2 format=3]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b6rycqp1qoya3"]
 
 [ext_resource type="Script" path="res://Configuration.cs" id="1_d73sm"]
 
@@ -7,3 +7,4 @@ script = ExtResource("1_d73sm")
 CampaignFolder = "user://campaignData/"
 DatabaseFilePath = "user://BeastiaryDB.sqlite"
 BackgroundMusicEnabled = false
+InstanceNames = PackedStringArray("Andromeda", "Antlia", "Apus", "Aquarius", "Caelum", "Cancer", "Draco", "Eridanus", "Grus", "Fornax", "Hydrus", "Indus", "Lacerta", "Lynx", "Musca", "Octans", "Pavo", "Sagittarius", "Tucana", "Vela", "Pabilsag", "Aaron", "Bassianus", "Caius", "Diana", "Elizabeth", "Elly", "Beth", "Bess", "Buffy", "Ford", "George", "Hamlet", "Imogen", "Jack", "Kate", "Juliet", "Lavinia ", "Maria", "Mann", "Nerissa", "Nestor", "Oberon", "Ophelia", "Palamon ", "Quintus ", "Regan ", "Sampson", "Thaisa", "Theseus ", "Ulysses ", "Valentine ", "Warwick", "York", "Ahiru", "Alvida", "Babanuki", "Bartholomew", "Candy", "Carrot", "Charlotte", "Raki", "Luffy", "Nami", "Brook", "Chopper", "Frankie", "Robin", "Sanji", "Usopp", "Jinbe", "Alfa", "Bravo", "Charlie", "Delta", "Ekko", "Foxtrot", "Gulf", "Hostelia", "Inana", "Kilo", "Mike", "November", "Oscar", "Pater", "Quebec", "Romeo", "Sierra", "Tango", "Unison", "Victor", "Whiskey", "Rum", "X", "Yankee", "Zwingli", "Vin", "Zellion", "Nightblood", "Syl", "Vasher", "Kaladin")
