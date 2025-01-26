@@ -176,7 +176,7 @@ layout_mode = 2
 
 [node name="EndEncounterButton" type="Button" parent="GMScreen/VBoxContainer/VFlowContainer"]
 layout_mode = 2
-text = "End Encounter"
+text = "End Scene"
 script = ExtResource("12_2xgj5")
 
 [node name="PlayersWinButton" type="Button" parent="GMScreen/VBoxContainer/VFlowContainer"]

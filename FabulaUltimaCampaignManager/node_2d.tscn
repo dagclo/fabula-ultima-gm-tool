@@ -159,17 +159,17 @@ layout_mode = 2
 
 [node name="Window Title" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2
-text = "Current Encounter"
+text = "Current Scene"
 
 [node name="EncounterTitle" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2
-placeholder_text = "Encounter Name"
+placeholder_text = "Scene Name"
 max_length = 50
 script = ExtResource("3_3pve8")
 
 [node name="StartEncounterButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2
-text = "Start Encounter"
+text = "Start Scene"
 script = ExtResource("4_t2e78")
 RunEncounterScene = ExtResource("5_tr8nu")
 
@@ -277,7 +277,7 @@ script = ExtResource("6_ful6c")
 [node name="EncounterLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
 layout_mode = 2
 theme_type_variation = &"BoldLabel"
-text = "Encounters"
+text = "Scenes"
 horizontal_alignment = 1
 uppercase = true
 
@@ -303,7 +303,7 @@ layout_mode = 2
 
 [node name="AddEncounterButton" type="Button" parent="HSplitContainer/CampaignManager/Campaign/Encounters"]
 layout_mode = 2
-text = "Add Encounter"
+text = "Add Scene"
 
 [node name="PlayerSection" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
 layout_mode = 2
