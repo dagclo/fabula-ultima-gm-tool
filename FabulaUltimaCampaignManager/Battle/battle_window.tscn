@@ -4,7 +4,7 @@
 [ext_resource type="SpriteFrames" uid="uid://c82vwyudb7xd2" path="res://Battle/Backgroudn.tres" id="2_inpd1"]
 [ext_resource type="Script" path="res://Battle/Background.cs" id="3_frth7"]
 [ext_resource type="PackedScene" uid="uid://b54cktmhcq4dq" path="res://Battle/battle_slot.tscn" id="4_qo5g6"]
-[ext_resource type="Resource" path="res://configuration.tres" id="5_frm0q"]
+[ext_resource type="Resource" uid="uid://b6rycqp1qoya3" path="res://configuration.tres" id="5_frm0q"]
 [ext_resource type="AudioStream" uid="uid://da3ceh0ypddgk" path="res://Battle/Resources/Music/Three Red Hearts - Go (No Vocal).ogg" id="5_mth6u"]
 [ext_resource type="Script" path="res://Battle/PlayerPanel/BattlePlayerPanel.cs" id="6_32chj"]
 [ext_resource type="Theme" uid="uid://dtpbrs518fimv" path="res://Battle/battle_theme.tres" id="6_q2ftn"]
@@ -25,7 +25,7 @@ script = ExtResource("1_m7k50")
 [node name="Background" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("AudioPlayer")]
 scale = Vector2(4, 4)
 sprite_frames = ExtResource("2_inpd1")
-animation = &"DESERT"
+animation = &"TOWER_SUNRISE"
 centered = false
 offset = Vector2(-90, 0)
 script = ExtResource("3_frth7")

@@ -475,7 +475,7 @@ script = ExtResource("38_3f044")
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 240.0
-offset_bottom = 5774.0
+offset_bottom = 510.0
 
 [node name="Title" type="Label" parent="AboutPanel/VBoxContainer"]
 layout_mode = 2
@@ -509,7 +509,17 @@ SeraphCircle - [url]https://seraphcircle.itch.io/[/url]
 [ul]
 Shapeforms [url]https://shapeforms.itch.io/[/url]
 NOX Sound Design [url]https://nox-sound-design.itch.io/[/url]
-[/ul]"
+[/ul]
+
+[b]BattleBacks:[/b] 
+Library Night image by Pixabay: [url]https://www.pexels.com/photo/pile-of-covered-books-159751/[/url]
+Library Day image by Pixabay: [url]Photo by marco: https://www.pexels.com/photo/a-library-in-florence-italy-12916351/[/url]
+Astral Image by Pixabay [url] https://www.pexels.com/photo/red-and-orange-galaxy-illustration-41951/[/url]
+
+Ansimuz [url]https://ansimuz.itch.io/[/url]
+
+Battlebacks [url]https://battlebacks-landscapes.itch.io/[/url]
+Craftpix.net [url]https://free-game-assets.itch.io/[/url]"
 fit_content = true
 
 [connection signal="id_pressed" from="MenuBar/Settings" to="MenuBar/Settings" method="OnOptionPressed"]
