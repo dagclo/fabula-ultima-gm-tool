@@ -16,7 +16,7 @@ public partial class SaveNewNpcButton : Button, IBeastAttribute
         var npcModel = beastTemplate.Model as NpcModel;
         if (npcModel != null)
         {
-            this.Text = "Add Copy To Encounter";
+            this.Text = "Add Copy To Scene";
         }
     }
 
