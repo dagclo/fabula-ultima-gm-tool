@@ -88,7 +88,7 @@ layout_mode = 2
 text = "Remove"
 
 [connection signal="VillianRankStatus" from="." to="VillianRank" method="HandleVillianRankStatus"]
-[connection signal="text_submitted" from="Name/HBoxContainer/NameEdit" to="Name/HBoxContainer/NameEdit" method="OnTextSubmitted"]
+[connection signal="text_changed" from="Name/HBoxContainer/NameEdit" to="Name/HBoxContainer/NameEdit" method="OnTextChanged"]
 [connection signal="pressed" from="ShowStats" to="ShowStats" method="OnPressed"]
 [connection signal="pressed" from="RemoveButton" to="." method="HandleRemoveButtonPressed"]
 

@@ -15,18 +15,13 @@ public partial class NpcName : LineEdit, INpcReader
         _messagePublisher = messageRouter.GetPublisher<SaveMessage>();
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
     public void HandleNpcChanged(NpcInstance npc)
     {
         _instance = npc;
         this.Text = _instance?.InstanceName ?? string.Empty;
     }
 
-	public void OnTextSubmitted(string text)
+	public void OnTextChanged(string text)
 	{
         if (_instance == null) return;
         _instance.InstanceName = text;
