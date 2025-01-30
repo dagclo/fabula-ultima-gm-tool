@@ -155,11 +155,11 @@ namespace FabulaUltimaDatabase
                         WillPower = ((int?)b.Willpower).ToDie(),
                         ImageFile = b.ImageFile,
                         Resistances = resistance,
-                        BasicAttacks = ExtractAttacks(id, attacks, ownedAttacks, damageTypes, skills, assignedSkills).ToArray(),
-                        Spells = ExtractSpells(id, spells, ownedSpells, damageTypes).ToArray(),
-                        Equipment = ExtractEquipment(id, equipment, ownedEquipment, damageTypes, equipmentCategories, skills, assignedSkills).ToArray(),
-                        Skills = ExtractSkills(id, skills, assignedSkills).ToArray(),
-                        Actions = ExtractActions(id, actions, ownedActions).ToArray(),
+                        BasicAttacks = ExtractAttacks(id, attacks, ownedAttacks, damageTypes, skills, assignedSkills).ToList(),
+                        Spells = ExtractSpells(id, spells, ownedSpells, damageTypes).ToList(),
+                        Equipment = ExtractEquipment(id, equipment, ownedEquipment, damageTypes, equipmentCategories, skills, assignedSkills).ToList(),
+                        Skills = ExtractSkills(id, skills, assignedSkills).ToList(),
+                        Actions = ExtractActions(id, actions, ownedActions).ToList(),
                     });
                 }
                 ).ToList();
@@ -170,7 +170,7 @@ namespace FabulaUltimaDatabase
         {
             if (!ownedActions.ContainsKey(id))
             {
-                return Enumerable.Empty<ActionTemplate>().ToArray();
+                return Enumerable.Empty<ActionTemplate>().ToList();
             }
 
             return ownedActions[id]
@@ -245,13 +245,13 @@ namespace FabulaUltimaDatabase
 
             if (!ownedEquipment.ContainsKey(id))
             {
-                return Enumerable.Empty<EquipmentTemplate>().ToArray();
+                return Enumerable.Empty<EquipmentTemplate>().ToList();
             }
 
             ICollection<BeastSkillEntry> specialAttacks;
             if (assignedSkills.TryGetValue(id, out var value))
             {
-                specialAttacks = value.Where(e => e.BasicAttackId != null).ToArray();
+                specialAttacks = value.Where(e => e.BasicAttackId != null).ToList();
             }
             else
             {
@@ -323,7 +323,7 @@ namespace FabulaUltimaDatabase
         {
             if (!ownedSpells.ContainsKey(id))
             {
-                return Enumerable.Empty<SpellTemplate>().ToArray();
+                return Enumerable.Empty<SpellTemplate>().ToList();
             }
 
             return ownedSpells[id]
@@ -375,13 +375,13 @@ namespace FabulaUltimaDatabase
         {
             if (!ownedMap.ContainsKey(id))
             {
-                return Enumerable.Empty<BasicAttackTemplate>().ToArray();
+                return Enumerable.Empty<BasicAttackTemplate>().ToList();
             }
 
             ICollection<BeastSkillEntry> specialAttacks;
             if(assignedSkills.TryGetValue(id, out var value))
             {
-                specialAttacks = value.Where(e => e.BasicAttackId != null).ToArray();
+                specialAttacks = value.Where(e => e.BasicAttackId != null).ToList();
             }
             else
             {
@@ -750,7 +750,7 @@ namespace FabulaUltimaDatabase
                 {
                     var numChoices = (int)r.NumFreeVulnerabilities;
                     string choiceString = r.VulnerabilityChoices ?? "[]";
-                    var choices = JsonConvert.DeserializeObject<Guid[]>(choiceString).Select(i => new Resistance { DamageTypeId = i }).ToArray();
+                    var choices = JsonConvert.DeserializeObject<Guid[]>(choiceString).Select(i => new Resistance { DamageTypeId = i }).ToList();
                     return new SpeciesBuiltInAffinities
                     {
                         NumVulnerabilityChoices = numChoices,
