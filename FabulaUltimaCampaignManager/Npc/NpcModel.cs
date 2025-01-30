@@ -36,6 +36,8 @@ namespace FirstProject.Npc
             this.Rank = otherModel.Rank;
         }
 
+        public NpcInstance Instance { get; set; }
+
         private FabulaUltimaNpc.Rank _instanceRank = FabulaUltimaNpc.Rank.Soldier;
         [Export]
         public FabulaUltimaNpc.Rank Rank
@@ -104,8 +106,17 @@ namespace FirstProject.Npc
             }
         }
 
+        private string _traits;
         [Export]
-        public string Traits { get; set; }
+        public string Traits
+        {
+            get => _traits;
+            set
+            {
+                _traits = value;
+                EmitChanged();
+            }
+        }
 
         [Export]
         public NpcSpecies NpcSpecies { get; set; }
@@ -119,6 +130,7 @@ namespace FirstProject.Npc
             set
             {
                 NpcSpecies.SpeciesType = value;
+                EmitChanged();
             }
         }
 
@@ -133,6 +145,7 @@ namespace FirstProject.Npc
             set
             {
                 InsightSides = value.Sides;
+                EmitChanged();
             }
         }
         
@@ -147,6 +160,7 @@ namespace FirstProject.Npc
             set
             {
                 DexteritySides = value.Sides;
+                EmitChanged();
             }
         }
         
@@ -161,6 +175,7 @@ namespace FirstProject.Npc
             set
             {
                 MightSides = value.Sides;
+                EmitChanged();
             }
         }
         
@@ -175,11 +190,21 @@ namespace FirstProject.Npc
             set
             {
                 WillPowerSides = value.Sides;
+                EmitChanged();
             }
         }
 
+        private string _imageFile;
         [Export]
-        public string ImageFile { get; set; }
+        public string ImageFile
+        {
+            get => _imageFile;
+            set
+            {
+                _imageFile = value;
+                EmitChanged();
+            }
+        }
 
         [Export]
         public Godot.Collections.Dictionary<string, NpcResistance> NpcResistances { get; set; }
@@ -206,6 +231,7 @@ namespace FirstProject.Npc
             if (targetIndex != null)
             {
                 NpcAttacks.RemoveAt(targetIndex.Value);
+                EmitChanged();
                 return;
             }
         }
@@ -213,6 +239,7 @@ namespace FirstProject.Npc
         public void AddBasicAttack(BasicAttackTemplate basicAttack)
         {
             NpcAttacks.Add(new NpcBasicAttack(basicAttack));
+            EmitChanged();
         }
 
 
@@ -236,6 +263,7 @@ namespace FirstProject.Npc
             if (targetIndex != null)
             {
                 NpcSpells.RemoveAt(targetIndex.Value);
+                EmitChanged();
                 return;
             }
         }
@@ -243,6 +271,7 @@ namespace FirstProject.Npc
         public void AddSpell(SpellTemplate spell)
         {
             NpcSpells.Add(new NpcSpell(spell));
+            EmitChanged();
         }
 
         [Export]
@@ -263,6 +292,7 @@ namespace FirstProject.Npc
             if (targetIndex != null)
             {
                 NpcEquipment.RemoveAt(targetIndex.Value);
+                EmitChanged();
                 return;
             }         
         }
@@ -270,6 +300,7 @@ namespace FirstProject.Npc
         public void AddEquipment(EquipmentTemplate equipment)
         {
             NpcEquipment.Add(new NpcEquipment(equipment));
+            EmitChanged();
         }
 
         public bool HasEquipment(EquipmentTemplate equipment) => NpcEquipment.Any(e => Guid.Parse(e.Id) == equipment.Id);
@@ -296,6 +327,7 @@ namespace FirstProject.Npc
             if(baseSkillIndex != null)
             {                
                 NpcSkills.RemoveAt(baseSkillIndex.Value);
+                EmitChanged();
                 return;
             }
 
@@ -312,6 +344,7 @@ namespace FirstProject.Npc
             if (rankSkillIndex != null)
             {
                 RankSkills?.RemoveAt(rankSkillIndex.Value);
+                EmitChanged();
                 return;
             }
         }
@@ -319,6 +352,7 @@ namespace FirstProject.Npc
         public void AddSkill(SkillTemplate skill)
         {
             NpcSkills.Add(new NpcSkill(skill));
+            EmitChanged();
         }
 
         IReadOnlyCollection<SkillTemplate> IBeast.Skills => NpcSkills.Select(s => s.SkillTemplate).Concat(RankSkills?.Select(s => s.SkillTemplate) ?? new SkillTemplate[0]).ToList();
@@ -344,6 +378,7 @@ namespace FirstProject.Npc
             if (targetIndex != null)
             {
                 NpcActions.RemoveAt(targetIndex.Value);
+                EmitChanged();
                 return;
             }
         }
@@ -351,12 +386,17 @@ namespace FirstProject.Npc
         public void AddAction(ActionTemplate action)
         {
             NpcActions.Add(new NpcAction(action));
+            EmitChanged();
         }
 
         public void RemoveSkill(Guid skillId)
         {
             var skill = NpcSkills.FirstOrDefault(s => Guid.Parse(s.Id) == skillId);
-            if (skill != null) NpcSkills.Remove(skill);
+            if (skill != null)
+            {
+                NpcSkills.Remove(skill);
+                EmitChanged();
+            }
         }
 
         private Godot.Collections.Array<NpcSkill> _rankSkills;

@@ -123,6 +123,6 @@ public partial class NpcSheet : Window
     {
         if (NpcInstance == null) return;
         NpcInstance.InstanceName = newText;
-        this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });
+        //this.OnBeastChanged.Invoke(new HashSet<BeastEntryNode.Action> { BeastEntryNode.Action.CHANGED });
     }
 }

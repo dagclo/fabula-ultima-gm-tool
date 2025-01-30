@@ -391,14 +391,14 @@ script = ExtResource("39_l5v3b")
 [node name="EditNpcTemplateButton" type="Button" parent="VBoxContainer/ModifySection"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Edit"
+text = "Edit NPC"
 script = ExtResource("40_r4t3x")
 BeastEditScene = ExtResource("41_xckw7")
 
 [node name="DeleteButton" type="Button" parent="VBoxContainer/ModifySection"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Delete"
+text = "Delete  NPC"
 script = ExtResource("40_1wrog")
 
 [node name="DeleteDialog" type="PopupPanel" parent="VBoxContainer/ModifySection/DeleteButton"]

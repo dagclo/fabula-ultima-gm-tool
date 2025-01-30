@@ -35,7 +35,8 @@ public partial class VillainsList : VFlowContainer
 
         foreach (var villian in _campaign.Villains)
         {            
-            villian.VillainStats.Changed += HandleVillianChanged;
+            villian.VillainStats.Changed += HandleVillainChanged;
+            villian.Changed += HandleVillainChanged;
             var npcNode = VillianEntryScene.Instantiate<VillianEntry>();
             npcNode.UpdateNpc(villian);
             npcNode.OnRemove += (NpcInstance instance) => HandleRemove(instance, npcNode);
@@ -43,14 +44,14 @@ public partial class VillainsList : VFlowContainer
         }
     }
 
-    private void HandleVillianChanged()
+    private void HandleVillainChanged()
     {
         _messagePublisher.Publish((new SaveMessage()).AsMessage());
     }
 
     private void HandleRemove(NpcInstance instance, VillianEntry entry)
     {
-        instance.VillainStats.Changed -= HandleVillianChanged;
+        instance.VillainStats.Changed -= HandleVillainChanged;
         _campaign.Villains.Remove(instance);
         RemoveChild(entry);
         entry.QueueFree();

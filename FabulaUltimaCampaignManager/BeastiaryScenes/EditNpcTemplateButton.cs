@@ -1,8 +1,10 @@
 using FabulaUltimaNpc;
 using FirstProject.Messaging;
+using FirstProject.Npc;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class EditNpcTemplateButton : Button, IBeastAttribute
 {
@@ -31,7 +33,16 @@ public partial class EditNpcTemplateButton : Button, IBeastAttribute
         this.Disabled = true;
         var npcSheet = BeastEditScene.Instantiate<NpcSheet>();
         npcSheet.BeastModel = _beastModel;
-        npcSheet.TitleOverride = $"Edit {_beastModel.Name}";
+        if(_beastModel is NpcModel npcModel)
+        {
+            npcSheet.TitleOverride = $"Edit {npcModel.Instance.InstanceName}";
+            npcSheet.NpcInstance = npcModel.Instance;
+        }
+        else
+        {
+            npcSheet.TitleOverride = $"Edit {_beastModel.Name}";
+        }
+        
         npcSheet.Closing += () => HandleNpcSheetClose(npcSheet);
         this.AddChild(npcSheet);
     }
@@ -41,6 +52,7 @@ public partial class EditNpcTemplateButton : Button, IBeastAttribute
         RemoveChild(npcSheet);
         npcSheet.QueueFree();
         this.Disabled = false;
-        _messagePublisher.Publish(new BeastiaryRefreshMessage().AsMessage());
+        //_messagePublisher.Publish(new BeastiaryRefreshMessage().AsMessage());
+        BeastTemplateAction?.Invoke(new[] { BeastEntryNode.Action.CHANGED }.ToHashSet());
     }
 }

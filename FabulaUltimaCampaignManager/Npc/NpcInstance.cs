@@ -45,6 +45,7 @@ namespace FirstProject.Npc
                 }
                 _model = value;
                 _model.Changed += OnModelChanged;
+                _model.Instance = this;
             }
         }
 
