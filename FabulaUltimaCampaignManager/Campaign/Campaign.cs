@@ -33,7 +33,7 @@ public partial class Campaign : Container
 
         if (CampaignData != null)
         {
-            UpdateCampaign(true);
+            UpdateCampaign(CampaignData, true);
         }
 
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
@@ -42,12 +42,14 @@ public partial class Campaign : Container
         _messagePublisher = messageRouter.GetPublisher<SaveMessage>();        
     }
 
-    private void UpdateCampaign(bool onStart)
+    private void UpdateCampaign(CampaignData data, bool onStart)
     {
-        if(onStart)
+        if(!onStart)
         {
             CampaignData.Changed -= HandleCampaignDataChanged;
+            CampaignData = data; //todo: don't double load
         }
+                
         var filePath = GetCampaignFilePath(CampaignData.Id);
         var storedCampaign = ResourceExtensions.Load<CampaignData>(filePath);
         if (storedCampaign == null)
@@ -86,9 +88,8 @@ public partial class Campaign : Container
     {
         if (message is not IMessage<CampaignUpdate> campaignMessage) return;
         await Task.Run(() =>
-        {
-            CampaignData = campaignMessage.Value.CampaignData;
-            CallDeferred(MethodName.UpdateCampaign, false);
+        {            
+            CallDeferred(MethodName.UpdateCampaign, campaignMessage.Value.CampaignData, false);
         });
     }
 
