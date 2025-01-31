@@ -23,6 +23,7 @@ public partial class InstanceNameEdit : LineEdit, IBeastAttribute, IValidatable
         var npcModel = beastTemplate.Model as NpcModel;
         if (npcModel == null) return;      
         this.Visible = true;
+        this.Text = _currentName = npcModel.Instance.InstanceName;
     }
 
     public void HandleTextChanged(string newText)

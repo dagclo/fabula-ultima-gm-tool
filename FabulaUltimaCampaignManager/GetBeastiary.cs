@@ -101,11 +101,6 @@ public partial class GetBeastiary : VBoxContainer
         CallDeferred(MethodName.EmitSignal, SignalName.AddBeastToEncounter, instance);
     }
 
-    //private void OnWizardCloseDefer(NpcSheet npcWizard)
-    //{        
-    //    CallDeferred(MethodName.OnWizardClose, npcWizard);
-    //}
-
     private void OnNpcSheetClose(NpcSheet npcWizard)
     {
         RemoveChild(npcWizard);

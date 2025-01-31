@@ -6,6 +6,8 @@ using System.Linq;
 
 public partial class NpcStatWindow : Window
 {
+    private NpcInstance _instance;
+
     private BeastEntryNode _beastEntyNode { get; set; }
 
     public Action OnClose { get; set; }
@@ -15,15 +17,23 @@ public partial class NpcStatWindow : Window
         foreach (var child in this.FindChildren("*")
          .Where(l => l is BeastEntryNode))
         {
-            _beastEntyNode = child as BeastEntryNode;            
+            _beastEntyNode = child as BeastEntryNode;
+            _beastEntyNode.BeastChanged += HandleBeastChanged;
         }
         this.ResizeForResolution();
     }
 
-	public void SetBeast(NpcInstance instance)
+    private void HandleBeastChanged(IBeastTemplate _)
+    {
+        if (_instance == null) return;
+        Title = $"{_instance.Model.Rank}: {_instance.InstanceName}";
+    }
+
+    public void SetBeast(NpcInstance instance)
 	{     
         _beastEntyNode.Beast = instance.Template;
-        Title = $"{instance.Model.Rank}: {instance.InstanceName}";
+        _instance = instance;
+        Title = $"{_instance.Model.Rank}: {_instance.InstanceName}";
 	}
 
     public void OnCloseRequested()

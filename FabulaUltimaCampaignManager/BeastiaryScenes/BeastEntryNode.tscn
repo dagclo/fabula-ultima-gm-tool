@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dvrc1lde82y6f"]
+[gd_scene load_steps=46 format=3 uid="uid://dvrc1lde82y6f"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_t4gi0"]
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="2_6f5hl"]
@@ -40,7 +40,9 @@
 [ext_resource type="PackedScene" uid="uid://b6kwc80e1vqp1" path="res://BeastiaryScenes/other_action.tscn" id="34_mp60j"]
 [ext_resource type="Script" path="res://BeastiaryScenes/AddToEncounterButton.cs" id="39_l5v3b"]
 [ext_resource type="Script" path="res://BeastiaryScenes/DeleteButton.cs" id="40_1wrog"]
+[ext_resource type="Script" path="res://BeastiaryScenes/EditNpcTemplateButton.cs" id="40_r4t3x"]
 [ext_resource type="Script" path="res://BeastiaryScenes/DeleteQuestion.cs" id="41_kbchb"]
+[ext_resource type="PackedScene" uid="uid://7xtkfi8kp6pg" path="res://BeastiaryScenes/new_npc_sheet.tscn" id="41_xckw7"]
 [ext_resource type="Script" path="res://BeastiaryScenes/DeleteConfirmButton.cs" id="42_nml4d"]
 [ext_resource type="Script" path="res://BeastiaryScenes/CancelDeleteButton.cs" id="43_jbvkn"]
 
@@ -377,41 +379,52 @@ text = "SPECIAL RULES"
 [node name="Action" parent="VBoxContainer/SpecialRules" instance=ExtResource("33_ma2ky")]
 layout_mode = 2
 
-[node name="AddToEncounterButton" type="Button" parent="VBoxContainer"]
+[node name="ModifySection" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+
+[node name="AddToEncounterButton" type="Button" parent="VBoxContainer/ModifySection"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Add To Current Scene"
 script = ExtResource("39_l5v3b")
 
-[node name="DeleteButton" type="Button" parent="VBoxContainer" node_paths=PackedStringArray("DeleteDialog")]
+[node name="EditNpcTemplateButton" type="Button" parent="VBoxContainer/ModifySection"]
 layout_mode = 2
-text = "Delete"
-script = ExtResource("40_1wrog")
-DeleteDialog = NodePath("DeleteDialog")
+size_flags_horizontal = 3
+text = "Edit NPC"
+script = ExtResource("40_r4t3x")
+BeastEditScene = ExtResource("41_xckw7")
 
-[node name="DeleteDialog" type="PopupPanel" parent="VBoxContainer/DeleteButton"]
+[node name="DeleteButton" type="Button" parent="VBoxContainer/ModifySection"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delete  NPC"
+script = ExtResource("40_1wrog")
+
+[node name="DeleteDialog" type="PopupPanel" parent="VBoxContainer/ModifySection/DeleteButton"]
 initial_position = 1
 size = Vector2i(444, 100)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/DeleteButton/DeleteDialog"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ModifySection/DeleteButton/DeleteDialog"]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 440.0
 offset_bottom = 122.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer"]
 layout_mode = 2
 
-[node name="DeleteQuestion" type="Label" parent="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer/HBoxContainer"]
+[node name="DeleteQuestion" type="Label" parent="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Are you sure you want to delete <insert value>?"
 script = ExtResource("41_kbchb")
 
-[node name="DeleteConfirmButton" type="Button" parent="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer"]
+[node name="DeleteConfirmButton" type="Button" parent="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer"]
 layout_mode = 2
 text = "Delete"
 script = ExtResource("42_nml4d")
 
-[node name="CancelDeleteButton" type="Button" parent="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer" node_paths=PackedStringArray("DeleteBeastDialog")]
+[node name="CancelDeleteButton" type="Button" parent="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer" node_paths=PackedStringArray("DeleteBeastDialog")]
 layout_mode = 2
 text = "Cancel"
 script = ExtResource("43_jbvkn")
@@ -419,10 +432,11 @@ DeleteBeastDialog = NodePath("../..")
 
 [connection signal="pressed" from="VBoxContainer/Description/PanelContainer/UpdateImageButton" to="VBoxContainer/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="VBoxContainer/Description/PanelContainer/FileDialog" to="VBoxContainer/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
-[connection signal="pressed" from="VBoxContainer/AddToEncounterButton" to="." method="OnAddToEncounterButtonPressed"]
-[connection signal="pressed" from="VBoxContainer/DeleteButton" to="VBoxContainer/DeleteButton" method="OnClick"]
-[connection signal="pressed" from="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer/DeleteConfirmButton" to="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer/DeleteConfirmButton" method="OnPressed"]
-[connection signal="pressed" from="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer/CancelDeleteButton" to="VBoxContainer/DeleteButton/DeleteDialog/VBoxContainer/CancelDeleteButton" method="OnPressed"]
+[connection signal="pressed" from="VBoxContainer/ModifySection/AddToEncounterButton" to="." method="OnAddToEncounterButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/ModifySection/EditNpcTemplateButton" to="VBoxContainer/ModifySection/EditNpcTemplateButton" method="HandlePressed"]
+[connection signal="pressed" from="VBoxContainer/ModifySection/DeleteButton" to="VBoxContainer/ModifySection/DeleteButton" method="OnClick"]
+[connection signal="pressed" from="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer/DeleteConfirmButton" to="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer/DeleteConfirmButton" method="OnPressed"]
+[connection signal="pressed" from="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer/CancelDeleteButton" to="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer/CancelDeleteButton" method="OnPressed"]
 
 [editable path="VBoxContainer/Description/DescriptionText/Traits"]
 [editable path="VBoxContainer/Stats/Dexterity"]

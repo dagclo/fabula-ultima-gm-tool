@@ -22,8 +22,8 @@ public partial class RankOptionButton : OptionButton, IBeastAttribute
     {
         _npcModel = beastTemplate.Model as NpcModel;
         if (_npcModel == null) return;
-        this.Visible = true;
-        _npcModel.Rank = (FabulaUltimaNpc.Rank) GetItemId(this.Selected);
+        this.Visible = true;        
+        this.Selected = GetItemIndex((int)_npcModel.Rank);
     }
 
     public void HandleSelected(int index)
