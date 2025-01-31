@@ -128,13 +128,14 @@ script = ExtResource("1_5rpfd")
 [node name="MenuBar" type="MenuBar" parent="."]
 layout_mode = 2
 
-[node name="File" type="PopupMenu" parent="MenuBar" node_paths=PackedStringArray("ChooseCampaignPanel")]
+[node name="File" type="PopupMenu" parent="MenuBar" node_paths=PackedStringArray("ChooseCampaignPanel", "NewCampaignPanel")]
 item_count = 2
-item_0/text = "Open Campaign"
+item_0/text = "Load Campaign"
 item_1/text = "Create New Campaign"
 item_1/id = 1
 script = ExtResource("3_b7n4u")
 ChooseCampaignPanel = NodePath("../../ChooseCampaignPanel")
+NewCampaignPanel = NodePath("../../NewCampaignPanel")
 
 [node name="Settings" type="PopupMenu" parent="MenuBar"]
 size = Vector2i(201, 100)
@@ -537,7 +538,7 @@ Craftpix.net [url]https://free-game-assets.itch.io/[/url]"
 fit_content = true
 
 [node name="ChooseCampaignPanel" type="PopupPanel" parent="."]
-title = "Open Campaign"
+title = "Load Campaign"
 initial_position = 1
 size = Vector2i(300, 300)
 unresizable = false

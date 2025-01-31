@@ -32,7 +32,7 @@ public partial class Campaign : Container
         }
 
         // overwrite default if available
-        if(Configuration.CurrentCampaignID != null)
+        if(!string.IsNullOrEmpty(Configuration.CurrentCampaignID))
         {
             var filePath = GetCampaignFilePath(Configuration.CurrentCampaignID);
             CampaignData = ResourceExtensions.Load<CampaignData>(filePath);
