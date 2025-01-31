@@ -2,7 +2,6 @@ using FabulaUltimaNpc;
 using FabulaUltimaSkillLibrary;
 using FirstProject.Beastiary;
 using Godot;
-using System;
 using System.Linq;
 
 public partial class SpellDamageTypeOptionsButton : OptionButton

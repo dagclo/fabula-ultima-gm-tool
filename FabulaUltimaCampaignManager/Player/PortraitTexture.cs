@@ -6,11 +6,14 @@ public partial class PortraitTexture : TextureRect, IPlayerAttribute
 {
 	private PlayerData _player;
 	private MessagePublisher<SaveMessage> _messagePublisher;
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    private Texture2D _defaultTexture;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
 		 var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");        
         _messagePublisher = messageRouter.GetPublisher<SaveMessage>();
+		_defaultTexture = Texture;
 	}
 
     public void SetPlayer(PlayerData data)
@@ -21,7 +24,11 @@ public partial class PortraitTexture : TextureRect, IPlayerAttribute
 
 	private void LoadTexture()
 	{
-		if(string.IsNullOrWhiteSpace(_player.PortraitFile)) return;
+		if (string.IsNullOrWhiteSpace(_player.PortraitFile))
+		{
+			this.Texture = _defaultTexture;
+			return;
+		}
 		var image = Image.LoadFromFile(_player.PortraitFile);        
 		var texture = ImageTexture.CreateFromImage(image);
 		this.Texture = texture;

@@ -4,9 +4,7 @@ using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
 using Godot.Collections;
-using System;
 using System.Linq;
-using static System.Formats.Asn1.AsnWriter;
 
 public partial class CustomEquipmentList : Container
 {

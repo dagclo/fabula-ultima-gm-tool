@@ -1,4 +1,3 @@
-using FabulaUltimaDatabase.Models;
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;

@@ -1,8 +1,5 @@
-using FabulaUltimaNpc;
 using FabulaUltimaSkillLibrary;
-using FirstProject.Beastiary;
 using FirstProject.Npc;
-using Godot;
 using System;
 
 public partial class WeaponDamageTypeOptionButton : ChooseDamageTypeOptions, INpcEquipmentReader

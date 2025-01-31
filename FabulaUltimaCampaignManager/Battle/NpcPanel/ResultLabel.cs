@@ -4,7 +4,6 @@ using FirstProject.Encounters;
 using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
-using System;
 
 public partial class ResultLabel : Label, INpcReader, INpcStatusReader
 {

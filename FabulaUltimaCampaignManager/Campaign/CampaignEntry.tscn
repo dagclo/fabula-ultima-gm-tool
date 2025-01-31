@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://da0ahsh8byack"]
+
+[ext_resource type="Script" path="res://Campaign/CampaignEntry.cs" id="1_he7lb"]
+[ext_resource type="Script" path="res://Campaign/CampaignEntryNameLabel.cs" id="2_vwcbh"]
+[ext_resource type="Script" path="res://Campaign/CampaignEntryPlayerNameContainer.cs" id="3_l8bfw"]
+
+[node name="CampaignEntry" type="VBoxContainer"]
+offset_right = 244.0
+offset_bottom = 74.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_he7lb")
+
+[node name="NameLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+text = "Name: [b]Campaign Name[/b]"
+fit_content = true
+script = ExtResource("2_vwcbh")
+
+[node name="PlayerLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+text = "Players:"
+fit_content = true
+script = ExtResource("3_l8bfw")
+
+[node name="OpenButton" type="Button" parent="."]
+layout_mode = 2
+text = "Open"
+
+[connection signal="OnCampaignUpdate" from="." to="NameLabel" method="HandleCampaignChanged"]
+[connection signal="pressed" from="OpenButton" to="." method="HandlePressed"]

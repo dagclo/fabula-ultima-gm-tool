@@ -1,10 +1,8 @@
-using FabulaUltimaDatabase;
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
 using System;
 using System.Linq;
-using System.Reflection.Emit;
 
 public partial class VillianEntry : VBoxContainer
 {

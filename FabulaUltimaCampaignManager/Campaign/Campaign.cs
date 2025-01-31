@@ -1,3 +1,4 @@
+using FabulaUltimaGMTool;
 using FirstProject;
 using FirstProject.Beastiary;
 using FirstProject.Campaign;
@@ -17,6 +18,8 @@ public partial class Campaign : Container
     [Export]
     public Configuration Configuration { get; set; }
 
+    public UserConfigurationData _userConfiguration;
+
     [Export]
     public double SaveTimeWindowSeconds { get; set; } = 2;
 
@@ -28,30 +31,52 @@ public partial class Campaign : Container
 	{   
         if(Configuration != null)
         {
-            Configuration.MakeDirectories();
+            Configuration.MakeCampaignDirectories();
+        }
+
+        _userConfiguration = GetNode<UserConfigurationState>("/root/UserConfigurationState").UserConfigurationData;
+
+        // overwrite default if available
+        if (!string.IsNullOrEmpty(_userConfiguration.CurrentCampaignID))
+        {
+            var filePath = GetCampaignFilePath(_userConfiguration.CurrentCampaignID);
+            CampaignData = ResourceExtensions.Load<CampaignData>(filePath);
         }
 
         if (CampaignData != null)
         {
-            var filePath = GetCampaignFilePath();
-            var storedCampaign = ResourceExtensions.Load<CampaignData>(filePath);
-            if (storedCampaign == null)
-            {   
-                CampaignData.Save(filePath);
-                CampaignData = ResourceExtensions.Load<CampaignData>(filePath);
-            }
-            else
-            {   
-                CampaignData = storedCampaign;
-            }
-            var runState = GetNode<RunState>("/root/RunState");
-            runState.Campaign = CampaignData;
-            EmitSignal(SignalName.UpdateCurrentCampaign, new SignalWrapper<CampaignData>(CampaignData));
+            UpdateCampaign(CampaignData, true);
         }
 
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         messageRouter.RegisterSubscriber<SaveMessage>(this.ReceiveSaveMessage);
-        _messagePublisher = messageRouter.GetPublisher<SaveMessage>();
+        messageRouter.RegisterSubscriber<CampaignUpdate>(this.ReceiveCampaignUpdate);
+        _messagePublisher = messageRouter.GetPublisher<SaveMessage>();        
+    }
+
+    private void UpdateCampaign(CampaignData data, bool onStart)
+    {
+        if(!onStart)
+        {            
+            CampaignData = data; //todo: don't double load
+            _userConfiguration.CurrentCampaignID = data.Id;
+            ResourceExtensions.Save(_userConfiguration);
+        }
+                
+        var filePath = GetCampaignFilePath(CampaignData.Id);
+        var storedCampaign = ResourceExtensions.Load<CampaignData>(filePath);
+        if (storedCampaign == null)
+        {
+            CampaignData.Save(filePath);
+            CampaignData = ResourceExtensions.Load<CampaignData>(filePath);
+        }
+        else
+        {
+            CampaignData = storedCampaign;
+        }
+        var runState = GetNode<RunState>("/root/RunState");
+        runState.Campaign = CampaignData;
+        EmitSignal(SignalName.UpdateCurrentCampaign, new SignalWrapper<CampaignData>(CampaignData));
         CampaignData.Changed += HandleCampaignDataChanged;
     }
 
@@ -64,7 +89,7 @@ public partial class Campaign : Container
     private async Task ReceiveSaveMessage(IMessage message)
     {
         if (!(message is IMessage<SaveMessage> saveMessage)) return;                
-        var savePath = GetCampaignFilePath();
+        var savePath = GetCampaignFilePath(CampaignData.Id);
         if (_saveTimer != null) return;
         _saveTimer = GetTree().CreateTimer(SaveTimeWindowSeconds);        
         await ToSignal(_saveTimer, SceneTreeTimer.SignalName.Timeout); // adjust timing later
@@ -72,8 +97,16 @@ public partial class Campaign : Container
         _saveTimer = null;
     }
 
+    private async Task ReceiveCampaignUpdate(IMessage message)
+    {
+        if (message is not IMessage<CampaignUpdate> campaignMessage) return;
+        await Task.Run(() =>
+        {            
+            CallDeferred(MethodName.UpdateCampaign, campaignMessage.Value.CampaignData, false);
+        });
+    }
 
-    private string GetCampaignFilePath() => Configuration.CampaignFolder + $"{CampaignData.Id}.tres";
+    private string GetCampaignFilePath(string campaignID) => Configuration.CampaignFolder + $"{campaignID}.tres";
 
     public void AddEncounter(Encounter encounter)
     {
@@ -88,4 +121,9 @@ public partial class Campaign : Container
 
 public struct SaveMessage
 {   
+}
+
+public struct CampaignUpdate
+{
+    public CampaignData CampaignData { get; set; }
 }

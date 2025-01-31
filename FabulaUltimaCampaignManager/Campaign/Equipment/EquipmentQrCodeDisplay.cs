@@ -1,5 +1,4 @@
 using FabulaUltimaGMTool.Adaptors;
-using FirstProject.Beastiary;
 using FirstProject.Npc;
 using Godot;
 using Newtonsoft.Json;

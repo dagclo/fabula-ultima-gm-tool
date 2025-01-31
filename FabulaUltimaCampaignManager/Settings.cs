@@ -1,15 +1,16 @@
+using FabulaUltimaGMTool;
 using FirstProject;
 using Godot;
 
 public partial class Settings : PopupMenu
 {
-    [Export]
-    public Configuration _configuration { get; set; }
+    private UserConfigurationData _userConfiguration;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        SetItemChecked(0, _configuration.BackgroundMusicEnabled);
+        _userConfiguration = GetNode<UserConfigurationState>("/root/UserConfigurationState").UserConfigurationData;
+        SetItemChecked(0, _userConfiguration.BackgroundMusicEnabled);        
     }
 
     public void OnOptionPressed(int index)
@@ -18,10 +19,10 @@ public partial class Settings : PopupMenu
         
         switch (itemText)
         {
-            case "Play Background Music":                
-                _configuration.BackgroundMusicEnabled = !_configuration.BackgroundMusicEnabled;
-                SetItemChecked(index, _configuration.BackgroundMusicEnabled);
-                ResourceExtensions.Save(_configuration);
+            case "Play Background Music":
+                _userConfiguration.BackgroundMusicEnabled = !_userConfiguration.BackgroundMusicEnabled;
+                SetItemChecked(index, _userConfiguration.BackgroundMusicEnabled);
+                ResourceExtensions.Save(_userConfiguration);
                 break;
         }
     }
