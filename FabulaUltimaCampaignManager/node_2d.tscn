@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=54 format=3 uid="uid://ec56818wobea"]
 
 [ext_resource type="Script" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
@@ -47,6 +47,9 @@
 [ext_resource type="Script" path="res://Campaign/ChooseCampaignPanel.cs" id="45_33uag"]
 [ext_resource type="Script" path="res://Campaign/CampaignList.cs" id="45_ysk35"]
 [ext_resource type="PackedScene" uid="uid://da0ahsh8byack" path="res://Campaign/CampaignEntry.tscn" id="46_4ad1d"]
+[ext_resource type="Script" path="res://Campaign/NewCampaignPanel.cs" id="48_0l0jh"]
+[ext_resource type="Script" path="res://Campaign/NewCampaignLineEdit.cs" id="49_uxrjf"]
+[ext_resource type="Script" path="res://Campaign/NewCampaignButton.cs" id="50_ifarl"]
 
 [sub_resource type="Animation" id="Animation_romfh"]
 length = 0.001
@@ -126,8 +129,10 @@ script = ExtResource("1_5rpfd")
 layout_mode = 2
 
 [node name="File" type="PopupMenu" parent="MenuBar" node_paths=PackedStringArray("ChooseCampaignPanel")]
-item_count = 1
+item_count = 2
 item_0/text = "Open Campaign"
+item_1/text = "Create New Campaign"
+item_1/id = 1
 script = ExtResource("3_b7n4u")
 ChooseCampaignPanel = NodePath("../../ChooseCampaignPanel")
 
@@ -139,7 +144,7 @@ item_count = 1
 item_0/text = "Play Background Music"
 item_0/checkable = 1
 script = ExtResource("3_f7bcp")
-_configuration = ExtResource("8_qwns5")
+Configuration = ExtResource("8_qwns5")
 
 [node name="Help" type="PopupMenu" parent="MenuBar" node_paths=PackedStringArray("AboutPanel")]
 title = "Help"
@@ -555,6 +560,35 @@ script = ExtResource("45_ysk35")
 CampaignScene = ExtResource("46_4ad1d")
 Configuration = ExtResource("8_qwns5")
 
+[node name="NewCampaignPanel" type="PopupPanel" parent="."]
+title = "Create New Campaign"
+initial_position = 1
+size = Vector2i(300, 100)
+borderless = false
+extend_to_title = true
+script = ExtResource("48_0l0jh")
+
+[node name="NewCampaignContainer" type="VBoxContainer" parent="NewCampaignPanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 296.0
+offset_bottom = 96.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NewCampaignLineEdit" type="LineEdit" parent="NewCampaignPanel/NewCampaignContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+placeholder_text = "New Campaign Name"
+script = ExtResource("49_uxrjf")
+
+[node name="NewCampaignButton" type="Button" parent="NewCampaignPanel/NewCampaignContainer"]
+layout_mode = 2
+disabled = true
+text = "Create"
+script = ExtResource("50_ifarl")
+
 [connection signal="id_pressed" from="MenuBar/File" to="MenuBar/File" method="OnOptionPressed"]
 [connection signal="id_pressed" from="MenuBar/Settings" to="MenuBar/Settings" method="OnOptionPressed"]
 [connection signal="id_pressed" from="MenuBar/Help" to="MenuBar/Help" method="OnOptionPressed"]
@@ -599,3 +633,7 @@ Configuration = ExtResource("8_qwns5")
 [connection signal="OnVisibilityChanged" from="ChooseCampaignPanel" to="ChooseCampaignPanel/CampaignScroller/CampaignList" method="HandleVisibilityChanged"]
 [connection signal="visibility_changed" from="ChooseCampaignPanel" to="ChooseCampaignPanel" method="HandleVisibilityChanged"]
 [connection signal="OnCampaignChosen" from="ChooseCampaignPanel/CampaignScroller/CampaignList" to="ChooseCampaignPanel" method="HandleCampaignChosen"]
+[connection signal="OnNewCampaignCreated" from="NewCampaignPanel/NewCampaignContainer/NewCampaignLineEdit" to="NewCampaignPanel" method="HandleNewCampaignCreated"]
+[connection signal="OnTextValid" from="NewCampaignPanel/NewCampaignContainer/NewCampaignLineEdit" to="NewCampaignPanel/NewCampaignContainer/NewCampaignButton" method="HandleTextValid"]
+[connection signal="text_changed" from="NewCampaignPanel/NewCampaignContainer/NewCampaignLineEdit" to="NewCampaignPanel/NewCampaignContainer/NewCampaignLineEdit" method="HandleTextChanged"]
+[connection signal="pressed" from="NewCampaignPanel/NewCampaignContainer/NewCampaignButton" to="NewCampaignPanel/NewCampaignContainer/NewCampaignLineEdit" method="HandlePressed"]

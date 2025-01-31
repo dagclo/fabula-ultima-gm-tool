@@ -17,6 +17,9 @@ namespace FirstProject
         public string DatabaseFilePath { get; set; }
 
         [Export]
+        public string CurrentCampaignID { get; set; }
+
+        [Export]
         public bool BackgroundMusicEnabled { get; set; }
 
         [Export]

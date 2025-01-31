@@ -31,6 +31,13 @@ public partial class Campaign : Container
             Configuration.MakeDirectories();
         }
 
+        // overwrite default if available
+        if(Configuration.CurrentCampaignID != null)
+        {
+            var filePath = GetCampaignFilePath(Configuration.CurrentCampaignID);
+            CampaignData = ResourceExtensions.Load<CampaignData>(filePath);
+        }
+
         if (CampaignData != null)
         {
             UpdateCampaign(CampaignData, true);
@@ -48,6 +55,8 @@ public partial class Campaign : Container
         {
             CampaignData.Changed -= HandleCampaignDataChanged;
             CampaignData = data; //todo: don't double load
+            Configuration.CurrentCampaignID = data.Id;
+            ResourceExtensions.Save(Configuration);
         }
                 
         var filePath = GetCampaignFilePath(CampaignData.Id);

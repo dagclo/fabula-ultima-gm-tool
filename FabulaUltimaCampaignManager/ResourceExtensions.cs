@@ -9,7 +9,7 @@ namespace FirstProject
             var error = ResourceSaver.Save(resource, savePath);
             if (error != Error.Ok)
             {
-                GD.Print($"error while save campaign {error}");
+                GD.Print($"error while saving resource {error}");
             }
         }
 
