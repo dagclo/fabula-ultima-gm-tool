@@ -1,6 +1,5 @@
 using FabulaUltimaNpc;
 using Godot;
-using System;
 
 public partial class SpellDamageModifier : Label, ISpellReader
 {

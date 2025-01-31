@@ -1,6 +1,5 @@
 using FirstProject.Encounters;
 using Godot;
-using System;
 using System.Linq;
 
 public partial class ArchiveDeleteEncounterButton : Button, IEncounterAttribute

@@ -1,8 +1,5 @@
 using FabulaUltimaNpc;
-using FirstProject.Npc;
 using Godot;
-using System;
-using System.Collections.Generic;
 
 public partial class ShareSpellButton : Button, ISpellReader
 {

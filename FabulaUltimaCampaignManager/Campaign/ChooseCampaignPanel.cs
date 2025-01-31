@@ -1,7 +1,4 @@
-using FirstProject;
-using FirstProject.Campaign;
 using Godot;
-using System;
 
 public partial class ChooseCampaignPanel : PopupPanel
 {

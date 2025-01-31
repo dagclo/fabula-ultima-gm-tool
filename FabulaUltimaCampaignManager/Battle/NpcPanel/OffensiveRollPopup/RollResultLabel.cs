@@ -1,11 +1,9 @@
-using FabulaUltimaDatabase;
 using FabulaUltimaGMTool.Battle.NpcPanel;
 using FirstProject.Beastiary;
 using FirstProject.Encounters;
 using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
-using System;
 
 public partial class RollResultLabel : RichTextLabel, INpcReader
 {

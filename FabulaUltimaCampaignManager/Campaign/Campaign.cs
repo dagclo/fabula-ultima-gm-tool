@@ -60,7 +60,7 @@ public partial class Campaign : Container
         {            
             CampaignData = data; //todo: don't double load
             _userConfiguration.CurrentCampaignID = data.Id;
-            ResourceExtensions.Save(Configuration);
+            ResourceExtensions.Save(_userConfiguration);
         }
                 
         var filePath = GetCampaignFilePath(CampaignData.Id);

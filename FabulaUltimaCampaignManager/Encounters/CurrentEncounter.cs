@@ -1,9 +1,7 @@
 using FirstProject;
 using FirstProject.Encounters;
-using FirstProject.Messaging;
 using FirstProject.Npc;
 using Godot;
-using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;

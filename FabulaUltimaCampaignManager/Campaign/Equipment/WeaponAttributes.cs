@@ -1,4 +1,3 @@
-using FabulaUltimaNpc;
 using FirstProject.Npc;
 using Godot;
 using System;

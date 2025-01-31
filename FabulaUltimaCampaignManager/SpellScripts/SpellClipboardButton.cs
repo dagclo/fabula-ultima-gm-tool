@@ -1,8 +1,6 @@
-using FabulaUltimaGMTool.Adaptors;
 using FabulaUltimaNpc;
 using FirstProject.Beastiary;
 using Godot;
-using System;
 
 public partial class SpellClipboardButton : Button
 {

@@ -1,4 +1,3 @@
-using FirstProject.Beastiary;
 using FirstProject.Npc;
 using Godot;
 using System;
