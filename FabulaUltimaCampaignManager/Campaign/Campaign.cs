@@ -33,25 +33,35 @@ public partial class Campaign : Container
 
         if (CampaignData != null)
         {
-            var filePath = GetCampaignFilePath();
-            var storedCampaign = ResourceExtensions.Load<CampaignData>(filePath);
-            if (storedCampaign == null)
-            {   
-                CampaignData.Save(filePath);
-                CampaignData = ResourceExtensions.Load<CampaignData>(filePath);
-            }
-            else
-            {   
-                CampaignData = storedCampaign;
-            }
-            var runState = GetNode<RunState>("/root/RunState");
-            runState.Campaign = CampaignData;
-            EmitSignal(SignalName.UpdateCurrentCampaign, new SignalWrapper<CampaignData>(CampaignData));
+            UpdateCampaign(true);
         }
 
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         messageRouter.RegisterSubscriber<SaveMessage>(this.ReceiveSaveMessage);
-        _messagePublisher = messageRouter.GetPublisher<SaveMessage>();
+        messageRouter.RegisterSubscriber<CampaignUpdate>(this.ReceiveCampaignUpdate);
+        _messagePublisher = messageRouter.GetPublisher<SaveMessage>();        
+    }
+
+    private void UpdateCampaign(bool onStart)
+    {
+        if(onStart)
+        {
+            CampaignData.Changed -= HandleCampaignDataChanged;
+        }
+        var filePath = GetCampaignFilePath(CampaignData.Id);
+        var storedCampaign = ResourceExtensions.Load<CampaignData>(filePath);
+        if (storedCampaign == null)
+        {
+            CampaignData.Save(filePath);
+            CampaignData = ResourceExtensions.Load<CampaignData>(filePath);
+        }
+        else
+        {
+            CampaignData = storedCampaign;
+        }
+        var runState = GetNode<RunState>("/root/RunState");
+        runState.Campaign = CampaignData;
+        EmitSignal(SignalName.UpdateCurrentCampaign, new SignalWrapper<CampaignData>(CampaignData));
         CampaignData.Changed += HandleCampaignDataChanged;
     }
 
@@ -64,7 +74,7 @@ public partial class Campaign : Container
     private async Task ReceiveSaveMessage(IMessage message)
     {
         if (!(message is IMessage<SaveMessage> saveMessage)) return;                
-        var savePath = GetCampaignFilePath();
+        var savePath = GetCampaignFilePath(CampaignData.Id);
         if (_saveTimer != null) return;
         _saveTimer = GetTree().CreateTimer(SaveTimeWindowSeconds);        
         await ToSignal(_saveTimer, SceneTreeTimer.SignalName.Timeout); // adjust timing later
@@ -72,8 +82,17 @@ public partial class Campaign : Container
         _saveTimer = null;
     }
 
+    private async Task ReceiveCampaignUpdate(IMessage message)
+    {
+        if (message is not IMessage<CampaignUpdate> campaignMessage) return;
+        await Task.Run(() =>
+        {
+            CampaignData = campaignMessage.Value.CampaignData;
+            CallDeferred(MethodName.UpdateCampaign, false);
+        });
+    }
 
-    private string GetCampaignFilePath() => Configuration.CampaignFolder + $"{CampaignData.Id}.tres";
+    private string GetCampaignFilePath(string campaignID) => Configuration.CampaignFolder + $"{campaignID}.tres";
 
     public void AddEncounter(Encounter encounter)
     {
@@ -88,4 +107,9 @@ public partial class Campaign : Container
 
 public struct SaveMessage
 {   
+}
+
+public struct CampaignUpdate
+{
+    public CampaignData CampaignData { get; set; }
 }
