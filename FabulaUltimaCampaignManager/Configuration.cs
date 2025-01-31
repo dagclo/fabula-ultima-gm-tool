@@ -25,6 +25,9 @@ namespace FirstProject
         [Export]
         public string[] InstanceNames { get; set; }
 
+        [Export]
+        public string UserConfigurationFolder { get; set; }
+
         internal IEnumerable<CampaignData> GetCampaigns()
         {
             var filePaths = DirAccess.GetFilesAt(CampaignFolder).Where(p => p.EndsWith(".tres"));
@@ -35,9 +38,14 @@ namespace FirstProject
             }
         }
 
-        internal void MakeDirectories()
+        internal void MakeCampaignDirectories()
         {
             DirAccess.MakeDirRecursiveAbsolute(CampaignFolder);
+        }
+
+        internal void MakeConfigurationDirectories()
+        {
+            DirAccess.MakeDirRecursiveAbsolute(UserConfigurationFolder);
         }
     }
 }

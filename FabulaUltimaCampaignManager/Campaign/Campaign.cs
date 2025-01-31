@@ -1,3 +1,4 @@
+using FabulaUltimaGMTool;
 using FirstProject;
 using FirstProject.Beastiary;
 using FirstProject.Campaign;
@@ -17,6 +18,8 @@ public partial class Campaign : Container
     [Export]
     public Configuration Configuration { get; set; }
 
+    public UserConfigurationData _userConfiguration;
+
     [Export]
     public double SaveTimeWindowSeconds { get; set; } = 2;
 
@@ -28,13 +31,15 @@ public partial class Campaign : Container
 	{   
         if(Configuration != null)
         {
-            Configuration.MakeDirectories();
+            Configuration.MakeCampaignDirectories();
         }
 
+        _userConfiguration = GetNode<UserConfigurationState>("/root/UserConfigurationState").UserConfigurationData;
+
         // overwrite default if available
-        if(!string.IsNullOrEmpty(Configuration.CurrentCampaignID))
+        if (!string.IsNullOrEmpty(_userConfiguration.CurrentCampaignID))
         {
-            var filePath = GetCampaignFilePath(Configuration.CurrentCampaignID);
+            var filePath = GetCampaignFilePath(_userConfiguration.CurrentCampaignID);
             CampaignData = ResourceExtensions.Load<CampaignData>(filePath);
         }
 
@@ -52,10 +57,9 @@ public partial class Campaign : Container
     private void UpdateCampaign(CampaignData data, bool onStart)
     {
         if(!onStart)
-        {
-            CampaignData.Changed -= HandleCampaignDataChanged;
+        {            
             CampaignData = data; //todo: don't double load
-            Configuration.CurrentCampaignID = data.Id;
+            _userConfiguration.CurrentCampaignID = data.Id;
             ResourceExtensions.Save(Configuration);
         }
                 

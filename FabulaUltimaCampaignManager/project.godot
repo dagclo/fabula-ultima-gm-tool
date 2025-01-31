@@ -25,6 +25,7 @@ RunState="*res://RunState.cs"
 MessageRouter="*res://Messaging/MessageRouter.cs"
 DbAccess="*res://DbAccess.cs"
 SkillResolver="*res://SkillResolver.cs"
+UserConfigurationState="*res://UserConfigurationState.cs"
 
 [display]
 
