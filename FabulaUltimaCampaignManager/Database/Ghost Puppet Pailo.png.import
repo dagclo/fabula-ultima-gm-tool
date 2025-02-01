@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1v8fw5e0v37v"
-path="res://.godot/imported/cartoon-creepy-clown-character-vector-43968343.jpg-bb65201096063dab59a23109975a2a86.ctex"
+uid="uid://reaf13fe7dwg"
+path="res://.godot/imported/Ghost Puppet Pailo.png-ed3be0807253c7db6b0108582ae017d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Database/Images/cartoon-creepy-clown-character-vector-43968343.jpg"
-dest_files=["res://.godot/imported/cartoon-creepy-clown-character-vector-43968343.jpg-bb65201096063dab59a23109975a2a86.ctex"]
+source_file="res://Database/Ghost Puppet Pailo.png"
+dest_files=["res://.godot/imported/Ghost Puppet Pailo.png-ed3be0807253c7db6b0108582ae017d3.ctex"]
 
 [params]
 
