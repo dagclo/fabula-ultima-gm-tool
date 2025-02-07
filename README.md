@@ -10,6 +10,6 @@
 
 
 ## What's Next
-- Add Ability to Define Custom Skills/Spells
+- Add more tutorials
 
 Random stuff:	

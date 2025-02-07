@@ -51,12 +51,12 @@ jobs:
         run: godot --headless --build-solutions --quit --path FabulaUltimaCampaignManager || exit 0
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore ./FabulaUltimaCampaignManager/FabulaUltimaGMTool.sln
 
       - name: 🦺 Build Projects
-        run: dotnet build FabulaUltimaCampaignManager
+        run: dotnet build ./FabulaUltimaCampaignManager/FabulaUltimaGMTool.sln
 
       - name: 🦺 Run Unit Tests
-        run: dotnet test
+        run: dotnet test ./FabulaUltimaCampaignManager/FabulaUltimaGMTool.sln
 
       # Do whatever you want!
