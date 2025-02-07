@@ -33,7 +33,7 @@ public partial class ActionOptions : OptionButton, INpcReader, INpcStatusReader
 		if (_battleStatus == null) return;
 		_factory = new CheckFactory(_beastTemplate, _battleStatus);
 		int startIndex = this.ItemCount;
-        foreach (var checkName in _factory.GetAvailableChecks())
+        foreach (var checkName in _factory.GetAvailableChecks("Attack"))
 		{
             this.AddItem(checkName, startIndex);
             _indexToActionName[startIndex] = checkName;

@@ -62,6 +62,11 @@ public partial class RollButton : Button, INpcReader, ISpellReader
         EmitSignal(SignalName.ResultReady, new SignalWrapper<CheckResult>(checkResult));
 	}
 
+    public void OnActionSet(SignalWrapper<ICheckModel> signal)
+    {
+        OnActionSet(signal, null);
+    }
+
     public void OnActionSet(SignalWrapper<ICheckModel> signal, BattleStatus status)
     {
         if(_checkModel != null)
@@ -70,6 +75,7 @@ public partial class RollButton : Button, INpcReader, ISpellReader
         }
         _checkModel = signal.Value;
         _checkModel.Changed += this.OnCheckChanged;
+        if (status == null) return;
         _status = status;
         _status.Changed += HandleNpcStatusChanged; 
     }

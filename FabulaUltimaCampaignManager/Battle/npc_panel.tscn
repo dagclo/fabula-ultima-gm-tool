@@ -294,7 +294,9 @@ text = "Action:"
 
 [node name="ActionOptions" type="OptionButton" parent="NpcStatus/Roll"]
 layout_mode = 2
+selected = 0
 item_count = 1
+popup/item_0/disabled = true
 script = ExtResource("16_os7ll")
 
 [node name="Attribute1Label" type="Label" parent="NpcStatus/Roll"]
@@ -419,9 +421,9 @@ TurnCounterCharacter = "⊕"
 [connection signal="item_selected" from="NpcStatus/Roll/ActionOptions" to="NpcStatus/Roll/ActionOptions" method="OnItemSelected"]
 [connection signal="item_selected" from="NpcStatus/Roll/Attribute1Options" to="NpcStatus/Roll/Attribute1Options" method="OnItemSelected"]
 [connection signal="item_selected" from="NpcStatus/Roll/Attribute2Options" to="NpcStatus/Roll/Attribute2Options" method="OnItemSelected"]
-[connection signal="text_submitted" from="NpcStatus/Roll/AccuracyMod" to="NpcStatus/Roll/AccuracyMod" method="OnSubmit"]
-[connection signal="text_submitted" from="NpcStatus/Roll/HighRollMod" to="NpcStatus/Roll/HighRollMod" method="OnSubmit"]
-[connection signal="text_submitted" from="NpcStatus/Roll/Difficulty" to="NpcStatus/Roll/Difficulty" method="OnSubmit"]
+[connection signal="text_changed" from="NpcStatus/Roll/AccuracyMod" to="NpcStatus/Roll/AccuracyMod" method="OnSubmit"]
+[connection signal="text_changed" from="NpcStatus/Roll/HighRollMod" to="NpcStatus/Roll/HighRollMod" method="OnSubmit"]
+[connection signal="text_changed" from="NpcStatus/Roll/Difficulty" to="NpcStatus/Roll/Difficulty" method="OnSubmit"]
 [connection signal="ResultReady" from="NpcStatus/Roll/RollButton" to="NpcStatus/Roll/ResultLabel" method="OnResultReady"]
 [connection signal="pressed" from="NpcStatus/Roll/RollButton" to="NpcStatus/Roll/RollButton" method="OnRoll"]
 [connection signal="text_submitted" from="NpcStatus/Damage/DamageAmount" to="NpcStatus/Damage/ExpectedDamage" method="OnTextChanged"]
