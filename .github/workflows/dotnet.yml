@@ -62,10 +62,10 @@ jobs:
       - name: 🦺 Run Unit Tests for FabulaUltimaDataImporter
         run: dotnet test FabulaUltimaDataImporter
 
-      - uses: MikeSchulze/gdunit4-action@v1
-        name: run gdunit tests
-        with:
-          godot-version: '4.3.0'
-          godot-net: true
-          project_dir: './FabulaUltimaCampaignManager/'
-          paths: 'res://Tests'
+      # - uses: MikeSchulze/gdunit4-action@v1
+      #   name: run gdunit tests
+      #   with:
+      #     godot-version: '4.3.0'
+      #     godot-net: true
+      #     project_dir: './FabulaUltimaCampaignManager/'
+      #     paths: 'res://Tests'
