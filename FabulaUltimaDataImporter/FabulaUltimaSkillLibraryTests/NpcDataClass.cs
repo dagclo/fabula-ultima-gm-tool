@@ -1614,7 +1614,7 @@ namespace FabulaUltimaSkillLibraryTests
                 var justiceClubId = Guid.NewGuid();
                 var bumRushID = Guid.NewGuid();
 
-                // disabling until further notice
+                // disabling because this test is super unstable for some reason
                 //yield return new TestCaseData(
                 //    null,
                 //    new BeastTemplate(new BeastModel
