@@ -8,3 +8,4 @@
 
 ## What's Next
 - Add more tutorials
+- enable godot tests in build
