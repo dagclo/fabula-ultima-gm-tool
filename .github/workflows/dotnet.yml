@@ -50,7 +50,13 @@ jobs:
       - name: 🧑‍🔬 Generate .NET Bindings
         run: godot --headless --build-solutions --quit --path FabulaUltimaCampaignManager || exit 0
 
+      - name: Install dependencies
+        run: dotnet restore
+
       - name: 🦺 Build Projects
         run: dotnet build FabulaUltimaCampaignManager
+
+      - name: 🦺 Run Unit Tests
+        run: dotnet test
 
       # Do whatever you want!
