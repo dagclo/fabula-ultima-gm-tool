@@ -11,5 +11,3 @@
 
 ## What's Next
 - Add more tutorials
-
-Random stuff:	

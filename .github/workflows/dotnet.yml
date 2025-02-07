@@ -54,6 +54,6 @@ jobs:
         run: dotnet build FabulaUltimaCampaignManager
 
       - name: 🦺 Run Unit Tests
-        run: dotnet test FabulaUltimaCampaignManager
+        run: dotnet test FabulaUltimaDataImporter
 
       # Do whatever you want!
