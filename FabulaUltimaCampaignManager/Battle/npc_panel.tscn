@@ -294,7 +294,9 @@ text = "Action:"
 
 [node name="ActionOptions" type="OptionButton" parent="NpcStatus/Roll"]
 layout_mode = 2
+selected = 0
 item_count = 1
+popup/item_0/disabled = true
 script = ExtResource("16_os7ll")
 
 [node name="Attribute1Label" type="Label" parent="NpcStatus/Roll"]

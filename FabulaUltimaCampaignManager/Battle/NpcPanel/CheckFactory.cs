@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class CheckFactory
 {
@@ -56,7 +57,7 @@ public class CheckFactory
 		return _factoryMap[action](attribute1, attribute2);
 	}
 
-    internal IEnumerable<string> GetAvailableChecks() => _factoryMap.Keys;
+    internal IEnumerable<string> GetAvailableChecks(params string[] exclude) => _factoryMap.Keys.Where(k => !exclude.Contains(k));
 
     public IEnumerable<string> CheckTypes;
 }
