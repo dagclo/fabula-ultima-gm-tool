@@ -50,10 +50,16 @@ jobs:
       - name: 🧑‍🔬 Generate .NET Bindings
         run: godot --headless --build-solutions --quit --path FabulaUltimaCampaignManager || exit 0
 
-      - name: 🦺 Build Projects
+      - name: 🦺 Build FabulaUltimaCampaignManager
         run: dotnet build FabulaUltimaCampaignManager
 
-      - name: 🦺 Run Unit Tests
+      - name: 🦺 Run Unit Tests for FabulaUltimaCampaignManager
+        run: dotnet test FabulaUltimaCampaignManager -s ./FabulaUltimaCampaignManager/gitlab.${{ matrix.os }}.runsettings
+
+      - name: 🦺 Build FabulaUltimaDataImporter
+        run: dotnet build FabulaUltimaDataImporter
+
+      - name: 🦺 Run Unit Tests for FabulaUltimaDataImporter
         run: dotnet test FabulaUltimaDataImporter
 
       # - uses: MikeSchulze/gdunit4-action@v1
@@ -61,4 +67,5 @@ jobs:
       #   with:
       #     godot-version: '4.3.0'
       #     godot-net: true
+      #     project_dir: './FabulaUltimaCampaignManager/'
       #     paths: 'res://Tests'
