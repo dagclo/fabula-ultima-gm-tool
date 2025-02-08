@@ -54,7 +54,7 @@ jobs:
         run: dotnet build FabulaUltimaCampaignManager
 
       - name: 🦺 Run Unit Tests for FabulaUltimaCampaignManager
-        run: dotnet test FabulaUltimaCampaignManager -s ./FabulaUltimaCampaignManager/gitlab.runsettings
+        run: dotnet test FabulaUltimaCampaignManager -s ./FabulaUltimaCampaignManager/gitlab.${{ matrix.os }}.runsettings
 
       - name: 🦺 Build FabulaUltimaDataImporter
         run: dotnet build FabulaUltimaDataImporter
