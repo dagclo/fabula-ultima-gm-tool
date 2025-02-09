@@ -45,16 +45,20 @@ public partial class ExpectedDamage : Label
             case FirstProject.Npc.Affinity.RESISTANT:                
                 damageMod = .5;
                 break;
-            case FirstProject.Npc.Affinity.IMMUNE:
+            case FirstProject.Npc.Affinity.IMMUNE:            
                 damageMod = 0; // does no damage                
                 break;
             case FirstProject.Npc.Affinity.ABSORBS:
             case FirstProject.Npc.Affinity.HEAL:
+            case FirstProject.Npc.Affinity.MP_GAIN:
                 damageMod = -1; // heals                
                 break;
             case FirstProject.Npc.Affinity.VULNERABLE:
                 damageMod = 2;
                 resistanceOverride = .5;
+                break;
+            case FirstProject.Npc.Affinity.MP_DAMAGE:
+                damageMod = 1;
                 break;
             default:
                 damageMod = 1;

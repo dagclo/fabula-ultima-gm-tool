@@ -10,7 +10,10 @@ namespace FirstProject.Npc
         ABSORBS,
         IMMUNE,
         RESISTANT,
-        HEAL // special affinity
+        // special affinities
+        HEAL, 
+        MP_DAMAGE,
+        MP_GAIN
     }
 
     public static class AffinityExtensions
