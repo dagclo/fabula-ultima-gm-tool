@@ -50,6 +50,7 @@ public partial class ExpectedDamage : Label
                 break;
             case FirstProject.Npc.Affinity.ABSORBS:
             case FirstProject.Npc.Affinity.HEAL:
+            case FirstProject.Npc.Affinity.MP_GAIN:
                 damageMod = -1; // heals                
                 break;
             case FirstProject.Npc.Affinity.VULNERABLE:

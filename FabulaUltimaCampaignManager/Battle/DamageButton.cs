@@ -55,6 +55,9 @@ public partial class DamageButton : Button, INpcStatusReader, INpcReader
             case Affinity.MP_DAMAGE:
                 _battleStatus.CurrentMP = Math.Max(0, _battleStatus.CurrentMP - (_damage ?? 0));
                 break;
+            case Affinity.MP_GAIN:
+                _battleStatus.CurrentMP = Math.Min(_template.MagicPoints, _battleStatus.CurrentMP + (_damage ?? 0));
+                break;
             default:
                 _battleStatus.CurrentHP = Math.Max(0, _battleStatus.CurrentHP - (_damage ?? 0));
                 break;
@@ -87,6 +90,9 @@ public partial class DamageButton : Button, INpcStatusReader, INpcReader
                 break;
             case Affinity.MP_DAMAGE:
                 verb = "MP Loss";
+                break;
+            case Affinity.MP_GAIN:
+                verb = "MP Gain";
                 break;
             default:
                 verb = "Damage";

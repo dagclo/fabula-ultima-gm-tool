@@ -16,7 +16,8 @@ public partial class DamageTypeOptions : OptionButton, INpcReader
     private readonly IDictionary<int, string> _indexToDamageNameMap = new Dictionary<int, string>();
     private IReadOnlyDictionary<string, Affinity> _affinities;
     public const string HEAL = "Heal";
-    public const string MP_DAMAGE = "Lose MP";
+    public const string MP_LOSS = "Lose MP";
+    public const string MP_GAIN = "Gain MP";
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -35,8 +36,11 @@ public partial class DamageTypeOptions : OptionButton, INpcReader
         _indexToDamageNameMap[startIndex] = HEAL;
         this.AddItem(HEAL, startIndex);
         startIndex++;
-        _indexToDamageNameMap[startIndex] = MP_DAMAGE;
-        this.AddItem(MP_DAMAGE, startIndex);
+        _indexToDamageNameMap[startIndex] = MP_GAIN;
+        this.AddItem(MP_GAIN, startIndex);        
+        startIndex++;
+        _indexToDamageNameMap[startIndex] = MP_LOSS;
+        this.AddItem(MP_LOSS, startIndex);
     }
 
     public void HandleNpcChanged(NpcInstance npc)
@@ -63,8 +67,11 @@ public partial class DamageTypeOptions : OptionButton, INpcReader
             case HEAL:
                 affinity = Affinity.HEAL;
                 break;
-            case MP_DAMAGE:
+            case MP_LOSS:
                 affinity = Affinity.MP_DAMAGE;
+                break;
+            case MP_GAIN:
+                affinity = Affinity.MP_GAIN;
                 break;
             default:
                 affinity = _affinities[damageType];

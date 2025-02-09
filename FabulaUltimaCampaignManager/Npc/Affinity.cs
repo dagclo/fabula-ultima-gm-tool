@@ -12,7 +12,8 @@ namespace FirstProject.Npc
         RESISTANT,
         // special affinities
         HEAL, 
-        MP_DAMAGE 
+        MP_DAMAGE,
+        MP_GAIN
     }
 
     public static class AffinityExtensions
