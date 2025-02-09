@@ -426,7 +426,7 @@ TurnCounterCharacter = "⊕"
 [connection signal="text_changed" from="NpcStatus/Roll/Difficulty" to="NpcStatus/Roll/Difficulty" method="OnSubmit"]
 [connection signal="ResultReady" from="NpcStatus/Roll/RollButton" to="NpcStatus/Roll/ResultLabel" method="OnResultReady"]
 [connection signal="pressed" from="NpcStatus/Roll/RollButton" to="NpcStatus/Roll/RollButton" method="OnRoll"]
-[connection signal="text_submitted" from="NpcStatus/Damage/DamageAmount" to="NpcStatus/Damage/ExpectedDamage" method="OnTextChanged"]
+[connection signal="text_changed" from="NpcStatus/Damage/DamageAmount" to="NpcStatus/Damage/ExpectedDamage" method="OnTextChanged"]
 [connection signal="DamageTypeAndAffinityChanged" from="NpcStatus/Damage/DamageType" to="NpcStatus/Damage/ExpectedDamage" method="OnDamageTypeChanged"]
 [connection signal="DamageTypeAndAffinityChanged" from="NpcStatus/Damage/DamageType" to="NpcStatus/Damage/DamageButton" method="OnDamageTypeChanged"]
 [connection signal="item_selected" from="NpcStatus/Damage/DamageType" to="NpcStatus/Damage/DamageType" method="OnItemSelected"]
