@@ -86,7 +86,7 @@ public partial class DamageButton : Button, INpcStatusReader, INpcReader
                 verb = "Healing";
                 break;
             case Affinity.MP_DAMAGE:
-                verb = "Losing MP";
+                verb = "MP Loss";
                 break;
             default:
                 verb = "Damage";
