@@ -15,7 +15,8 @@ public partial class DamageTypeOptions : OptionButton, INpcReader
 
     private readonly IDictionary<int, string> _indexToDamageNameMap = new Dictionary<int, string>();
     private IReadOnlyDictionary<string, Affinity> _affinities;
-    public const string HEAL = "heal";
+    public const string HEAL = "Heal";
+    public const string MP_DAMAGE = "Lose MP";
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -33,6 +34,9 @@ public partial class DamageTypeOptions : OptionButton, INpcReader
 		
         _indexToDamageNameMap[startIndex] = HEAL;
         this.AddItem(HEAL, startIndex);
+        startIndex++;
+        _indexToDamageNameMap[startIndex] = MP_DAMAGE;
+        this.AddItem(MP_DAMAGE, startIndex);
     }
 
     public void HandleNpcChanged(NpcInstance npc)
@@ -53,15 +57,19 @@ public partial class DamageTypeOptions : OptionButton, INpcReader
         if (!_indexToDamageNameMap.ContainsKey(index)) return;
         var damageType = _indexToDamageNameMap[index];        
         Affinity affinity;        
-        
-        if (damageType == HEAL)
+
+        switch(damageType)
         {
-            affinity = Affinity.HEAL;            
-        }
-        else
-        {
-            affinity = _affinities[damageType];            
-        }
+            case HEAL:
+                affinity = Affinity.HEAL;
+                break;
+            case MP_DAMAGE:
+                affinity = Affinity.MP_DAMAGE;
+                break;
+            default:
+                affinity = _affinities[damageType];
+                break;
+        }        
 
         EmitSignal(SignalName.DamageTypeAndAffinityChanged, new SignalWrapper<Affinity> (affinity), damageType);
     }

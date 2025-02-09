@@ -46,15 +46,20 @@ public partial class DamageButton : Button, INpcStatusReader, INpcReader
 
     public void OnButtonPressed()
     {
-        if (_affinity == FirstProject.Npc.Affinity.HEAL || _affinity == FirstProject.Npc.Affinity.ABSORBS)
+        switch(_affinity)
         {
-            _battleStatus.CurrentHP = Math.Min(_template.HealthPoints, _battleStatus.CurrentHP + (_damage ?? 0));
+            case Affinity.HEAL:
+            case Affinity.ABSORBS:
+                _battleStatus.CurrentHP = Math.Min(_template.HealthPoints, _battleStatus.CurrentHP + (_damage ?? 0));
+                break;
+            case Affinity.MP_DAMAGE:
+                _battleStatus.CurrentMP = Math.Max(0, _battleStatus.CurrentMP - (_damage ?? 0));
+                break;
+            default:
+                _battleStatus.CurrentHP = Math.Max(0, _battleStatus.CurrentHP - (_damage ?? 0));
+                break;
         }
-        else
-        {
-            _battleStatus.CurrentHP = Math.Max(0, _battleStatus.CurrentHP - (_damage ?? 0));
-        }
-		
+
         _messagePublisher.Publish((new EncounterLog
         {
             Id = Guid.NewGuid(), // todo: decide what to do with this
@@ -73,7 +78,21 @@ public partial class DamageButton : Button, INpcStatusReader, INpcReader
     {
         _affinity = signal.Value;
         _damageType = damageType;
-        var verb = _affinity == FirstProject.Npc.Affinity.HEAL ? "Healing" : "Damage";
+        string verb;
+        switch(_affinity)
+        {
+            case Affinity.HEAL:
+            case Affinity.ABSORBS:
+                verb = "Healing";
+                break;
+            case Affinity.MP_DAMAGE:
+                verb = "Losing MP";
+                break;
+            default:
+                verb = "Damage";
+                break;
+        }
+        
         Text = $"Apply {verb}";
         SetDisabled();
     }
