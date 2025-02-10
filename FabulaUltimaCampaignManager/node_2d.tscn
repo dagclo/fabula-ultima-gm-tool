@@ -393,6 +393,7 @@ size_flags_vertical = 3
 
 [node name="CustomEquipmentList" type="HFlowContainer" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 script = ExtResource("27_4odix")
 Entry = ExtResource("28_mfo4r")
 EquipmentDialog = ExtResource("26_3ixru")
