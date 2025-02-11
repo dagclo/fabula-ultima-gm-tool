@@ -30,6 +30,7 @@ text = "Show"
 [node name="RemoveEquipmentButton" type="Button" parent="."]
 layout_mode = 2
 icon = ExtResource("4_ftndy")
+flat = true
 script = ExtResource("5_myx82")
 
 [connection signal="pressed" from="ShowEquipmentButton" to="." method="HandleShowButtonPressed"]
