@@ -1,4 +1,5 @@
 using FabulaUltimaGMTool;
+using FirstProject;
 using Godot;
 
 public partial class Background : AnimatedSprite2D
@@ -13,7 +14,11 @@ public partial class Background : AnimatedSprite2D
         var targetAnimation = runState.RunningEncounter.Background.ToString();
         var userConfiguration = GetNode<UserConfigurationState>("/root/UserConfigurationState").UserConfigurationData;
         this.Animation = targetAnimation;
-        AudioPlayer.Playing = userConfiguration.BackgroundMusicEnabled;
+
+        var stream = AudioStreamOggVorbis.LoadFromFile("user://LocalFiles/music.ogg");
+
+        AudioPlayer.Stream = stream;
+        AudioPlayer.Playing = userConfiguration.BackgroundMusicEnabled;        
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
