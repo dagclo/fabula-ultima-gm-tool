@@ -17,5 +17,6 @@ public partial class MusicFilePathLineEdit : LineEdit
     {
         if (_encounter == null) return;
         _encounter.MusicFilePath = newText;
+        if(this.Text != newText) this.Text = newText;
     }
 }
