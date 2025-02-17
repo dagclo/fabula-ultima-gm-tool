@@ -13,11 +13,6 @@ public partial class BattleWindow : Window, IEncounterReader
 		this.ResizeForResolution();
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
     public void ReadEncounter(Encounter encounter, IReadOnlyList<BattleStatus> battleStatuses)
     {   
         if (encounter == null) return;

@@ -33,6 +33,7 @@ AudioPlayer = NodePath("BackgroundMusic")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="Background"]
 stream = ExtResource("5_mth6u")
+volume_db = 6.0
 
 [node name="BattleSlot1" parent="." instance=ExtResource("4_qo5g6")]
 position = Vector2(450, 200)
