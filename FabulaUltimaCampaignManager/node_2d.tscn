@@ -223,7 +223,7 @@ disabled = true
 text = "Run"
 script = ExtResource("9_buhfi")
 
-[node name="Label" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+[node name="BackgroundLabel" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2
 text = "Background"
 horizontal_alignment = 1
@@ -231,6 +231,28 @@ horizontal_alignment = 1
 [node name="BattleBackOptions" type="OptionButton" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2
 script = ExtResource("11_5ov2a")
+
+[node name="MusicConfigurationContainer" type="HBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+layout_mode = 2
+
+[node name="MusicFilePathLineEdit" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "music file.ogg"
+
+[node name="FindMusicButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer"]
+layout_mode = 2
+text = "..."
+
+[node name="FileDialog" type="FileDialog" parent="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/FindMusicButton"]
+title = "Open a File"
+initial_position = 1
+size = Vector2i(262, 209)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.ogg")
+use_native_dialog = true
 
 [node name="NPCPanel" type="PanelContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2

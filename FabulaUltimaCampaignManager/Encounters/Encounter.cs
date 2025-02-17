@@ -89,6 +89,9 @@ namespace FirstProject.Encounters
 
         public InitiativeSeed InitiativeSeed { get; set; }
 
+        [Export]
+        public string MusicFilePath { get; set; }
+
         public Encounter() :this("", Guid.Empty.ToString(), new Godot.Collections.Array<NpcInstance>()) { }
 
         public Encounter(string name, string id, Godot.Collections.Array<NpcInstance> npcs) 
