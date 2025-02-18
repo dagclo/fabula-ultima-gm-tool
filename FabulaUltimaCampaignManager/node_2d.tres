@@ -1,7 +1,28 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://d2sfrnkc8pqs1"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://d2sfrnkc8pqs1"]
 
 [ext_resource type="FontFile" uid="uid://xh7tj07do221" path="res://Font/Mukta-Bold.ttf" id="1_05gy6"]
 [ext_resource type="FontFile" uid="uid://d3qnkiy0xhdyx" path="res://Font/Mukta-Regular.ttf" id="3_7uv60"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkhay"]
+bg_color = Color(0.398189, 0.125614, 0.496414, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w31se"]
+bg_color = Color(0.535972, 0.193116, 0.661232, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yy0eu"]
+bg_color = Color(0.206977, 0.047696, 0.264129, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mnxea"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ap8op"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e7na0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8g8qx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lx0u5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1hw87"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jf365"]
 content_margin_left = 5.0
@@ -10,11 +31,31 @@ content_margin_right = 5.0
 content_margin_bottom = 5.0
 bg_color = Color(0.133333, 0.133333, 0.133333, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4d81k"]
+bg_color = Color(0.321728, 0.321728, 0.321728, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pvw5g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dafnn"]
+
 [resource]
 default_font = ExtResource("3_7uv60")
 BoldLabel/base_type = &"Label"
 BoldLabel/fonts/font = ExtResource("1_05gy6")
 Button/fonts/font = ExtResource("1_05gy6")
+Button/styles/hover = SubResource("StyleBoxFlat_fkhay")
+Button/styles/normal = SubResource("StyleBoxFlat_w31se")
+Button/styles/pressed = SubResource("StyleBoxFlat_yy0eu")
+CheckBox/styles/hover = SubResource("StyleBoxEmpty_mnxea")
+CheckBox/styles/normal = SubResource("StyleBoxEmpty_ap8op")
+CheckBox/styles/pressed = SubResource("StyleBoxEmpty_e7na0")
+CheckButton/styles/hover = SubResource("StyleBoxEmpty_8g8qx")
+CheckButton/styles/normal = SubResource("StyleBoxEmpty_lx0u5")
+CheckButton/styles/pressed = SubResource("StyleBoxEmpty_1hw87")
+ImageUpdateButton/base_type = &"Button"
+ImageUpdateButton/colors/font_color = Color(0.396078, 0.12549, 0.498039, 1)
+ImageUpdateButton/colors/font_outline_color = Color(1, 1, 1, 1)
+ImageUpdateButton/fonts/font = ExtResource("1_05gy6")
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(1, 1, 1, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)
@@ -25,4 +66,7 @@ Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 1
 Label/font_sizes/font_size = 16
 Label/styles/normal = SubResource("StyleBoxFlat_jf365")
+OptionButton/styles/hover = SubResource("StyleBoxFlat_4d81k")
+OptionButton/styles/normal = SubResource("StyleBoxEmpty_pvw5g")
+OptionButton/styles/pressed = SubResource("StyleBoxEmpty_dafnn")
 RichTextLabel/fonts/bold_font = ExtResource("1_05gy6")

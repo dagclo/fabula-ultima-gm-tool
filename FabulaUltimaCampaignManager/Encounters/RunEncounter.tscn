@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cdbhgvau850oy"]
+[gd_scene load_steps=16 format=3 uid="uid://cdbhgvau850oy"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_27rb4"]
 [ext_resource type="Script" path="res://Battle/RunEncounter.cs" id="1_dwbmd"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://erwugkr5gcel" path="res://Battle/player_panel.tscn" id="4_nde4l"]
 [ext_resource type="Script" path="res://Battle/ResetRoundButton.cs" id="6_0ebfa"]
 [ext_resource type="Script" path="res://Battle/GMScreen.cs" id="6_jr3u1"]
+[ext_resource type="Script" path="res://Battle/VolumeSlider.cs" id="9_d26r8"]
 [ext_resource type="Script" path="res://Battle/GameLog.cs" id="10_f45dp"]
 [ext_resource type="Script" path="res://Battle/PlayersList.cs" id="10_xq16r"]
 [ext_resource type="FontFile" uid="uid://ypuiap2spg2i" path="res://Font/BoldTwilight.fnt" id="10_ywu3j"]
@@ -40,6 +41,7 @@ script = ExtResource("6_jr3u1")
 [node name="ScrollContainer" type="ScrollContainer" parent="GMScreen"]
 layout_mode = 2
 size_flags_horizontal = 3
+horizontal_scroll_mode = 0
 
 [node name="Npcs" type="TabContainer" parent="GMScreen/ScrollContainer"]
 layout_mode = 2
@@ -138,6 +140,24 @@ layout_mode = 2
 [node name="PlayerPanel5" parent="GMScreen/VBoxContainer/Players" instance=ExtResource("4_nde4l")]
 layout_mode = 2
 
+[node name="MusicControlContainer" type="GridContainer" parent="GMScreen/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="VolumeLabel" type="Label" parent="GMScreen/VBoxContainer/MusicControlContainer"]
+layout_mode = 2
+text = "Background Music Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="GMScreen/VBoxContainer/MusicControlContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = -1.0
+max_value = 15.849
+step = 0.1
+value = 2.0
+script = ExtResource("9_d26r8")
+
 [node name="GameLog" type="PanelContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -189,5 +209,6 @@ visible = false
 
 [connection signal="tree_exiting" from="." to="." method="HandleTreeExiting"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/ResetRoundButton" to="GMScreen/VBoxContainer/ResetRoundButton" method="HandlePressed"]
+[connection signal="drag_ended" from="GMScreen/VBoxContainer/MusicControlContainer/VolumeSlider" to="GMScreen/VBoxContainer/MusicControlContainer/VolumeSlider" method="HandleDragEnded"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" to="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" method="OnButtonPressed"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/PlayersWinButton" to="GMScreen/VBoxContainer/VFlowContainer/PlayersWinButton" method="HandlePressed"]

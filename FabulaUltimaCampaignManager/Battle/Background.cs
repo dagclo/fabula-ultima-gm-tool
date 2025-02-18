@@ -1,5 +1,7 @@
 using FabulaUltimaGMTool;
+using FirstProject;
 using Godot;
+using System;
 
 public partial class Background : AnimatedSprite2D
 {
@@ -11,13 +13,34 @@ public partial class Background : AnimatedSprite2D
 	{   
         var runState = GetNode<RunState>("/root/RunState");
         var targetAnimation = runState.RunningEncounter.Background.ToString();
+        runState.VolumeLevelChanged += HandleVolumeChanged;
+        
         var userConfiguration = GetNode<UserConfigurationState>("/root/UserConfigurationState").UserConfigurationData;
         this.Animation = targetAnimation;
+
+        var musicPath = runState.RunningEncounter.MusicFilePath;
+        AudioStream stream = AudioPlayer.Stream;
+        if (FileAccess.FileExists(musicPath))
+        {
+            var oggStream = AudioStreamOggVorbis.LoadFromFile(musicPath);
+            oggStream.Loop = true;
+            stream = oggStream;
+        }       
+
+        AudioPlayer.Stream = stream;
         AudioPlayer.Playing = userConfiguration.BackgroundMusicEnabled;
+        AudioPlayer.TreeExited += () => runState.VolumeLevelChanged -= HandleVolumeChanged;
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    private void HandleVolumeChanged(double newVolumeLevel)
+    {
+        if(newVolumeLevel < 0.1)
+        {            
+            AudioPlayer.VolumeDb = -80;
+            return;
+        }
+
+        var newDb = Mathf.LinearToDb(newVolumeLevel);
+        AudioPlayer.VolumeDb = (float) newDb;
+    }
 }

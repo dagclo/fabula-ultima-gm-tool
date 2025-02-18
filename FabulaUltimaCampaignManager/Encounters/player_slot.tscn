@@ -11,9 +11,10 @@
 [ext_resource type="Script" path="res://Player/PlayerEnabled.cs" id="9_5xy6i"]
 
 [node name="PlayerSlot" type="VBoxContainer"]
-offset_right = 315.0
-offset_bottom = 137.0
-size_flags_horizontal = 3
+custom_minimum_size = Vector2(300, 0)
+offset_right = 326.0
+offset_bottom = 155.0
+size_flags_vertical = 3
 theme = ExtResource("1_3wx5j")
 script = ExtResource("1_alfyt")
 
@@ -34,7 +35,9 @@ script = ExtResource("4_wr4x0")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme_type_variation = &"ImageUpdateButton"
 text = "Update"
+flat = true
 
 [node name="PortraitFileDialog" type="FileDialog" parent="HBoxContainer/Portrait"]
 title = "Open a File"

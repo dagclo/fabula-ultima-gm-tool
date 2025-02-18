@@ -72,7 +72,9 @@ script = ExtResource("3_bbr3a")
 [node name="UpdateImageButton" type="Button" parent="VBoxContainer/Description/PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_type_variation = &"ImageUpdateButton"
 text = "Update"
+flat = true
 script = ExtResource("4_fyidg")
 
 [node name="FileDialog" type="FileDialog" parent="VBoxContainer/Description/PanelContainer"]
@@ -409,7 +411,7 @@ size = Vector2i(444, 100)
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 440.0
-offset_bottom = 122.0
+offset_bottom = 106.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer"]
 layout_mode = 2
