@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://BeastiaryScenes/TextResistanceReciever.cs" id="3_rts8w"]
 
 [node name="ResistancePanel" type="PanelContainer"]
+size_flags_horizontal = 3
 script = ExtResource("1_rt7lw")
 
 [node name="VBoxContainer" type="HBoxContainer" parent="."]

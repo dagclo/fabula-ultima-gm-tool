@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://c5dpdbuy6wbb6" path="res://ResistanceImages/Poison_Gray.png" id="19_7oyj5"]
 
 [node name="AffinityEdit" type="PanelContainer"]
+size_flags_horizontal = 3
 script = ExtResource("1_bm3ue")
 
 [node name="VBoxContainer" type="HBoxContainer" parent="."]
@@ -57,10 +58,11 @@ GrayImages = {
 
 [node name="Value" type="OptionButton" parent="VBoxContainer"]
 layout_mode = 2
-item_count = 1
+size_flags_horizontal = 3
+alignment = 1
 selected = 0
+item_count = 1
 popup/item_0/text = "00"
-popup/item_0/id = 0
 script = ExtResource("2_lgm64")
 
 [connection signal="UpdateAffinity" from="." to="VBoxContainer/Value" method="HandleUpdateAffinity"]
