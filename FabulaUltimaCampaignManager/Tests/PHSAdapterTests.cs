@@ -47,6 +47,7 @@ namespace FabulaUltimaGMTool.Tests
             AssertThat(armorData.defenseDice).IsEqual(expectedDefenseDice);
             AssertThat(armorData.defenseConstant).IsEqual(armor.Modifiers.DefenseModifier);
             AssertThat(armorData.mDefenseDice).IsEqual("INS");
+            AssertThat(armorData.type).IsEqual("Armor");
             AssertThat(armorData.mDefenseConstant).IsEqual(armor.Modifiers.MagicDefenseModifier);
             AssertThat((bool)armorData.basic).IsTrue();
             Assert(armorData.GetType(), EXPECTED_NUMBER_PROPERTIES);            
