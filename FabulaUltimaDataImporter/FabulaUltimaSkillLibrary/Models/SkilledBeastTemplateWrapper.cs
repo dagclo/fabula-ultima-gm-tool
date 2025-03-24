@@ -1,4 +1,5 @@
 ﻿using FabulaUltimaNpc;
+using System.Text;
 
 namespace FabulaUltimaSkillLibrary.Models
 {
@@ -377,6 +378,59 @@ namespace FabulaUltimaSkillLibrary.Models
             _skillCountMap = _beastTemplate.Skills.GroupBy(s => s.Id).ToDictionary(g => g.Key, g => g.Count());
             _skillMap = _beastTemplate.Skills.GroupBy(s => s.Id).ToDictionary(g => g.Key, g => g.First());
            
+        }
+
+        public string ToText()
+        {
+            var result = new StringBuilder();
+            result.AppendLine($"{Name.ToUpperInvariant()}   Lv {Level} - {Species.Name.ToUpperInvariant()}");
+            result.AppendLine();
+            result.AppendLine(Description);
+            result.AppendLine($"Typical traits: {Traits}");
+            result.AppendLine($"DEX {Dexterity} INS {Insight} MIG {Might} WLP {WillPower} | HP {HealthPoints} * {HealthPoints / 2} | MP {MagicPoints} | INIT {Initiative}");
+            result.AppendLine("BASIC ATTACKS");
+            foreach(var attack in this.AllAttacks)
+            {
+                var attackType = attack.IsRanged ? "RANGED" : "MELEE";
+                var accuracyMod = attack.AccuracyMod != 0 ? $" + {attack.AccuracyMod}" : string.Empty;
+                result.AppendLine($"{attackType} {attack.Name} * [{attack.Attribute1} + {attack.Attribute2}{accuracyMod}] * [HR + {attack.DamageMod}] {attack.DamageType.Name.ToLowerInvariant()}");
+                foreach(var skill in attack.AttackSkills)
+                {
+                    result.AppendLine(skill.Text);
+                }
+                result.AppendLine();
+            }
+            if(this.Spells.Any())
+            {
+                result.AppendLine("SPELLS");
+                foreach (var spell in this.Spells)
+                {
+                    var isOff = spell.IsOffensive ? " OFF " : string.Empty;
+                    var accMod = MagicCheckModifier != 0 ? $" + {MagicCheckModifier}" : string.Empty;
+                    result.AppendLine($"{spell.Name}{isOff} * [{spell.Attribute1} {spell.Attribute2}{accMod}] * {spell.MagicPointCost} MP * {spell.Target} * {spell.Duration}");
+                    result.AppendLine(spell.Description);
+                }
+            }
+           
+            if(this.Actions.Any())
+            {
+                result.AppendLine("OTHER ACTIONS");
+                foreach (var action in this.Actions)
+                {
+                    result.AppendLine($"{action.Name} * {action.Effect}");
+                }
+            }
+
+            if (this.Skills.Any(s => s.IsSpecialRule))
+            {
+                result.AppendLine("SPECIAL RULES");
+                foreach(var skill in this.Skills.Where(s => s.IsSpecialRule))
+                {
+                    result.AppendLine($"{skill.Name} * {skill.Text}");
+                }
+            }
+
+            return result.ToString();
         }
     }
 }
