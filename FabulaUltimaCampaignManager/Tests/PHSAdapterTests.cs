@@ -15,7 +15,7 @@ namespace FabulaUltimaGMTool.Tests
         public void ToDataFormat_Armor_Success(bool defOverrides, string expectedDefenseDice)
         {
             // Arrange
-            const int EXPECTED_NUMBER_PROPERTIES = 10;
+            const int EXPECTED_NUMBER_PROPERTIES = 11;
             var armor = new NpcEquipment
             {
                 Name = "Vorpal Plate",
