@@ -387,7 +387,9 @@ namespace FabulaUltimaSkillLibrary.Models
             result.AppendLine();
             result.AppendLine(Description);
             result.AppendLine($"Typical traits: {Traits}");
-            result.AppendLine($"DEX {Dexterity} INS {Insight} MIG {Might} WLP {WillPower} | HP {HealthPoints} * {HealthPoints / 2} | MP {MagicPoints} | INIT {Initiative}");
+            result.AppendLine($"DEX {Dexterity} INS {Insight} MIG {Might} WLP {WillPower} | HP {HealthPoints} * {HealthPoints / 2} | MP {MagicPoints} | INIT {Initiative} | DEF {Defense} | M DEF {MagicalDefense}");
+            result.AppendLine("RESISTANCES");
+            result.AppendLine(string.Join("|", Resistances.Where(r => !string.IsNullOrWhiteSpace(r.Value.Affinity)).Select(r => $"{r.Key} {r.Value.Affinity}")));
             result.AppendLine("BASIC ATTACKS");
             foreach(var attack in this.AllAttacks)
             {

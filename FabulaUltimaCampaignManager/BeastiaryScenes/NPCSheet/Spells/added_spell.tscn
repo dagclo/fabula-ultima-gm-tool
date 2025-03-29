@@ -78,7 +78,6 @@ script = ExtResource("3_xhg60")
 
 [node name="DamageTypeOptionsButton" type="OptionButton" parent="OffensiveAttributes"]
 layout_mode = 2
-size_flags_horizontal = 3
 script = ExtResource("4_k32a6")
 
 [node name="SpellTextEdit" type="TextEdit" parent="."]
@@ -95,15 +94,15 @@ layout_mode = 2
 text = "Remove"
 
 [connection signal="SpellSet" from="." to="SpellAttributes/SpellName" method="HandleSpellSet"]
-[connection signal="SpellSet" from="." to="OffensiveAttributes/IsOffensiveCheckButton" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/MpCostEdit" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/AttributeRoll1" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/AttributeRoll2" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/TargetEdit" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="SpellAttributes/DurationEdit" method="HandleSpellSet"]
-[connection signal="SpellSet" from="." to="SpellTextEdit" method="HandleSpellSet"]
+[connection signal="SpellSet" from="." to="OffensiveAttributes/IsOffensiveCheckButton" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="OffensiveAttributes/DamageModifierEdit" method="HandleSpellSet"]
 [connection signal="SpellSet" from="." to="OffensiveAttributes/DamageTypeOptionsButton" method="HandleSpellSet"]
+[connection signal="SpellSet" from="." to="SpellTextEdit" method="HandleSpellSet"]
 [connection signal="text_changed" from="SpellAttributes/SpellName" to="SpellAttributes/SpellName" method="HandleTextChanged"]
 [connection signal="text_changed" from="SpellAttributes/MpCostEdit" to="SpellAttributes/MpCostEdit" method="HandleTextChanged"]
 [connection signal="item_selected" from="SpellAttributes/AttributeRoll1" to="SpellAttributes/AttributeRoll1" method="HandleSelected"]
