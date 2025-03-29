@@ -109,6 +109,7 @@ namespace FabulaUltimaGMTool.Adaptors
         {
             return new
             {
+                type = "Armor",
                 name = npcEquipment.Name,
                 cost = npcEquipment.Cost,
                 defenseDice = npcEquipment.Modifiers.DefenseOverrides ? string.Empty : "DEX",
@@ -126,6 +127,7 @@ namespace FabulaUltimaGMTool.Adaptors
         {
             return new
             {
+                type = "Accessory",
                 name = npcEquipment.Name,
                 cost = npcEquipment.Cost,
                 quality = npcEquipment.Quality

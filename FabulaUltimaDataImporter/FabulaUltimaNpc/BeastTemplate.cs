@@ -1,4 +1,6 @@
-﻿namespace FabulaUltimaNpc
+﻿using System.Text;
+
+namespace FabulaUltimaNpc
 {
 
     public class BeastTemplate : IBeastTemplate
@@ -190,6 +192,15 @@
                 default:
                     throw new ArgumentException($"unknown attribute {attributeName}", nameof(attributeName));
             }
+        }
+
+        public string ToText()
+        {
+            var result = new StringBuilder();
+            result.AppendLine($"{Name.ToUpperInvariant()}   Lv {Level} - {Species.Name.ToUpperInvariant()}");
+            result.AppendLine();
+            result.AppendLine($"{Description}");
+            return result.ToString();
         }
     }
 }

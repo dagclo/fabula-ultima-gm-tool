@@ -15,7 +15,7 @@ namespace FabulaUltimaGMTool.Tests
         public void ToDataFormat_Armor_Success(bool defOverrides, string expectedDefenseDice)
         {
             // Arrange
-            const int EXPECTED_NUMBER_PROPERTIES = 10;
+            const int EXPECTED_NUMBER_PROPERTIES = 11;
             var armor = new NpcEquipment
             {
                 Name = "Vorpal Plate",
@@ -47,6 +47,7 @@ namespace FabulaUltimaGMTool.Tests
             AssertThat(armorData.defenseDice).IsEqual(expectedDefenseDice);
             AssertThat(armorData.defenseConstant).IsEqual(armor.Modifiers.DefenseModifier);
             AssertThat(armorData.mDefenseDice).IsEqual("INS");
+            AssertThat(armorData.type).IsEqual("Armor");
             AssertThat(armorData.mDefenseConstant).IsEqual(armor.Modifiers.MagicDefenseModifier);
             AssertThat((bool)armorData.basic).IsTrue();
             Assert(armorData.GetType(), EXPECTED_NUMBER_PROPERTIES);            

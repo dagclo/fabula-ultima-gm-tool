@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dvrc1lde82y6f"]
+[gd_scene load_steps=47 format=3 uid="uid://dvrc1lde82y6f"]
 
 [ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_t4gi0"]
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="2_6f5hl"]
@@ -45,6 +45,7 @@
 [ext_resource type="PackedScene" uid="uid://7xtkfi8kp6pg" path="res://BeastiaryScenes/new_npc_sheet.tscn" id="41_xckw7"]
 [ext_resource type="Script" path="res://BeastiaryScenes/DeleteConfirmButton.cs" id="42_nml4d"]
 [ext_resource type="Script" path="res://BeastiaryScenes/CancelDeleteButton.cs" id="43_jbvkn"]
+[ext_resource type="Script" path="res://BeastiaryScenes/ClipboardButton.cs" id="46_p3wsb"]
 
 [node name="BeastEntryNode" type="PanelContainer"]
 anchors_preset = 10
@@ -432,6 +433,12 @@ text = "Cancel"
 script = ExtResource("43_jbvkn")
 DeleteBeastDialog = NodePath("../..")
 
+[node name="ClipboardButton" type="Button" parent="VBoxContainer/ModifySection"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Copy to Clipboard"
+script = ExtResource("46_p3wsb")
+
 [connection signal="pressed" from="VBoxContainer/Description/PanelContainer/UpdateImageButton" to="VBoxContainer/Description/PanelContainer/FileDialog" method="HandleSelectImageFile"]
 [connection signal="file_selected" from="VBoxContainer/Description/PanelContainer/FileDialog" to="VBoxContainer/Description/PanelContainer/DescriptionImage" method="HandleImageSet"]
 [connection signal="pressed" from="VBoxContainer/ModifySection/AddToEncounterButton" to="." method="OnAddToEncounterButtonPressed"]
@@ -439,6 +446,7 @@ DeleteBeastDialog = NodePath("../..")
 [connection signal="pressed" from="VBoxContainer/ModifySection/DeleteButton" to="VBoxContainer/ModifySection/DeleteButton" method="OnClick"]
 [connection signal="pressed" from="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer/DeleteConfirmButton" to="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer/DeleteConfirmButton" method="OnPressed"]
 [connection signal="pressed" from="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer/CancelDeleteButton" to="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer/CancelDeleteButton" method="OnPressed"]
+[connection signal="pressed" from="VBoxContainer/ModifySection/ClipboardButton" to="VBoxContainer/ModifySection/ClipboardButton" method="OnClick"]
 
 [editable path="VBoxContainer/Description/DescriptionText/Traits"]
 [editable path="VBoxContainer/Stats/Dexterity"]

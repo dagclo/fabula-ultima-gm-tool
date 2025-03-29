@@ -34,5 +34,7 @@
         bool CanBeDeleted { get; }
         bool HasDefenseOverride { get; }
         Die GetDie(string attributeName);
+
+        string ToText();
     }
 }
