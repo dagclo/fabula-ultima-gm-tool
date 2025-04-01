@@ -1144,5 +1144,28 @@ namespace FabulaUltimaDatabase
                 });
             }
         }
+
+        public void UpdateAction(ActionTemplate action)
+        {
+            DeleteAction(action);
+            CreateAction(new ActionEntry { Effect = action.Effect, Id = action.Id, Name = action.Name });
+        }
+
+        private void DeleteAction(ActionTemplate spell)
+        {
+            using (var connection = _configuration.GetConnection())
+            {
+                connection.Open();
+
+                connection.Execute(@"
+                    DELETE FROM [Action]
+                    WHERE Id = @Id;
+                ",
+                new
+                {
+                    Id = spell.Id.ToString().ToUpperInvariant(),
+                });
+            }
+        }
     }
 }
