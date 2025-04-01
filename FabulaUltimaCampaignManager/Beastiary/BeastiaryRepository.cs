@@ -74,6 +74,9 @@ namespace FirstProject.Beastiary
                 case SpellTemplate spell:
                     if (!targetQueue.ContainsKey(spell.Id)) targetQueue[spell.Id] = () => Database.UpdateSpell(spell);
                     break;
+                case ActionTemplate action:
+                    if (!targetQueue.ContainsKey(action.Id)) targetQueue[action.Id] = () => Database.UpdateAction(action);
+                    break;
                 default:
                     throw new ArgumentException($"unsupported type{template.GetType()}");
             }

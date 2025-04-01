@@ -32,7 +32,7 @@ public partial class SpellAttributeRollOptions : OptionButton
         if (!editable)
         {
             var spellAttribute = Index == 0 ? _spell.Attribute1 : _spell.Attribute2;
-            if (spellAttribute == null)
+            if (string.IsNullOrWhiteSpace(spellAttribute))
             {
                 this.Visible = false;
                 return;
