@@ -115,11 +115,6 @@ metadata/_tab_index = 7
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ResetRoundButton" type="Button" parent="GMScreen/VBoxContainer"]
-layout_mode = 2
-text = "Reset Round"
-script = ExtResource("6_0ebfa")
-
 [node name="Players" type="GridContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
 columns = 3
@@ -191,6 +186,11 @@ script = ExtResource("10_f45dp")
 PlayerWinFont = ExtResource("10_ywu3j")
 WhooshFont = ExtResource("11_42xhc")
 
+[node name="ResetRoundButton" type="Button" parent="GMScreen/VBoxContainer"]
+layout_mode = 2
+text = "Reset Round"
+script = ExtResource("6_0ebfa")
+
 [node name="VFlowContainer" type="HBoxContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
 
@@ -208,7 +208,7 @@ script = ExtResource("11_vguco")
 visible = false
 
 [connection signal="tree_exiting" from="." to="." method="HandleTreeExiting"]
-[connection signal="pressed" from="GMScreen/VBoxContainer/ResetRoundButton" to="GMScreen/VBoxContainer/ResetRoundButton" method="HandlePressed"]
 [connection signal="drag_ended" from="GMScreen/VBoxContainer/MusicControlContainer/VolumeSlider" to="GMScreen/VBoxContainer/MusicControlContainer/VolumeSlider" method="HandleDragEnded"]
+[connection signal="pressed" from="GMScreen/VBoxContainer/ResetRoundButton" to="GMScreen/VBoxContainer/ResetRoundButton" method="HandlePressed"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" to="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" method="OnButtonPressed"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/PlayersWinButton" to="GMScreen/VBoxContainer/VFlowContainer/PlayersWinButton" method="HandlePressed"]
