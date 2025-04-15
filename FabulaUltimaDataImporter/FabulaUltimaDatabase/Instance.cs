@@ -139,7 +139,7 @@ namespace FabulaUltimaDatabase
                     Guid id = Guid.Parse(b.Id);
 
                     var speciesType = species[Guid.Parse((string)b.Species)].ToSpeciesType();
-                    var resistance = resistances.TryGetValue(id, out var resistanceMap) ? resistanceMap : throw new Exception($"beast {id}:{b.Name} has no resistances listed");
+                    var resistance = resistances.TryGetValue(id, out var resistanceMap) ? resistanceMap : resistances[Guid.Empty];
 
                     return new BeastTemplate( new BeastModel
                     {
