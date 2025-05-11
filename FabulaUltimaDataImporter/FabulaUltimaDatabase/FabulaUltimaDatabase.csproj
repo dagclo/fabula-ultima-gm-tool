@@ -35,6 +35,12 @@
     <None Update="InitializationScripts\6_Actions.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="ManualScripts\Resistance_DefaultResistance.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ManualScripts\Spell_AddDamageType_AndDamageMod.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
