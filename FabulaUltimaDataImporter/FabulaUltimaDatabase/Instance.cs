@@ -95,7 +95,7 @@ namespace FabulaUltimaDatabase
 #pragma warning disable CS8621 // Nullability of reference types in return type doesn't match the target delegate (possibly because of nullability attributes).
             var resistances = GetResistances()
                 .GroupBy(r => r.BeastTemplateId, r => r)
-                .ToDictionary(g => g.Key, g => g.ToDictionary(r => damageTypes[r.DamageTypeId].Name, r => new BeastResistance 
+                .ToDictionary(g => g.Key, g => g.ToDictionary(r => damageTypes[r.DamageTypeId].Name ?? throw new Exception("unset"), r => new BeastResistance 
                 { 
                     DamageType = damageTypes[r.DamageTypeId].Name, 
                     DamageTypeId = r.DamageTypeId,
@@ -874,7 +874,7 @@ namespace FabulaUltimaDatabase
                 connection.Open();
                 var beastId = template.Id.ToString();
               
-                var beast = template.Model;
+                IBeast beast = template.Model;
                 connection.Execute(@"
                     INSERT INTO BeastTemplate (Id, Name, Description, Level, Traits, Species, Dexterity, Insight, Might, Willpower, ImageFile)
                     VALUES (@Id, @Name, @Description, @Level, @Traits, @Species, @Dexterity, @Insight, @Might, @Willpower, @ImageFile)
@@ -890,7 +890,7 @@ namespace FabulaUltimaDatabase
                     Might = beast.Might.Sides,
                     Willpower = beast.WillPower.Sides,
                     ImageFile = beast.ImageFile,
-                    Species = beast.Species.Id.ToString().ToUpperInvariant(),
+                    Species = beast.Species?.Id.ToString().ToUpperInvariant() ?? throw new Exception("unset"),
                 });
 
                 foreach(var attack in beast.BasicAttacks)

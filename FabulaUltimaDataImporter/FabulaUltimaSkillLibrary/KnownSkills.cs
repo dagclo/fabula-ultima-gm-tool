@@ -1157,12 +1157,9 @@ namespace FabulaUltimaSkillLibrary
         public static IEnumerable<SkillTemplate> GetAllKnownSkills()
         {
             var allKnownSkills = typeof(KnownSkills)
-                //.GetFields(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public)
-                //.Where(f => f.FieldType == typeof(SkillTemplate))
-                //.Select(f => f.GetValue(null) as SkillTemplate)
                 .GetProperties()
                 .Where(p => p.PropertyType == typeof(SkillTemplate))
-                .Select(p => p.GetValue(null) as SkillTemplate)
+                .Select(p => (SkillTemplate) p.GetValue(null)!)
                 .ToArray();
             return allKnownSkills;
         }

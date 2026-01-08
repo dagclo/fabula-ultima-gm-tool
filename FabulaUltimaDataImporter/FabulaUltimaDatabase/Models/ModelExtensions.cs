@@ -13,7 +13,7 @@ namespace FabulaUltimaDatabase.Models
 
         public static SpeciesType ToSpeciesType(this Species species)
         {
-            return new SpeciesType(species.Id, species.Name);
+            return new SpeciesType(species.Id, species.Name ?? throw new Exception("unset"));
         }
 
         public static SkillEntry ToSkillEntry(this SkillTemplate skillTemplate)
@@ -52,14 +52,14 @@ namespace FabulaUltimaDatabase.Models
             return new SpellEntry
             {
                 Id = spellTemplate.Id,
-                Description = spellTemplate.Description,
-                Duration = spellTemplate.Duration,
-                Attribute1 = spellTemplate.Attribute1,
-                Attribute2 = spellTemplate.Attribute2,
+                Description = spellTemplate.Description ?? throw new Exception("unset"),
+                Duration = spellTemplate.Duration ?? throw new Exception("unset"),
+                Attribute1 = spellTemplate.Attribute1 ?? throw new Exception("unset"),
+                Attribute2 = spellTemplate.Attribute2 ?? throw new Exception("unset"),
                 IsOffensive = spellTemplate.IsOffensive,
                 MagicPointCost = spellTemplate.MagicPointCost,
-                Name = spellTemplate.Name,
-                Target = spellTemplate.Target,
+                Name = spellTemplate.Name ?? throw new Exception("unset"),
+                Target = spellTemplate.Target ?? throw new Exception("unset"),
             };
         }
 

@@ -27,9 +27,5 @@ namespace FabulaUltimaSkillLibrary
             this.defMod = defMod;
             this.defOverride = defOverride;
         }
-
-        protected InvalidDefenseBoostException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }

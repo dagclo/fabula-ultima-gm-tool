@@ -90,7 +90,7 @@ namespace FabulaUltimaSkillLibraryTests
             var templateMock = Substitute.For<IBeastTemplate>();
             templateMock.Initiative.Returns(mockInit);
             var skill = KnownSkills.ImprovedInitiative;
-            var initiativeBoost = int.Parse(skill.OtherAttributes[StatsConstants.INIT_BOOST]) * numTimesApplied;
+            var initiativeBoost = int.Parse(skill.OtherAttributes[StatsConstants.INIT_BOOST]!) * numTimesApplied;
             templateMock.Skills.Returns(Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray());
 
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);

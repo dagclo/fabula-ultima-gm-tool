@@ -6,8 +6,8 @@ namespace FabulaUltimaSkillLibrary.Models
     public class SkilledBeastTemplateWrapper : IBeastTemplate
     {
         private readonly IBeastTemplate _beastTemplate;
-        private IReadOnlyDictionary<Guid, int> _skillCountMap;
-        private IReadOnlyDictionary<Guid, SkillTemplate> _skillMap;        
+        private IReadOnlyDictionary<Guid, int>? _skillCountMap;
+        private IReadOnlyDictionary<Guid, SkillTemplate>? _skillMap;        
 
         public SkilledBeastTemplateWrapper(IBeastTemplate beastTemplate)
         {
@@ -24,19 +24,21 @@ namespace FabulaUltimaSkillLibrary.Models
         private IEnumerable<BasicAttackTemplate> ResolveAttacks(IEnumerable<BasicAttackTemplate> attacks)
         {
             int accuracyMod = LevelAccuracyModifier;
-            if(_skillMap.TryGetValue(KnownSkills.SpecializedAccuracyCheck.Id, out var accuracySkill))
+            if (_skillMap is null) throw new Exception("skill map isn't set up");
+            if (_skillCountMap is null) throw new Exception("skill count map isn't set up");
+            if (_skillMap.TryGetValue(KnownSkills.SpecializedAccuracyCheck.Id, out var accuracySkill))
             {
                 int numTimesApplied = _skillCountMap[accuracySkill.Id];
-                accuracyMod += int.Parse(accuracySkill.OtherAttributes[CheckConstants.ACC_CHECK]) * numTimesApplied;
+                accuracyMod += int.Parse(accuracySkill.OtherAttributes[CheckConstants.ACC_CHECK] ?? throw new Exception("unset")) * numTimesApplied;
             }
 
             int ResolveDamageMod(ICollection<SkillTemplate> attackSkills)
             {   
                 int damageMod = LevelDamageModifier;
-                foreach(var skill in attackSkills ?? new SkillTemplate[0])
+                foreach(SkillTemplate skill in attackSkills ?? new SkillTemplate[0])
                 {                    
                     if (skill.OtherAttributes?.ContainsKey(DamageConstants.DAMAGE_BOOST) != true) continue;
-                    damageMod += int.Parse(skill.OtherAttributes[DamageConstants.DAMAGE_BOOST]);
+                    damageMod += int.Parse(skill.OtherAttributes[DamageConstants.DAMAGE_BOOST] ?? throw new Exception("unset"));
                 }
                 return damageMod;
             }
@@ -46,7 +48,7 @@ namespace FabulaUltimaSkillLibrary.Models
             foreach (var attack in validAttacks) 
             {   
                 attack.AccuracyMod = accuracyMod;
-                attack.DamageMod = 5 + ResolveDamageMod(attack.AttackSkills);
+                attack.DamageMod = 5 + ResolveDamageMod(attack.AttackSkills ?? throw new Exception("unset"));
                 yield return attack;
             }
         }
@@ -57,7 +59,7 @@ namespace FabulaUltimaSkillLibrary.Models
 
         public int Defense => ResolveDefense();
         public int DefenseModifier => Defense - _beastTemplate.Defense;
-        private ICollection<EquipmentTemplate> Armor => _beastTemplate.Equipment.Where(e => e.Category.IsArmor).ToArray();
+        private ICollection<EquipmentTemplate> Armor => _beastTemplate.Equipment.Where(e => e.Category?.IsArmor ?? throw new Exception("unset")).ToArray();
         private int ResolveDefense()
         {
             var defense = _beastTemplate.Defense;
@@ -70,7 +72,7 @@ namespace FabulaUltimaSkillLibrary.Models
                         .FirstOrDefault();
                 if(overrideArmor != null)
                 {
-                    defense = overrideArmor.StatsModifier.DefenseModifier;
+                    defense = overrideArmor?.StatsModifier?.DefenseModifier ?? throw new Exception("unset");
                     overrides = true;
                 }
                 else
@@ -78,24 +80,26 @@ namespace FabulaUltimaSkillLibrary.Models
                     var bestArmor = armor
                         .OrderByDescending(a => a.StatsModifier?.DefenseModifier ?? int.MinValue)
                         .First();
-                    defense += bestArmor.StatsModifier.DefenseModifier;
+                    defense += bestArmor.StatsModifier?.DefenseModifier ?? throw new Exception("unset");
                 }
             }
 
             if(!overrides)
             {
+                if (_skillCountMap is null) throw new Exception("skill count map not set up");
+                if (_skillMap is null) throw new Exception("skill map not set up");
                 var pDefSkillId = KnownSkills.ImprovedDefensesPhysical.Id;
                 if (_skillCountMap.TryGetValue(pDefSkillId, out var numPDefTimesApplied))
                 {
                     var targetSkill = _skillMap[pDefSkillId];
-                    defense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST]) * numPDefTimesApplied);
+                    defense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST] ?? throw new Exception("unset")) * numPDefTimesApplied);
                 }
 
                 var mDefSkillId = KnownSkills.ImprovedDefensesMagical.Id;
                 if (_skillCountMap.TryGetValue(mDefSkillId, out var numMDefTimesApplied))
                 {
                     var targetSkill = _skillMap[mDefSkillId];
-                    defense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST]) * numMDefTimesApplied);
+                    defense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST] ?? throw new Exception("unset")) * numMDefTimesApplied);
                 }
             }
            
@@ -132,11 +136,13 @@ namespace FabulaUltimaSkillLibrary.Models
         private int ResolveHP(int healthPoints)
         {
             var result = healthPoints;
+            if (_skillCountMap is null) throw new Exception("skill count map not set up");
+            if (_skillMap is null) throw new Exception("skill map not set up");
             if (_skillCountMap.TryGetValue(KnownSkills.ImprovedHitPoints.Id, out var numTimesApplied))
             {
                 var targetSkill = _skillMap[KnownSkills.ImprovedHitPoints.Id];
                 var rankHpMultiplier = Model.Rank.GetNumSoldiersReplaced();
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.HP_BOOST]) * numTimesApplied * rankHpMultiplier);
+                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.HP_BOOST] ?? throw new Exception("unset")) * numTimesApplied * rankHpMultiplier);
             }
             return result;
         }
@@ -152,7 +158,7 @@ namespace FabulaUltimaSkillLibrary.Models
                 _beastTemplate.Id = value;
             }
         }
-        public string ImageFile
+        public string? ImageFile
         {
             get
             {
@@ -170,10 +176,12 @@ namespace FabulaUltimaSkillLibrary.Models
         {
             var result = initiative;
             var improvedInitiativeSkillId = KnownSkills.ImprovedInitiative.Id;
+            if (_skillCountMap is null) throw new Exception("skill count map not set up");
+            if (_skillMap is null) throw new Exception("skill map not set up");
             if (_skillCountMap.TryGetValue(improvedInitiativeSkillId, out var numImprovedInitiaveApplied))
             {
                 var targetSkill = _skillMap[improvedInitiativeSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.INIT_BOOST]) * numImprovedInitiaveApplied);
+                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.INIT_BOOST] ?? throw new Exception("unset")) * numImprovedInitiaveApplied);
             }           
             return result;
         }
@@ -211,6 +219,8 @@ namespace FabulaUltimaSkillLibrary.Models
         private int ResolveMagicalDefense()
         {
             var magicalDefense = _beastTemplate.MagicalDefense;
+            if (_skillCountMap is null) throw new Exception("skill count map not set up");
+            if (_skillMap is null) throw new Exception("skill map not set up");
 
             var armor = Armor;
             if (KnownSkills.UseEquipment.SpeciesCanUse(_beastTemplate) && armor.Any())
@@ -218,21 +228,21 @@ namespace FabulaUltimaSkillLibrary.Models
                 var bestArmor = armor
                         .OrderByDescending(a => a.StatsModifier?.MagicDefenseModifier ?? int.MinValue)
                         .First();
-                magicalDefense += bestArmor.StatsModifier.MagicDefenseModifier;
+                magicalDefense += bestArmor.StatsModifier?.MagicDefenseModifier ?? throw new Exception("unset");
             }
 
             var pDefSkillId = KnownSkills.ImprovedDefensesPhysical.Id;
             if (_skillCountMap.TryGetValue(pDefSkillId, out var numPDefTimesApplied))
             {
                 var targetSkill = _skillMap[pDefSkillId];
-                magicalDefense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numPDefTimesApplied);
+                magicalDefense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST] ?? throw new Exception("unset")) * numPDefTimesApplied);
             }
 
             var mDefSkillId = KnownSkills.ImprovedDefensesMagical.Id;
             if (_skillCountMap.TryGetValue(mDefSkillId, out var numMDefTimesApplied))
             {
                 var targetSkill = _skillMap[mDefSkillId];
-                magicalDefense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numMDefTimesApplied);
+                magicalDefense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST] ?? throw new Exception("unset")) * numMDefTimesApplied);
             }
             return magicalDefense;
         }
@@ -243,16 +253,18 @@ namespace FabulaUltimaSkillLibrary.Models
         {
             var result = magicPoints;
             var moreMpSkillId = KnownSkills.SpellCasterMoreMP.Id;
+            if (_skillCountMap is null) throw new Exception("skill count map not set up");
+            if (_skillMap is null) throw new Exception("skill map not set up");
             if (_skillCountMap.TryGetValue(moreMpSkillId, out var numMoreMpTimesApplied))
             {
                 var targetSkill = _skillMap[moreMpSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MP_BOOST]) * numMoreMpTimesApplied);
+                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MP_BOOST] ?? throw new Exception("unset")) * numMoreMpTimesApplied);
             }
             var moreSpellsSkillId = KnownSkills.SpellCasterMoreSpells.Id;
             if (_skillCountMap.TryGetValue(moreSpellsSkillId, out var numMoreSpellsTimesApplied))
             {
                 var targetSkill = _skillMap[moreSpellsSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MP_BOOST]) * numMoreSpellsTimesApplied);
+                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MP_BOOST] ?? throw new Exception("unset")) * numMoreSpellsTimesApplied);
             }
             return result;
         }
@@ -301,7 +313,7 @@ namespace FabulaUltimaSkillLibrary.Models
             foreach (var skill in _beastTemplate.Skills.Where(s => s.IsAffinitySkill()))
             {
                 var affinity = skill.ToBeastResistance();
-                if (skillAffinities.ContainsKey(affinity.DamageType) && !AffinityTrumps(skill, skillAffinities[affinity.DamageType])) continue;
+                if (skillAffinities.ContainsKey(affinity.DamageType ?? throw new Exception("unset")) && !AffinityTrumps(skill, skillAffinities[affinity.DamageType])) continue;
                 skillAffinities[affinity.DamageType] = affinity;
             }
 
@@ -361,10 +373,12 @@ namespace FabulaUltimaSkillLibrary.Models
         private int ResolveMagicCheckModifier(int magicCheckModifier)
         {
             var checkMod = magicCheckModifier;
+            if (_skillCountMap is null) throw new Exception("skill count map not set up");
+            if (_skillMap is null) throw new Exception("skill map not set up");
             if (_skillMap.TryGetValue(KnownSkills.SpecializedMagicCheck.Id, out var accuracySkill))
             {
                 int numTimesApplied = _skillCountMap[accuracySkill.Id];
-                checkMod += int.Parse(accuracySkill.OtherAttributes[CheckConstants.ACC_CHECK]) * numTimesApplied;
+                checkMod += int.Parse(accuracySkill.OtherAttributes[CheckConstants.ACC_CHECK] ?? throw new Exception("unset")) * numTimesApplied;
             }
             return checkMod;
         }
@@ -395,8 +409,8 @@ namespace FabulaUltimaSkillLibrary.Models
             {
                 var attackType = attack.IsRanged ? "RANGED" : "MELEE";
                 var accuracyMod = attack.AccuracyMod != 0 ? $" + {attack.AccuracyMod}" : string.Empty;
-                result.AppendLine($"{attackType} {attack.Name} * [{attack.Attribute1} + {attack.Attribute2}{accuracyMod}] * [HR + {attack.DamageMod}] {attack.DamageType.Name.ToLowerInvariant()}");
-                foreach(var skill in attack.AttackSkills)
+                result.AppendLine($"{attackType} {attack.Name} * [{attack.Attribute1} + {attack.Attribute2}{accuracyMod}] * [HR + {attack.DamageMod}] {attack?.DamageType?.Name?.ToLowerInvariant() ?? throw new Exception("unset")}");
+                foreach(var skill in attack.AttackSkills ?? throw new Exception("unset"))
                 {
                     result.AppendLine(skill.Text);
                 }

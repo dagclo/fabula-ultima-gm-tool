@@ -18,8 +18,8 @@ namespace FabulaUltimaSkillLibrary
         private (SkillTemplate skill, Guid? targetId)? MarkResolved(SpeciesType species, (SkillTemplate skill, Guid? targetId)? s)
         {
             if (s == null) return s;
-            SkillTemplate? clonedSkill = s.Value.skill;//.Clone();
-            if (clonedSkill?.IsResolved() == null ||(clonedSkill.IsVulnerabilitySkill() && clonedSkill.IsFreeSkillForSpecies(species)))
+            SkillTemplate? clonedSkill = s.Value.skill;
+            if (clonedSkill.IsVulnerabilitySkill() && clonedSkill.IsFreeSkillForSpecies(species))
             {
                 clonedSkill.SetResolved(true);
             }           
@@ -93,7 +93,7 @@ namespace FabulaUltimaSkillLibrary
                 .Concat(equipmentSkills)
                 .ToArray();
 
-            var speciesSkills = ResolveSpecies(npc, result.Where(s => s?.skill != null).Select(s => s.Value.skill.Id).ToHashSet()); // don't apply skills twice
+            var speciesSkills = ResolveSpecies(npc, result.Where(s => s?.skill != null).Select(s => s!.Value.skill.Id).ToHashSet()); // don't apply skills twice
 
             return result              
                 .Concat(speciesSkills); 
@@ -161,7 +161,7 @@ namespace FabulaUltimaSkillLibrary
             var modDiff = givenAttackMod - totalAttackMod;
 
             var accuracySpecializedSkill = KnownSkills.SpecializedAccuracyCheck;
-            if(modDiff == int.Parse(accuracySpecializedSkill.OtherAttributes[CheckConstants.ACC_CHECK]))
+            if(modDiff == int.Parse(accuracySpecializedSkill.OtherAttributes[CheckConstants.ACC_CHECK] ?? throw new Exception("unset")))
             {
                 yield return (accuracySpecializedSkill, null);
             }
@@ -185,7 +185,7 @@ namespace FabulaUltimaSkillLibrary
                                     {
                                         if(s.OtherAttributes.TryGetValue(SpeciesConstants.FREE_SPECIES, out var value))
                                         {
-                                            var speciesTypeId = Guid.Parse(value);
+                                            var speciesTypeId = Guid.Parse(value ?? throw new Exception("unset"));
                                             return species.Id != speciesTypeId;
                                         }
                                         return true;
@@ -206,7 +206,8 @@ namespace FabulaUltimaSkillLibrary
                                        }   
                                        return null;
                                    }).
-                                   Where(s => s != null); // exclude absorptions that will be granted for species
+                                   Where(s => s != null)
+                                   .Select(s => s!); // exclude absorptions that will be granted for species
 
             var skills = resistanceSkills.Concat(impliedResistanceFromAbsorptionSkills).ToList();
 
@@ -233,11 +234,11 @@ namespace FabulaUltimaSkillLibrary
             var spellCount = npc.Spells.Count();
             var calcMp = npc.MagicPoints;
             var mpDiff = maxMP - calcMp;
-            var numBoostedSpellSkills = Math.Max(mpDiff / int.Parse(moreMPSkill.OtherAttributes[StatsConstants.MP_BOOST]), 0);
+            var numBoostedSpellSkills = Math.Max(mpDiff / int.Parse(moreMPSkill.OtherAttributes[StatsConstants.MP_BOOST] ?? throw new Exception("unset")), 0);
             var boostedMpSkills = Enumerable.Range(0, numBoostedSpellSkills).Select(_ => moreMPSkill);
 
             var moreSpellsSkill = KnownSkills.SpellCasterMoreSpells;
-            var remainingSpellSlots = Math.Max((spellCount - numBoostedSpellSkills) / int.Parse(moreSpellsSkill.OtherAttributes[StatsConstants.NUM_SPELLS]), 0);
+            var remainingSpellSlots = Math.Max((spellCount - numBoostedSpellSkills) / int.Parse(moreSpellsSkill.OtherAttributes[StatsConstants.NUM_SPELLS] ?? throw new Exception("unset")), 0);
             var boostedSpellsSkills = Enumerable.Range(0, remainingSpellSlots).Select(_ => moreSpellsSkill);
 
             foreach(var skill in boostedMpSkills
@@ -268,7 +269,7 @@ namespace FabulaUltimaSkillLibrary
                 {
                     yield return (specialAttackSkill, attack.Id);
                     if (specialAttackSkill.OtherAttributes.TryGetValue(KnownSkills.IS_SPECIAL_ATTACK_DETRIMENT, out var isFreeStr) &&
-                    bool.Parse(isFreeStr))
+                    bool.Parse(isFreeStr ?? throw new Exception("unset")))
                     {
                         yield return null;
                         yield return null; // not just free, but gives a skill slot back

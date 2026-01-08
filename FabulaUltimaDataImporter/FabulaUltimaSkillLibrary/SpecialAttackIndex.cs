@@ -70,7 +70,7 @@ namespace FabulaUltimaSkillLibrary
             return skills;
         }
 
-        internal IEnumerable<SkillTemplate?> GetSpecialAttacks(string text)
+        internal IEnumerable<SkillTemplate> GetSpecialAttacks(string text)
         {
             return GetSpecialAttacks(text.Split(new[] { " ", ".", ",", ":" }, StringSplitOptions.RemoveEmptyEntries));
         }

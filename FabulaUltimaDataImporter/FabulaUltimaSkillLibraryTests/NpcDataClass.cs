@@ -40,7 +40,7 @@ namespace FabulaUltimaSkillLibraryTests
             return new Dictionary<string, BeastResistance>
                         {
                             { 
-                                PHYSICAL.Name, 
+                                PHYSICAL.Name!, 
                                 new BeastResistance
                                 { 
                                     Affinity = physical, 
@@ -50,7 +50,7 @@ namespace FabulaUltimaSkillLibraryTests
                                 } 
                             },
                             { 
-                                AIR.Name, 
+                                AIR.Name!, 
                                 new BeastResistance
                                 { 
                                     Affinity = air, 
@@ -60,7 +60,7 @@ namespace FabulaUltimaSkillLibraryTests
                                 } 
                             },
                             { 
-                                BOLT.Name, 
+                                BOLT.Name!, 
                                 new BeastResistance
                                 { 
                                     Affinity = bolt, 
@@ -70,7 +70,7 @@ namespace FabulaUltimaSkillLibraryTests
                                 } 
                             },
                             { 
-                                DARK.Name, 
+                                DARK.Name!, 
                                 new BeastResistance
                                 { 
                                     Affinity = dark, 
@@ -80,7 +80,7 @@ namespace FabulaUltimaSkillLibraryTests
                                 } 
                             },
                             { 
-                                EARTH.Name, 
+                                EARTH.Name!, 
                                 new BeastResistance
                                 { 
                                     Affinity = earth, 
@@ -90,7 +90,7 @@ namespace FabulaUltimaSkillLibraryTests
                                 } 
                             },
                             { 
-                                FIRE.Name, 
+                                FIRE.Name!, 
                                 new BeastResistance
                                 { 
                                     Affinity = fire, 
@@ -100,7 +100,7 @@ namespace FabulaUltimaSkillLibraryTests
                                 } 
                             },
                             { 
-                                ICE.Name, 
+                                ICE.Name!, 
                                 new BeastResistance
                                 { 
                                     Affinity = ice, 
@@ -110,7 +110,7 @@ namespace FabulaUltimaSkillLibraryTests
                                 } 
                             },
                             { 
-                                LIGHT.Name, 
+                                LIGHT.Name!, 
                                 new BeastResistance
                                 { 
                                     Affinity = light, 
@@ -120,7 +120,7 @@ namespace FabulaUltimaSkillLibraryTests
                                 } 
                             },
                             { 
-                                POISON.Name, 
+                                POISON.Name!, 
                                 new BeastResistance
                                 { 
                                     Affinity = poison, 

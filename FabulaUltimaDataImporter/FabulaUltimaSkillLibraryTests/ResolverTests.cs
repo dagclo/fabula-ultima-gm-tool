@@ -56,11 +56,11 @@ namespace FabulaUltimaSkillLibraryTests
                     if (!actualSkillMap.ContainsKey(pair.Key)) continue;
                     var expectedGroup = pair.Value;
                     var actualGroup = actualSkillMap[pair.Key];
-                    Assert.That(actualGroup.Count(), Is.EqualTo(expectedGroup.Count()), $"num of skill {pair.Key} should match");
+                    Assert.That(actualGroup!.Count(), Is.EqualTo(expectedGroup.Count()), $"num of skill {pair.Key} should match");
                     
                     foreach(var entry in expectedGroup)
                     {
-                        var matching = actualGroup.FirstOrDefault(
+                        var matching = actualGroup!.FirstOrDefault(
                             s => s.Value.skill.Id == entry.Value.skill.Id &&
                                  s.Value.targetId == entry.Value.targetId);
                         Assert.That(matching?.skill, Is.Not.Null, $"skill {entry.Value.skill} with target id {entry.Value.targetId} is missing");

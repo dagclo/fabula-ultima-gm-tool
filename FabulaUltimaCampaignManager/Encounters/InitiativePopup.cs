@@ -60,7 +60,7 @@ public partial class InitiativePopup : PopupPanel
     {        
         this.Hide();
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
-        messageRouter.TearDown();
+        var _ = messageRouter.TearDown();
         EmitSignal(SignalName.SwitchScene);
     }
 }
