@@ -24,7 +24,7 @@ namespace FabulaUltimaSkillLibraryTests
             modelMock.Rank.Returns(modelRank);
             templateMock.Model.Returns(modelMock);
             var skill = KnownSkills.ImprovedHitPoints;
-            var hpBonus = int.Parse(skill.OtherAttributes[StatsConstants.HP_BOOST]) * numTimesApplied * modelRank.GetNumSoldiersReplaced();
+            var hpBonus = int.Parse(skill.OtherAttributes![StatsConstants.HP_BOOST]!) * numTimesApplied * modelRank.GetNumSoldiersReplaced();
             templateMock.Skills.Returns(Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray());
 
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);
@@ -46,7 +46,7 @@ namespace FabulaUltimaSkillLibraryTests
             var templateMock = Substitute.For<IBeastTemplate>();
             templateMock.MagicPoints.Returns(mockMp);
             var skill = KnownSkills.SpellCasterMoreMP;
-            var mpBoost = int.Parse(skill.OtherAttributes[StatsConstants.MP_BOOST]) * numTimesApplied;
+            var mpBoost = int.Parse(skill.OtherAttributes![StatsConstants.MP_BOOST]!) * numTimesApplied;
             templateMock.Skills.Returns(Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray());
 
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);
@@ -68,7 +68,7 @@ namespace FabulaUltimaSkillLibraryTests
             var templateMock = Substitute.For<IBeastTemplate>();
             templateMock.MagicPoints.Returns(mockMp);
             var skill = KnownSkills.SpellCasterMoreSpells;
-            var mpBoost = int.Parse(skill.OtherAttributes[StatsConstants.MP_BOOST]) * numTimesApplied;
+            var mpBoost = int.Parse(skill.OtherAttributes![StatsConstants.MP_BOOST]!) * numTimesApplied;
             templateMock.Skills.Returns(Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray());
 
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);
@@ -90,7 +90,7 @@ namespace FabulaUltimaSkillLibraryTests
             var templateMock = Substitute.For<IBeastTemplate>();
             templateMock.Initiative.Returns(mockInit);
             var skill = KnownSkills.ImprovedInitiative;
-            var initiativeBoost = int.Parse(skill.OtherAttributes[StatsConstants.INIT_BOOST]!) * numTimesApplied;
+            var initiativeBoost = int.Parse(skill.OtherAttributes![StatsConstants.INIT_BOOST]!) * numTimesApplied;
             templateMock.Skills.Returns(Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray());
 
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);
@@ -114,8 +114,8 @@ namespace FabulaUltimaSkillLibraryTests
             templateMock.Defense.Returns(mockDefense);
             templateMock.MagicalDefense.Returns(mockMDefense);
             var skill = KnownSkills.ImprovedDefensesPhysical;
-            var defBonus = int.Parse(skill.OtherAttributes[StatsConstants.DEF_BOOST]) * numTimesApplied;
-            var mDefBonus = int.Parse(skill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numTimesApplied;
+            var defBonus = int.Parse(skill.OtherAttributes![StatsConstants.DEF_BOOST]!) * numTimesApplied;
+            var mDefBonus = int.Parse(skill.OtherAttributes![StatsConstants.MDEF_BOOST]!) * numTimesApplied;
             templateMock.Skills.Returns(Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray());
 
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);
@@ -142,8 +142,8 @@ namespace FabulaUltimaSkillLibraryTests
             templateMock.MagicalDefense.Returns(mockMDefense);
             templateMock.Species.Returns(new SpeciesType(SpeciesConstants.HUMANOID, "humanoid"));
             var skill = KnownSkills.ImprovedDefensesPhysical;
-            var defBonus = int.Parse(skill.OtherAttributes[StatsConstants.DEF_BOOST]) * numTimesApplied;
-            var mDefBonus = int.Parse(skill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numTimesApplied;
+            var defBonus = int.Parse(skill.OtherAttributes![StatsConstants.DEF_BOOST]!) * numTimesApplied;
+            var mDefBonus = int.Parse(skill.OtherAttributes![StatsConstants.MDEF_BOOST]!) * numTimesApplied;
             templateMock.Skills.Returns(Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray());
             var armor = new EquipmentTemplate
             {
@@ -191,8 +191,8 @@ namespace FabulaUltimaSkillLibraryTests
             templateMock.MagicalDefense.Returns(mockMDefense);
             templateMock.Species.Returns(new SpeciesType(SpeciesConstants.HUMANOID, "humanoid"));
             var skill = KnownSkills.ImprovedDefensesPhysical;
-            var defBonus = int.Parse(skill.OtherAttributes[StatsConstants.DEF_BOOST]) * numTimesApplied;
-            var mDefBonus = int.Parse(skill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numTimesApplied;
+            var defBonus = int.Parse(skill.OtherAttributes![StatsConstants.DEF_BOOST]!) * numTimesApplied;
+            var mDefBonus = int.Parse(skill.OtherAttributes![StatsConstants.MDEF_BOOST]!) * numTimesApplied;
             templateMock.Skills.Returns(Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray());
             var armor = new EquipmentTemplate
             {
@@ -245,8 +245,8 @@ namespace FabulaUltimaSkillLibraryTests
             templateMock.MagicalDefense.Returns(mockMDefense);
             templateMock.Species.Returns(new SpeciesType(SpeciesConstants.FromString(species), species));
             var skill = KnownSkills.ImprovedDefensesMagical;
-            var defBonus = int.Parse(skill.OtherAttributes[StatsConstants.DEF_BOOST]) * numTimesApplied;
-            var mDefBonus = int.Parse(skill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numTimesApplied;
+            var defBonus = int.Parse(skill.OtherAttributes![StatsConstants.DEF_BOOST]!) * numTimesApplied;
+            var mDefBonus = int.Parse(skill.OtherAttributes![StatsConstants.MDEF_BOOST]!) * numTimesApplied;
             templateMock.Skills.Returns(Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray());
 
             var armor = new EquipmentTemplate
@@ -342,8 +342,8 @@ namespace FabulaUltimaSkillLibraryTests
             templateMock.Defense.Returns(mockDefense);
             templateMock.MagicalDefense.Returns(mockMDefense);
             var skill = KnownSkills.ImprovedDefensesMagical;
-            var defBonus = int.Parse(skill.OtherAttributes[StatsConstants.DEF_BOOST]) * numTimesApplied;
-            var mDefBonus = int.Parse(skill.OtherAttributes[StatsConstants.MDEF_BOOST]) * numTimesApplied;
+            var defBonus = int.Parse(skill.OtherAttributes![StatsConstants.DEF_BOOST]!) * numTimesApplied;
+            var mDefBonus = int.Parse(skill.OtherAttributes![StatsConstants.MDEF_BOOST]!) * numTimesApplied;
             templateMock.Skills.Returns(Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray());
 
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);
@@ -384,7 +384,7 @@ namespace FabulaUltimaSkillLibraryTests
                 });
 
             var skill = KnownSkills.SpecializedAccuracyCheck;
-            var accMod = int.Parse(skill.OtherAttributes[CheckConstants.ACC_CHECK]) * numTimesApplied;
+            var accMod = int.Parse(skill.OtherAttributes![CheckConstants.ACC_CHECK]!) * numTimesApplied;
             templateMock.Skills.Returns(Enumerable.Range(0, numTimesApplied).Select(_ => skill).ToArray());
 
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);
@@ -427,7 +427,7 @@ namespace FabulaUltimaSkillLibraryTests
                 });
 
 
-            var damageBoost = int.Parse(skill.OtherAttributes[DamageConstants.DAMAGE_BOOST]) * numTimesApplied;
+            var damageBoost = int.Parse(skill.OtherAttributes![DamageConstants.DAMAGE_BOOST]!) * numTimesApplied;
 
             var skilledBeast = new SkilledBeastTemplateWrapper(templateMock);
 

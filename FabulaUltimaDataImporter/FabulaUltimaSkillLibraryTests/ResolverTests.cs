@@ -22,7 +22,7 @@ namespace FabulaUltimaSkillLibraryTests
         {
             // Arrange
             Instance dbInstanceMock = GenerateInstance(skillTemplates);
-            var knownSpecialAttacks = KnownSkills.GetAllKnownSkills().Where(s => s.OtherAttributes.IsSpecialAttack == true);
+            var knownSpecialAttacks = KnownSkills.GetAllKnownSkills().Where(s => s.OtherAttributes?.IsSpecialAttack == true);
             var specialAttackIndex = new SpecialAttackIndex(knownSpecialAttacks, dbInstanceMock);
             var resolver = new Resolver(dbInstanceMock, specialAttackIndex);
 
@@ -36,12 +36,12 @@ namespace FabulaUltimaSkillLibraryTests
                 
                 var expectedSkillMap = expectedSkills
                     .Where(s => s != null)
-                    .GroupBy(s => s.Value.skill.Id)
+                    .GroupBy(s => s!.Value.skill.Id)
                     .ToDictionary(g => g.Key, g => g as ICollection<(SkillTemplate skill, Guid? targetId)?>);
 
                 var actualSkillMap = skillResolution.SkillSlots
                     .Where(s => s != null)
-                    .GroupBy(s => s.Value.skill.Id)
+                    .GroupBy(s => s!.Value.skill.Id)
                     .ToDictionary(g => g.Key, g => g as ICollection<(SkillTemplate skill, Guid? targetId)?>);
 
                 Assert.That(
@@ -56,15 +56,15 @@ namespace FabulaUltimaSkillLibraryTests
                     if (!actualSkillMap.ContainsKey(pair.Key)) continue;
                     var expectedGroup = pair.Value;
                     var actualGroup = actualSkillMap[pair.Key];
-                    Assert.That(actualGroup!.Count(), Is.EqualTo(expectedGroup.Count()), $"num of skill {pair.Key} should match");
+                    Assert.That(actualGroup!.Count(), Is.EqualTo(expectedGroup!.Count()), $"num of skill {pair.Key} should match");
                     
-                    foreach(var entry in expectedGroup)
+                    foreach(var entry in expectedGroup!)
                     {
                         var matching = actualGroup!.FirstOrDefault(
-                            s => s.Value.skill.Id == entry.Value.skill.Id &&
+                            s => s!.Value.skill.Id == entry!.Value.skill.Id &&
                                  s.Value.targetId == entry.Value.targetId);
-                        Assert.That(matching?.skill, Is.Not.Null, $"skill {entry.Value.skill} with target id {entry.Value.targetId} is missing");
-                        Assert.That(matching?.skill.IsResolved(), Is.EqualTo(entry?.skill.IsResolved()), $"skill {entry.Value.skill} with target id {entry.Value.targetId} doesn't match resolution {entry?.skill.IsResolved()}");
+                        Assert.That(matching?.skill, Is.Not.Null, $"skill {entry!.Value.skill} with target id {entry.Value.targetId} is missing");
+                        Assert.That(matching?.skill.IsResolved(), Is.EqualTo(entry?.skill.IsResolved()), $"skill {entry!.Value.skill} with target id {entry.Value.targetId} doesn't match resolution {entry?.skill.IsResolved()}");
                         
                     }                    
                 }
@@ -142,10 +142,10 @@ namespace FabulaUltimaSkillLibraryTests
                         Where(s =>
                         {
                             var otherAttr = s.OtherAttributes;
-                            if (filters.Any() && !otherAttr.Any()) return false;
+                            if (filters.Any() && !otherAttr!.Any()) return false;
                             foreach(var pair in filters)
                             {
-                                if (!otherAttr.ContainsKey(pair.Key)) return false;
+                                if (!otherAttr!.ContainsKey(pair.Key)) return false;
                                 if (otherAttr[pair.Key] != pair.Value) return false;
                             }
                             return true;
