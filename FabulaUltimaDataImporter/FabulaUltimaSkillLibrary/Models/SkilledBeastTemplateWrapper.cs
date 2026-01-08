@@ -29,7 +29,7 @@ namespace FabulaUltimaSkillLibrary.Models
             if (_skillMap.TryGetValue(KnownSkills.SpecializedAccuracyCheck.Id, out var accuracySkill))
             {
                 int numTimesApplied = _skillCountMap[accuracySkill.Id];
-                accuracyMod += int.Parse(accuracySkill.OtherAttributes[CheckConstants.ACC_CHECK] ?? throw new Exception("unset")) * numTimesApplied;
+                accuracyMod += int.Parse(accuracySkill.OtherAttributes?[CheckConstants.ACC_CHECK] ?? throw new Exception("unset")) * numTimesApplied;
             }
 
             int ResolveDamageMod(ICollection<SkillTemplate> attackSkills)
@@ -38,7 +38,7 @@ namespace FabulaUltimaSkillLibrary.Models
                 foreach(SkillTemplate skill in attackSkills ?? new SkillTemplate[0])
                 {                    
                     if (skill.OtherAttributes?.ContainsKey(DamageConstants.DAMAGE_BOOST) != true) continue;
-                    damageMod += int.Parse(skill.OtherAttributes[DamageConstants.DAMAGE_BOOST] ?? throw new Exception("unset"));
+                    damageMod += int.Parse(skill.OtherAttributes?[DamageConstants.DAMAGE_BOOST] ?? throw new Exception("unset"));
                 }
                 return damageMod;
             }
@@ -92,14 +92,14 @@ namespace FabulaUltimaSkillLibrary.Models
                 if (_skillCountMap.TryGetValue(pDefSkillId, out var numPDefTimesApplied))
                 {
                     var targetSkill = _skillMap[pDefSkillId];
-                    defense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST] ?? throw new Exception("unset")) * numPDefTimesApplied);
+                    defense += (int.Parse(targetSkill.OtherAttributes?[StatsConstants.DEF_BOOST] ?? throw new Exception("unset")) * numPDefTimesApplied);
                 }
 
                 var mDefSkillId = KnownSkills.ImprovedDefensesMagical.Id;
                 if (_skillCountMap.TryGetValue(mDefSkillId, out var numMDefTimesApplied))
                 {
                     var targetSkill = _skillMap[mDefSkillId];
-                    defense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.DEF_BOOST] ?? throw new Exception("unset")) * numMDefTimesApplied);
+                    defense += (int.Parse(targetSkill.OtherAttributes?[StatsConstants.DEF_BOOST] ?? throw new Exception("unset")) * numMDefTimesApplied);
                 }
             }
            
@@ -142,7 +142,7 @@ namespace FabulaUltimaSkillLibrary.Models
             {
                 var targetSkill = _skillMap[KnownSkills.ImprovedHitPoints.Id];
                 var rankHpMultiplier = Model.Rank.GetNumSoldiersReplaced();
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.HP_BOOST] ?? throw new Exception("unset")) * numTimesApplied * rankHpMultiplier);
+                result += (int.Parse(targetSkill.OtherAttributes?[StatsConstants.HP_BOOST] ?? throw new Exception("unset")) * numTimesApplied * rankHpMultiplier);
             }
             return result;
         }
@@ -181,7 +181,7 @@ namespace FabulaUltimaSkillLibrary.Models
             if (_skillCountMap.TryGetValue(improvedInitiativeSkillId, out var numImprovedInitiaveApplied))
             {
                 var targetSkill = _skillMap[improvedInitiativeSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.INIT_BOOST] ?? throw new Exception("unset")) * numImprovedInitiaveApplied);
+                result += (int.Parse(targetSkill.OtherAttributes?[StatsConstants.INIT_BOOST] ?? throw new Exception("unset")) * numImprovedInitiaveApplied);
             }           
             return result;
         }
@@ -235,14 +235,14 @@ namespace FabulaUltimaSkillLibrary.Models
             if (_skillCountMap.TryGetValue(pDefSkillId, out var numPDefTimesApplied))
             {
                 var targetSkill = _skillMap[pDefSkillId];
-                magicalDefense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST] ?? throw new Exception("unset")) * numPDefTimesApplied);
+                magicalDefense += (int.Parse(targetSkill.OtherAttributes?[StatsConstants.MDEF_BOOST] ?? throw new Exception("unset")) * numPDefTimesApplied);
             }
 
             var mDefSkillId = KnownSkills.ImprovedDefensesMagical.Id;
             if (_skillCountMap.TryGetValue(mDefSkillId, out var numMDefTimesApplied))
             {
                 var targetSkill = _skillMap[mDefSkillId];
-                magicalDefense += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MDEF_BOOST] ?? throw new Exception("unset")) * numMDefTimesApplied);
+                magicalDefense += (int.Parse(targetSkill.OtherAttributes?[StatsConstants.MDEF_BOOST] ?? throw new Exception("unset")) * numMDefTimesApplied);
             }
             return magicalDefense;
         }
@@ -258,13 +258,13 @@ namespace FabulaUltimaSkillLibrary.Models
             if (_skillCountMap.TryGetValue(moreMpSkillId, out var numMoreMpTimesApplied))
             {
                 var targetSkill = _skillMap[moreMpSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MP_BOOST] ?? throw new Exception("unset")) * numMoreMpTimesApplied);
+                result += (int.Parse(targetSkill.OtherAttributes?[StatsConstants.MP_BOOST] ?? throw new Exception("unset")) * numMoreMpTimesApplied);
             }
             var moreSpellsSkillId = KnownSkills.SpellCasterMoreSpells.Id;
             if (_skillCountMap.TryGetValue(moreSpellsSkillId, out var numMoreSpellsTimesApplied))
             {
                 var targetSkill = _skillMap[moreSpellsSkillId];
-                result += (int.Parse(targetSkill.OtherAttributes[StatsConstants.MP_BOOST] ?? throw new Exception("unset")) * numMoreSpellsTimesApplied);
+                result += (int.Parse(targetSkill.OtherAttributes?[StatsConstants.MP_BOOST] ?? throw new Exception("unset")) * numMoreSpellsTimesApplied);
             }
             return result;
         }
@@ -378,7 +378,7 @@ namespace FabulaUltimaSkillLibrary.Models
             if (_skillMap.TryGetValue(KnownSkills.SpecializedMagicCheck.Id, out var accuracySkill))
             {
                 int numTimesApplied = _skillCountMap[accuracySkill.Id];
-                checkMod += int.Parse(accuracySkill.OtherAttributes[CheckConstants.ACC_CHECK] ?? throw new Exception("unset")) * numTimesApplied;
+                checkMod += int.Parse(accuracySkill.OtherAttributes?[CheckConstants.ACC_CHECK] ?? throw new Exception("unset")) * numTimesApplied;
             }
             return checkMod;
         }

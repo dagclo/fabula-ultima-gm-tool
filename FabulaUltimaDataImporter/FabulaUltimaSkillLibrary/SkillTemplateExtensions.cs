@@ -62,7 +62,7 @@ namespace FabulaUltimaSkillLibrary
         public static bool IsResolved(this SkillTemplate skillTemplate)
         {
             if (skillTemplate.OtherAttributes == null) return false;
-            return skillTemplate.OtherAttributes.TryGetValue(RESOLVED, out var valStr) ? bool.Parse(valStr) : false;
+            return skillTemplate.OtherAttributes.TryGetValue(RESOLVED, out var valStr) ? bool.Parse(valStr ?? throw new Exception("unset")) : false;
         }
 
         public static SkillTemplate SetResolved(this SkillTemplate template, bool resolved)
@@ -82,21 +82,21 @@ namespace FabulaUltimaSkillLibrary
         public static bool IsFreeSkillForSpecies(this SkillTemplate skillTemplate, SpeciesType species)
         {            
             if (skillTemplate.OtherAttributes == null) return false;
-            return skillTemplate.OtherAttributes.TryGetValue(SpeciesConstants.FREE_SPECIES, out var value) ? value.Contains(species.Id.ToString()) : false;
+            return skillTemplate.OtherAttributes.TryGetValue(SpeciesConstants.FREE_SPECIES, out var value) ? (value?.Contains(species.Id.ToString()) ?? throw new Exception("unset")) : false;
         }
 
         public static BeastResistance ToBeastResistance(this SkillTemplate skillTemplate)
         {
             if (!IsAffinitySkill(skillTemplate)) throw new ArgumentException("not a resistance skill");
-            var affinityId = Guid.Parse(skillTemplate.OtherAttributes[DamageConstants.AFFINITY_ID] ?? throw new Exception("unset"));
-            var damageType = skillTemplate.OtherAttributes[DamageConstants.DAMAGE_TYPE_NAME];
+            var affinityId = Guid.Parse(skillTemplate.OtherAttributes?[DamageConstants.AFFINITY_ID] ?? throw new Exception("unset"));
+            var damageType = skillTemplate.OtherAttributes?[DamageConstants.DAMAGE_TYPE_NAME];
             var resolved = skillTemplate.IsResolved();
             return new BeastResistance
             {
                 AffinityId = affinityId,               
                 Affinity = DamageConstants.AffinityMap[affinityId],
                 DamageType = damageType,
-                DamageTypeId = DamageConstants.DamageTypeMap[damageType.ToLowerInvariant()],
+                DamageTypeId = DamageConstants.DamageTypeMap[damageType?.ToLowerInvariant() ?? throw new Exception("unset")],
                 SkillId = skillTemplate.Id,
                 Resolved = resolved,
             };

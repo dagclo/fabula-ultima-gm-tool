@@ -75,6 +75,6 @@ public partial class RunEncounter : Control
         {
             player.ActiveChanged = null;
         }
-        _messageRouter.TearDown();
+        var _ = _messageRouter.TearDown();
     }
 }

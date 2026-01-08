@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace FabulaUltimaNpc
+﻿namespace FabulaUltimaNpc
 {
     [Serializable]
     internal class SkillAttributeCollectionExceptionKeyNotFound : Exception

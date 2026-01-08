@@ -161,7 +161,7 @@ namespace FabulaUltimaSkillLibrary
             var modDiff = givenAttackMod - totalAttackMod;
 
             var accuracySpecializedSkill = KnownSkills.SpecializedAccuracyCheck;
-            if(modDiff == int.Parse(accuracySpecializedSkill.OtherAttributes[CheckConstants.ACC_CHECK] ?? throw new Exception("unset")))
+            if(modDiff == int.Parse(accuracySpecializedSkill.OtherAttributes?[CheckConstants.ACC_CHECK] ?? throw new Exception("unset")))
             {
                 yield return (accuracySpecializedSkill, null);
             }
@@ -182,8 +182,8 @@ namespace FabulaUltimaSkillLibrary
             var resistanceSkills = resistances.Where(r => r.AffinityId == DamageConstants.RESISTANT)
                                     .Select(r => KnownSkills.GetResistanceSkill(r.DamageTypeId))
                                     .Where(s =>
-                                    {
-                                        if(s.OtherAttributes.TryGetValue(SpeciesConstants.FREE_SPECIES, out var value))
+                                    {                                        
+                                        if(s.OtherAttributes is not null && s.OtherAttributes.TryGetValue(SpeciesConstants.FREE_SPECIES, out var value))
                                         {
                                             var speciesTypeId = Guid.Parse(value ?? throw new Exception("unset"));
                                             return species.Id != speciesTypeId;
@@ -202,7 +202,7 @@ namespace FabulaUltimaSkillLibrary
                                            return a.OtherAttributes?
                                                     .OtherKnownSkillsRequired?
                                                     .Select(id => KnownSkills.GetKnownSkill(id))
-                                                    .Single(s => s.OtherAttributes[DamageConstants.AFFINITY_ID] == DamageConstants.RESISTANT.ToString());
+                                                    .Single(s => s.OtherAttributes?[DamageConstants.AFFINITY_ID] == DamageConstants.RESISTANT.ToString());
                                        }   
                                        return null;
                                    }).
@@ -234,11 +234,11 @@ namespace FabulaUltimaSkillLibrary
             var spellCount = npc.Spells.Count();
             var calcMp = npc.MagicPoints;
             var mpDiff = maxMP - calcMp;
-            var numBoostedSpellSkills = Math.Max(mpDiff / int.Parse(moreMPSkill.OtherAttributes[StatsConstants.MP_BOOST] ?? throw new Exception("unset")), 0);
+            var numBoostedSpellSkills = Math.Max(mpDiff / int.Parse(moreMPSkill.OtherAttributes?[StatsConstants.MP_BOOST] ?? throw new Exception("unset")), 0);
             var boostedMpSkills = Enumerable.Range(0, numBoostedSpellSkills).Select(_ => moreMPSkill);
 
             var moreSpellsSkill = KnownSkills.SpellCasterMoreSpells;
-            var remainingSpellSlots = Math.Max((spellCount - numBoostedSpellSkills) / int.Parse(moreSpellsSkill.OtherAttributes[StatsConstants.NUM_SPELLS] ?? throw new Exception("unset")), 0);
+            var remainingSpellSlots = Math.Max((spellCount - numBoostedSpellSkills) / int.Parse(moreSpellsSkill.OtherAttributes?[StatsConstants.NUM_SPELLS] ?? throw new Exception("unset")), 0);
             var boostedSpellsSkills = Enumerable.Range(0, remainingSpellSlots).Select(_ => moreSpellsSkill);
 
             foreach(var skill in boostedMpSkills
@@ -268,7 +268,7 @@ namespace FabulaUltimaSkillLibrary
                 foreach(var specialAttackSkill in specialAttackSkills)
                 {
                     yield return (specialAttackSkill, attack.Id);
-                    if (specialAttackSkill.OtherAttributes.TryGetValue(KnownSkills.IS_SPECIAL_ATTACK_DETRIMENT, out var isFreeStr) &&
+                    if (specialAttackSkill.OtherAttributes is not null && specialAttackSkill.OtherAttributes.TryGetValue(KnownSkills.IS_SPECIAL_ATTACK_DETRIMENT, out var isFreeStr) &&
                     bool.Parse(isFreeStr ?? throw new Exception("unset")))
                     {
                         yield return null;
@@ -287,7 +287,7 @@ namespace FabulaUltimaSkillLibrary
                 var givenDamageMod = attackModifiers.TryGetValue(attack.Id, out var mod) ? mod.DamMod : 0;
 
                 var damModDiff = givenDamageMod - totalCalcMod;
-                if(damModDiff == int.Parse(improvedDamageSkill.OtherAttributes[DamageConstants.DAMAGE_BOOST]))
+                if(damModDiff == int.Parse(improvedDamageSkill.OtherAttributes?[DamageConstants.DAMAGE_BOOST] ?? throw new Exception("unset")))
                 {
                     yield return (improvedDamageSkill, attack.Id);
                 }
@@ -298,11 +298,11 @@ namespace FabulaUltimaSkillLibrary
         {
             var improvedHitPoints = KnownSkills.ImprovedHitPoints;
             var hpDiff = Math.Max(inputData.MaxHP - npc.HealthPoints, 0);
-            var numImprovedHPSkills = hpDiff / int.Parse(improvedHitPoints.OtherAttributes[StatsConstants.HP_BOOST]);
+            var numImprovedHPSkills = hpDiff / int.Parse(improvedHitPoints.OtherAttributes?[StatsConstants.HP_BOOST] ?? throw new Exception("unset"));
             var aggregatedSkills = Enumerable.Range(0, numImprovedHPSkills).Select(_ => improvedHitPoints);
 
             var improvedInitiative = KnownSkills.ImprovedInitiative;
-            if(inputData.Init == npc.Initiative + int.Parse(improvedInitiative.OtherAttributes[StatsConstants.INIT_BOOST]))
+            if(inputData.Init == npc.Initiative + int.Parse(improvedInitiative.OtherAttributes?[StatsConstants.INIT_BOOST] ?? throw new Exception("unset")))
             {
                 aggregatedSkills = aggregatedSkills.Concat(new [] { improvedInitiative });
             }
@@ -310,7 +310,7 @@ namespace FabulaUltimaSkillLibrary
 
             var morePDef = KnownSkills.ImprovedDefensesPhysical;
             var moreMDef = KnownSkills.ImprovedDefensesMagical;
-            var pdefMinMod = int.Parse(moreMDef.OtherAttributes[StatsConstants.DEF_BOOST]);
+            var pdefMinMod = int.Parse(moreMDef.OtherAttributes?[StatsConstants.DEF_BOOST] ?? throw new Exception("unset"));
 
             var numPDef = 0;
             var numMDef = 0;

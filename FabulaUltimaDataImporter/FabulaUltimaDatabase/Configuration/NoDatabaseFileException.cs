@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace FabulaUltimaDatabase.Configuration
+﻿namespace FabulaUltimaDatabase.Configuration
 {
     [Serializable]
     public class NoDatabaseFileException : Exception

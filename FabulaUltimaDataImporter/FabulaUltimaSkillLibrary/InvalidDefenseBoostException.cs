@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace FabulaUltimaSkillLibrary
+﻿namespace FabulaUltimaSkillLibrary
 {
     [Serializable]
     internal class InvalidDefenseBoostException : Exception

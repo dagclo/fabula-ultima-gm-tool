@@ -12,7 +12,7 @@
         public string? Text { get; set; }
         public bool IsSpecialRule { get; set; }
         public ISet<string> Keywords { get; set; } = new HashSet<string>();
-        public SkillAttributeCollection OtherAttributes { get; set; } = new SkillAttributeCollection();
+        public SkillAttributeCollection? OtherAttributes { get; set; } = new SkillAttributeCollection();
         public Guid Id { get; set; }
 
         public override string ToString()

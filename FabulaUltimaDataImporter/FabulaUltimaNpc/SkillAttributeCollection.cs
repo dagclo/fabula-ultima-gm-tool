@@ -1,6 +1,5 @@
 ﻿
 using Newtonsoft.Json.Linq;
-using System.Diagnostics.CodeAnalysis;
 
 
 namespace FabulaUltimaNpc

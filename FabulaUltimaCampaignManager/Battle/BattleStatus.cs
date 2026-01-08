@@ -139,7 +139,7 @@ public partial class BattleStatus : Resource
         return result;
     }
 
-    internal string? ApplyStatus(string attribute, NpcInstance npcInstance)
+    internal string ApplyStatus(string attribute, NpcInstance npcInstance)
     {
         string result;
         var postStatusInsightDie = ApplyStatus(nameof(IBeastTemplate.Insight), npcInstance.Template.Insight);
