@@ -13,10 +13,10 @@ config_version=5
 config/name="FabulaUltimaCampaignManager"
 config/tags=PackedStringArray("campaign_manager", "fabula_ultima")
 run/main_scene="res://node_2d.tscn"
-config/features=PackedStringArray("4.3", "C#", "Mobile")
+config/features=PackedStringArray("4.5", "C#", "Mobile")
 boot_splash/bg_color=Color(0.14902, 0.207843, 0.364706, 1)
-boot_splash/image="res://splashscreen.png"
 boot_splash/fullsize=false
+boot_splash/image="res://splashscreen.png"
 config/icon="res://icon.svg"
 
 [autoload]
