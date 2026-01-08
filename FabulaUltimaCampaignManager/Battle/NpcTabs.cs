@@ -42,7 +42,7 @@ public partial class NpcTabs : TabContainer
     private void EnableTab(int index, NpcInstance npc)
     {
         _instanceIdTabIndexMap[npc.Id] = index;
-        SetTabTitle(index, npc.InstanceName);
         SetTabHidden(index, false);
+        SetTabTitle(index, npc.InstanceName);        
     }
 }

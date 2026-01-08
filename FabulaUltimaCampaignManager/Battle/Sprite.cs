@@ -94,8 +94,7 @@ public partial class Sprite : Sprite2D, INpcReader
         _instance = npc;
         if (string.IsNullOrWhiteSpace(npc?.Template.ImageFile)) return;
         var imageFile = npc.Template.ImageFile;
-        var image = Image.LoadFromFile(imageFile);
-        var texture = ImageTexture.CreateFromImage(image);
+        var texture = (Texture2D) GD.Load(imageFile);
         this.Texture = texture;
 
         // rescale to fit

@@ -6,7 +6,6 @@ Project Description
 
 ### Backlog
 
-- [ ] Fix all Build Warnings  
 - [ ] Fix Godot Disposed error when exiting Battle  
 - [ ] Fix Image Load Warning  
 - [ ] Implement PC Death  
@@ -37,6 +36,7 @@ Project Description
 
 ### Done ✓
 
+- [x] Fix all Build Warnings  
 - [x] In RunEncounter, tab titles get covered by tab content  
 - [x] Investigate Whited Out Text remediation  
 - [x] Implement Godot level unit tests  
