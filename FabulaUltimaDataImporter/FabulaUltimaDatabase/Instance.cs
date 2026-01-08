@@ -91,6 +91,8 @@ namespace FabulaUltimaDatabase
             var species = GetSpecies().ToDictionary(s => s.Id, s => new Species { Id = s.Id, Name = s.Name });
             var affinites = GetAffinities().ToDictionary(a => a.Id, a => a);
             var damageTypes = GetDamageTypes().ToDictionary(d => d.Id, d => d);
+#pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
+#pragma warning disable CS8621 // Nullability of reference types in return type doesn't match the target delegate (possibly because of nullability attributes).
             var resistances = GetResistances()
                 .GroupBy(r => r.BeastTemplateId, r => r)
                 .ToDictionary(g => g.Key, g => g.ToDictionary(r => damageTypes[r.DamageTypeId].Name, r => new BeastResistance 
@@ -99,7 +101,9 @@ namespace FabulaUltimaDatabase
                     DamageTypeId = r.DamageTypeId,
                     Affinity = affinites[r.AffinityId].ShortName,
                     AffinityId = r.AffinityId,
-                }));
+                })) ?? [];
+#pragma warning restore CS8621 // Nullability of reference types in return type doesn't match the target delegate (possibly because of nullability attributes).
+#pragma warning restore CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
 
 #pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
             var attacks = GetBasicAttacks().ToDictionary(a => a.Id, a => a);
@@ -279,7 +283,7 @@ namespace FabulaUltimaDatabase
                     IsMartial = e.IsMartial ?? throw new Exception("unset"),
                     Quality = e.Quality,
                     NumHands = e.NumHands,
-                    Cost = e.Cost ?? throw new Exception("unset"),
+                    Cost = e.Cost,
                     BasicAttack = equipmentCategories[e.CategoryId.Value].IsWeapon ? new BasicAttackTemplate()
                     {
                         Id = e.Id ?? throw new Exception("unset"),

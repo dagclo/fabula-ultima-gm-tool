@@ -27,7 +27,7 @@ namespace FabulaUltimaNpc
         {
             get
             {
-                return Model.Name;
+                return Model.Name ?? string.Empty;
             }
             set
             {
@@ -38,7 +38,7 @@ namespace FabulaUltimaNpc
         {
             get
             {
-                return Model.Description;
+                return Model.Description ?? string.Empty;
             }
             set
             {
@@ -60,7 +60,7 @@ namespace FabulaUltimaNpc
         {
             get
             {
-                return Model.Traits;
+                return Model.Traits ?? string.Empty;
             }
             set
             {
@@ -71,7 +71,7 @@ namespace FabulaUltimaNpc
         {
             get
             {
-                return Model.Species;
+                return Model.Species ?? throw new Exception("unset");
             }
             set
             {
@@ -122,7 +122,7 @@ namespace FabulaUltimaNpc
                 Model.WillPower = value;
             }
         }
-        public string ImageFile
+        public string? ImageFile
         {
             get
             {
