@@ -5,29 +5,29 @@ namespace FabulaUltimaDatabase.Models
     public class BeastModel : IBeast
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
         public int Level { get; set; }
-        public string Traits { get; set; }
-        public SpeciesType Species { get; set; }
+        public string? Traits { get; set; }
+        public SpeciesType? Species { get; set; }
         public Die Insight { get; set; }
         public Die Dexterity { get; set; }
         public Die Might { get; set; }
         public Die WillPower { get; set; }
-        public string ImageFile { get; set; }
+        public string? ImageFile { get; set; }
 
         private IDictionary<string, BeastResistance> _resistances = new Dictionary<string, BeastResistance>();
         public IReadOnlyDictionary<string, BeastResistance> Resistances
         {
-            get => _resistances as IReadOnlyDictionary<string, BeastResistance>;
-            set => _resistances = value as IDictionary<string, BeastResistance>;
+            get => (IReadOnlyDictionary<string, BeastResistance>)_resistances;
+            set => _resistances = (IDictionary<string, BeastResistance>)value;
         }
 
         private ICollection<BasicAttackTemplate> _basicAttacks = new List<BasicAttackTemplate>();
         public IReadOnlyCollection<BasicAttackTemplate> BasicAttacks
         {
-            get => _basicAttacks as IReadOnlyCollection<BasicAttackTemplate>;
-            set => _basicAttacks = value as ICollection<BasicAttackTemplate>;
+            get => (IReadOnlyCollection<BasicAttackTemplate>)_basicAttacks;
+            set => _basicAttacks = (ICollection<BasicAttackTemplate>)value;
         }
 
         public void AddBasicAttack(BasicAttackTemplate basicAttack) => _basicAttacks.Add(basicAttack);
@@ -36,8 +36,8 @@ namespace FabulaUltimaDatabase.Models
         private ICollection<SpellTemplate> _spells = new List<SpellTemplate>();
         public IReadOnlyCollection<SpellTemplate> Spells
         {
-            get => _spells as IReadOnlyCollection<SpellTemplate>;
-            set => _spells = value as ICollection<SpellTemplate>;
+            get => (IReadOnlyCollection<SpellTemplate>)_spells;
+            set => _spells = (ICollection<SpellTemplate>)value;
         }
         public void AddSpell(SpellTemplate spell) => _spells.Add(spell);
         public void RemoveSpell(SpellTemplate spell) => _spells.Remove(spell);
@@ -45,8 +45,8 @@ namespace FabulaUltimaDatabase.Models
         private ICollection<EquipmentTemplate> _equipment = new List<EquipmentTemplate>();
         public IReadOnlyCollection<EquipmentTemplate> Equipment
         {
-            get => _equipment as IReadOnlyCollection<EquipmentTemplate>;
-            set => _equipment = value as ICollection<EquipmentTemplate>;
+            get => (IReadOnlyCollection<EquipmentTemplate>)_equipment;
+            set => _equipment = (ICollection<EquipmentTemplate>)value;
         }
 
         public void AddEquipment(EquipmentTemplate equipment) => _equipment.Add(equipment);
@@ -58,19 +58,19 @@ namespace FabulaUltimaDatabase.Models
         {
             get
             {
-                return _skillTemplates as IReadOnlyCollection<SkillTemplate>;
+                return (IReadOnlyCollection<SkillTemplate>)_skillTemplates;
             }
             set
             {
-                _skillTemplates = value as ICollection<SkillTemplate>;
+                _skillTemplates = (ICollection<SkillTemplate>)value;
             }
         }
         
         private ICollection<ActionTemplate> _actions = new List<ActionTemplate>();
         public IReadOnlyCollection<ActionTemplate> Actions
         {
-            get => _actions as IReadOnlyCollection<ActionTemplate>;
-            set => _actions = value as ICollection<ActionTemplate>;
+            get => (IReadOnlyCollection<ActionTemplate>)_actions;
+            set => _actions = (ICollection<ActionTemplate>)value;
         }
 
         public void AddAction(ActionTemplate action) => _actions.Add(action);

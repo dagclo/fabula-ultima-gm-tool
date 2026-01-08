@@ -152,10 +152,13 @@ namespace FabulaUltimaNpc
         public int Crisis => HealthPoints / 2;
 
 
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
         public IEnumerable<BasicAttackTemplate> AllAttacks =>
             (BasicAttacks ?? Enumerable.Empty<BasicAttackTemplate>())
-            .Concat(Equipment?.Select(e => e.BasicAttack).Where(a => a != null) ??
-                Enumerable.Empty<BasicAttackTemplate>());
+            .Concat(Equipment?.Select(static e => e.BasicAttack).Where(static a => a != null) ??
+                []);
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
+
 
         public int LevelDamageModifier
         {

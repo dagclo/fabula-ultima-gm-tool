@@ -1,5 +1,6 @@
 ﻿
 using Newtonsoft.Json.Linq;
+using System.Diagnostics.CodeAnalysis;
 
 
 namespace FabulaUltimaNpc
@@ -12,6 +13,7 @@ namespace FabulaUltimaNpc
 
         public SkillAttributeCollection(IDictionary<string, string>? dataDictionary)
         {
+            if (dataDictionary is null) throw new ArgumentNullException(nameof(dataDictionary));
             foreach (var pair in dataDictionary)
             {
                 this[pair.Key] = pair.Value;
@@ -27,46 +29,48 @@ namespace FabulaUltimaNpc
                 // ensure set values in additional data
                 if (OtherKnownSkillsRequired != null) this[nameof(OtherKnownSkillsRequired)] = string.Join(",", OtherKnownSkillsRequired);
                 if (FreeSpecies != null) this[nameof(FreeSpecies)] = string.Join(",", FreeSpecies);
+#pragma warning disable CS8601 // Possible null reference assignment.
                 if (IsSpecialAttack != null) this[nameof(IsSpecialAttack)] = IsSpecialAttack.ToString();
                 if (Ordering != null) this[nameof(Ordering)] = Ordering.ToString();
+#pragma warning restore CS8601 // Possible null reference assignment.
 
                 return _additionalData.ToDictionary(p => p.Key, p => p.Value.ToString());
             }
         }
 
-        public string this[string key]
+        public string? this[string key]
         {
             get
             {
-                if (TryGetValue(key, out string value))
+                if (TryGetValue(key, out string? value))
                 {
                     return value;
                 }
                 throw new SkillAttributeCollectionExceptionKeyNotFound(key);
             }
             set
-            {
-                if (string.Equals(key, nameof(OtherKnownSkillsRequired)))
-                {
-                    var guidSplit = value.Split(',').Select(v => Guid.Parse(v));
-                    OtherKnownSkillsRequired = guidSplit.ToArray();
-                }
-                else if (string.Equals(key, nameof(FreeSpecies)))
-                {
-                    var guidSplit = value.Split(',').Select(v => Guid.Parse(v));
-                    FreeSpecies = guidSplit.ToArray();
-                }
-                else if (string.Equals(key, nameof(IsSpecialAttack)))
-                {
-                    IsSpecialAttack = bool.Parse(value);
-                }
-                else if (string.Equals(key, nameof(Ordering)))
-                {
-                    Ordering = int.Parse(value);
-                }
-
+            {   
                 if (value != null)
                 {
+                    if (string.Equals(key, nameof(OtherKnownSkillsRequired)))
+                    {
+                        var guidSplit = value.Split(',').Select(v => Guid.Parse(v));
+                        OtherKnownSkillsRequired = guidSplit.ToArray();
+                    }
+                    else if (string.Equals(key, nameof(FreeSpecies)))
+                    {
+                        var guidSplit = value.Split(',').Select(v => Guid.Parse(v));
+                        FreeSpecies = guidSplit.ToArray();
+                    }
+                    else if (string.Equals(key, nameof(IsSpecialAttack)))
+                    {
+                        IsSpecialAttack = bool.Parse(value);
+                    }
+                    else if (string.Equals(key, nameof(Ordering)))
+                    {
+                        Ordering = int.Parse(value);
+                    }
+
                     _additionalData[key] = JToken.FromObject(value);
                 }
                 else
@@ -124,7 +128,7 @@ namespace FabulaUltimaNpc
 
             if (_additionalData.TryGetValue(key, out var token))
             {
-                value = (string)token;
+                value = (string?)token;
                 return true;
             }
             return false;

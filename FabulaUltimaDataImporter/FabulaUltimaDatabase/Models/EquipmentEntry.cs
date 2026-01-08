@@ -2,7 +2,7 @@
 {
     public class EquipmentEntry
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public Guid? Id { get; set; }
         public Guid? CategoryId { get; set; }
         public string? Attribute1 { get; set; }
@@ -13,7 +13,7 @@
         public int? AttackMod { get; set; }
         public Guid? DamageType { get; set; }
         public int? NumHands { get; set; }
-        public string Quality { get; set; }
+        public string? Quality { get; set; }
         public int? DefenseModification { get; set; }
         public int? DefenseOverride { get; set; }
         public int? MagicDefenceModification { get; set; }

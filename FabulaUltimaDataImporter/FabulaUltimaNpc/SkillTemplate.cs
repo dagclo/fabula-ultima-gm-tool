@@ -7,9 +7,9 @@
         {
             Id = id;        }
 
-        public string Name { get; set; }
-        public Type TargetType { get; set; }
-        public string Text { get; set; }
+        public string? Name { get; set; }
+        public Type? TargetType { get; set; }
+        public string? Text { get; set; }
         public bool IsSpecialRule { get; set; }
         public ISet<string> Keywords { get; set; } = new HashSet<string>();
         public SkillAttributeCollection OtherAttributes { get; set; } = new SkillAttributeCollection();

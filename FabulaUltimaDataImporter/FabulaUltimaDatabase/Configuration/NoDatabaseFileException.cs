@@ -16,9 +16,5 @@ namespace FabulaUltimaDatabase.Configuration
         {
             MissingFile = filename;
         }
-
-        protected NoDatabaseFileException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }

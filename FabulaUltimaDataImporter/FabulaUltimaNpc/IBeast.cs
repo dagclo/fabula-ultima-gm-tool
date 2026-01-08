@@ -4,16 +4,16 @@
     {
         // persisted
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
         public int Level { get; set; }
-        public string Traits { get; set; }
-        public SpeciesType Species { get; set; }
+        public string? Traits { get; set; }
+        public SpeciesType? Species { get; set; }
         public Die Insight { get; set; }
         public Die Dexterity { get; set; }
         public Die Might { get; set; }
         public Die WillPower { get; set; }
-        public string ImageFile { get; set; }
+        public string? ImageFile { get; set; }
 
         public Rank Rank { get; }
 

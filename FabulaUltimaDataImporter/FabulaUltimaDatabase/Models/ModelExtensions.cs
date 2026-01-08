@@ -21,8 +21,8 @@ namespace FabulaUltimaDatabase.Models
             return new SkillEntry
             {
                 Id = skillTemplate.Id.ToString(),
-                Name = skillTemplate.Name,
-                TargetType = skillTemplate.TargetType.ToString(),
+                Name = skillTemplate.Name ?? string.Empty,
+                TargetType = skillTemplate.TargetType?.ToString() ?? throw new Exception("unset"),
                 Text = skillTemplate.Text ?? string.Empty,
                 IsSpecialRule = skillTemplate.IsSpecialRule ? 1 : 0,                
                 Keywords = Newtonsoft.Json.JsonConvert.SerializeObject(skillTemplate.Keywords?.ToArray()),
@@ -39,8 +39,8 @@ namespace FabulaUltimaDatabase.Models
             {
                 Name = skillEntry.Name,
                 IsSpecialRule = skillEntry.IsSpecialRule == 0 ? false : true,
-                Keywords = skillEntry.Keywords == null ? new HashSet<string>() : JsonConvert.DeserializeObject<HashSet<string>>(skillEntry.Keywords),
-                TargetType = Type.GetType(skillEntry.TargetType),
+                Keywords = skillEntry.Keywords == null ? new HashSet<string>() : (JsonConvert.DeserializeObject<HashSet<string>>(skillEntry.Keywords) ?? throw new Exception("keywords invalid")),
+                TargetType = Type.GetType(skillEntry.TargetType) ?? throw new Exception("unknown type"),
                 Text = skillEntry.Text ?? string.Empty,
                 OtherAttributes = skillAttributes,                
 

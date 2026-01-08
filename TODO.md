@@ -6,8 +6,7 @@ Project Description
 
 ### Backlog
 
-- [ ] Fix Godot Disposed error when exiting Battle  
-- [ ] Fix Image Load Warning  
+- [ ] Fix all Build Warnings  
 - [ ] Implement PC Death  
 - [ ] Add Victory music  
 - [ ] -----------------V 1.0 Cut-----------------------------------------------------  
@@ -36,7 +35,8 @@ Project Description
 
 ### Done ✓
 
-- [x] Fix all Build Warnings  
+- [x] Fix Godot Disposed error when exiting Battle  
+- [x] Fix Image Load Warning  
 - [x] In RunEncounter, tab titles get covered by tab content  
 - [x] Investigate Whited Out Text remediation  
 - [x] Implement Godot level unit tests  

@@ -12,7 +12,7 @@
         IReadOnlyCollection<EquipmentTemplate> Equipment { get; }
         int HealthPoints { get; }
         Guid Id { get; set; }
-        string ImageFile { get; set; }
+        string? ImageFile { get; set; }
         int Initiative { get; }
         Die Insight { get; set; }
         int Level { get; set; }

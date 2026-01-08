@@ -100,18 +100,25 @@ namespace FabulaUltimaDatabase
                     Affinity = affinites[r.AffinityId].ShortName,
                     AffinityId = r.AffinityId,
                 }));
-            
+
+#pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
             var attacks = GetBasicAttacks().ToDictionary(a => a.Id, a => a);
+#pragma warning restore CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
             var ownedAttacks = GetBeastAttacks()
-                .GroupBy(ba => ba.BeastTemplateId.Value, ba => ba)
+                .Where(ba => ba.BeastTemplateId is not null)
+                .GroupBy(ba => ba.BeastTemplateId!.Value, ba => ba)
                 .ToDictionary(g => g.Key, g => (IEnumerable<BeastAttack>) g);
-            
+
+#pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
             var spells = GetSpells().ToDictionary(s => s.Id, s => s);
+#pragma warning restore CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
             var ownedSpells = GetBeastSpells()
                 .GroupBy(bs => bs.BeastTemplateId, bs => bs)
                 .ToDictionary(g => g.Key, g => (IEnumerable<BeastSpell>)g);
 
+#pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
             var equipment = GetEquipment().ToDictionary(e => e.Id, e => e);
+#pragma warning restore CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
             var equipmentCategories = GetEquipmentCategories().ToDictionary(ec => ec.Id, ec => ec);
             var ownedEquipment = GetBeastEquipment()
                 .GroupBy(be => be.BeastTemplateId, be => be)
@@ -122,7 +129,9 @@ namespace FabulaUltimaDatabase
                                     .GroupBy(bs => bs.BeastTemplateId, bs => bs)
                                     .ToDictionary(g => g.Key, g => (IEnumerable<BeastSkillEntry>) g);
 
+#pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
             var actions = GetActions().ToDictionary(s => s.Id, s => s);
+#pragma warning restore CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
             var ownedActions = GetBeastActions()
                 .GroupBy(bs => bs.BeastTemplateId, bs => bs)
                 .ToDictionary(g => g.Key, g => (IEnumerable<BeastAction>)g);
@@ -179,7 +188,7 @@ namespace FabulaUltimaDatabase
                new ActionTemplate
                {
 
-                   Id = s.Id.Value,
+                   Id = s.Id ?? throw new Exception("unset"),
                    Name = s.Name,
                    Effect = s.Effect
                });
@@ -266,20 +275,20 @@ namespace FabulaUltimaDatabase
                 {
                     Id = e.Id,
                     Name = e.Name,
-                    Category = equipmentCategories[e.CategoryId.Value],
-                    IsMartial = e.IsMartial.Value,
+                    Category = equipmentCategories[e.CategoryId ?? throw new Exception("unset")],
+                    IsMartial = e.IsMartial ?? throw new Exception("unset"),
                     Quality = e.Quality,
                     NumHands = e.NumHands,
-                    Cost = e.Cost,
+                    Cost = e.Cost ?? throw new Exception("unset"),
                     BasicAttack = equipmentCategories[e.CategoryId.Value].IsWeapon ? new BasicAttackTemplate()
                     {
-                        Id = e.Id.Value,
+                        Id = e.Id ?? throw new Exception("unset"),
                         Name = e.Name,
-                        AccuracyMod = e.AttackMod.Value,
+                        AccuracyMod = e.AttackMod ?? throw new Exception("unset"),
                         Attribute1 = e.Attribute1,
                         Attribute2 = e.Attribute2,
-                        DamageMod = e.DamageMod.Value,
-                        DamageType = damageTypes[e.DamageType.Value].ToDamageType(),
+                        DamageMod = e.DamageMod ?? throw new Exception("unset"),
+                        DamageType = damageTypes[e.DamageType ?? throw new Exception("unset")].ToDamageType(),
                         IsRanged = equipmentCategories[e.CategoryId.Value].IsRanged,
                         AttackSkills = specialAttacks.Where(s => s.BasicAttackId == e.Id.Value).Select(s => skillMap[s.SkillId]).ToList(),
                         IsEquipmentAttack = true,
@@ -287,9 +296,9 @@ namespace FabulaUltimaDatabase
                     StatsModifier = equipmentCategories[e.CategoryId.Value].IsArmor ?
                         new StatsModifications
                         {
-                            InitiativeModifier = -e.InitiativeModification.Value,
-                            MagicDefenseModifier = e.MagicDefenceModification.Value,
-                            DefenseModifier = e.DefenseOverride ?? e.DefenseModification.Value,
+                            InitiativeModifier = -e.InitiativeModification ?? throw new Exception("unset"),
+                            MagicDefenseModifier = e.MagicDefenceModification ?? throw new Exception("unset"),
+                            DefenseModifier = e.DefenseOverride ?? e.DefenseModification ?? throw new Exception("unset"),
                             DefenseOverrides = e.DefenseOverride.HasValue
 
                         } : null,
@@ -332,11 +341,11 @@ namespace FabulaUltimaDatabase
                new SpellTemplate
                {
                    
-                   Id = s.Id.Value,
+                   Id = s.Id ?? throw new Exception("unset"),
                    Name = s.Name,
                    Attribute1 = s.Attribute1,
                    Attribute2 = s.Attribute2,                   
-                   IsOffensive = s.IsOffensive.Value,
+                   IsOffensive = s.IsOffensive ?? throw new Exception("unset"),
                    Duration = s.Duration,
                    Target = s.Target,
                    MagicPointCost = s.MagicPointCost,
@@ -394,14 +403,14 @@ namespace FabulaUltimaDatabase
                 .Select(a =>
                 new BasicAttackTemplate
                 {
-                    DamageType = damageTypes[a.DamageType.Value].ToDamageType(),
-                    Id = a.Id.Value,
+                    DamageType = damageTypes[a.DamageType ?? throw new Exception("unset")].ToDamageType(),
+                    Id = a.Id ?? throw new Exception("unset"),
                     Name = a.Name,
                     Attribute1 = a.Attribute1,
                     Attribute2 = a.Attribute2,
                     AccuracyMod = a.AttackMod,
-                    DamageMod = a.DamageMod.Value,
-                    IsRanged = a.IsRanged.Value,
+                    DamageMod = a.DamageMod ?? throw new Exception("unset"),
+                    IsRanged = a.IsRanged ?? throw new Exception("unset"),
                     AttackSkills = specialAttacks.Where(s => s.BasicAttackId == a.Id.Value).Select(s => skillMap[s.SkillId]).ToList()
                 });
         }
@@ -522,7 +531,7 @@ namespace FabulaUltimaDatabase
                          Name = currentAttack.Name, 
                          Attribute1 = currentAttack.Attribute1,
                          Attribute2 = currentAttack.Attribute2,
-                         IsRanged =  currentAttack.IsRanged.Value ? 1 : 0,
+                         IsRanged =  (currentAttack.IsRanged ?? throw new Exception("unset")) ? 1 : 0,
                          DamageType = currentAttack.DamageType,
                          DamageMod = currentAttack.DamageMod,
                          AttackMod = currentAttack.AttackMod,
@@ -550,7 +559,7 @@ namespace FabulaUltimaDatabase
                      Description = currentSpell.Description,
                      Attribute1 = currentSpell.Attribute1,
                      Attribute2 = currentSpell.Attribute2,
-                     IsOffensive = currentSpell.IsOffensive.Value ? 1 : 0,
+                     IsOffensive = (currentSpell.IsOffensive ?? throw new Exception("unset")) ? 1 : 0,
                  });
             }
         }
@@ -750,11 +759,11 @@ namespace FabulaUltimaDatabase
                 {
                     var numChoices = (int)r.NumFreeVulnerabilities;
                     string choiceString = r.VulnerabilityChoices ?? "[]";
-                    var choices = JsonConvert.DeserializeObject<Guid[]>(choiceString).Select(i => new Resistance { DamageTypeId = i }).ToList();
+                    var choices = JsonConvert.DeserializeObject<Guid[]>(choiceString)?.Select(i => new Resistance { DamageTypeId = i }).ToList();
                     return new SpeciesBuiltInAffinities
                     {
                         NumVulnerabilityChoices = numChoices,
-                        VulnerabilityChoices = choices
+                        VulnerabilityChoices = choices ?? throw new Exception("unset")
                     };
                 })
                 .Single();
@@ -898,7 +907,7 @@ namespace FabulaUltimaDatabase
                                Attribute1 = attack.Attribute1,
                                Attribute2 = attack.Attribute2,
                                IsRanged = attack.IsRanged ? 1 : 0,
-                               DamageType = attack.DamageType.Id,
+                               DamageType = attack.DamageType?.Id ?? throw new Exception("unset"),
                            });
                     }
                    
@@ -949,7 +958,7 @@ namespace FabulaUltimaDatabase
 
                 foreach(var equipment in beast.Equipment)
                 {
-                    var equipmentId = equipment.Id.ToString().ToUpperInvariant();                   
+                    var equipmentId = equipment?.Id?.ToString().ToUpperInvariant() ?? throw new Exception("unset");                   
 
                     connection.Execute(@"
                         INSERT INTO BeastEquipment (BeastTemplateId, EquipmentId)
@@ -979,7 +988,7 @@ namespace FabulaUltimaDatabase
             var specialAttackMap = new Dictionary<Guid, ICollection<Guid>>();
             foreach (var attack in template.AllAttacks)
             {
-                foreach(var attackSkill in attack.AttackSkills)
+                foreach(var attackSkill in (attack.AttackSkills ?? throw new Exception("unset")))
                 {
                     if (!specialAttackMap.ContainsKey(attackSkill.Id))
                     {
@@ -1041,30 +1050,30 @@ namespace FabulaUltimaDatabase
                 {
                     Id = equipment.Id,
                     Name = equipment.Name,
-                    Category = equipmentCategories[equipment.CategoryId.Value],
-                    IsMartial = equipment.IsMartial.Value,
+                    Category = equipmentCategories[equipment?.CategoryId ?? throw new Exception("unset")],
+                    IsMartial = equipment.IsMartial ?? throw new Exception("unset"),
                     Quality = equipment.Quality,
                     NumHands = equipment.NumHands,
                     Cost = equipment.Cost,
                     BasicAttack = equipmentCategories[equipment.CategoryId.Value].IsWeapon ? new BasicAttackTemplate()
                     {
-                        Id = equipment.Id.Value,
+                        Id = equipment.Id ?? throw new Exception("unset"),
                         Name = equipment.Name,
-                        AccuracyMod = equipment.AttackMod.Value,
+                        AccuracyMod = equipment.AttackMod ?? throw new Exception("unset"),
                         Attribute1 = equipment.Attribute1,
                         Attribute2 = equipment.Attribute2,
-                        DamageMod = equipment.DamageMod.Value,
-                        DamageType = damageTypes[equipment.DamageType.Value].ToDamageType(),
-                        IsRanged = equipmentCategories[equipment.CategoryId.Value].IsRanged,
+                        DamageMod = equipment.DamageMod ?? throw new Exception("unset"),
+                        DamageType = damageTypes[equipment.DamageType ?? throw new Exception("unset")].ToDamageType(),
+                        IsRanged = equipmentCategories[equipment.CategoryId ?? throw new Exception("unset")].IsRanged,
                         //AttackSkills = specialAttacks.Where(s => s.BasicAttackId == equipment.Id.Value).Select(s => skillMap[s.SkillId]).ToArray() // no attack skills
                         IsEquipmentAttack = true,
                     } : null,
                     StatsModifier = equipmentCategories[equipment.CategoryId.Value].IsArmor ?
                  new StatsModifications
                  {
-                     InitiativeModifier = -equipment.InitiativeModification.Value,
-                     MagicDefenseModifier = equipment.MagicDefenceModification.Value,
-                     DefenseModifier = equipment.DefenseOverride ?? equipment.DefenseModification.Value,
+                     InitiativeModifier = -equipment.InitiativeModification ?? throw new Exception("unset"),
+                     MagicDefenseModifier = equipment.MagicDefenceModification ?? throw new Exception("unset"),
+                     DefenseModifier = equipment.DefenseOverride ?? (equipment.DefenseModification ?? throw new Exception("unset")),
                      DefenseOverrides = equipment.DefenseOverride.HasValue
 
                  } : null,
@@ -1077,7 +1086,7 @@ namespace FabulaUltimaDatabase
             var damageTypes = GetDamageTypes().ToDictionary(d => d.Id, d => d);
             return GetSpells().Select(s => new SpellTemplate
             {
-                Id = s.Id.Value,
+                Id = s.Id ?? throw new Exception("unset"),
                 Name = s.Name,
                 Attribute1 = s.Attribute1,
                 Attribute2 = s.Attribute2,
@@ -1148,7 +1157,7 @@ namespace FabulaUltimaDatabase
         public void UpdateAction(ActionTemplate action)
         {
             DeleteAction(action);
-            CreateAction(new ActionEntry { Effect = action.Effect, Id = action.Id, Name = action.Name });
+            CreateAction(new ActionEntry { Effect = action.Effect ?? throw new Exception("unset"), Id = action.Id, Name = action.Name ?? throw new Exception("unset") });
         }
 
         private void DeleteAction(ActionTemplate spell)

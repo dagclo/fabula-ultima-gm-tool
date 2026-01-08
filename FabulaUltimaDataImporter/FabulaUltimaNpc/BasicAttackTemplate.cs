@@ -3,15 +3,15 @@
     public class BasicAttackTemplate
     {
 
-        public DamageType DamageType { get; set; }
+        public DamageType? DamageType { get; set; }
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Attribute1 { get; set; }
-        public string Attribute2 { get; set; }
+        public string? Name { get; set; }
+        public string? Attribute1 { get; set; }
+        public string? Attribute2 { get; set; }
         public int AccuracyMod { get; set; }
         public int DamageMod { get; set; }
         public bool IsRanged { get; set; }
-        public ICollection<SkillTemplate> AttackSkills { get; set; }
+        public ICollection<SkillTemplate>? AttackSkills { get; set; }
 
         public bool IsEquipmentAttack { init; get; } = false;
 

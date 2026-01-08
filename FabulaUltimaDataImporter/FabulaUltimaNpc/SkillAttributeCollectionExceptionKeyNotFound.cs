@@ -16,9 +16,5 @@ namespace FabulaUltimaNpc
         public SkillAttributeCollectionExceptionKeyNotFound(string? message, Exception? innerException) : base(message, innerException)
         {
         }
-
-        protected SkillAttributeCollectionExceptionKeyNotFound(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }

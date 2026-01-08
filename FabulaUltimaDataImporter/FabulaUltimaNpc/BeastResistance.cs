@@ -2,8 +2,8 @@
 {
     public class BeastResistance
     {
-        public string DamageType { get; set; }
-        public string Affinity { get; set; }
+        public string? DamageType { get; set; }
+        public string? Affinity { get; set; }
         public Guid AffinityId { get; set; }
         public Guid DamageTypeId { get; set; }
         public Guid? SkillId { get; set; }
