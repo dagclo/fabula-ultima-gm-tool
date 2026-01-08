@@ -1,5 +1,6 @@
 ﻿using FabulaUltimaNpc;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace FabulaUltimaDatabase.Models
 {
@@ -35,12 +36,22 @@ namespace FabulaUltimaDatabase.Models
             var skillAttributes = skillEntry.OtherAttributes == null ? new SkillAttributeCollection() : 
                 new SkillAttributeCollection(JsonConvert.DeserializeObject<Dictionary<string, string>>(skillEntry.OtherAttributes));
 
+            HashSet<string> keywords;
+            if (skillEntry.Keywords is null || skillEntry.Keywords == "null")
+            {
+                keywords = new HashSet<string>();
+            }
+            else
+            {
+                keywords = JsonConvert.DeserializeObject<HashSet<string>>(skillEntry.Keywords) ?? throw new Exception($"keywords invalid: {skillEntry.Keywords ?? "<null>"}");
+            }
+
             return new SkillTemplate(Guid.Parse(skillEntry.Id))
             {
                 Name = skillEntry.Name,
                 IsSpecialRule = skillEntry.IsSpecialRule == 0 ? false : true,
-                Keywords = skillEntry.Keywords == null ? new HashSet<string>() : (JsonConvert.DeserializeObject<HashSet<string>>(skillEntry.Keywords) ?? throw new Exception("keywords invalid")),
-                TargetType = Type.GetType(skillEntry.TargetType) ?? throw new Exception("unknown type"),
+                Keywords = keywords,
+                TargetType = Type.GetType(skillEntry.TargetType), 
                 Text = skillEntry.Text ?? string.Empty,
                 OtherAttributes = skillAttributes,                
 

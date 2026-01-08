@@ -6,11 +6,10 @@ Project Description
 
 ### Backlog
 
-- [ ] Fix all Build Warnings  
 - [ ] Implement PC Death  
 - [ ] Add Victory music  
 - [ ] -----------------V 1.0 Cut-----------------------------------------------------  
-- [ ] Implement Custom Music  
+- [ ] Remove Target Type  
 - [ ] Add Loading Page for switch back to main page  
 - [ ] Add Size Modifiers to creatures  
 - [ ] Fix Cockatrice's Petrifying Peck  
@@ -35,6 +34,8 @@ Project Description
 
 ### Done ✓
 
+- [x] Implement Custom Music  
+- [x] Fix all Build Warnings  
 - [x] Fix Godot Disposed error when exiting Battle  
 - [x] Fix Image Load Warning  
 - [x] In RunEncounter, tab titles get covered by tab content  
