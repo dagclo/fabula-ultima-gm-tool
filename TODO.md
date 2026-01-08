@@ -6,6 +6,7 @@ Project Description
 
 ### Backlog
 
+- [ ] Fix build  
 - [ ] Implement PC Death  
 - [ ] Add Victory music  
 - [ ] -----------------V 1.0 Cut-----------------------------------------------------  
