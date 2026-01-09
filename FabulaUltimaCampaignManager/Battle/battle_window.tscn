@@ -1,19 +1,22 @@
-[gd_scene load_steps=13 format=3 uid="uid://cxgjs17e7mmas"]
+[gd_scene load_steps=15 format=3 uid="uid://cxgjs17e7mmas"]
 
-[ext_resource type="Script" path="res://Battle/BattleWindow.cs" id="1_m7k50"]
+[ext_resource type="Script" uid="uid://dqytxi75i1530" path="res://Battle/BattleWindow.cs" id="1_m7k50"]
 [ext_resource type="SpriteFrames" uid="uid://c82vwyudb7xd2" path="res://Battle/Backgroudn.tres" id="2_inpd1"]
-[ext_resource type="Script" path="res://Battle/Background.cs" id="3_frth7"]
+[ext_resource type="Script" uid="uid://c42hkl707xph7" path="res://Battle/Background.cs" id="3_frth7"]
 [ext_resource type="PackedScene" uid="uid://b54cktmhcq4dq" path="res://Battle/battle_slot.tscn" id="4_qo5g6"]
 [ext_resource type="AudioStream" uid="uid://da3ceh0ypddgk" path="res://Battle/Resources/Music/Three Red Hearts - Go (No Vocal).ogg" id="5_mth6u"]
-[ext_resource type="Script" path="res://Battle/PlayerPanel/BattlePlayerPanel.cs" id="6_32chj"]
+[ext_resource type="Script" uid="uid://brk0pop3wnms7" path="res://Battle/PlayerPanel/BattlePlayerPanel.cs" id="6_32chj"]
+[ext_resource type="Script" uid="uid://cf47863ses6xt" path="res://Battle/BattleMusicPlayer.cs" id="6_awkym"]
 [ext_resource type="Theme" uid="uid://dtpbrs518fimv" path="res://Battle/battle_theme.tres" id="6_q2ftn"]
 [ext_resource type="PackedScene" uid="uid://dtsiqen0mcy4f" path="res://Battle/PlayerPanel/Player.tscn" id="6_xpt3v"]
-[ext_resource type="Script" path="res://Battle/PlayerPanel/AnnouncementPanel.cs" id="7_l4fvx"]
-[ext_resource type="Script" path="res://Battle/PlayerPanel/Announcement.cs" id="8_2ab8g"]
+[ext_resource type="AudioStream" uid="uid://ba4kaiq76e06s" path="res://Battle/Resources/Music/Three Red Hearts - Three Red Hearts.ogg" id="7_j4bf6"]
+[ext_resource type="Script" uid="uid://bay5fldnjo3vk" path="res://Battle/PlayerPanel/AnnouncementPanel.cs" id="7_l4fvx"]
+[ext_resource type="Script" uid="uid://ctcfticifilsj" path="res://Battle/PlayerPanel/Announcement.cs" id="8_2ab8g"]
 [ext_resource type="FontFile" uid="uid://1rq4iiyehcic" path="res://Font/CleanVictory.fnt" id="8_uopy3"]
-[ext_resource type="Script" path="res://Battle/WhooshLabel.cs" id="9_4e4n0"]
+[ext_resource type="Script" uid="uid://yn8p5b2c32ra" path="res://Battle/WhooshLabel.cs" id="9_4e4n0"]
 
 [node name="BattleWindow" type="Window"]
+oversampling_override = 1.0
 title = "Battle Window"
 initial_position = 3
 size = Vector2i(1300, 900)
@@ -21,7 +24,7 @@ current_screen = 0
 theme = ExtResource("6_q2ftn")
 script = ExtResource("1_m7k50")
 
-[node name="Background" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("AudioPlayer")]
+[node name="Background" type="AnimatedSprite2D" parent="."]
 position = Vector2(250, 0)
 scale = Vector2(2.75, 3)
 sprite_frames = ExtResource("2_inpd1")
@@ -29,11 +32,12 @@ animation = &"TOWER_SUNRISE"
 centered = false
 offset = Vector2(-90, 0)
 script = ExtResource("3_frth7")
-AudioPlayer = NodePath("BackgroundMusic")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="Background"]
 stream = ExtResource("5_mth6u")
 volume_db = 6.0
+script = ExtResource("6_awkym")
+VictoryMusicStream = ExtResource("7_j4bf6")
 
 [node name="BattleSlot1" parent="." instance=ExtResource("4_qo5g6")]
 position = Vector2(450, 200)

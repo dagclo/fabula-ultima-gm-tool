@@ -1,57 +1,58 @@
-[gd_scene load_steps=56 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=57 format=3 uid="uid://ec56818wobea"]
 
-[ext_resource type="Script" path="res://GetBeastiary.cs" id="1_4mhff"]
+[ext_resource type="Script" uid="uid://qd737jwjpmc5" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
-[ext_resource type="Script" path="res://node_2d.cs" id="1_5rpfd"]
+[ext_resource type="Script" uid="uid://73bl0uxs7htp" path="res://node_2d.cs" id="1_5rpfd"]
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_f3kj6"]
-[ext_resource type="Script" path="res://TopMenu/Help.cs" id="2_iyeul"]
+[ext_resource type="Script" uid="uid://cdekyppr6yfjo" path="res://TopMenu/Help.cs" id="2_iyeul"]
 [ext_resource type="PackedScene" uid="uid://dn3nwxahhysgn" path="res://Encounters/npc_short_entry.tscn" id="2_vysl0"]
-[ext_resource type="Script" path="res://Encounters/CurrentEncounter.cs" id="2_w6myd"]
-[ext_resource type="Script" path="res://Encounters/EncounterTitleEdit.cs" id="3_3pve8"]
-[ext_resource type="Script" path="res://Encounters/NPCList.cs" id="3_5rnrb"]
-[ext_resource type="Script" path="res://FileMenu.cs" id="3_b7n4u"]
+[ext_resource type="Script" uid="uid://txftsox2gxtq" path="res://Encounters/CurrentEncounter.cs" id="2_w6myd"]
+[ext_resource type="Script" uid="uid://bjdfsw536ghhn" path="res://Encounters/EncounterTitleEdit.cs" id="3_3pve8"]
+[ext_resource type="Script" uid="uid://oqot5s87dcer" path="res://Encounters/NPCList.cs" id="3_5rnrb"]
+[ext_resource type="Script" uid="uid://dl7fo1ckryqd4" path="res://FileMenu.cs" id="3_b7n4u"]
 [ext_resource type="PackedScene" uid="uid://3eqvokisi6o7" path="res://Encounters/encounterEntry.tscn" id="3_eceqq"]
-[ext_resource type="Script" path="res://Settings.cs" id="3_f7bcp"]
-[ext_resource type="Script" path="res://Campaign/Campaign.cs" id="3_tscfl"]
+[ext_resource type="Script" uid="uid://nvkamxwrublq" path="res://Settings.cs" id="3_f7bcp"]
+[ext_resource type="Script" uid="uid://d02gveihpkxfs" path="res://Campaign/Campaign.cs" id="3_tscfl"]
 [ext_resource type="PackedScene" uid="uid://cxbt82uyb2oo7" path="res://Encounters/player_slot.tscn" id="4_6fi46"]
-[ext_resource type="Script" path="res://Encounters/StartEncounterButton.cs" id="4_t2e78"]
+[ext_resource type="Script" uid="uid://cbsbq0f5o5gmq" path="res://Encounters/StartEncounterButton.cs" id="4_t2e78"]
 [ext_resource type="Resource" uid="uid://bmn7nbr6v446u" path="res://CampaignData/campaign_data.tres" id="4_wujyf"]
 [ext_resource type="PackedScene" uid="uid://cdbhgvau850oy" path="res://Encounters/RunEncounter.tscn" id="5_tr8nu"]
-[ext_resource type="Script" path="res://Encounters/InitiativePopup.cs" id="6_6b2gf"]
-[ext_resource type="Script" path="res://Encounters/Encounters.cs" id="6_ful6c"]
-[ext_resource type="Script" path="res://Encounters/EncounterList.cs" id="7_275cp"]
-[ext_resource type="Script" path="res://Encounters/InitiativeDifficulty.cs" id="7_nprtx"]
+[ext_resource type="Script" uid="uid://db2kgym3qdigw" path="res://Encounters/InitiativePopup.cs" id="6_6b2gf"]
+[ext_resource type="Script" uid="uid://il3nhwpj8ta5" path="res://Encounters/Encounters.cs" id="6_ful6c"]
+[ext_resource type="Script" uid="uid://cmq7sabhliobi" path="res://Encounters/EncounterList.cs" id="7_275cp"]
+[ext_resource type="Script" uid="uid://b83tvsh7vnjwg" path="res://Encounters/InitiativeDifficulty.cs" id="7_nprtx"]
 [ext_resource type="Resource" uid="uid://b6rycqp1qoya3" path="res://configuration.tres" id="8_qwns5"]
-[ext_resource type="Script" path="res://Encounters/GroupCheck.cs" id="8_vnw2q"]
-[ext_resource type="Script" path="res://Encounters/RunEncounterButton.cs" id="9_buhfi"]
-[ext_resource type="Script" path="res://Encounters/BattleBackOptions.cs" id="11_5ov2a"]
-[ext_resource type="Script" path="res://Encounters/MusicFilePathLineEdit.cs" id="16_feq0b"]
-[ext_resource type="Script" path="res://Encounters/FindMusicButton.cs" id="17_6i7vq"]
-[ext_resource type="Script" path="res://CampaignManager.cs" id="17_8qoxa"]
-[ext_resource type="Script" path="res://Campaign/CampaignNameEdit.cs" id="20_n478f"]
-[ext_resource type="Script" path="res://BeastiaryScenes/AddNpcButton.cs" id="23_yxpob"]
+[ext_resource type="Script" uid="uid://bkw2rodqrdru1" path="res://Encounters/GroupCheck.cs" id="8_vnw2q"]
+[ext_resource type="Script" uid="uid://b0vsd8hitbb64" path="res://Encounters/RunEncounterButton.cs" id="9_buhfi"]
+[ext_resource type="Script" uid="uid://br5vsc70qbmb1" path="res://Encounters/BattleBackOptions.cs" id="11_5ov2a"]
+[ext_resource type="Script" uid="uid://c6w8tbthrm37" path="res://Encounters/MusicFilePathLineEdit.cs" id="16_feq0b"]
+[ext_resource type="Script" uid="uid://nq21pfvo1d6a" path="res://Encounters/FindMusicButton.cs" id="17_6i7vq"]
+[ext_resource type="Script" uid="uid://b42fpjulhors2" path="res://CampaignManager.cs" id="17_8qoxa"]
+[ext_resource type="Script" uid="uid://bckyrwigmqbkh" path="res://Encounters/VictoryMusicLineEdit.cs" id="18_ytlpd"]
+[ext_resource type="Script" uid="uid://g4kgfwqpvik" path="res://Campaign/CampaignNameEdit.cs" id="20_n478f"]
+[ext_resource type="Script" uid="uid://c6u733u4rpjin" path="res://BeastiaryScenes/AddNpcButton.cs" id="23_yxpob"]
 [ext_resource type="Resource" uid="uid://bmc76hiwu7v3r" path="res://Tags/archive_tag.tres" id="24_4ibeb"]
 [ext_resource type="PackedScene" uid="uid://7xtkfi8kp6pg" path="res://BeastiaryScenes/new_npc_sheet.tscn" id="24_tvbgp"]
 [ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="25_0xra3"]
-[ext_resource type="Script" path="res://Beastiary/SearchBeastsTextEdit.cs" id="25_dycy4"]
+[ext_resource type="Script" uid="uid://d24g66bbkd4xo" path="res://Beastiary/SearchBeastsTextEdit.cs" id="25_dycy4"]
 [ext_resource type="PackedScene" uid="uid://bhiapoj4nwud5" path="res://Campaign/Equipment/equipment_dialog.tscn" id="26_3ixru"]
-[ext_resource type="Script" path="res://Beastiary/SpeciesOptionButton.cs" id="26_k15df"]
-[ext_resource type="Script" path="res://Campaign/Villians/VillainsList.cs" id="26_k46bg"]
+[ext_resource type="Script" uid="uid://c812jeb3xjg1i" path="res://Beastiary/SpeciesOptionButton.cs" id="26_k15df"]
+[ext_resource type="Script" uid="uid://bcn6okr5viu21" path="res://Campaign/Villians/VillainsList.cs" id="26_k46bg"]
 [ext_resource type="FontFile" uid="uid://dya0rxr7wqedx" path="res://Font/NicoBold-Regular.ttf" id="26_wiiue"]
-[ext_resource type="Script" path="res://Campaign/Equipment/CustomEquipmentList.cs" id="27_4odix"]
+[ext_resource type="Script" uid="uid://djh8i2tsloxb0" path="res://Campaign/Equipment/CustomEquipmentList.cs" id="27_4odix"]
 [ext_resource type="PackedScene" uid="uid://b84lercvne5c2" path="res://Campaign/Villians/villian_entry.tscn" id="27_ffedu"]
-[ext_resource type="Script" path="res://Beastiary/LevelOptionButton.cs" id="27_rlqv4"]
+[ext_resource type="Script" uid="uid://bvoep7csky14j" path="res://Beastiary/LevelOptionButton.cs" id="27_rlqv4"]
 [ext_resource type="PackedScene" uid="uid://ch0falaaaeo6v" path="res://Equipment/npc_equipment_entry.tscn" id="28_mfo4r"]
-[ext_resource type="Script" path="res://Beastiary/BeastListScroll.cs" id="28_yuje5"]
+[ext_resource type="Script" uid="uid://daueio8rrdu4q" path="res://Beastiary/BeastListScroll.cs" id="28_yuje5"]
 [ext_resource type="Texture2D" uid="uid://cc364hyjqh7yb" path="res://Icon/64px-Loading_spinner.svg.png" id="32_fx1uk"]
-[ext_resource type="Script" path="res://Beastiary/LoadingBeastAnimation.cs" id="32_gxmwi"]
-[ext_resource type="Script" path="res://AboutPanel.cs" id="38_3f044"]
-[ext_resource type="Script" path="res://Campaign/ChooseCampaignPanel.cs" id="45_33uag"]
-[ext_resource type="Script" path="res://Campaign/CampaignList.cs" id="45_ysk35"]
+[ext_resource type="Script" uid="uid://dsk7qvpe3sqps" path="res://Beastiary/LoadingBeastAnimation.cs" id="32_gxmwi"]
+[ext_resource type="Script" uid="uid://bh84xmxa3018h" path="res://AboutPanel.cs" id="38_3f044"]
+[ext_resource type="Script" uid="uid://cuk4bivgfgww8" path="res://Campaign/ChooseCampaignPanel.cs" id="45_33uag"]
+[ext_resource type="Script" uid="uid://bh5qnr3lhurd3" path="res://Campaign/CampaignList.cs" id="45_ysk35"]
 [ext_resource type="PackedScene" uid="uid://da0ahsh8byack" path="res://Campaign/CampaignEntry.tscn" id="46_4ad1d"]
-[ext_resource type="Script" path="res://Campaign/NewCampaignPanel.cs" id="48_0l0jh"]
-[ext_resource type="Script" path="res://Campaign/NewCampaignLineEdit.cs" id="49_uxrjf"]
-[ext_resource type="Script" path="res://Campaign/NewCampaignButton.cs" id="50_ifarl"]
+[ext_resource type="Script" uid="uid://7ryw6fhi8lu3" path="res://Campaign/NewCampaignPanel.cs" id="48_0l0jh"]
+[ext_resource type="Script" uid="uid://drn3riloyh6ik" path="res://Campaign/NewCampaignLineEdit.cs" id="49_uxrjf"]
+[ext_resource type="Script" uid="uid://bev42i5kq1i58" path="res://Campaign/NewCampaignButton.cs" id="50_ifarl"]
 
 [sub_resource type="Animation" id="Animation_romfh"]
 length = 0.001
@@ -111,8 +112,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nvo1n"]
 _data = {
-"RESET": SubResource("Animation_romfh"),
-"rotate": SubResource("Animation_nvy4y")
+&"RESET": SubResource("Animation_romfh"),
+&"rotate": SubResource("Animation_nvy4y")
 }
 
 [node name="Fabula Ultima Campaign Manager" type="VBoxContainer"]
@@ -133,6 +134,7 @@ layout_mode = 2
 [node name="File" type="PopupMenu" parent="MenuBar" node_paths=PackedStringArray("ChooseCampaignPanel", "NewCampaignPanel")]
 item_count = 2
 item_0/text = "Load Campaign"
+item_0/id = 0
 item_1/text = "Create New Campaign"
 item_1/id = 1
 script = ExtResource("3_b7n4u")
@@ -146,12 +148,14 @@ hide_on_checkable_item_selection = false
 item_count = 1
 item_0/text = "Play Background Music"
 item_0/checkable = 1
+item_0/id = 0
 script = ExtResource("3_f7bcp")
 
 [node name="Help" type="PopupMenu" parent="MenuBar" node_paths=PackedStringArray("AboutPanel")]
 title = "Help"
 item_count = 1
 item_0/text = "About"
+item_0/id = 0
 script = ExtResource("2_iyeul")
 AboutPanel = NodePath("../../AboutPanel")
 
@@ -241,7 +245,7 @@ layout_mode = 2
 [node name="MusicFilePathLineEdit" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "music file.ogg"
+placeholder_text = "background music file.ogg"
 script = ExtResource("16_feq0b")
 
 [node name="FindMusicButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer" node_paths=PackedStringArray("MusicFileDialog")]
@@ -253,7 +257,32 @@ MusicFileDialog = NodePath("MusicFileDialog")
 [node name="MusicFileDialog" type="FileDialog" parent="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/FindMusicButton"]
 title = "Open a File"
 initial_position = 1
-size = Vector2i(262, 209)
+size = Vector2i(318, 209)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.ogg")
+use_native_dialog = true
+
+[node name="VictoryMusicConfigurationContainer" type="HBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+layout_mode = 2
+
+[node name="VictoryMusicLineEdit" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "victory music file.ogg"
+script = ExtResource("18_ytlpd")
+
+[node name="FindVictoryMusicButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer" node_paths=PackedStringArray("MusicFileDialog")]
+layout_mode = 2
+text = "..."
+script = ExtResource("17_6i7vq")
+MusicFileDialog = NodePath("VictoryMusicFileDialog")
+
+[node name="VictoryMusicFileDialog" type="FileDialog" parent="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/FindVictoryMusicButton"]
+title = "Open a File"
+initial_position = 1
+size = Vector2i(318, 209)
 ok_button_text = "Open"
 file_mode = 0
 access = 2
@@ -503,7 +532,7 @@ texture = ExtResource("32_fx1uk")
 
 [node name="LoadingAnimationPlayer" type="AnimationPlayer" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/Loading"]
 libraries = {
-"": SubResource("AnimationLibrary_nvo1n")
+&"": SubResource("AnimationLibrary_nvo1n")
 }
 
 [node name="AboutPanel" type="PopupPanel" parent="."]
@@ -632,6 +661,9 @@ script = ExtResource("50_ifarl")
 [connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/MusicFilePathLineEdit" to="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/MusicFilePathLineEdit" method="OnTextChanged"]
 [connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/FindMusicButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/FindMusicButton" method="HandlePressed"]
 [connection signal="file_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/FindMusicButton/MusicFileDialog" to="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/MusicFilePathLineEdit" method="OnTextChanged"]
+[connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" to="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" method="OnTextChanged"]
+[connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/FindVictoryMusicButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/FindVictoryMusicButton" method="HandlePressed"]
+[connection signal="file_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/FindVictoryMusicButton/VictoryMusicFileDialog" to="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" method="OnTextChanged"]
 [connection signal="RemoveNpc" from="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" to="HSplitContainer/CurrentEncounter" method="RemoveNpcFromEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" method="HandleCampaignChanged"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="UpdateEncounter"]
@@ -649,6 +681,7 @@ script = ExtResource("50_ifarl")
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/MusicFilePathLineEdit" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
+[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" method="UpdateEncounter"]
 [connection signal="toggled" from="HSplitContainer/CampaignManager/Campaign/Encounters/ArchiveFilterCheckButton" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="HandleToggleArchive"]
 [connection signal="DeleteEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CurrentEncounter" method="HideEncounterIfDeleted"]
 [connection signal="LoadEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnLoadEncounter"]

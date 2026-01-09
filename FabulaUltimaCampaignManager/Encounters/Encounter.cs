@@ -101,6 +101,18 @@ namespace FirstProject.Encounters
             }
         }
 
+        private string _victoryMusicFilePath;
+        [Export]
+        public string VictoryMusicFilePath
+        {
+            get => _victoryMusicFilePath;
+            set
+            {
+                _victoryMusicFilePath = value;
+                EmitChanged();
+            }
+        }
+
         public Encounter() :this("", Guid.Empty.ToString(), new Godot.Collections.Array<NpcInstance>()) { }
 
         public Encounter(string name, string id, Godot.Collections.Array<NpcInstance> npcs) 

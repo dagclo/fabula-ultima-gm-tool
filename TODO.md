@@ -6,11 +6,9 @@ Project Description
 
 ### Backlog
 
-- [ ] Fix build  
-- [ ] Implement PC Death  
-- [ ] Add Victory music  
 - [ ] -----------------V 1.0 Cut-----------------------------------------------------  
 - [ ] Remove Target Type  
+- [ ] Implement PC Death  
 - [ ] Add Loading Page for switch back to main page  
 - [ ] Add Size Modifiers to creatures  
 - [ ] Fix Cockatrice's Petrifying Peck  
@@ -35,6 +33,8 @@ Project Description
 
 ### Done ✓
 
+- [x] Add Victory music  
+- [x] Fix build  
 - [x] Implement Custom Music  
 - [x] Fix all Build Warnings  
 - [x] Fix Godot Disposed error when exiting Battle  
