@@ -369,7 +369,8 @@ namespace FabulaUltimaSkillLibraryTests
             const int initialAccMod = 0;
             var attack = new BasicAttackTemplate
             {
-                AccuracyMod = initialAccMod
+                AccuracyMod = initialAccMod,
+                AttackSkills = []
             };
             templateMock.AllAttacks.Returns(
                 new[]
@@ -485,7 +486,8 @@ namespace FabulaUltimaSkillLibraryTests
             
             var attack = new BasicAttackTemplate
             {
-                DamageMod = initialDamageMod,                
+                DamageMod = initialDamageMod,          
+                AttackSkills = []
             };
             templateMock.AllAttacks.Returns(
                 new[]
@@ -524,6 +526,7 @@ namespace FabulaUltimaSkillLibraryTests
             {
                 DamageMod = 0,
                 AccuracyMod = initialAccMod,
+                AttackSkills = []
             };
             templateMock.AllAttacks.Returns(
                 new[]
