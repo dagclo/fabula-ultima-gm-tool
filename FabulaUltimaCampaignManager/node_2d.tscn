@@ -388,26 +388,31 @@ text = "Player Slots"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="Players" type="HFlowContainer" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection"]
+[node name="VScrollBar" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection"]
 layout_mode = 2
-size_flags_vertical = 2
+size_flags_vertical = 3
 
-[node name="PlayerSlot" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players" instance=ExtResource("4_6fi46")]
+[node name="Players" type="HFlowContainer" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/VScrollBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlayerSlot" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/VScrollBar/Players" instance=ExtResource("4_6fi46")]
 layout_mode = 2
 
-[node name="PlayerSlot2" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players" instance=ExtResource("4_6fi46")]
+[node name="PlayerSlot2" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/VScrollBar/Players" instance=ExtResource("4_6fi46")]
 layout_mode = 2
 SlotIndex = 1
 
-[node name="PlayerSlot3" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players" instance=ExtResource("4_6fi46")]
+[node name="PlayerSlot3" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/VScrollBar/Players" instance=ExtResource("4_6fi46")]
 layout_mode = 2
 SlotIndex = 2
 
-[node name="PlayerSlot4" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players" instance=ExtResource("4_6fi46")]
+[node name="PlayerSlot4" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/VScrollBar/Players" instance=ExtResource("4_6fi46")]
 layout_mode = 2
 SlotIndex = 3
 
-[node name="PlayerSlot5" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players" instance=ExtResource("4_6fi46")]
+[node name="PlayerSlot5" parent="HSplitContainer/CampaignManager/Campaign/PlayerSection/VScrollBar/Players" instance=ExtResource("4_6fi46")]
 layout_mode = 2
 SlotIndex = 4
 
@@ -667,11 +672,11 @@ script = ExtResource("50_ifarl")
 [connection signal="RemoveNpc" from="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" to="HSplitContainer/CurrentEncounter" method="RemoveNpcFromEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" method="HandleCampaignChanged"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="UpdateEncounter"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot" method="UpdateEncounter"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot2" method="UpdateEncounter"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot3" method="UpdateEncounter"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot4" method="UpdateEncounter"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot5" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/VScrollBar/Players/PlayerSlot" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/VScrollBar/Players/PlayerSlot2" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/VScrollBar/Players/PlayerSlot3" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/VScrollBar/Players/PlayerSlot4" method="UpdateEncounter"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/VScrollBar/Players/PlayerSlot5" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/VillainSection/ScrollContainer/VillainsList" method="HandleCampaignChanged"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/EquipmentSection/ScrollContainer/CustomEquipmentList" method="HandleCampaignChanged"]
 [connection signal="text_changed" from="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" to="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" method="OnTextChanged"]
@@ -680,8 +685,8 @@ script = ExtResource("50_ifarl")
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/MusicFilePathLineEdit" method="UpdateEncounter"]
-[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" method="UpdateEncounter"]
+[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
 [connection signal="toggled" from="HSplitContainer/CampaignManager/Campaign/Encounters/ArchiveFilterCheckButton" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="HandleToggleArchive"]
 [connection signal="DeleteEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CurrentEncounter" method="HideEncounterIfDeleted"]
 [connection signal="LoadEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnLoadEncounter"]

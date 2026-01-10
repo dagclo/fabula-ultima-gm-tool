@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://cxbt82uyb2oo7"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_3wx5j"]
-[ext_resource type="Script" path="res://Player/PlayerSlot.cs" id="1_alfyt"]
-[ext_resource type="Script" path="res://Player/PlayerNameInput.cs" id="2_xsw1t"]
+[ext_resource type="Script" uid="uid://caqvak0bm5wf3" path="res://Player/PlayerSlot.cs" id="1_alfyt"]
+[ext_resource type="Script" uid="uid://1tqaw3ygqot4" path="res://Player/PlayerNameInput.cs" id="2_xsw1t"]
 [ext_resource type="Texture2D" uid="uid://b3gf3s0ufse2n" path="res://Player/Portrait_Placeholder.png" id="3_pxksc"]
-[ext_resource type="Script" path="res://Player/CharacterNameEdit.cs" id="3_qclik"]
-[ext_resource type="Script" path="res://Player/CharacterTitleEdit.cs" id="4_laftu"]
-[ext_resource type="Script" path="res://Player/PortraitTexture.cs" id="4_wr4x0"]
-[ext_resource type="Script" path="res://Player/PortraitFileDialog.cs" id="5_tiwgs"]
-[ext_resource type="Script" path="res://Player/PlayerEnabled.cs" id="9_5xy6i"]
+[ext_resource type="Script" uid="uid://46s0t43qb02f" path="res://Player/CharacterNameEdit.cs" id="3_qclik"]
+[ext_resource type="Script" uid="uid://cfqmo3pxpfn8j" path="res://Player/CharacterTitleEdit.cs" id="4_laftu"]
+[ext_resource type="Script" uid="uid://d4f3gk36ll1f8" path="res://Player/PortraitTexture.cs" id="4_wr4x0"]
+[ext_resource type="Script" uid="uid://cm21qnjiwqwep" path="res://Player/PortraitFileDialog.cs" id="5_tiwgs"]
+[ext_resource type="Script" uid="uid://bc31p62kxdaba" path="res://Player/PlayerEnabled.cs" id="9_5xy6i"]
 
 [node name="PlayerSlot" type="VBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
@@ -54,6 +54,7 @@ script = ExtResource("5_tiwgs")
 [node name="Attributes" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 
 [node name="PlayerNameInput" type="LineEdit" parent="HBoxContainer/Attributes"]
 layout_mode = 2
