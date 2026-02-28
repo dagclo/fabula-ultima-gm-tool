@@ -1,19 +1,19 @@
 [gd_scene load_steps=16 format=3 uid="uid://cdbhgvau850oy"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_27rb4"]
-[ext_resource type="Script" path="res://Battle/RunEncounter.cs" id="1_dwbmd"]
+[ext_resource type="Script" uid="uid://ccf876kfu5ssy" path="res://Battle/RunEncounter.cs" id="1_dwbmd"]
 [ext_resource type="PackedScene" uid="uid://bsxr63lu04kga" path="res://Battle/npc_panel.tscn" id="2_wj8as"]
-[ext_resource type="Script" path="res://Battle/NpcTabs.cs" id="3_75r23"]
+[ext_resource type="Script" uid="uid://dofi0kst7vbig" path="res://Battle/NpcTabs.cs" id="3_75r23"]
 [ext_resource type="PackedScene" uid="uid://erwugkr5gcel" path="res://Battle/player_panel.tscn" id="4_nde4l"]
-[ext_resource type="Script" path="res://Battle/ResetRoundButton.cs" id="6_0ebfa"]
-[ext_resource type="Script" path="res://Battle/GMScreen.cs" id="6_jr3u1"]
-[ext_resource type="Script" path="res://Battle/VolumeSlider.cs" id="9_d26r8"]
-[ext_resource type="Script" path="res://Battle/GameLog.cs" id="10_f45dp"]
-[ext_resource type="Script" path="res://Battle/PlayersList.cs" id="10_xq16r"]
+[ext_resource type="Script" uid="uid://4dakvjrmdf1g" path="res://Battle/ResetRoundButton.cs" id="6_0ebfa"]
+[ext_resource type="Script" uid="uid://bkdq4agik4w6f" path="res://Battle/GMScreen.cs" id="6_jr3u1"]
+[ext_resource type="Script" uid="uid://bbarromg1hepv" path="res://Battle/VolumeSlider.cs" id="9_d26r8"]
+[ext_resource type="Script" uid="uid://djvkq8hjfiu0q" path="res://Battle/GameLog.cs" id="10_f45dp"]
+[ext_resource type="Script" uid="uid://btod1j6uh86xt" path="res://Battle/PlayersList.cs" id="10_xq16r"]
 [ext_resource type="FontFile" uid="uid://ypuiap2spg2i" path="res://Font/BoldTwilight.fnt" id="10_ywu3j"]
 [ext_resource type="FontFile" uid="uid://1rq4iiyehcic" path="res://Font/CleanVictory.fnt" id="11_42xhc"]
-[ext_resource type="Script" path="res://Encounters/PlayersWinButton.cs" id="11_vguco"]
-[ext_resource type="Script" path="res://Encounters/EndEncounterButton.cs" id="12_2xgj5"]
+[ext_resource type="Script" uid="uid://cxcmj8anwmrk6" path="res://Encounters/PlayersWinButton.cs" id="11_vguco"]
+[ext_resource type="Script" uid="uid://dvvb0c3877cs7" path="res://Encounters/EndEncounterButton.cs" id="12_2xgj5"]
 [ext_resource type="PackedScene" uid="uid://cxgjs17e7mmas" path="res://Battle/battle_window.tscn" id="14_c81va"]
 
 [node name="RunEncounter" type="Control"]
@@ -135,9 +135,8 @@ layout_mode = 2
 [node name="PlayerPanel5" parent="GMScreen/VBoxContainer/Players" instance=ExtResource("4_nde4l")]
 layout_mode = 2
 
-[node name="MusicControlContainer" type="GridContainer" parent="GMScreen/VBoxContainer"]
+[node name="MusicControlContainer" type="HBoxContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
-columns = 2
 
 [node name="VolumeLabel" type="Label" parent="GMScreen/VBoxContainer/MusicControlContainer"]
 layout_mode = 2
@@ -164,6 +163,7 @@ layout_mode = 2
 layout_mode = 2
 theme_type_variation = &"BoldLabel"
 text = "Game Log"
+horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="GMScreen/VBoxContainer/GameLog/GameLog"]
 layout_mode = 2
@@ -196,12 +196,14 @@ layout_mode = 2
 
 [node name="EndEncounterButton" type="Button" parent="GMScreen/VBoxContainer/VFlowContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "End Scene"
 script = ExtResource("12_2xgj5")
 
 [node name="PlayersWinButton" type="Button" parent="GMScreen/VBoxContainer/VFlowContainer"]
 layout_mode = 2
-text = "Players Win"
+size_flags_horizontal = 3
+text = "Players Win!"
 script = ExtResource("11_vguco")
 
 [node name="BattleWindow" parent="." instance=ExtResource("14_c81va")]
