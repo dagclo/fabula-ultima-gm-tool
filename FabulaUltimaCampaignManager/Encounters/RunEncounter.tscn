@@ -135,23 +135,6 @@ layout_mode = 2
 [node name="PlayerPanel5" parent="GMScreen/VBoxContainer/Players" instance=ExtResource("4_nde4l")]
 layout_mode = 2
 
-[node name="MusicControlContainer" type="HBoxContainer" parent="GMScreen/VBoxContainer"]
-layout_mode = 2
-
-[node name="VolumeLabel" type="Label" parent="GMScreen/VBoxContainer/MusicControlContainer"]
-layout_mode = 2
-text = "Background Music Volume"
-
-[node name="VolumeSlider" type="HSlider" parent="GMScreen/VBoxContainer/MusicControlContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-min_value = -1.0
-max_value = 15.849
-step = 0.1
-value = 2.0
-script = ExtResource("9_d26r8")
-
 [node name="GameLog" type="PanelContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -185,6 +168,23 @@ scroll_following = true
 script = ExtResource("10_f45dp")
 PlayerWinFont = ExtResource("10_ywu3j")
 WhooshFont = ExtResource("11_42xhc")
+
+[node name="MusicControlContainer" type="HBoxContainer" parent="GMScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="VolumeLabel" type="Label" parent="GMScreen/VBoxContainer/MusicControlContainer"]
+layout_mode = 2
+text = "Background Music Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="GMScreen/VBoxContainer/MusicControlContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = -1.0
+max_value = 15.849
+step = 0.1
+value = 2.0
+script = ExtResource("9_d26r8")
 
 [node name="ResetRoundButton" type="Button" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
