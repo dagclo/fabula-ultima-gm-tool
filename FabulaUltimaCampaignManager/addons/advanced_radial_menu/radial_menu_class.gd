@@ -109,6 +109,7 @@ var _last_viewport_size := Vector2.ZERO
 
 var _current_selection_idx: int = -2 #0 first child, -1 center child,  -2 none
 var _children_list: Array[Control] = []
+var _selected_children_list: Array[bool] = []
 var _real_children_count: int = 0
 var _local_children_count: int = 0
 var _time_tick: float = 0.0
@@ -139,6 +140,8 @@ func select() -> void: # select currently hovered element. Like trigerring actio
 		selection_canceled.emit()
 		return
 	slot_selected.emit(get_selected_child(), _current_selection_idx)
+	if( _current_selection_idx > -1):
+		_selected_children_list[_current_selection_idx] = !_selected_children_list[_current_selection_idx]
 	if one_shot:
 		enabled = false
 	_current_selection_idx = -2
@@ -185,6 +188,7 @@ func _ready() -> void:
 
 func _update_children() -> void:
 	_children_list.clear()
+	_selected_children_list.clear()
 	_real_children_count = 0
 	_local_children_count = 0
 	
@@ -192,6 +196,7 @@ func _update_children() -> void:
 		if node.is_class(&'Control') and node.visible:
 			_real_children_count += 1
 			_children_list.append(node)
+			_selected_children_list.append(false)
 	
 	_local_children_count = _real_children_count
 	if first_in_center and (_local_children_count > 0):
