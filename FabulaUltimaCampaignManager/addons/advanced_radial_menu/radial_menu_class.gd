@@ -88,6 +88,9 @@ const CONSTANT_ANGLE_OFFSET: float = (PI / 2.0)
 @export								var hover_offset := Vector2.ZERO
 @export_range(-10, 10)				var hover_children_radial_offset: float = 0.0
 
+@export_group('Selected')
+@export								var selected_color := Color("ffffffff")
+
 @export_group('Stroke', 'stroke_')
 @export								var stroke_enabled := false
 @export								var stroke_color := Color.WHITE
@@ -308,6 +311,26 @@ func _draw() -> void:
 						points_inner + points_outer,
 						PackedColorArray([hover_color]),
 					)
+			## todo: create func for arc
+			if (arc_inner_radius < _current_menu_radius):
+				if (_local_children_count == 1 && _selected_children_list[0]):
+					draw_circle(_current_menu_offset, _current_menu_radius, selected_color)
+				elif(_selected_children_list[i]):
+					var points_per_arc: int = hover_detail
+					var points_inner := PackedVector2Array()
+					var points_outer := PackedVector2Array()
+					
+					for j: int in points_per_arc:
+						var point_angle: float = (start_rads + j * (end_rads - start_rads) / float(points_per_arc)) 
+						points_inner.append(_current_menu_offset + ((arc_inner_radius + hover_offset_start)	* Vector2.from_angle(TAU - point_angle) * hover_size_factor))
+						points_outer.append(_current_menu_offset + ((_current_menu_radius + hover_offset_end) 				* Vector2.from_angle(TAU - point_angle) * hover_size_factor))
+					
+					points_outer.reverse()
+					
+					draw_polygon(
+						points_inner + points_outer,
+						PackedColorArray([selected_color]),
+					)
 			
 			
 			if _local_children_count > 1:
@@ -396,8 +419,6 @@ func _process(delta: float) -> void:
 		elif !_is_editor and !center_element_action_name.is_empty() and Input.is_action_just_pressed(center_element_action_name):
 			_current_selection_idx = -1
 			select()
-		
-		
 		elif !first_in_center and _local_children_count == 1:
 			if mouse_radius < _current_menu_radius:
 				_current_selection_idx = 0
