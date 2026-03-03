@@ -1,0 +1,75 @@
+[gd_scene load_steps=3 format=3 uid="uid://ri0bknowwvn2"]
+
+[ext_resource type="Script" uid="uid://c8c4xgin1v0y" path="res://addons/advanced_radial_menu/radial_menu_class.gd" id="1_13meq"]
+[ext_resource type="Script" uid="uid://btetoc8usfjgl" path="res://ProgressClock/ProgressClock.cs" id="1_yi1xy"]
+
+[node name="progress_clock" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yi1xy")
+
+[node name="radial_menu" type="Control" parent="." groups=["progress_clock"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.0
+offset_top = -216.0
+offset_right = 196.0
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_13meq")
+select_action_name = "ui_accept"
+keep_selection_outside = false
+line_color = Color(0.0056611504, 0.0056611514, 0.00566115, 1)
+children_auto_sizing = true
+children_auto_sizing_factor = 0.5
+children_rotate = true
+metadata/_custom_type_script = "uid://c8c4xgin1v0y"
+
+[node name="ColorRect" type="ColorRect" parent="radial_menu"]
+layout_mode = 0
+offset_left = 243.9435
+offset_top = 102.72316
+offset_right = 309.27682
+offset_bottom = 168.05649
+rotation = 6.2831855
+pivot_offset = Vector2(32.66668, 32.66667)
+color = Color(0.7764706, 0.7764706, 0.7764706, 0)
+
+[node name="ColorRect2" type="ColorRect" parent="radial_menu"]
+layout_mode = 0
+offset_left = 82.723175
+offset_top = 102.723175
+offset_right = 148.05652
+offset_bottom = 168.05652
+rotation = 6.2831855
+pivot_offset = Vector2(32.666664, 32.666664)
+color = Color(0.7764706, 0.7764706, 0.7764706, 0)
+
+[node name="ColorRect3" type="ColorRect" parent="radial_menu"]
+layout_mode = 0
+offset_left = 82.72315
+offset_top = 263.94348
+offset_right = 148.05649
+offset_bottom = 329.27682
+rotation = 6.2831855
+pivot_offset = Vector2(32.666668, 32.66667)
+color = Color(0.7764706, 0.7764706, 0.7764706, 0)
+
+[node name="ColorRect4" type="ColorRect" parent="radial_menu"]
+layout_mode = 0
+offset_left = 243.94348
+offset_top = 263.9435
+offset_right = 309.27682
+offset_bottom = 329.27686
+rotation = 6.2831855
+pivot_offset = Vector2(32.66667, 32.66667)
+color = Color(0.7764706, 0.7764706, 0.7764706, 0)

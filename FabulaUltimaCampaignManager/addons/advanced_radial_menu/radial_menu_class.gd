@@ -77,7 +77,7 @@ const CONSTANT_ANGLE_OFFSET: float = (PI / 2.0)
 ## If enabled, iterating and collecting children will only happen when the visibility or number of children changes, not every frame
 ## This means the display will not update when the visibility of the children changes
 ## Use the new radial_menu.force_update() function to force an update
-@export								var children_optimized := false
+@export								var children_optimized := true
 
 @export_group('Hover')
 @export								var hover_color := Color(1, 1, 1, 0.2)
@@ -144,7 +144,7 @@ func select() -> void: # select currently hovered element. Like trigerring actio
 		return
 	slot_selected.emit(get_selected_child(), _current_selection_idx)
 	if( _current_selection_idx > -1):
-		_selected_children_list[_current_selection_idx] = !_selected_children_list[_current_selection_idx]
+		_selected_children_list[_current_selection_idx] = !_selected_children_list[_current_selection_idx]		
 	if one_shot:
 		enabled = false
 	_current_selection_idx = -2
@@ -186,6 +186,7 @@ func _ready() -> void:
 	child_entered_tree.connect(_update_children.call_deferred.unbind(1))
 	child_exiting_tree.connect(_update_children.call_deferred.unbind(1))
 	visibility_changed.connect(_update_children.call_deferred)
+	_update_children()
  
 
 

@@ -59,6 +59,7 @@ line_color = Color(0.0056611504, 0.0056611514, 0.00566115, 1)
 children_auto_sizing = true
 children_auto_sizing_factor = 0.5
 children_rotate = true
+children_optimized = true
 metadata/_custom_type_script = "uid://c8c4xgin1v0y"
 
 [node name="ColorRect" type="ColorRect" parent="radial_menu"]
