@@ -28,48 +28,53 @@ grow_vertical = 2
 script = ExtResource("1_13meq")
 select_action_name = "ui_accept"
 keep_selection_outside = false
-line_color = Color(0.0056611504, 0.0056611514, 0.00566115, 1)
+color = Color(0, 0, 0, 0.9882353)
+arc_color = Color(0.21176471, 0.21176471, 0.21176471, 1)
+arc_inner_radius = 106.787
+line_color = Color(0.21176471, 0.21176471, 0.21176471, 1)
 children_auto_sizing = true
 children_auto_sizing_factor = 0.5
 children_rotate = true
+hover_color = Color(0.5372549, 0.19215687, 0.6627451, 0.43137255)
+selected_color = Color(0.5372549, 0.19215687, 0.6627451, 1)
 metadata/_custom_type_script = "uid://c8c4xgin1v0y"
 
 [node name="ColorRect" type="ColorRect" parent="radial_menu"]
 layout_mode = 0
-offset_left = 243.94351
-offset_top = 102.723175
-offset_right = 309.27686
-offset_bottom = 168.05652
+offset_left = 270.3847
+offset_top = 76.28198
+offset_right = 335.71805
+offset_bottom = 141.61533
 rotation = 6.2831855
 pivot_offset = Vector2(32.66667, 32.666664)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
 
 [node name="ColorRect2" type="ColorRect" parent="radial_menu"]
 layout_mode = 0
-offset_left = 82.72316
-offset_top = 102.72316
-offset_right = 148.05649
-offset_bottom = 168.05649
+offset_left = 56.281967
+offset_top = 76.28198
+offset_right = 121.6153
+offset_bottom = 141.61533
 rotation = 6.2831855
-pivot_offset = Vector2(32.66667, 32.66667)
+pivot_offset = Vector2(32.666668, 32.666664)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
 
 [node name="ColorRect3" type="ColorRect" parent="radial_menu"]
 layout_mode = 0
-offset_left = 82.72315
-offset_top = 263.94348
-offset_right = 148.05649
-offset_bottom = 329.27682
+offset_left = 56.28195
+offset_top = 290.38467
+offset_right = 121.61529
+offset_bottom = 355.71802
 rotation = 6.2831855
 pivot_offset = Vector2(32.666668, 32.66667)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
 
 [node name="ColorRect4" type="ColorRect" parent="radial_menu"]
 layout_mode = 0
-offset_left = 243.94348
-offset_top = 263.9435
-offset_right = 309.27682
-offset_bottom = 329.27686
+offset_left = 270.38467
+offset_top = 290.3847
+offset_right = 335.71802
+offset_bottom = 355.71805
 rotation = 6.2831855
 pivot_offset = Vector2(32.66667, 32.66667)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)

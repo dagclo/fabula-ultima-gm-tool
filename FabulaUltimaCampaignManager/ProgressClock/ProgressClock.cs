@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 
-public partial class ProgressClock : VBoxContainer
+public partial class ProgressClock : Control
 {
 	private Container _progressClock;
 	// Called when the node enters the scene tree for the first time.
