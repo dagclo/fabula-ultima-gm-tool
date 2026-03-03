@@ -36,22 +36,22 @@ metadata/_custom_type_script = "uid://c8c4xgin1v0y"
 
 [node name="ColorRect" type="ColorRect" parent="radial_menu"]
 layout_mode = 0
-offset_left = 243.9435
-offset_top = 102.72316
-offset_right = 309.27682
-offset_bottom = 168.05649
+offset_left = 243.94351
+offset_top = 102.723175
+offset_right = 309.27686
+offset_bottom = 168.05652
 rotation = 6.2831855
-pivot_offset = Vector2(32.66668, 32.66667)
+pivot_offset = Vector2(32.66667, 32.666664)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
 
 [node name="ColorRect2" type="ColorRect" parent="radial_menu"]
 layout_mode = 0
-offset_left = 82.723175
-offset_top = 102.723175
-offset_right = 148.05652
-offset_bottom = 168.05652
+offset_left = 82.72316
+offset_top = 102.72316
+offset_right = 148.05649
+offset_bottom = 168.05649
 rotation = 6.2831855
-pivot_offset = Vector2(32.666664, 32.666664)
+pivot_offset = Vector2(32.66667, 32.66667)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
 
 [node name="ColorRect3" type="ColorRect" parent="radial_menu"]
@@ -73,3 +73,5 @@ offset_bottom = 329.27686
 rotation = 6.2831855
 pivot_offset = Vector2(32.66667, 32.66667)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
+
+[connection signal="slot_selected" from="radial_menu" to="." method="SlotSelected"]
