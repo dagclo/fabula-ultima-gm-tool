@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://ri0bknowwvn2"]
+[gd_scene load_steps=4 format=3 uid="uid://ri0bknowwvn2"]
 
 [ext_resource type="Script" uid="uid://c8c4xgin1v0y" path="res://addons/advanced_radial_menu/radial_menu_class.gd" id="1_13meq"]
 [ext_resource type="Script" uid="uid://btetoc8usfjgl" path="res://ProgressClock/ProgressClock.cs" id="1_yi1xy"]
+[ext_resource type="Script" uid="uid://cht2np2cp4h5d" path="res://ProgressClock/TitleLabel.cs" id="2_37blw"]
 
 [node name="progress_clock" type="Popup"]
 oversampling_override = 1.0
+title = "Progress Clock"
+initial_position = 1
 size = Vector2i(400, 400)
 visible = true
 script = ExtResource("1_yi1xy")
@@ -16,12 +19,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="VBoxContainer" groups=["view_mode"]]
 layout_mode = 2
 text = "Progress Clock"
 horizontal_alignment = 1
+script = ExtResource("2_37blw")
 
-[node name="TitleLineEdit" type="LineEdit" parent="VBoxContainer"]
+[node name="TitleLineEdit" type="LineEdit" parent="VBoxContainer" groups=["edit_mode"]]
 layout_mode = 2
 placeholder_text = "Progress Clock"
 alignment = 1
@@ -37,7 +41,7 @@ select_action_name = "ui_accept"
 keep_selection_outside = false
 color = Color(0, 0, 0, 0.9882353)
 arc_color = Color(0.21176471, 0.21176471, 0.21176471, 1)
-arc_inner_radius = 106.787
+arc_inner_radius = 83.775
 line_color = Color(0.21176471, 0.21176471, 0.21176471, 1)
 children_auto_sizing = true
 children_auto_sizing_factor = 0.5
@@ -48,45 +52,45 @@ metadata/_custom_type_script = "uid://c8c4xgin1v0y"
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock"]
 layout_mode = 0
-offset_left = 262.61084
-offset_top = 26.055832
-offset_right = 306.94418
-offset_bottom = 70.38916
+offset_left = 251.48468
+offset_top = 26.51532
+offset_right = 290.48468
+offset_bottom = 65.51532
 rotation = 6.2831855
-pivot_offset = Vector2(22.166672, 22.166664)
-color = Color(0.7764706, 0.7764706, 0.7764706, 0)
+pivot_offset = Vector2(19.5, 19.5)
+color = Color(1, 1, 1, 0)
 
 [node name="ColorRect2" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock"]
 layout_mode = 0
-offset_left = 93.055824
-offset_top = 26.055832
-offset_right = 137.38916
-offset_bottom = 70.38916
+offset_left = 109.51532
+offset_top = 26.51532
+offset_right = 148.51532
+offset_bottom = 65.51532
 rotation = 6.2831855
-pivot_offset = Vector2(22.166668, 22.166664)
+pivot_offset = Vector2(19.5, 19.5)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
 
 [node name="ColorRect3" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock"]
 layout_mode = 0
-offset_left = 93.05583
-offset_top = 195.61084
-offset_right = 137.38916
-offset_bottom = 239.94417
+offset_left = 109.51531
+offset_top = 168.48468
+offset_right = 148.51532
+offset_bottom = 207.48468
 rotation = 6.2831855
-pivot_offset = Vector2(22.166664, 22.166664)
+pivot_offset = Vector2(19.500004, 19.5)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
 
 [node name="ColorRect4" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock"]
 layout_mode = 0
-offset_left = 262.6108
-offset_top = 195.61086
-offset_right = 306.94415
-offset_bottom = 239.94418
+offset_left = 251.48466
+offset_top = 168.48468
+offset_right = 290.48468
+offset_bottom = 207.48468
 rotation = 6.2831855
-pivot_offset = Vector2(22.166672, 22.166664)
+pivot_offset = Vector2(19.500008, 19.5)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer"]
+[node name="SegmentSlider" type="HSlider" parent="VBoxContainer" groups=["edit_mode"]]
 layout_mode = 2
 min_value = 4.0
 max_value = 12.0
@@ -96,9 +100,18 @@ tick_count = 5
 ticks_on_borders = true
 ticks_position = 2
 
-[node name="EditButton" type="Button" parent="VBoxContainer"]
+[node name="SaveButton" type="Button" parent="VBoxContainer" groups=["edit_mode"]]
+layout_mode = 2
+text = "Save"
+
+[node name="EditButton" type="Button" parent="VBoxContainer" groups=["view_mode"]]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Edit"
 
+[connection signal="ClockTitleUpdate" from="." to="VBoxContainer/TitleLabel" method="UpdateText"]
+[connection signal="text_changed" from="VBoxContainer/TitleLineEdit" to="." method="ClockTitleChanged"]
 [connection signal="slot_selected" from="VBoxContainer/PanelContainer/ProgressClock" to="." method="SlotSelected"]
+[connection signal="value_changed" from="VBoxContainer/SegmentSlider" to="." method="SectionsChanged"]
+[connection signal="pressed" from="VBoxContainer/SaveButton" to="." method="SaveButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/EditButton" to="." method="EditButtonPressed"]
