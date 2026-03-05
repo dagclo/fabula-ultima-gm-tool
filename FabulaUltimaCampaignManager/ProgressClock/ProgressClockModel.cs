@@ -1,18 +1,34 @@
 ﻿using Godot;
+using Godot.Collections;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FabulaUltimaGMTool.Model.ProgressClock
 {
     public partial class ProgressClockModel : Resource
     {
-        private int _sections;
-        public int Sections
+
+        private Godot.Collections.Array<bool> _sectionStates = [];
+        public Godot.Collections.Array<bool> SectionStates
         {
-            get => _sections;
+            get => _sectionStates;
             set
             {
-                _sections = value;
+                _sectionStates = value;
                 EmitChanged();
             }
+        }
+
+        public void PushStates(IEnumerable<bool> states)
+        {
+            SectionStates.AddRange(states);
+            EmitChanged();
+        }
+
+        public void ReduceStates(int remainingStates)
+        {
+            SectionStates = new Array<bool>(SectionStates.Take(remainingStates));
         }
 
         private string _title;

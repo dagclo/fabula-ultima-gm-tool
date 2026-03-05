@@ -12,6 +12,15 @@ public partial class ProgressClock : Popup
 	private ICollection<Control> _viewNodes;
 	private ICollection<Control> _editNodes;
     public ProgressClockModel Model { get; set; }
+    [Export]
+    public string ViewModeGroupName { get; set; } = "view_mode";
+    [Export]
+    public string EditModeGroupName { get; set; } = "edit_mode";
+    [Export]
+    public string ClockSectionGroupName { get; set; } = "clock_sections";
+
+    [Export]
+    public string ProgressClockGroupName { get; set; } = "progress_clock";
 
     [Signal]
     delegate void ClockTitleUpdateEventHandler(string newTitle);
@@ -19,37 +28,65 @@ public partial class ProgressClock : Popup
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-		_progressClock = GetTree().GetNodesInGroup("progress_clock").Single() as Control;
-		_viewNodes = GetTree().GetNodesInGroup("view_mode").Select(n => n as Control).ToList();
-        _editNodes = GetTree().GetNodesInGroup("edit_mode").Select(n => n as Control).ToList();
+		_progressClock = GetTree().GetNodesInGroup(ProgressClockGroupName).Single() as Control;
+		_viewNodes = GetTree().GetNodesInGroup(ViewModeGroupName).Select(n => n as Control).ToList();
+        _editNodes = GetTree().GetNodesInGroup(EditModeGroupName).Select(n => n as Control).ToList();
         SetMode(false);
-        if(Model == null) Model = new ProgressClockModel { Sections = 4 };
+        if (Model == null)
+        {
+            Model = new ProgressClockModel();
+            Model.PushStates(GetTree().GetNodesInGroup(ClockSectionGroupName).Select(s => false));
+        }
+        else
+        {
+            foreach(var control in GetTree().GetNodesInGroup(ClockSectionGroupName).Select(n => n as Control))
+            {
+                if(control.GetParent() != _progressClock)
+                {
+                    GD.PrintErr($"{control.Name} isn't parent of {_progressClock.Name}");
+                    continue;
+                }
+                _progressClock.RemoveChild(control);
+                control.QueueFree();
+            }
+
+            foreach(var section in Enumerable.Range(0, Model.SectionStates.Count()).Select(i => CreateSection(i)))
+            {                
+                _progressClock.AddChild(section);
+                section.AddToGroup(ClockSectionGroupName);
+            }
+        }
 
         Model.Changed += ClockUpdated;
-
-        foreach(var child in _progressClock.FindChildren("*"))
-        {
-            _progressClock.RemoveChild(child);
-            child.QueueFree();
-        }
-
-        foreach(var num in Enumerable.Range(0, Model.Sections))
-        {
-            var section = CreateSection();
-            _progressClock.AddChild(section);
-        }
     }
 
     private void ClockUpdated()
     {
         EmitSignal(SignalName.ClockTitleUpdate, Model.Title);
-        
+        int numSections = GetTree().GetNodeCountInGroup(ClockSectionGroupName);
+        if (numSections < Model.SectionStates.Count())
+        {
+            foreach (var section in Enumerable.Range(Model.SectionStates.Count - 1, Model.SectionStates.Count - numSections).Select(i => CreateSection(i)))
+            {
+                _progressClock.AddChild(section);
+                section.AddToGroup(ClockSectionGroupName);
+            }
+        }
+        else if (numSections > Model.SectionStates.Count)
+        {
+            foreach(var section in GetTree().GetNodesInGroup(ClockSectionGroupName).Skip(Model.SectionStates.Count))
+            {
+                _progressClock.RemoveChild(section);
+                section.QueueFree();
+            }
+        }
     }
 
-    private ColorRect CreateSection()
+    private ColorRect CreateSection(int i)
     {
         var result = new ColorRect();
         result.Color = new Color("ffffff00");
+        result.Name = $"Section{i}";        
         return result;
     }
 
@@ -76,7 +113,14 @@ public partial class ProgressClock : Popup
     public void SectionsChanged(float sectionCount)
     {
         var sections = (int)sectionCount;
-        if(Model.Sections != sections) Model.Sections = sections;
+        if(Model.SectionStates.Count > sections)
+        {
+            Model.ReduceStates(sections);
+        }
+        else if(Model.SectionStates.Count < sections)
+        {
+            Model.PushStates(Enumerable.Range(0, sections).Select(_ => false));
+        }
     }
 
 	private void SetMode(bool isViewMode)
