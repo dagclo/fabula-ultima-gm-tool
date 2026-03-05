@@ -50,7 +50,17 @@ hover_color = Color(0.5372549, 0.19215687, 0.6627451, 0.43137255)
 selected_color = Color(0.5372549, 0.19215687, 0.6627451, 1)
 metadata/_custom_type_script = "uid://c8c4xgin1v0y"
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock"]
+[node name="Section00" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock" groups=["clock_sections"]]
+layout_mode = 0
+offset_left = 251.48466
+offset_top = 168.48468
+offset_right = 290.48468
+offset_bottom = 207.48468
+rotation = 6.2831855
+pivot_offset = Vector2(19.500008, 19.5)
+color = Color(1, 1, 1, 0)
+
+[node name="Section01" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock" groups=["clock_sections"]]
 layout_mode = 0
 offset_left = 251.48468
 offset_top = 26.51532
@@ -60,7 +70,7 @@ rotation = 6.2831855
 pivot_offset = Vector2(19.5, 19.5)
 color = Color(1, 1, 1, 0)
 
-[node name="ColorRect2" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock"]
+[node name="Section02" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock" groups=["clock_sections"]]
 layout_mode = 0
 offset_left = 109.51532
 offset_top = 26.51532
@@ -70,7 +80,7 @@ rotation = 6.2831855
 pivot_offset = Vector2(19.5, 19.5)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
 
-[node name="ColorRect3" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock"]
+[node name="Section03" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock" groups=["clock_sections"]]
 layout_mode = 0
 offset_left = 109.51531
 offset_top = 168.48468
@@ -78,16 +88,6 @@ offset_right = 148.51532
 offset_bottom = 207.48468
 rotation = 6.2831855
 pivot_offset = Vector2(19.500004, 19.5)
-color = Color(0.7764706, 0.7764706, 0.7764706, 0)
-
-[node name="ColorRect4" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock"]
-layout_mode = 0
-offset_left = 251.48466
-offset_top = 168.48468
-offset_right = 290.48468
-offset_bottom = 207.48468
-rotation = 6.2831855
-pivot_offset = Vector2(19.500008, 19.5)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
 
 [node name="SegmentSlider" type="HSlider" parent="VBoxContainer" groups=["edit_mode"]]
