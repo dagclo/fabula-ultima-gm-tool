@@ -1,6 +1,5 @@
 ﻿using FabulaUltimaNpc;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace FabulaUltimaDatabase.Models
 {

@@ -2,7 +2,6 @@ using FabulaUltimaGMTool;
 using FirstProject.Beastiary;
 using FirstProject.Messaging;
 using Godot;
-using System;
 using System.Threading.Tasks;
 
 public partial class BattleMusicPlayer : AudioStreamPlayer
