@@ -106,7 +106,7 @@ public partial class ProgressClock : Popup
         var index = int.Parse(slot.Name.ToString().Split('_').Last());
         var states = Model.SectionStates.ToArray();
         states[index] = state;
-        Model.PushStates(states);
+        Model.PushStates(states, true);
 	}
 
     public void ClockTitleChanged (string newText)
@@ -135,6 +135,7 @@ public partial class ProgressClock : Popup
         else if(Model.SectionStates.Count < sections)
         {
             Model.PushStates(Enumerable.Range(0, sections - Model.SectionStates.Count).Select(_ => false));
+            CallDeferred(MethodName.SetSectionStates);
         }
     }
 

@@ -20,8 +20,9 @@ namespace FabulaUltimaGMTool.Model.ProgressClock
             }
         }
 
-        public void PushStates(IEnumerable<bool> states)
+        public void PushStates(IEnumerable<bool> states, bool replace = false)
         {
+            if (replace) SectionStates.Clear();
             SectionStates.AddRange(states);
             EmitChanged();
         }

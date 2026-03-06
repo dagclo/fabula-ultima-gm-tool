@@ -144,7 +144,7 @@ func select() -> void: # select currently hovered element. Like trigerring actio
 		return
 	if( _current_selection_idx > -1):
 		_selected_children_list[_current_selection_idx] = !_selected_children_list[_current_selection_idx]
-		slot_selected.emit(get_selected_child(), _current_selection_idx)
+		slot_selected.emit(get_selected_child(), _current_selection_idx, _selected_children_list[_current_selection_idx])
 	if one_shot:
 		enabled = false
 	_current_selection_idx = -2

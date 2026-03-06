@@ -10,6 +10,7 @@ title = "Progress Clock"
 initial_position = 1
 size = Vector2i(400, 400)
 visible = true
+popup_wm_hint = false
 script = ExtResource("1_yi1xy")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
