@@ -23,7 +23,7 @@ public partial class ProgressClock : Popup
     public string ProgressClockGroupName { get; set; } = "progress_clock";
 
     [Signal]
-    delegate void ClockTitleUpdateEventHandler(string newTitle);
+    public delegate void ClockTitleUpdateEventHandler(string newTitle);
     
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
