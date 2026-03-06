@@ -2,7 +2,7 @@
 @icon('icon.svg')
 class_name RadialMenuAdvanced extends Control
 
-signal slot_selected(slot: Control,  index: int)
+signal slot_selected(slot: Control,  index: int, state: bool)
 signal selection_changed(new_selection: int)
 signal selection_canceled
 
@@ -142,9 +142,9 @@ func select() -> void: # select currently hovered element. Like trigerring actio
 	if (_current_selection_idx == -2):
 		selection_canceled.emit()
 		return
-	slot_selected.emit(get_selected_child(), _current_selection_idx)
 	if( _current_selection_idx > -1):
-		_selected_children_list[_current_selection_idx] = !_selected_children_list[_current_selection_idx]		
+		_selected_children_list[_current_selection_idx] = !_selected_children_list[_current_selection_idx]
+		slot_selected.emit(get_selected_child(), _current_selection_idx)
 	if one_shot:
 		enabled = false
 	_current_selection_idx = -2
@@ -312,7 +312,7 @@ func _draw() -> void:
 						points_inner + points_outer,
 						PackedColorArray([hover_color]),
 					)
-			## todo: create func for arc
+			## todo: collected hover, selected, and line actions then run them in that order
 			if (arc_inner_radius < _current_menu_radius):
 				if (_local_children_count == 1 && _selected_children_list[0]):
 					draw_circle(_current_menu_offset, _current_menu_radius, selected_color)
@@ -451,3 +451,10 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed('ui_cancel'):
 		emit_signal('selection_canceled')
+
+
+func _on_progress_clock_update_section_states(states: Array) -> void:
+	if states.size() != _selected_children_list.size():
+		printerr("radial_menu_class: new states length doesn't match current")
+		return
+	_selected_children_list = states;

@@ -1,5 +1,6 @@
 using FabulaUltimaGMTool.Model.ProgressClock;
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,10 @@ public partial class ProgressClock : Popup
 
     [Signal]
     public delegate void ClockTitleUpdateEventHandler(string newTitle);
-    
+
+    [Signal]
+    public delegate void UpdateSectionStatesEventHandler(Array<bool> states);
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -55,9 +59,16 @@ public partial class ProgressClock : Popup
                 _progressClock.AddChild(section);
                 section.AddToGroup(ClockSectionGroupName);
             }
+            CallDeferred(MethodName.SetSectionStates);
         }
 
         Model.Changed += ClockUpdated;
+        
+    }
+
+    private void SetSectionStates()
+    {
+        EmitSignal(SignalName.UpdateSectionStates, Model.SectionStates);
     }
 
     private void ClockUpdated()
@@ -86,13 +97,16 @@ public partial class ProgressClock : Popup
     {
         var result = new ColorRect();
         result.Color = new Color("ffffff00");
-        result.Name = $"Section{i}";        
+        result.Name = $"Section_{i}";        
         return result;
     }
 
-	public void SlotSelected(Control slot, int index)
+	public void SlotSelected(Control slot, int _, bool state)
 	{
-        GD.Print($"slot '{slot.Name}' at {index}");
+        var index = int.Parse(slot.Name.ToString().Split('_').Last());
+        var states = Model.SectionStates.ToArray();
+        states[index] = state;
+        Model.PushStates(states);
 	}
 
     public void ClockTitleChanged (string newText)
