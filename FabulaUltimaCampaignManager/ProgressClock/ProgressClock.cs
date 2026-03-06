@@ -104,10 +104,8 @@ public partial class ProgressClock : Popup
 	public void SlotSelected(Control slot, int _, bool state)
 	{
         var index = int.Parse(slot.Name.ToString().Split('_').Last());
-        var states = Model.SectionStates.ToArray();
-        states[index] = state;
-        Model.PushStates(states, true);
-	}
+        Model.SectionStates[index] = state;
+    }
 
     public void ClockTitleChanged (string newText)
     {
@@ -127,16 +125,17 @@ public partial class ProgressClock : Popup
     public void SectionsChanged(float sectionCount)
     {
         var sections = (int)sectionCount;
-        
-        if(Model.SectionStates.Count > sections)
+        if (Model.SectionStates.Count == sections) return;
+        if (Model.SectionStates.Count > sections)
         {
             Model.ReduceStates(sections);
         }
         else if(Model.SectionStates.Count < sections)
         {
             Model.PushStates(Enumerable.Range(0, sections - Model.SectionStates.Count).Select(_ => false));
-            CallDeferred(MethodName.SetSectionStates);
+            
         }
+        CallDeferred(MethodName.SetSectionStates);
     }
 
 	private void SetMode(bool isViewMode)

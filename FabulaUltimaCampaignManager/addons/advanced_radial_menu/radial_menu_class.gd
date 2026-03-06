@@ -457,4 +457,4 @@ func _on_progress_clock_update_section_states(states: Array) -> void:
 	if states.size() != _selected_children_list.size():
 		printerr("radial_menu_class: new states length doesn't match current")
 		return
-	_selected_children_list = states;
+	_selected_children_list = states.duplicate()	

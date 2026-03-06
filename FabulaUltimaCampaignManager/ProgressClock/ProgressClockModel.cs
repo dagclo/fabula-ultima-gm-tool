@@ -29,6 +29,7 @@ namespace FabulaUltimaGMTool.Model.ProgressClock
         public void ReduceStates(int remainingStates)
         {
             SectionStates = new Array<bool>(SectionStates.Take(remainingStates));
+            EmitChanged();
         }
 
         private string _title;
