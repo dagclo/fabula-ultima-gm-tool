@@ -22,6 +22,8 @@ public partial class ProgressClock : Popup
 
     [Export]
     public string ProgressClockGroupName { get; set; } = "progress_clock";
+    public Action<ProgressClockModel> OnRemove { get; internal set; }
+    public Action<ProgressClock> OnHideClock { get; internal set; }
 
     [Signal]
     public delegate void ClockTitleUpdateEventHandler(string newTitle);

@@ -1,4 +1,6 @@
-﻿using FirstProject.Encounters;
+﻿using FabulaUltimaGMTool.Model.ProgressClock;
+using FabulaUltimaGMTool.UI.ProgressClock;
+using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;
 using System;
@@ -35,6 +37,9 @@ namespace FirstProject.Campaign
 
         [Export]
         public Godot.Collections.Array<NpcInstance> Villains { get; set; }
+
+        [Export]
+        public Godot.Collections.Array<ProgressClockModel> ProgressClocks { get; set; }
 
         public CampaignData() : this(
             Guid.Empty.ToString(), 

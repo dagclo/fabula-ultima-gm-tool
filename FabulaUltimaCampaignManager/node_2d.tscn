@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=60 format=3 uid="uid://ec56818wobea"]
 
 [ext_resource type="Script" uid="uid://qd737jwjpmc5" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
@@ -44,8 +44,11 @@
 [ext_resource type="Script" uid="uid://bvoep7csky14j" path="res://Beastiary/LevelOptionButton.cs" id="27_rlqv4"]
 [ext_resource type="PackedScene" uid="uid://ch0falaaaeo6v" path="res://Equipment/npc_equipment_entry.tscn" id="28_mfo4r"]
 [ext_resource type="Script" uid="uid://daueio8rrdu4q" path="res://Beastiary/BeastListScroll.cs" id="28_yuje5"]
+[ext_resource type="Script" uid="uid://t11im0u4owf4" path="res://ProgressClock/ProgressClockList.cs" id="32_2v765"]
 [ext_resource type="Texture2D" uid="uid://cc364hyjqh7yb" path="res://Icon/64px-Loading_spinner.svg.png" id="32_fx1uk"]
 [ext_resource type="Script" uid="uid://dsk7qvpe3sqps" path="res://Beastiary/LoadingBeastAnimation.cs" id="32_gxmwi"]
+[ext_resource type="PackedScene" uid="uid://kakitmqwuk5q" path="res://ProgressClock/progress_clock_entry.tscn" id="33_b8fb0"]
+[ext_resource type="PackedScene" uid="uid://ri0bknowwvn2" path="res://ProgressClock/progress_clock.tscn" id="34_ma08v"]
 [ext_resource type="Script" uid="uid://bh84xmxa3018h" path="res://AboutPanel.cs" id="38_3f044"]
 [ext_resource type="Script" uid="uid://cuk4bivgfgww8" path="res://Campaign/ChooseCampaignPanel.cs" id="45_33uag"]
 [ext_resource type="Script" uid="uid://bh5qnr3lhurd3" path="res://Campaign/CampaignList.cs" id="45_ysk35"]
@@ -431,24 +434,58 @@ size_flags_vertical = 3
 script = ExtResource("26_k46bg")
 VillianEntryScene = ExtResource("27_ffedu")
 
-[node name="EquipmentSection" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
+[node name="Misc" type="TabContainer" parent="HSplitContainer/CampaignManager/Campaign"]
+layout_mode = 2
+current_tab = 0
+
+[node name="Progress Clocks" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign/Misc"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ProgressClockLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/Misc/Progress Clocks"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "Progress Clocks"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/Misc/Progress Clocks"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ProgressClockList" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign/Misc/Progress Clocks/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("32_2v765")
+Entry = ExtResource("33_b8fb0")
+Dialog = ExtResource("34_ma08v")
 
-[node name="EquipmentSectionLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection"]
+[node name="AddProgressClockButton" type="Button" parent="HSplitContainer/CampaignManager/Campaign/Misc/Progress Clocks"]
 layout_mode = 2
-text = "Equipment"
+text = "Add Progress Clock"
 
-[node name="CustomEquipmentButton" type="Button" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection"]
+[node name="Equipment" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign/Misc"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_tab_index = 1
+
+[node name="EquipmentSectionLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/Misc/Equipment"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "Equipment"
+horizontal_alignment = 1
+
+[node name="CustomEquipmentButton" type="Button" parent="HSplitContainer/CampaignManager/Campaign/Misc/Equipment"]
 layout_mode = 2
 text = "Add Custom Equipment"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/Misc/Equipment"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CustomEquipmentList" type="HFlowContainer" parent="HSplitContainer/CampaignManager/Campaign/EquipmentSection/ScrollContainer"]
+[node name="CustomEquipmentList" type="HFlowContainer" parent="HSplitContainer/CampaignManager/Campaign/Misc/Equipment/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("27_4odix")
@@ -591,7 +628,8 @@ Astral Image by Pixabay [url] https://www.pexels.com/photo/red-and-orange-galaxy
 Ansimuz [url]https://ansimuz.itch.io/[/url]
 
 Battlebacks [url]https://battlebacks-landscapes.itch.io/[/url]
-Craftpix.net [url]https://free-game-assets.itch.io/[/url]"
+Craftpix.net [url]https://free-game-assets.itch.io/[/url]
+[b]Progress clock based on :[/b] diklor [url]https://godotengine.org/asset-library/asset/2220[/url]"
 fit_content = true
 
 [node name="ChooseCampaignPanel" type="PopupPanel" parent="."]
@@ -673,20 +711,21 @@ script = ExtResource("50_ifarl")
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot4" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot5" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/VillainSection/ScrollContainer/VillainsList" method="HandleCampaignChanged"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/EquipmentSection/ScrollContainer/CustomEquipmentList" method="HandleCampaignChanged"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Misc/Equipment/ScrollContainer/CustomEquipmentList" method="HandleCampaignChanged"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Misc/Progress Clocks/ScrollContainer/ProgressClockList" method="HandleCampaignChanged"]
 [connection signal="text_changed" from="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" to="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" method="OnTextChanged"]
 [connection signal="AddEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CampaignManager/Campaign" method="AddEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter" method="HandleUpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/MusicFilePathLineEdit" method="UpdateEncounter"]
-[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" method="UpdateEncounter"]
+[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
 [connection signal="toggled" from="HSplitContainer/CampaignManager/Campaign/Encounters/ArchiveFilterCheckButton" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="HandleToggleArchive"]
 [connection signal="DeleteEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CurrentEncounter" method="HideEncounterIfDeleted"]
 [connection signal="LoadEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnLoadEncounter"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Encounters/AddEncounterButton" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnAddEncounterButtonPressed"]
-[connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/EquipmentSection/CustomEquipmentButton" to="HSplitContainer/CampaignManager/Campaign/EquipmentSection/ScrollContainer/CustomEquipmentList" method="HandlePressed"]
+[connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Misc/Equipment/CustomEquipmentButton" to="HSplitContainer/CampaignManager/Campaign/Misc/Equipment/ScrollContainer/CustomEquipmentList" method="HandlePressed"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/AddNpcButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/AddNpcButton" method="HandlePressed"]
 [connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" method="HandledSearchFilterChanged"]
 [connection signal="text_submitted" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" method="OnTextSubmitted"]
