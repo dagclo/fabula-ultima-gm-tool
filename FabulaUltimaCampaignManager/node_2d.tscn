@@ -725,6 +725,7 @@ script = ExtResource("50_ifarl")
 [connection signal="DeleteEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CurrentEncounter" method="HideEncounterIfDeleted"]
 [connection signal="LoadEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnLoadEncounter"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Encounters/AddEncounterButton" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnAddEncounterButtonPressed"]
+[connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Misc/Progress Clocks/AddProgressClockButton" to="HSplitContainer/CampaignManager/Campaign/Misc/Progress Clocks/ScrollContainer/ProgressClockList" method="HandleAdd"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Misc/Equipment/CustomEquipmentButton" to="HSplitContainer/CampaignManager/Campaign/Misc/Equipment/ScrollContainer/CustomEquipmentList" method="HandlePressed"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/AddNpcButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/AddNpcButton" method="HandlePressed"]
 [connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" method="HandledSearchFilterChanged"]
