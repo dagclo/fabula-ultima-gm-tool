@@ -1,4 +1,3 @@
-using Castle.Components.DictionaryAdapter.Xml;
 using FabulaUltimaGMTool.Model.ProgressClock;
 using FabulaUltimaGMTool.UI.ProgressClock;
 using FirstProject.Beastiary;
@@ -54,6 +53,10 @@ public partial class ProgressClockList : Container
         if (_progressClocks?.Any() != true) return;
         foreach (var clock in _progressClocks)
         {
+            if(clock.SectionStates?.Any() != true)
+            {
+                clock.SectionStates = [false, false, false, false];
+            }
             var scene = Entry.Instantiate<ProgressClockEntry>();
             scene.ProgressClock = clock;
             scene.OnShow += (ProgressClockModel m) => OnShow(m);            

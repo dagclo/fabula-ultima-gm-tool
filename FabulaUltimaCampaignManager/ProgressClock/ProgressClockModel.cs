@@ -9,6 +9,8 @@ namespace FabulaUltimaGMTool.Model.ProgressClock
     {
 
         private Godot.Collections.Array<bool> _sectionStates = [];
+
+        [Export]
         public Godot.Collections.Array<bool> SectionStates
         {
             get => _sectionStates;
@@ -33,6 +35,7 @@ namespace FabulaUltimaGMTool.Model.ProgressClock
         }
 
         private string _title;
+        [Export]
         public string Title
         {
             get => _title;
