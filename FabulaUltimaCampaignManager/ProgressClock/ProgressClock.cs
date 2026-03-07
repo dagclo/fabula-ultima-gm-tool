@@ -24,6 +24,7 @@ public partial class ProgressClock : Popup
     public string ProgressClockGroupName { get; set; } = "progress_clock";
     public Action<ProgressClockModel> OnRemove { get; internal set; }
     public Action<ProgressClock> OnHideClock { get; internal set; }
+    public Action OnSave { get; internal set; }
 
     [Signal]
     public delegate void ClockTitleUpdateEventHandler(string newTitle);
@@ -93,6 +94,7 @@ public partial class ProgressClock : Popup
                 section.QueueFree();
             }
         }
+        OnSave?.Invoke();
     }
 
     private ColorRect CreateSection(int i)

@@ -4,14 +4,12 @@ using FabulaUltimaGMTool.UI.ProgressClock;
 using FirstProject.Beastiary;
 using FirstProject.Campaign;
 using FirstProject.Messaging;
-using FirstProject.Npc;
 using Godot;
 using Godot.Collections;
 using System;
 using System.Linq;
-using static System.Formats.Asn1.AsnWriter;
 
-public partial class ProgressClockList : VBoxContainer
+public partial class ProgressClockList : Container
 {
     private Array<ProgressClockModel> _progressClocks;
     private MessagePublisher<SaveMessage> _messagePublisher;
@@ -66,7 +64,7 @@ public partial class ProgressClockList : VBoxContainer
 
     private void OnShow(ProgressClockModel m)
     {
-        throw new NotImplementedException();
+        OpenDialog(m);
     }
 
     private void HandleRemove(ProgressClockModel m)
@@ -77,20 +75,35 @@ public partial class ProgressClockList : VBoxContainer
     private void HandleAdd()
     {
         var model = new ProgressClockModel
-        {            
+        {
             SectionStates = [false, false, false, false]
         };
         _progressClocks.Add(model);
-        var dialog = Entry.Instantiate<ProgressClock>();
+        OpenDialog(model);
+        _messagePublisher.Publish((new SaveMessage()).AsMessage());
+        CallDeferred(MethodName.UpdateList);
+    }
+
+    private void OpenDialog(ProgressClockModel model)
+    {
+        var dialog = Dialog.Instantiate<ProgressClock>();
         dialog.Model = model;
         dialog.OnHideClock += (ProgressClock c) => HandleHideClock(c);
         dialog.OnRemove += (ProgressClockModel m) => HandleRemove(m);
+        dialog.OnSave += () => HandleSave();
         AddChild(dialog);
         dialog.Owner = this;
     }
 
-    private void HandleHideClock(ProgressClock c)
+    private void HandleSave()
     {
-        throw new NotImplementedException();
+        _messagePublisher.Publish((new SaveMessage()).AsMessage());
+    }
+
+    private void HandleHideClock(ProgressClock c)
+    {        
+        CallDeferred(MethodName.UpdateList);
+        RemoveChild(c);
+        c.QueueFree();
     }
 }
