@@ -35,8 +35,8 @@ public partial class ProgressClock : Window
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-		_progressClock = GetTree().GetNodesInGroup(ProgressClockGroupName).Single() as Control;
-		_viewNodes = GetTree().GetNodesInGroup(ViewModeGroupName).Select(n => n as Control).ToList();
+		_progressClock = GetChild(0).GetTree().GetNodesInGroup(ProgressClockGroupName).SingleOrDefault() as Control;
+		_viewNodes = GetTree().GetNodesInGroup(ViewModeGroupName).Select(n => n as Control).ToList(); //todo: switch from groups
         _editNodes = GetTree().GetNodesInGroup(EditModeGroupName).Select(n => n as Control).ToList();
         
         if (Model == null)
