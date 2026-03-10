@@ -4,15 +4,11 @@
 [ext_resource type="Script" uid="uid://btetoc8usfjgl" path="res://ProgressClock/ProgressClock.cs" id="1_yi1xy"]
 [ext_resource type="Script" uid="uid://cht2np2cp4h5d" path="res://ProgressClock/TitleLabel.cs" id="2_37blw"]
 
-[node name="progress_clock" type="Popup"]
+[node name="progress_clock" type="Window"]
 oversampling_override = 1.0
 title = "Progress Clock"
 initial_position = 1
 size = Vector2i(400, 400)
-visible = true
-wrap_controls = false
-borderless = false
-popup_wm_hint = false
 script = ExtResource("1_yi1xy")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]

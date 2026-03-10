@@ -53,6 +53,7 @@ public partial class ProgressClockList : Container
         if (_progressClocks?.Any() != true) return;
         foreach (var clock in _progressClocks)
         {
+            //todo delete
             if(clock.SectionStates?.Any() != true)
             {
                 clock.SectionStates = [false, false, false, false];

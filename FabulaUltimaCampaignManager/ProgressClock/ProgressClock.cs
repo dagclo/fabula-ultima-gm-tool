@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace FabulaUltimaGMTool.UI.ProgressClock;
 
-public partial class ProgressClock : Popup
+public partial class ProgressClock : Window
 {
 	private Control _progressClock;
 	private ICollection<Control> _viewNodes;
@@ -38,11 +38,12 @@ public partial class ProgressClock : Popup
 		_progressClock = GetTree().GetNodesInGroup(ProgressClockGroupName).Single() as Control;
 		_viewNodes = GetTree().GetNodesInGroup(ViewModeGroupName).Select(n => n as Control).ToList();
         _editNodes = GetTree().GetNodesInGroup(EditModeGroupName).Select(n => n as Control).ToList();
-        SetMode(false);
+        
         if (Model == null)
         {
             Model = new ProgressClockModel();
             Model.PushStates(GetTree().GetNodesInGroup(ClockSectionGroupName).Select(s => false));
+            SetMode(false);
         }
         else
         {
@@ -63,6 +64,8 @@ public partial class ProgressClock : Popup
                 section.AddToGroup(ClockSectionGroupName);
             }
             CallDeferred(MethodName.SetSectionStates);
+            CallDeferred(MethodName.ClockUpdated);
+            SetMode(true);
         }
 
         Model.Changed += ClockUpdated;
@@ -153,5 +156,10 @@ public partial class ProgressClock : Popup
         {
             node.Visible = !isViewMode;
         }
+    }
+
+    private void Handle_CloseRequested()
+    {
+        OnHideClock?.Invoke(this);
     }
 }
