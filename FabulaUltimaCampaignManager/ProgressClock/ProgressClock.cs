@@ -35,19 +35,20 @@ public partial class ProgressClock : Window
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-		_progressClock = GetChild(0).GetTree().GetNodesInGroup(ProgressClockGroupName).SingleOrDefault() as Control;
-		_viewNodes = GetTree().GetNodesInGroup(ViewModeGroupName).Select(n => n as Control).ToList(); //todo: switch from groups
-        _editNodes = GetTree().GetNodesInGroup(EditModeGroupName).Select(n => n as Control).ToList();
+		_progressClock = FindChildren("*").Single(c => c.IsInGroup(ProgressClockGroupName)) as Control;
+		_viewNodes = FindChildren("*").Where(c => c.IsInGroup(ViewModeGroupName)).Select(n => n as Control).ToList();
+        _editNodes = FindChildren("*").Where(c => c.IsInGroup(EditModeGroupName)).Select(n => n as Control).ToList();        
         
         if (Model == null)
         {
             Model = new ProgressClockModel();
-            Model.PushStates(GetTree().GetNodesInGroup(ClockSectionGroupName).Select(s => false));
+            var sectionStates = FindChildren("*").Where(c => c.IsInGroup(ClockSectionGroupName)).Select(s => false);
+            Model.PushStates(sectionStates);
             SetMode(false);
         }
         else
         {
-            foreach(var control in GetTree().GetNodesInGroup(ClockSectionGroupName).Select(n => n as Control))
+            foreach(var control in FindChildren("*").Where(c => c.IsInGroup(ClockSectionGroupName)).Select(n => n as Control))
             {
                 if(control.GetParent() != _progressClock)
                 {
@@ -61,13 +62,14 @@ public partial class ProgressClock : Window
             foreach(var section in Enumerable.Range(0, Model.SectionStates.Count()).Select(i => CreateSection(i)))
             {                
                 _progressClock.AddChild(section);
+                section.Owner = _progressClock;
                 section.AddToGroup(ClockSectionGroupName);
             }
             CallDeferred(MethodName.SetSectionStates);
             CallDeferred(MethodName.ClockUpdated);
             SetMode(true);
         }
-
+        
         Model.Changed += ClockUpdated;
         
     }
@@ -80,18 +82,20 @@ public partial class ProgressClock : Window
     private void ClockUpdated()
     {
         EmitSignal(SignalName.ClockTitleUpdate, Model.Title);
-        int numSections = GetTree().GetNodeCountInGroup(ClockSectionGroupName);
+        
+        int numSections = FindChildren("*").Where(c => c.IsInGroup(ClockSectionGroupName)).Count();
         if (numSections < Model.SectionStates.Count())
         {
             foreach (var section in Enumerable.Range(Model.SectionStates.Count - 1, Model.SectionStates.Count - numSections).Select(i => CreateSection(i)))
             {
                 _progressClock.AddChild(section);
+                section.Owner = _progressClock;
                 section.AddToGroup(ClockSectionGroupName);
             }
         }
         else if (numSections > Model.SectionStates.Count)
         {
-            foreach(var section in GetTree().GetNodesInGroup(ClockSectionGroupName).Skip(Model.SectionStates.Count))
+            foreach(var section in FindChildren("*").Where(c => c.IsInGroup(ClockSectionGroupName)).Skip(Model.SectionStates.Count))
             {
                 _progressClock.RemoveChild(section);
                 section.QueueFree();
