@@ -2,6 +2,7 @@ using FabulaUltimaGMTool.Model.ProgressClock;
 using FabulaUltimaGMTool.UI.ProgressClock;
 using FirstProject.Beastiary;
 using FirstProject.Campaign;
+using FirstProject.Encounters;
 using FirstProject.Messaging;
 using Godot;
 using Godot.Collections;
@@ -37,6 +38,14 @@ public partial class ProgressClockList : Container
         var campaign = signal.Value;
         if (campaign.ProgressClocks == null) campaign.ProgressClocks = new Godot.Collections.Array<ProgressClockModel>();
         _progressClocks = campaign.ProgressClocks;
+        UpdateList();
+    }
+
+    public void UpdateEncounter(Encounter encounter)
+    {
+        if (encounter == null) return;
+        if (encounter.ProgressClocks == null) encounter.ProgressClocks = new Godot.Collections.Array<ProgressClockModel>();
+        _progressClocks = encounter.ProgressClocks;
         UpdateList();
     }
 

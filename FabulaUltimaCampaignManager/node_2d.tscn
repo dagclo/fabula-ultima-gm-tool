@@ -233,31 +233,63 @@ disabled = true
 text = "Run"
 script = ExtResource("9_buhfi")
 
-[node name="BackgroundLabel" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+layout_mode = 2
+current_tab = 0
+
+[node name="Background" type="VBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="BackgroundLabel" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Background"]
 layout_mode = 2
 text = "Background"
 horizontal_alignment = 1
 
-[node name="BattleBackOptions" type="OptionButton" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+[node name="BattleBackOptions" type="OptionButton" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Background"]
 layout_mode = 2
 script = ExtResource("11_5ov2a")
 
-[node name="MusicConfigurationContainer" type="HBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+[node name="Clocks" type="VBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="AddClockButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Clocks"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Add Clock"
+
+[node name="ProgressClockList" type="HFlowContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Clocks"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("32_2v765")
+Entry = ExtResource("33_b8fb0")
+Dialog = ExtResource("34_ma08v")
+
+[node name="Music" type="VBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="MusicConfigurationContainer" type="HBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music"]
 layout_mode = 2
 
-[node name="MusicFilePathLineEdit" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer"]
+[node name="MusicFilePathLineEdit" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "background music file.ogg"
 script = ExtResource("16_feq0b")
 
-[node name="FindMusicButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer" node_paths=PackedStringArray("MusicFileDialog")]
+[node name="FindMusicButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer" node_paths=PackedStringArray("MusicFileDialog")]
 layout_mode = 2
 text = "..."
 script = ExtResource("17_6i7vq")
 MusicFileDialog = NodePath("MusicFileDialog")
 
-[node name="MusicFileDialog" type="FileDialog" parent="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/FindMusicButton"]
+[node name="MusicFileDialog" type="FileDialog" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer/FindMusicButton"]
 title = "Open a File"
 initial_position = 1
 size = Vector2i(318, 209)
@@ -267,22 +299,22 @@ access = 2
 filters = PackedStringArray("*.ogg")
 use_native_dialog = true
 
-[node name="VictoryMusicConfigurationContainer" type="HBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+[node name="VictoryMusicConfigurationContainer" type="HBoxContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music"]
 layout_mode = 2
 
-[node name="VictoryMusicLineEdit" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer"]
+[node name="VictoryMusicLineEdit" type="LineEdit" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/VictoryMusicConfigurationContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "victory music file.ogg"
 script = ExtResource("18_ytlpd")
 
-[node name="FindVictoryMusicButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer" node_paths=PackedStringArray("MusicFileDialog")]
+[node name="FindVictoryMusicButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/VictoryMusicConfigurationContainer" node_paths=PackedStringArray("MusicFileDialog")]
 layout_mode = 2
 text = "..."
 script = ExtResource("17_6i7vq")
 MusicFileDialog = NodePath("VictoryMusicFileDialog")
 
-[node name="VictoryMusicFileDialog" type="FileDialog" parent="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/FindVictoryMusicButton"]
+[node name="VictoryMusicFileDialog" type="FileDialog" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/VictoryMusicConfigurationContainer/FindVictoryMusicButton"]
 title = "Open a File"
 initial_position = 1
 size = Vector2i(318, 209)
@@ -291,6 +323,15 @@ file_mode = 0
 access = 2
 filters = PackedStringArray("*.ogg")
 use_native_dialog = true
+
+[node name="HSeparator" type="HSeparator" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "NPC List"
+horizontal_alignment = 1
 
 [node name="NPCPanel" type="PanelContainer" parent="HSplitContainer/CurrentEncounter/VBoxContainer"]
 layout_mode = 2
@@ -695,13 +736,14 @@ script = ExtResource("50_ifarl")
 [connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" method="OnTextChanged"]
 [connection signal="text_submitted" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" method="HandleTextSubmitted"]
 [connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/RunEncounterButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/RunEncounterButton" method="HandlePressed"]
-[connection signal="item_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" to="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" method="OnSelection"]
-[connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/MusicFilePathLineEdit" to="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/MusicFilePathLineEdit" method="OnTextChanged"]
-[connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/FindMusicButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/FindMusicButton" method="HandlePressed"]
-[connection signal="file_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/FindMusicButton/MusicFileDialog" to="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/MusicFilePathLineEdit" method="OnTextChanged"]
-[connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" to="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" method="OnTextChanged"]
-[connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/FindVictoryMusicButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/FindVictoryMusicButton" method="HandlePressed"]
-[connection signal="file_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/FindVictoryMusicButton/VictoryMusicFileDialog" to="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" method="OnTextChanged"]
+[connection signal="item_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Background/BattleBackOptions" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Background/BattleBackOptions" method="OnSelection"]
+[connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Clocks/AddClockButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Clocks/ProgressClockList" method="HandleAdd"]
+[connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer/MusicFilePathLineEdit" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer/MusicFilePathLineEdit" method="OnTextChanged"]
+[connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer/FindMusicButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer/FindMusicButton" method="HandlePressed"]
+[connection signal="file_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer/FindMusicButton/MusicFileDialog" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer/MusicFilePathLineEdit" method="OnTextChanged"]
+[connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" method="OnTextChanged"]
+[connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/VictoryMusicConfigurationContainer/FindVictoryMusicButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/VictoryMusicConfigurationContainer/FindVictoryMusicButton" method="HandlePressed"]
+[connection signal="file_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/VictoryMusicConfigurationContainer/FindVictoryMusicButton/VictoryMusicFileDialog" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" method="OnTextChanged"]
 [connection signal="RemoveNpc" from="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" to="HSplitContainer/CurrentEncounter" method="RemoveNpcFromEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" method="HandleCampaignChanged"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="UpdateEncounter"]
@@ -711,16 +753,17 @@ script = ExtResource("50_ifarl")
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot4" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/PlayerSection/Players/PlayerSlot5" method="UpdateEncounter"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/VillainSection/ScrollContainer/VillainsList" method="HandleCampaignChanged"]
-[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Misc/Equipment/ScrollContainer/CustomEquipmentList" method="HandleCampaignChanged"]
 [connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Misc/Progress Clocks/ScrollContainer/ProgressClockList" method="HandleCampaignChanged"]
+[connection signal="UpdateCurrentCampaign" from="HSplitContainer/CampaignManager/Campaign" to="HSplitContainer/CampaignManager/Campaign/Misc/Equipment/ScrollContainer/CustomEquipmentList" method="HandleCampaignChanged"]
 [connection signal="text_changed" from="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" to="HSplitContainer/CampaignManager/Campaign/CampaignName/CampaignNameEdit" method="OnTextChanged"]
 [connection signal="AddEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CampaignManager/Campaign" method="AddEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter" method="HandleUpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" method="UpdateEncounter"]
-[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/BattleBackOptions" method="UpdateEncounter"]
-[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/MusicConfigurationContainer/MusicFilePathLineEdit" method="UpdateEncounter"]
-[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" method="UpdateEncounter"]
+[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Background/BattleBackOptions" method="UpdateEncounter"]
+[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer/MusicFilePathLineEdit" method="UpdateEncounter"]
+[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
+[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Clocks/ProgressClockList" method="UpdateEncounter"]
 [connection signal="toggled" from="HSplitContainer/CampaignManager/Campaign/Encounters/ArchiveFilterCheckButton" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="HandleToggleArchive"]
 [connection signal="DeleteEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CurrentEncounter" method="HideEncounterIfDeleted"]
 [connection signal="LoadEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnLoadEncounter"]

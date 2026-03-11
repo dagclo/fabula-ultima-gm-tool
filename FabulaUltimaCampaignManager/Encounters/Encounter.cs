@@ -1,4 +1,5 @@
-﻿using FirstProject.Npc;
+﻿using FabulaUltimaGMTool.Model.ProgressClock;
+using FirstProject.Npc;
 using Godot;
 using System;
 using System.Linq;
@@ -112,6 +113,9 @@ namespace FirstProject.Encounters
                 EmitChanged();
             }
         }
+
+        [Export]
+        public Godot.Collections.Array<ProgressClockModel> ProgressClocks { get; set; }
 
         public Encounter() :this("", Guid.Empty.ToString(), new Godot.Collections.Array<NpcInstance>()) { }
 
