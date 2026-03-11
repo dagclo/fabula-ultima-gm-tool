@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ri0bknowwvn2"]
+[gd_scene load_steps=6 format=3 uid="uid://ri0bknowwvn2"]
 
 [ext_resource type="Script" uid="uid://c8c4xgin1v0y" path="res://addons/advanced_radial_menu/radial_menu_class.gd" id="1_13meq"]
 [ext_resource type="Script" uid="uid://btetoc8usfjgl" path="res://ProgressClock/ProgressClock.cs" id="1_yi1xy"]
 [ext_resource type="Script" uid="uid://cht2np2cp4h5d" path="res://ProgressClock/TitleLabel.cs" id="2_37blw"]
+[ext_resource type="Script" uid="uid://ccqeoti7ayh74" path="res://ProgressClock/TitleLineEdit.cs" id="3_s4ewm"]
 [ext_resource type="Script" uid="uid://be218fgn5rxd2" path="res://ProgressClock/SegmentSlider.cs" id="4_gpcoa"]
 
 [node name="progress_clock" type="Window"]
@@ -30,6 +31,7 @@ script = ExtResource("2_37blw")
 layout_mode = 2
 placeholder_text = "Progress Clock"
 alignment = 1
+script = ExtResource("3_s4ewm")
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -117,6 +119,7 @@ size_flags_vertical = 8
 text = "Remove"
 
 [connection signal="ClockTitleUpdate" from="." to="VBoxContainer/TitleLabel" method="UpdateText"]
+[connection signal="SetClockTitle" from="." to="VBoxContainer/TitleLineEdit" method="Initialize"]
 [connection signal="UpdateSectionStates" from="." to="VBoxContainer/PanelContainer/ProgressClock" method="_on_progress_clock_update_section_states"]
 [connection signal="UpdateSectionStates" from="." to="VBoxContainer/SegmentSlider" method="HandleSectionStateUpdate"]
 [connection signal="close_requested" from="." to="." method="Handle_CloseRequested"]
