@@ -143,8 +143,9 @@ func select() -> void: # select currently hovered element. Like trigerring actio
 		selection_canceled.emit()
 		return
 	if( _current_selection_idx > -1):
-		_selected_children_list[_current_selection_idx] = !_selected_children_list[_current_selection_idx]
-		slot_selected.emit(get_selected_child(), _current_selection_idx, _selected_children_list[_current_selection_idx])
+		var target_index = _current_selection_idx + (1 if first_in_center else -1)
+		_selected_children_list[target_index] = !_selected_children_list[target_index]
+		slot_selected.emit(get_selected_child(), target_index, _selected_children_list[target_index])
 	if one_shot:
 		enabled = false
 	_current_selection_idx = -2
@@ -457,4 +458,7 @@ func _on_progress_clock_update_section_states(states: Array) -> void:
 	if states.size() != _selected_children_list.size():
 		printerr("radial_menu_class: new states length doesn't match current")
 		return
-	_selected_children_list = states.duplicate()	
+	_selected_children_list = states.duplicate()
+	# rotate array
+	var last = _selected_children_list.pop_back();
+	_selected_children_list.push_front(last);
