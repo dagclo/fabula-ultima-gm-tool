@@ -22,6 +22,9 @@ script = ExtResource("3_56mru")
 layout_mode = 2
 text = "Show"
 
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+
 [connection signal="ProgressClockChanged" from="." to="EntryClockName" method="OnClockChanged"]
 [connection signal="ProgressClockChanged" from="." to="EntryClockProgress" method="OnClockChanged"]
 [connection signal="pressed" from="ShowButton" to="." method="HandleShowButtonPressed"]
