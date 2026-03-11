@@ -135,6 +135,10 @@ layout_mode = 2
 [node name="PlayerPanel5" parent="GMScreen/VBoxContainer/Players" instance=ExtResource("4_nde4l")]
 layout_mode = 2
 
+[node name="OpenProgressClockButton" type="Button" parent="GMScreen/VBoxContainer"]
+layout_mode = 2
+text = "Open Progress Clocks"
+
 [node name="GameLog" type="PanelContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -180,19 +184,19 @@ text = "Background Music Volume"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-min_value = -1.0
-max_value = 15.849
-step = 0.1
-value = 2.0
+min_value = 0.099
+max_value = 3.0
+step = 0.001
+value = 0.2
 script = ExtResource("9_d26r8")
-
-[node name="ResetRoundButton" type="Button" parent="GMScreen/VBoxContainer"]
-layout_mode = 2
-text = "Reset Round"
-script = ExtResource("6_0ebfa")
 
 [node name="VFlowContainer" type="HBoxContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
+
+[node name="ResetRoundButton" type="Button" parent="GMScreen/VBoxContainer/VFlowContainer"]
+layout_mode = 2
+text = "Reset Round"
+script = ExtResource("6_0ebfa")
 
 [node name="EndEncounterButton" type="Button" parent="GMScreen/VBoxContainer/VFlowContainer"]
 layout_mode = 2
@@ -211,6 +215,6 @@ visible = false
 
 [connection signal="tree_exiting" from="." to="." method="HandleTreeExiting"]
 [connection signal="drag_ended" from="GMScreen/VBoxContainer/MusicControlContainer/VolumeSlider" to="GMScreen/VBoxContainer/MusicControlContainer/VolumeSlider" method="HandleDragEnded"]
-[connection signal="pressed" from="GMScreen/VBoxContainer/ResetRoundButton" to="GMScreen/VBoxContainer/ResetRoundButton" method="HandlePressed"]
+[connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/ResetRoundButton" to="GMScreen/VBoxContainer/VFlowContainer/ResetRoundButton" method="HandlePressed"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" to="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" method="OnButtonPressed"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/PlayersWinButton" to="GMScreen/VBoxContainer/VFlowContainer/PlayersWinButton" method="HandlePressed"]
