@@ -52,42 +52,42 @@ metadata/_custom_type_script = "uid://c8c4xgin1v0y"
 
 [node name="Section_0" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock" groups=["clock_sections"]]
 layout_mode = 0
-offset_left = 251.48468
-offset_top = 26.51532
-offset_right = 290.48468
-offset_bottom = 65.51532
+offset_left = 248.4945
+offset_top = 18.838837
+offset_right = 282.16116
+offset_bottom = 52.505505
 rotation = 6.2831855
-pivot_offset = Vector2(19.5, 19.5)
+pivot_offset = Vector2(16.833328, 16.833334)
 color = Color(1, 1, 1, 0)
 
 [node name="Section_1" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock" groups=["clock_sections"]]
 layout_mode = 0
-offset_left = 109.51532
-offset_top = 26.51532
-offset_right = 148.51532
-offset_bottom = 65.51532
+offset_left = 117.838844
+offset_top = 18.838837
+offset_right = 151.50551
+offset_bottom = 52.505505
 rotation = 6.2831855
-pivot_offset = Vector2(19.5, 19.5)
+pivot_offset = Vector2(16.833332, 16.833334)
 color = Color(1, 1, 1, 0)
 
 [node name="Section_2" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock" groups=["clock_sections"]]
 layout_mode = 0
-offset_left = 109.51531
-offset_top = 168.48468
-offset_right = 148.51532
-offset_bottom = 207.48468
+offset_left = 117.838844
+offset_top = 149.49448
+offset_right = 151.50551
+offset_bottom = 183.16115
 rotation = 6.2831855
-pivot_offset = Vector2(19.500004, 19.5)
+pivot_offset = Vector2(16.833332, 16.833336)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
 
 [node name="Section_3" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock" groups=["clock_sections"]]
 layout_mode = 0
-offset_left = 251.48466
-offset_top = 168.48468
-offset_right = 290.48468
-offset_bottom = 207.48468
+offset_left = 248.49448
+offset_top = 149.4945
+offset_right = 282.16113
+offset_bottom = 183.16118
 rotation = 6.2831855
-pivot_offset = Vector2(19.500008, 19.5)
+pivot_offset = Vector2(16.833328, 16.833336)
 color = Color(0.7764706, 0.7764706, 0.7764706, 0)
 
 [node name="SegmentSlider" type="HSlider" parent="VBoxContainer" groups=["edit_mode"]]
@@ -109,6 +109,11 @@ layout_mode = 2
 size_flags_vertical = 8
 text = "Edit"
 
+[node name="RemoveButton" type="Button" parent="VBoxContainer" groups=["edit_mode"]]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Remove"
+
 [connection signal="ClockTitleUpdate" from="." to="VBoxContainer/TitleLabel" method="UpdateText"]
 [connection signal="UpdateSectionStates" from="." to="VBoxContainer/PanelContainer/ProgressClock" method="_on_progress_clock_update_section_states"]
 [connection signal="close_requested" from="." to="." method="Handle_CloseRequested"]
@@ -117,3 +122,4 @@ text = "Edit"
 [connection signal="value_changed" from="VBoxContainer/SegmentSlider" to="." method="SectionsChanged"]
 [connection signal="pressed" from="VBoxContainer/SaveButton" to="." method="SaveButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/EditButton" to="." method="EditButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/RemoveButton" to="." method="Handle_RemovePressed"]

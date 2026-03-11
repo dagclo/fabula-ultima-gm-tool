@@ -166,4 +166,9 @@ public partial class ProgressClock : Window
     {
         OnHideClock?.Invoke(this);
     }
+
+    private void Handle_RemovePressed()
+    {
+        OnRemove?.Invoke(this.Model);
+    }
 }

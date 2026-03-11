@@ -73,7 +73,9 @@ public partial class ProgressClockList : Container
 
     private void HandleRemove(ProgressClockModel m)
     {
-        throw new NotImplementedException();
+        _progressClocks.Remove(m);
+        CallDeferred(MethodName.UpdateList);
+        _messagePublisher.Publish((new SaveMessage()).AsMessage());
     }
 
     private void HandleAdd()
