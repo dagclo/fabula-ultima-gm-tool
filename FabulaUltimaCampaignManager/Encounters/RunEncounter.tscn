@@ -195,6 +195,7 @@ layout_mode = 2
 
 [node name="ResetRoundButton" type="Button" parent="GMScreen/VBoxContainer/VFlowContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Reset Round"
 script = ExtResource("6_0ebfa")
 
