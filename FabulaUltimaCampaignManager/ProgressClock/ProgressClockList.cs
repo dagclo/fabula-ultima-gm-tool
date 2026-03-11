@@ -77,18 +77,13 @@ public partial class ProgressClockList : Container
     }
 
     private void HandleAdd()
-    {
-        var model = new ProgressClockModel
-        {
-            SectionStates = [false, false, false, false]
-        };
+    {           
+        var model = OpenDialog(null);
         _progressClocks.Add(model);
-        OpenDialog(model);
         _messagePublisher.Publish((new SaveMessage()).AsMessage());
-        CallDeferred(MethodName.UpdateList);
     }
 
-    private void OpenDialog(ProgressClockModel model)
+    private ProgressClockModel OpenDialog(ProgressClockModel model)
     {
         var dialog = Dialog.Instantiate<ProgressClock>();
         dialog.Model = model;
@@ -97,6 +92,7 @@ public partial class ProgressClockList : Container
         dialog.OnSave += () => HandleSave();
         AddChild(dialog);
         dialog.Owner = this;
+        return dialog.Model;
     }
 
     private void HandleSave()
