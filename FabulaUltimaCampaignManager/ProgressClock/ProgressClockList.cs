@@ -5,7 +5,6 @@ using FirstProject.Campaign;
 using FirstProject.Messaging;
 using Godot;
 using Godot.Collections;
-using System;
 using System.Linq;
 
 public partial class ProgressClockList : Container

@@ -1,5 +1,4 @@
 ﻿using FabulaUltimaGMTool.Model.ProgressClock;
-using FabulaUltimaGMTool.UI.ProgressClock;
 using FirstProject.Encounters;
 using FirstProject.Npc;
 using Godot;

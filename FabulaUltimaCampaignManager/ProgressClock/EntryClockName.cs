@@ -1,7 +1,5 @@
-using FabulaUltimaGMTool.Model.ProgressClock;
 using FirstProject.Beastiary;
 using Godot;
-using System;
 
 namespace FabulaUltimaGMTool.Model.ProgressClock;
 
