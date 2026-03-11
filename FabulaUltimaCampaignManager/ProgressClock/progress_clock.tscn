@@ -111,6 +111,7 @@ text = "Edit"
 
 [connection signal="ClockTitleUpdate" from="." to="VBoxContainer/TitleLabel" method="UpdateText"]
 [connection signal="UpdateSectionStates" from="." to="VBoxContainer/PanelContainer/ProgressClock" method="_on_progress_clock_update_section_states"]
+[connection signal="close_requested" from="." to="." method="Handle_CloseRequested"]
 [connection signal="text_changed" from="VBoxContainer/TitleLineEdit" to="." method="ClockTitleChanged"]
 [connection signal="slot_selected" from="VBoxContainer/PanelContainer/ProgressClock" to="." method="SlotSelected"]
 [connection signal="value_changed" from="VBoxContainer/SegmentSlider" to="." method="SectionsChanged"]
