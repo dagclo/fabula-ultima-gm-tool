@@ -32,6 +32,9 @@ public partial class ProgressClock : Window
     [Signal]
     public delegate void UpdateSectionStatesEventHandler(Array<bool> states);
 
+    [Signal]
+    public delegate void SetClockTitleEventHandler(string title);
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -67,6 +70,7 @@ public partial class ProgressClock : Window
             }
             CallDeferred(MethodName.SetSectionStates);
             CallDeferred(MethodName.ClockUpdated);
+            EmitSignal(SignalName.SetClockTitle, Model.Title);
             SetMode(true);
         }
         
