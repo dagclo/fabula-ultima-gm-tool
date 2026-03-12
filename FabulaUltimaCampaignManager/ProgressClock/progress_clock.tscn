@@ -106,14 +106,14 @@ script = ExtResource("4_gpcoa")
 
 [node name="SaveButton" type="Button" parent="VBoxContainer" groups=["edit_mode"]]
 layout_mode = 2
-text = "Save"
+text = "Done"
 
 [node name="EditButton" type="Button" parent="VBoxContainer" groups=["view_mode"]]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Edit"
 
-[node name="RemoveButton" type="Button" parent="VBoxContainer" groups=["edit_mode"]]
+[node name="RemoveButton" type="Button" parent="VBoxContainer" groups=["edit_mode", "part_of_delete"]]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Remove"

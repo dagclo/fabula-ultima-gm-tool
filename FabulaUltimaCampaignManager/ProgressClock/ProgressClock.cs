@@ -19,12 +19,15 @@ public partial class ProgressClock : Window
     public string EditModeGroupName { get; set; } = "edit_mode";
     [Export]
     public string ClockSectionGroupName { get; set; } = "clock_sections";
+    [Export]
+    public string DeleteFunctionGroupName { get; set; } = "part_of_delete";
 
     [Export]
     public string ProgressClockGroupName { get; set; } = "progress_clock";
     public Action<ProgressClockModel> OnRemove { get; internal set; }
     public Action<ProgressClock> OnHideClock { get; internal set; }
     public Action OnSave { get; internal set; }
+    public bool DeleteDisabled { get; set; }
 
     [Signal]
     public delegate void ClockTitleUpdateEventHandler(string newTitle);
@@ -72,6 +75,16 @@ public partial class ProgressClock : Window
             CallDeferred(MethodName.ClockUpdated);
             EmitSignal(SignalName.SetClockTitle, Model.Title);
             SetMode(true);
+        }
+
+        if(DeleteDisabled)
+        {
+            // this is mainly the remove button
+            foreach (var control in FindChildren("*").Where(c => c.IsInGroup(DeleteFunctionGroupName)).Select(n => n as Control))
+            {
+                _progressClock.RemoveChild(control);
+                control.QueueFree();
+            }
         }
         
         Model.Changed += ClockUpdated;

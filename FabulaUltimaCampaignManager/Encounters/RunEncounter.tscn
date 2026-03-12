@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cdbhgvau850oy"]
+[gd_scene load_steps=17 format=3 uid="uid://cdbhgvau850oy"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_27rb4"]
 [ext_resource type="Script" uid="uid://ccf876kfu5ssy" path="res://Battle/RunEncounter.cs" id="1_dwbmd"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://erwugkr5gcel" path="res://Battle/player_panel.tscn" id="4_nde4l"]
 [ext_resource type="Script" uid="uid://4dakvjrmdf1g" path="res://Battle/ResetRoundButton.cs" id="6_0ebfa"]
 [ext_resource type="Script" uid="uid://bkdq4agik4w6f" path="res://Battle/GMScreen.cs" id="6_jr3u1"]
+[ext_resource type="Script" uid="uid://tajkj83wvyrr" path="res://Battle/ProgressClocks/ProgressClockContainer.cs" id="8_etldh"]
 [ext_resource type="Script" uid="uid://bbarromg1hepv" path="res://Battle/VolumeSlider.cs" id="9_d26r8"]
 [ext_resource type="Script" uid="uid://djvkq8hjfiu0q" path="res://Battle/GameLog.cs" id="10_f45dp"]
 [ext_resource type="Script" uid="uid://btod1j6uh86xt" path="res://Battle/PlayersList.cs" id="10_xq16r"]
@@ -135,9 +136,18 @@ layout_mode = 2
 [node name="PlayerPanel5" parent="GMScreen/VBoxContainer/Players" instance=ExtResource("4_nde4l")]
 layout_mode = 2
 
-[node name="OpenProgressClockButton" type="Button" parent="GMScreen/VBoxContainer"]
+[node name="ProgressClockContainer" type="VBoxContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
-text = "Open Progress Clocks"
+script = ExtResource("8_etldh")
+
+[node name="ShowProgressClockButton" type="Button" parent="GMScreen/VBoxContainer/ProgressClockContainer" groups=["hide_progress_clock"]]
+layout_mode = 2
+text = "Show Progress Clocks"
+
+[node name="HideProgressClockButton" type="Button" parent="GMScreen/VBoxContainer/ProgressClockContainer" groups=["show_progress_clock"]]
+visible = false
+layout_mode = 2
+text = "Hide Progress Clocks"
 
 [node name="GameLog" type="PanelContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
@@ -215,6 +225,8 @@ script = ExtResource("11_vguco")
 visible = false
 
 [connection signal="tree_exiting" from="." to="." method="HandleTreeExiting"]
+[connection signal="pressed" from="GMScreen/VBoxContainer/ProgressClockContainer/ShowProgressClockButton" to="GMScreen/VBoxContainer/ProgressClockContainer" method="HandleShowPressed"]
+[connection signal="pressed" from="GMScreen/VBoxContainer/ProgressClockContainer/HideProgressClockButton" to="GMScreen/VBoxContainer/ProgressClockContainer" method="HandleHidePressed"]
 [connection signal="drag_ended" from="GMScreen/VBoxContainer/MusicControlContainer/VolumeSlider" to="GMScreen/VBoxContainer/MusicControlContainer/VolumeSlider" method="HandleDragEnded"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/ResetRoundButton" to="GMScreen/VBoxContainer/VFlowContainer/ResetRoundButton" method="HandlePressed"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" to="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" method="OnButtonPressed"]
