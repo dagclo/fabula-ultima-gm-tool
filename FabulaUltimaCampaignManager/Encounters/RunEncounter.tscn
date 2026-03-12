@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cdbhgvau850oy"]
+[gd_scene load_steps=18 format=3 uid="uid://cdbhgvau850oy"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_27rb4"]
 [ext_resource type="Script" uid="uid://ccf876kfu5ssy" path="res://Battle/RunEncounter.cs" id="1_dwbmd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bkdq4agik4w6f" path="res://Battle/GMScreen.cs" id="6_jr3u1"]
 [ext_resource type="Script" uid="uid://tajkj83wvyrr" path="res://Battle/ProgressClocks/ProgressClockContainer.cs" id="8_etldh"]
 [ext_resource type="Script" uid="uid://bbarromg1hepv" path="res://Battle/VolumeSlider.cs" id="9_d26r8"]
+[ext_resource type="PackedScene" uid="uid://ri0bknowwvn2" path="res://ProgressClock/progress_clock.tscn" id="9_j1li7"]
 [ext_resource type="Script" uid="uid://djvkq8hjfiu0q" path="res://Battle/GameLog.cs" id="10_f45dp"]
 [ext_resource type="Script" uid="uid://btod1j6uh86xt" path="res://Battle/PlayersList.cs" id="10_xq16r"]
 [ext_resource type="FontFile" uid="uid://ypuiap2spg2i" path="res://Font/BoldTwilight.fnt" id="10_ywu3j"]
@@ -139,6 +140,7 @@ layout_mode = 2
 [node name="ProgressClockContainer" type="VBoxContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
 script = ExtResource("8_etldh")
+ProgressClockTemplate = ExtResource("9_j1li7")
 
 [node name="ShowProgressClockButton" type="Button" parent="GMScreen/VBoxContainer/ProgressClockContainer" groups=["hide_progress_clock"]]
 layout_mode = 2
