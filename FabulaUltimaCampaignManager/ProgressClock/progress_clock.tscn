@@ -1,0 +1,131 @@
+[gd_scene load_steps=6 format=3 uid="uid://ri0bknowwvn2"]
+
+[ext_resource type="Script" uid="uid://c8c4xgin1v0y" path="res://addons/advanced_radial_menu/radial_menu_class.gd" id="1_13meq"]
+[ext_resource type="Script" uid="uid://btetoc8usfjgl" path="res://ProgressClock/ProgressClock.cs" id="1_yi1xy"]
+[ext_resource type="Script" uid="uid://cht2np2cp4h5d" path="res://ProgressClock/TitleLabel.cs" id="2_37blw"]
+[ext_resource type="Script" uid="uid://ccqeoti7ayh74" path="res://ProgressClock/TitleLineEdit.cs" id="3_s4ewm"]
+[ext_resource type="Script" uid="uid://be218fgn5rxd2" path="res://ProgressClock/SegmentSlider.cs" id="4_gpcoa"]
+
+[node name="progress_clock" type="Window"]
+oversampling_override = 1.0
+title = "Progress Clock"
+initial_position = 1
+size = Vector2i(400, 400)
+always_on_top = true
+script = ExtResource("1_yi1xy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer" groups=["view_mode"]]
+layout_mode = 2
+text = "Progress Clock"
+horizontal_alignment = 1
+script = ExtResource("2_37blw")
+
+[node name="TitleLineEdit" type="LineEdit" parent="VBoxContainer" groups=["edit_mode"]]
+layout_mode = 2
+placeholder_text = "Progress Clock"
+alignment = 1
+script = ExtResource("3_s4ewm")
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ProgressClock" type="Control" parent="VBoxContainer/PanelContainer" groups=["progress_clock"]]
+layout_mode = 2
+script = ExtResource("1_13meq")
+select_action_name = "ui_accept"
+keep_selection_outside = false
+color = Color(0, 0, 0, 0.9882353)
+arc_color = Color(0.21176471, 0.21176471, 0.21176471, 1)
+arc_inner_radius = 83.775
+line_color = Color(0.21176471, 0.21176471, 0.21176471, 1)
+children_auto_sizing = true
+children_auto_sizing_factor = 0.5
+children_rotate = true
+hover_color = Color(0.5372549, 0.19215687, 0.6627451, 0.43137255)
+selected_color = Color(0.5372549, 0.19215687, 0.6627451, 1)
+metadata/_custom_type_script = "uid://c8c4xgin1v0y"
+
+[node name="Section_0" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock" groups=["clock_sections"]]
+layout_mode = 0
+offset_left = 248.4945
+offset_top = 18.838837
+offset_right = 282.16116
+offset_bottom = 52.505505
+rotation = 6.2831855
+pivot_offset = Vector2(16.833328, 16.833334)
+color = Color(1, 1, 1, 0)
+
+[node name="Section_1" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock" groups=["clock_sections"]]
+layout_mode = 0
+offset_left = 117.838844
+offset_top = 18.838837
+offset_right = 151.50551
+offset_bottom = 52.505505
+rotation = 6.2831855
+pivot_offset = Vector2(16.833332, 16.833334)
+color = Color(1, 1, 1, 0)
+
+[node name="Section_2" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock" groups=["clock_sections"]]
+layout_mode = 0
+offset_left = 117.838844
+offset_top = 149.49448
+offset_right = 151.50551
+offset_bottom = 183.16115
+rotation = 6.2831855
+pivot_offset = Vector2(16.833332, 16.833336)
+color = Color(0.7764706, 0.7764706, 0.7764706, 0)
+
+[node name="Section_3" type="ColorRect" parent="VBoxContainer/PanelContainer/ProgressClock" groups=["clock_sections"]]
+layout_mode = 0
+offset_left = 248.49448
+offset_top = 149.4945
+offset_right = 282.16113
+offset_bottom = 183.16118
+rotation = 6.2831855
+pivot_offset = Vector2(16.833328, 16.833336)
+color = Color(0.7764706, 0.7764706, 0.7764706, 0)
+
+[node name="SegmentSlider" type="HSlider" parent="VBoxContainer" groups=["edit_mode"]]
+layout_mode = 2
+min_value = 4.0
+max_value = 12.0
+step = 2.0
+value = 4.0
+tick_count = 5
+ticks_on_borders = true
+ticks_position = 2
+script = ExtResource("4_gpcoa")
+
+[node name="SaveButton" type="Button" parent="VBoxContainer" groups=["edit_mode"]]
+layout_mode = 2
+text = "Done"
+
+[node name="EditButton" type="Button" parent="VBoxContainer" groups=["view_mode"]]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Edit"
+
+[node name="RemoveButton" type="Button" parent="VBoxContainer" groups=["edit_mode", "part_of_delete"]]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Remove"
+
+[connection signal="ClockTitleUpdate" from="." to="VBoxContainer/TitleLabel" method="UpdateText"]
+[connection signal="SetClockTitle" from="." to="VBoxContainer/TitleLineEdit" method="Initialize"]
+[connection signal="UpdateSectionStates" from="." to="VBoxContainer/PanelContainer/ProgressClock" method="_on_progress_clock_update_section_states"]
+[connection signal="UpdateSectionStates" from="." to="VBoxContainer/SegmentSlider" method="HandleSectionStateUpdate"]
+[connection signal="close_requested" from="." to="." method="Handle_CloseRequested"]
+[connection signal="text_changed" from="VBoxContainer/TitleLineEdit" to="." method="ClockTitleChanged"]
+[connection signal="slot_selected" from="VBoxContainer/PanelContainer/ProgressClock" to="." method="SlotSelected"]
+[connection signal="value_changed" from="VBoxContainer/SegmentSlider" to="." method="SectionsChanged"]
+[connection signal="pressed" from="VBoxContainer/SaveButton" to="." method="SaveButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/EditButton" to="." method="EditButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/RemoveButton" to="." method="Handle_RemovePressed"]

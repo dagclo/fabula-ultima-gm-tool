@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://kakitmqwuk5q"]
+
+[ext_resource type="Script" uid="uid://disthynbki5up" path="res://ProgressClock/ProgressClockEntry.cs" id="1_l6uir"]
+[ext_resource type="Script" uid="uid://bnyfsrb7wnrhp" path="res://ProgressClock/EntryClockName.cs" id="2_87ilv"]
+[ext_resource type="Script" uid="uid://wprc7m4jwofi" path="res://ProgressClock/EntryClockProgress.cs" id="3_56mru"]
+
+[node name="ProgressClockEntry" type="HBoxContainer"]
+script = ExtResource("1_l6uir")
+
+[node name="EntryClockName" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "Name"
+script = ExtResource("2_87ilv")
+
+[node name="EntryClockProgress" type="Label" parent="."]
+layout_mode = 2
+text = "0/4"
+script = ExtResource("3_56mru")
+
+[node name="ShowButton" type="Button" parent="."]
+layout_mode = 2
+text = "Show"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+
+[connection signal="ProgressClockChanged" from="." to="EntryClockName" method="OnClockChanged"]
+[connection signal="ProgressClockChanged" from="." to="EntryClockProgress" method="OnClockChanged"]
+[connection signal="pressed" from="ShowButton" to="." method="HandleShowButtonPressed"]

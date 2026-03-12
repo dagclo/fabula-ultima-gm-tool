@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0yu6a26st78r"]
+
+[ext_resource type="Script" uid="uid://b84xq2p6q05fw" path="res://Assets/AdvRadialMenu/addons/advanced_radial_menu/radial_menu_class.gd" id="1_6ynat"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ms81s"]
+
+[node name="Control" type="Window"]
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(1000, 1000)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_right = 333.0
+offset_bottom = 373.0
+
+[node name="RadialMenuAdvanced" type="Control" parent="PanelContainer"]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("1_6ynat")
+color = Color(0, 0, 0, 1)
+metadata/_custom_type_script = "uid://b84xq2p6q05fw"
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/RadialMenuAdvanced"]
+layout_mode = 0
+offset_left = 124.23651
+offset_top = 9.0
+offset_right = 380.2365
+offset_bottom = 265.0
+pivot_offset = Vector2(128, 128)
+
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/RadialMenuAdvanced"]
+layout_mode = 0
+offset_left = -47.23651
+offset_top = 8.999992
+offset_right = 208.76349
+offset_bottom = 265.0
+pivot_offset = Vector2(128, 128)
+
+[node name="TextureRect4" type="TextureRect" parent="PanelContainer/RadialMenuAdvanced"]
+modulate = Color(1, 1, 1, 0.2627451)
+layout_mode = 0
+offset_left = 38.5
+offset_top = 157.5
+offset_right = 294.5
+offset_bottom = 413.5
+pivot_offset = Vector2(128, 128)
+texture = SubResource("CanvasTexture_ms81s")
+stretch_mode = 1
