@@ -99,7 +99,7 @@ public partial class ProgressClock : Window
     private void ClockUpdated()
     {
         EmitSignal(SignalName.ClockTitleUpdate, Model.Title);
-        this.Title = Model.Title;
+        this.Title = $"Progress Clock: {Model.Title}";
         int numSections = FindChildren("*").Where(c => c.IsInGroup(ClockSectionGroupName)).Count();
         if (numSections < Model.SectionStates.Count())
         {
