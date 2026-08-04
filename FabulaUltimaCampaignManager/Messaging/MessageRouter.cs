@@ -35,9 +35,18 @@ namespace FirstProject.Messaging
             }
             var task = Task.Run(async () =>
             {
-                foreach(var message in queue.GetConsumingEnumerable()) 
+                foreach(var message in queue.GetConsumingEnumerable())
                 {
-                    await func.Invoke(message);
+                    try
+                    {
+                        await func.Invoke(message);
+                    }
+                    catch (Exception e)
+                    {
+                        // a throwing subscriber must not kill the consumer loop —
+                        // that silently drops every later message (e.g. saves)
+                        GD.PushError($"{typeof(TMessageType).Name} subscriber threw: {e}");
+                    }
                 }
             });
             _runningTasks.Add(task);

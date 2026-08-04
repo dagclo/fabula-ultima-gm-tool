@@ -86,15 +86,39 @@ public partial class Campaign : Container
     }
 
     private SceneTreeTimer _saveTimer;
-    private async Task ReceiveSaveMessage(IMessage message)
+    private Task ReceiveSaveMessage(IMessage message)
     {
-        if (!(message is IMessage<SaveMessage> saveMessage)) return;                
-        var savePath = GetCampaignFilePath(CampaignData.Id);
+        if (!(message is IMessage<SaveMessage> saveMessage)) return Task.CompletedTask;
+        // hop to the main thread: this runs on a MessageRouter worker task,
+        // and SceneTree/ResourceSaver aren't safe to touch from there
+        CallDeferred(MethodName.ScheduleSave);
+        return Task.CompletedTask;
+    }
+
+    private async void ScheduleSave()
+    {
         if (_saveTimer != null) return;
-        _saveTimer = GetTree().CreateTimer(SaveTimeWindowSeconds);        
+        _saveTimer = GetTree().CreateTimer(SaveTimeWindowSeconds);
         await ToSignal(_saveTimer, SceneTreeTimer.SignalName.Timeout); // adjust timing later
-        CampaignData.Save(savePath);
         _saveTimer = null;
+        SaveNow();
+    }
+
+    private void SaveNow()
+    {
+        if (CampaignData == null) return;
+        CampaignData.Save(GetCampaignFilePath(CampaignData.Id));
+    }
+
+    public override void _Notification(int what)
+    {
+        if (what == NotificationWMCloseRequest)
+        {
+            // commit any text edit still holding focus, then flush so the
+            // debounce window can't drop a save on quit
+            GetViewport()?.GuiReleaseFocus();
+            SaveNow();
+        }
     }
 
     private async Task ReceiveCampaignUpdate(IMessage message)

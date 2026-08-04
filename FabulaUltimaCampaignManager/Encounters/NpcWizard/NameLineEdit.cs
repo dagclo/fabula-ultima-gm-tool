@@ -9,11 +9,7 @@ public partial class NameLineEdit : LineEdit, INpcReader
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+		this.FocusExited += () => OnSubmit(this.Text); // commit on click-away, not just Enter
 	}
 
     public void HandleNpcChanged(NpcInstance npc)
@@ -24,6 +20,7 @@ public partial class NameLineEdit : LineEdit, INpcReader
 
 	public void OnSubmit(string newText)
 	{
+		if (_instance == null) return;
 		_instance.InstanceName = newText;
 	}
 }
