@@ -260,6 +260,10 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
+[node name="SceneClockHint" type="Label" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Clocks"]
+layout_mode = 2
+text = "Scene clocks are shown in this scene's battles"
+
 [node name="AddClockButton" type="Button" parent="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Clocks"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -473,7 +477,7 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="HSplitContainer/CampaignManager/Campaign/VillainSection"]
 layout_mode = 2
-text = "Villians"
+text = "Villains"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/VillainSection"]
 layout_mode = 2
@@ -497,7 +501,7 @@ metadata/_tab_index = 0
 [node name="ProgressClockLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/Misc/Progress Clocks"]
 layout_mode = 2
 theme_type_variation = &"BoldLabel"
-text = "Progress Clocks"
+text = "Campaign Clocks (not shown in battles)"
 horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Campaign/Misc/Progress Clocks"]

@@ -16,7 +16,10 @@ public partial class RunEncounter : Control
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
-	{		
+	{
+        // the main window is the GM's screen during battle; the separate
+        // "Player View" window is the one to share with the table
+        GetWindow().Title = "GM Screen — Fabula Ultima";
         var runState = GetNode<RunState>("/root/RunState");
 		var encounter = runState.RunningEncounter ?? throw new Exception("No encounter set");
         _messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
