@@ -68,7 +68,8 @@ public partial class ProgressClockList : Container
             }
             var scene = Entry.Instantiate<ProgressClockEntry>();
             scene.ProgressClock = clock;
-            scene.OnShow += (ProgressClockModel m) => OnShow(m);            
+            scene.OnShow += (ProgressClockModel m) => OnShow(m);
+            scene.OnRemove += (ProgressClockModel m) => HandleRemove(m);
             AddChild(scene);
             scene.Owner = this;
         }
