@@ -101,9 +101,9 @@ public partial class ProgressClockContainer : VBoxContainer
         // a null model makes the dialog create a fresh one and open in edit mode
         var progressClock = AddClockWindow(null, startVisible: true, deleteDisabled: false);
         var encounter = GetNode<RunState>("/root/RunState").RunningEncounter;
-        progressClock.OnSave += () =>
+        progressClock.OnCommit += () =>
         {
-            // attach the new clock to the scene so it persists with it
+            // attach the new clock to the scene on an explicit Save press
             // (written to disk on the next campaign-screen save)
             if (!encounter.ProgressClocks.Contains(progressClock.Model))
             {

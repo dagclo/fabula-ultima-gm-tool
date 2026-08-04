@@ -51,8 +51,9 @@ public partial class ProgressClockList : Container
 
     private void UpdateList()
     {
-        // remove any existing children
-        foreach (var child in this.GetChildren())
+        // remove the list entries, but leave any open clock dialogs alone —
+        // freeing them mid-edit would close the window under the user
+        foreach (var child in this.GetChildren().OfType<ProgressClockEntry>())
         {
             this.RemoveChild(child);
             child.QueueFree();
@@ -88,13 +89,20 @@ public partial class ProgressClockList : Container
     }
 
     private void HandleAdd()
-    {           
-        var model = OpenDialog(null);
-        _progressClocks.Add(model);
-        _messagePublisher.Publish((new SaveMessage()).AsMessage());
+    {
+        // don't persist the clock on dialog open — closing unsaved used to
+        // leave a ghost clock behind. Commit only on an explicit Save press.
+        var dialog = OpenDialog(null);
+        dialog.OnCommit += () =>
+        {
+            if (_progressClocks.Contains(dialog.Model)) return;
+            _progressClocks.Add(dialog.Model);
+            _messagePublisher.Publish((new SaveMessage()).AsMessage());
+            CallDeferred(MethodName.UpdateList);
+        };
     }
 
-    private ProgressClockModel OpenDialog(ProgressClockModel model)
+    private ProgressClock OpenDialog(ProgressClockModel model)
     {
         var dialog = Dialog.Instantiate<ProgressClock>();
         dialog.Model = model;
@@ -103,7 +111,7 @@ public partial class ProgressClockList : Container
         dialog.OnSave += () => HandleSave();
         AddChild(dialog);
         dialog.Owner = this;
-        return dialog.Model;
+        return dialog;
     }
 
     private void HandleSave()

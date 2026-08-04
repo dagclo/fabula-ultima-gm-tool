@@ -27,6 +27,7 @@ public partial class ProgressClock : Window
     public Action<ProgressClockModel> OnRemove { get; internal set; }
     public Action<ProgressClock> OnHideClock { get; internal set; }
     public Action OnSave { get; internal set; }
+    public Action OnCommit { get; internal set; } // fires only on an explicit Save press
     public bool DeleteDisabled { get; set; }
 
     [Signal]
@@ -104,7 +105,11 @@ public partial class ProgressClock : Window
 
         _removeConfirmDialog = new ConfirmationDialog { Title = "Remove Clock" };
         AddChild(_removeConfirmDialog);
-        _removeConfirmDialog.Confirmed += () => OnRemove?.Invoke(this.Model);
+        _removeConfirmDialog.Confirmed += () =>
+        {
+            OnRemove?.Invoke(this.Model);
+            QueueFree(); // a removed clock's window closes with it
+        };
     }
 
     private ConfirmationDialog _removeConfirmDialog;
@@ -164,6 +169,7 @@ public partial class ProgressClock : Window
 	public void SaveButtonPressed()
 	{
         SetMode(true);
+        OnCommit?.Invoke();
     }
 
     public void EditButtonPressed()
