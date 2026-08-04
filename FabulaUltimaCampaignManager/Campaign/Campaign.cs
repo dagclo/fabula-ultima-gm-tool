@@ -40,7 +40,19 @@ public partial class Campaign : Container
         if (!string.IsNullOrEmpty(_userConfiguration.CurrentCampaignID))
         {
             var filePath = GetCampaignFilePath(_userConfiguration.CurrentCampaignID);
-            CampaignData = ResourceExtensions.Load<CampaignData>(filePath);
+            var stored = ResourceExtensions.Load<CampaignData>(filePath);
+            if (stored != null)
+            {
+                CampaignData = stored;
+            }
+            else
+            {
+                // keep the exported default campaign rather than running with none:
+                // a null here used to abort _Ready, leaving the app half-wired
+                // (no save subscriber, NREs on Add Scene) and silently losing edits
+                GD.PushError($"couldn't load campaign {filePath}; falling back to the default campaign");
+                ShowLoadFailure($"Couldn't read the saved campaign:\n{filePath}\n\nLoaded the default campaign instead. The saved file was not overwritten.");
+            }
         }
 
         if (CampaignData != null)
@@ -67,8 +79,21 @@ public partial class Campaign : Container
         var storedCampaign = ResourceExtensions.Load<CampaignData>(filePath);
         if (storedCampaign == null)
         {
+            if (Godot.FileAccess.FileExists(filePath))
+            {
+                // the file exists but won't load: move it aside instead of
+                // silently overwriting it with the default campaign
+                var backupPath = $"{filePath}.unreadable-{DateTime.Now:yyyyMMdd-HHmmss}";
+                DirAccess.RenameAbsolute(filePath, backupPath);
+                GD.PushError($"campaign file {filePath} exists but couldn't be loaded; moved to {backupPath}");
+                ShowLoadFailure($"The saved campaign file couldn't be read:\n{filePath}\n\nIt was moved aside as:\n{backupPath}\n\nStarting from the default campaign.");
+            }
             CampaignData.Save(filePath);
-            CampaignData = ResourceExtensions.Load<CampaignData>(filePath);
+            var reloaded = ResourceExtensions.Load<CampaignData>(filePath);
+            // if the round-trip fails (locked/unwritable file), keep the live
+            // in-memory campaign instead of nulling it out
+            if (reloaded != null) CampaignData = reloaded;
+            else GD.PushError($"couldn't re-read campaign after saving {filePath}; continuing with in-memory data");
         }
         else
         {
@@ -128,6 +153,17 @@ public partial class Campaign : Container
         {            
             CallDeferred(MethodName.UpdateCampaign, campaignMessage.Value.CampaignData, false);
         });
+    }
+
+    private void ShowLoadFailure(string message)
+    {
+        var dialog = new AcceptDialog
+        {
+            Title = "Campaign Load Failed",
+            DialogText = message,
+        };
+        AddChild(dialog);
+        dialog.PopupCentered();
     }
 
     private string GetCampaignFilePath(string campaignID) => Configuration.CampaignFolder + $"{campaignID}.tres";
