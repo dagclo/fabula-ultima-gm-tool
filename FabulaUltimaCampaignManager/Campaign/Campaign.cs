@@ -23,12 +23,18 @@ public partial class Campaign : Container
     [Export]
     public double SaveTimeWindowSeconds { get; set; } = 2;
 
+    [Export]
+    public Label SaveStatusLabel { get; set; }
+
     [Signal]
     public delegate void UpdateCurrentCampaignEventHandler(SignalWrapper<CampaignData> campaign);
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{   
+        // fall back to resolving by path if the exported reference didn't populate
+        SaveStatusLabel ??= GetNodeOrNull<Label>("CampaignName/SaveStatusLabel");
+
         if(Configuration != null)
         {
             Configuration.MakeCampaignDirectories();
@@ -103,6 +109,14 @@ public partial class Campaign : Container
         runState.Campaign = CampaignData;
         EmitSignal(SignalName.UpdateCurrentCampaign, new SignalWrapper<CampaignData>(CampaignData));
         CampaignData.Changed += HandleCampaignDataChanged;
+
+        // show when this campaign last hit disk (covers returning from battle,
+        // where the save happened before this screen existed)
+        if (SaveStatusLabel != null && Godot.FileAccess.FileExists(filePath))
+        {
+            var mtime = DateTimeOffset.FromUnixTimeSeconds((long)Godot.FileAccess.GetModifiedTime(filePath)).ToLocalTime();
+            SaveStatusLabel.Text = $"Saved {mtime:HH:mm:ss}";
+        }
     }
 
     private void HandleCampaignDataChanged()
@@ -123,6 +137,7 @@ public partial class Campaign : Container
     private async void ScheduleSave()
     {
         if (_saveTimer != null) return;
+        if (SaveStatusLabel != null) SaveStatusLabel.Text = "Saving…";
         _saveTimer = GetTree().CreateTimer(SaveTimeWindowSeconds);
         await ToSignal(_saveTimer, SceneTreeTimer.SignalName.Timeout); // adjust timing later
         _saveTimer = null;
@@ -133,6 +148,7 @@ public partial class Campaign : Container
     {
         if (CampaignData == null) return;
         CampaignData.Save(GetCampaignFilePath(CampaignData.Id));
+        if (SaveStatusLabel != null) SaveStatusLabel.Text = $"Saved {DateTime.Now:HH:mm:ss}";
     }
 
     public override void _Notification(int what)

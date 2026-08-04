@@ -368,6 +368,7 @@ columns = 2
 script = ExtResource("3_tscfl")
 CampaignData = ExtResource("4_wujyf")
 Configuration = ExtResource("8_qwns5")
+SaveStatusLabel = NodePath("CampaignName/SaveStatusLabel")
 metadata/_tab_index = 0
 
 [node name="CampaignName" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
@@ -383,6 +384,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Campaign Name"
 script = ExtResource("20_n478f")
+
+[node name="SaveStatusLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/CampaignName"]
+layout_mode = 2
+tooltip_text = "When the campaign was last written to disk"
+text = ""
 
 [node name="PanelContainer" type="PanelContainer" parent="HSplitContainer/CampaignManager/Campaign"]
 layout_mode = 2
