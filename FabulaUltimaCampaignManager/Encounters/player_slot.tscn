@@ -28,7 +28,7 @@ layout_mode = 2
 layout_mode = 2
 texture = ExtResource("3_pxksc")
 expand_mode = 2
-stretch_mode = 4
+stretch_mode = 5
 script = ExtResource("4_wr4x0")
 
 [node name="UpdateButton" type="Button" parent="HBoxContainer/Portrait"]
