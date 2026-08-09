@@ -27,6 +27,7 @@ public partial class ProgressClock : Window
     public Action<ProgressClockModel> OnRemove { get; internal set; }
     public Action<ProgressClock> OnHideClock { get; internal set; }
     public Action OnSave { get; internal set; }
+    public Action OnCommit { get; internal set; } // fires only on an explicit Save press
     public bool DeleteDisabled { get; set; }
 
     [Signal]
@@ -58,7 +59,7 @@ public partial class ProgressClock : Window
             {
                 if(control.GetParent() != _progressClock)
                 {
-                    GD.PrintErr($"{control.Name} isn't parent of {_progressClock.Name}");
+                    GD.PrintErr($"{control.Name} isn't a child of {_progressClock.Name}");
                     continue;
                 }
                 _progressClock.RemoveChild(control);
@@ -82,14 +83,36 @@ public partial class ProgressClock : Window
             // this is mainly the remove button
             foreach (var control in FindChildren("*").Where(c => c.IsInGroup(DeleteFunctionGroupName)).Select(n => n as Control))
             {
-                _progressClock.RemoveChild(control);
+                // drop the freed control from the mode lists too, or SetMode
+                // will touch a disposed object on the next Edit/Save press
+                _viewNodes.Remove(control);
+                _editNodes.Remove(control);
+                // these controls live in various spots in the layout, not under _progressClock
+                control.GetParent().RemoveChild(control);
                 control.QueueFree();
             }
         }
         
         Model.Changed += ClockUpdated;
-        
+
+        // the radial menu rebuilds its selection list (all false) whenever it
+        // becomes visible, so re-push the model's states after each show —
+        // deferred so it runs after the menu's own deferred reset
+        this.VisibilityChanged += () =>
+        {
+            if (this.Visible) CallDeferred(MethodName.SetSectionStates);
+        };
+
+        _removeConfirmDialog = new ConfirmationDialog { Title = "Remove Clock" };
+        AddChild(_removeConfirmDialog);
+        _removeConfirmDialog.Confirmed += () =>
+        {
+            OnRemove?.Invoke(this.Model);
+            QueueFree(); // a removed clock's window closes with it
+        };
     }
+
+    private ConfirmationDialog _removeConfirmDialog;
 
     private void SetSectionStates()
     {
@@ -132,7 +155,10 @@ public partial class ProgressClock : Window
 	public void SlotSelected(Control slot, int _, bool state)
 	{
         var index = int.Parse(slot.Name.ToString().Split('_').Last());
+        // stale sections can outlive a resize until their deferred free runs
+        if (index < 0 || index >= Model.SectionStates.Count) return;
         Model.SectionStates[index] = state;
+        Model.EmitChanged(); // raw element writes don't signal — without this, fills never save
     }
 
     public void ClockTitleChanged (string newText)
@@ -143,6 +169,7 @@ public partial class ProgressClock : Window
 	public void SaveButtonPressed()
 	{
         SetMode(true);
+        OnCommit?.Invoke();
     }
 
     public void EditButtonPressed()
@@ -186,6 +213,8 @@ public partial class ProgressClock : Window
 
     private void Handle_RemovePressed()
     {
-        OnRemove?.Invoke(this.Model);
+        var name = string.IsNullOrWhiteSpace(Model?.Title) ? "this clock" : $"\"{Model.Title}\"";
+        _removeConfirmDialog.DialogText = $"Remove {name}?";
+        _removeConfirmDialog.PopupCentered();
     }
 }

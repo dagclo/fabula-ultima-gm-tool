@@ -27,9 +27,8 @@ public partial class RunEncounterButton : Button, IInitiativeSeedReader
 
     private void SeedChanged()
     {
-        if (_targetScene == null) return;
-        if (!_seed.IsValid) return;
-		this.Disabled = false;
+        // re-evaluate both ways: the button must disable again if the input turns invalid
+        this.Disabled = _targetScene == null || !_seed.IsValid;
     }
 
     internal void OnTargetSceneReady(PackedScene scene)

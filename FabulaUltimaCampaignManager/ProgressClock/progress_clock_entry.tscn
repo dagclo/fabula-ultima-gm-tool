@@ -22,9 +22,14 @@ script = ExtResource("3_56mru")
 layout_mode = 2
 text = "Show"
 
+[node name="RemoveButton" type="Button" parent="."]
+layout_mode = 2
+text = "Remove"
+
 [node name="VSeparator" type="VSeparator" parent="."]
 layout_mode = 2
 
 [connection signal="ProgressClockChanged" from="." to="EntryClockName" method="OnClockChanged"]
 [connection signal="ProgressClockChanged" from="." to="EntryClockProgress" method="OnClockChanged"]
 [connection signal="pressed" from="ShowButton" to="." method="HandleShowButtonPressed"]
+[connection signal="pressed" from="RemoveButton" to="." method="HandleRemoveButtonPressed"]
