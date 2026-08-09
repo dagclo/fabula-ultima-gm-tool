@@ -85,13 +85,11 @@ public partial class Campaign : Container
         var storedCampaign = ResourceExtensions.Load<CampaignData>(filePath);
         if (storedCampaign == null)
         {
-            if (Godot.FileAccess.FileExists(filePath))
+            // the file exists but won't load: move it aside instead of
+            // silently overwriting it with the default campaign
+            var backupPath = ResourceExtensions.BackupUnreadable(filePath);
+            if (backupPath != null)
             {
-                // the file exists but won't load: move it aside instead of
-                // silently overwriting it with the default campaign
-                var backupPath = $"{filePath}.unreadable-{DateTime.Now:yyyyMMdd-HHmmss}";
-                DirAccess.RenameAbsolute(filePath, backupPath);
-                GD.PushError($"campaign file {filePath} exists but couldn't be loaded; moved to {backupPath}");
                 ShowLoadFailure($"The saved campaign file couldn't be read:\n{filePath}\n\nIt was moved aside as:\n{backupPath}\n\nStarting from the default campaign.");
             }
             CampaignData.Save(filePath);

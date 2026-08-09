@@ -159,3 +159,6 @@ mono_crash.*.json
 /FabulaUltimaCampaignManager/addons/gdUnit4/GdUnitRunner.cfg
 pdfs/*
 REVIEW.md
+
+# Godot export output
+/build/
