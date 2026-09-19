@@ -398,15 +398,17 @@ text = "Edit NPC"
 script = ExtResource("40_r4t3x")
 BeastEditScene = ExtResource("41_xckw7")
 
-[node name="DeleteButton" type="Button" parent="VBoxContainer/ModifySection"]
+[node name="DeleteButton" type="Button" parent="VBoxContainer/ModifySection" node_paths=PackedStringArray("DeleteDialog")]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Delete  NPC"
 script = ExtResource("40_1wrog")
+DeleteDialog = NodePath("DeleteDialog")
 
 [node name="DeleteDialog" type="PopupPanel" parent="VBoxContainer/ModifySection/DeleteButton"]
+oversampling_override = 1.0
 initial_position = 1
-size = Vector2i(444, 100)
+size = Vector2i(444, 110)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ModifySection/DeleteButton/DeleteDialog"]
 offset_left = 4.0
