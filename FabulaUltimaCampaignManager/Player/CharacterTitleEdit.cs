@@ -11,6 +11,7 @@ public partial class CharacterTitleEdit : LineEdit, IPlayerAttribute
 	{
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         _messagePublisher = messageRouter.GetPublisher<SaveMessage>();
+        this.FocusExited += () => OnTextSubmitted(this.Text); // commit on click-away, not just Enter
     }
 
     public void SetPlayer(PlayerData player)
@@ -21,6 +22,7 @@ public partial class CharacterTitleEdit : LineEdit, IPlayerAttribute
 
     public void OnTextSubmitted(string newText)
     {
+        if (_player == null || (_player.CharacterTitle ?? "") == newText) return;
         _player.CharacterTitle = newText;
         _messagePublisher.Publish((new SaveMessage()).AsMessage());
     }

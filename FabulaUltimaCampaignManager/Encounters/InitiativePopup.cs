@@ -52,8 +52,13 @@ public partial class InitiativePopup : PopupPanel
         };
         InitiativeSeedReady?.Invoke(encounter.InitiativeSeed);
         NpcsReady?.Invoke(encounter.NpcCollection);
-        this.TargetSceneReady(_targetScene);
+        this.TargetSceneReady?.Invoke(_targetScene);
         this.Show();
+    }
+
+    public void HandleCancel()
+    {
+        this.Hide();
     }
 
     public void HandleSubmit()

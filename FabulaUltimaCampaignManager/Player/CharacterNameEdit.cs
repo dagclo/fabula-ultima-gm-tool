@@ -11,12 +11,8 @@ public partial class CharacterNameEdit : LineEdit, IPlayerAttribute
 	{
         var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         _messagePublisher = messageRouter.GetPublisher<SaveMessage>();
+        this.FocusExited += () => OnTextSubmitted(this.Text); // commit on click-away, not just Enter
     }
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
 
     public void SetPlayer(PlayerData player)
     {
@@ -26,6 +22,7 @@ public partial class CharacterNameEdit : LineEdit, IPlayerAttribute
 
     public void OnTextSubmitted(string newText)
     {
+        if (_player == null || (_player.CharacterName ?? "") == newText) return;
         _player.CharacterName = newText;
         _messagePublisher.Publish((new SaveMessage()).AsMessage());
     }

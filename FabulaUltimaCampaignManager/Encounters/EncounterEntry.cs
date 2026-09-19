@@ -65,11 +65,12 @@ public partial class EncounterEntry : VBoxContainer
     }
 
     public override void _DropData(Vector2 atPosition, Variant data)
-    {        
+    {
         var original = data.As<NpcInstance>();
         //todo: see if deep clone is needed
         var clone = new NpcInstance(original);
-        _encounter.NpcCollection.Add(clone);
-        this.EncounterChanged?.Invoke(_encounter);
+        // AddNpc emits Changed, which refreshes the UI *and* triggers OnSave;
+        // adding to NpcCollection directly would skip the save
+        _encounter.AddNpc(clone);
     }
 }

@@ -1,4 +1,5 @@
 using FabulaUltimaGMTool.Battle;
+using FirstProject;
 using FirstProject.Encounters;
 using FirstProject.Messaging;
 using Godot;
@@ -15,7 +16,10 @@ public partial class RunEncounter : Control
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
-	{		
+	{
+        // the main window is the GM's screen during battle; the separate
+        // "Player View" window is the one to share with the table
+        GetWindow().Title = "GM Screen — Fabula Ultima";
         var runState = GetNode<RunState>("/root/RunState");
 		var encounter = runState.RunningEncounter ?? throw new Exception("No encounter set");
         _messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
@@ -71,10 +75,21 @@ public partial class RunEncounter : Control
 
     public void HandleTreeExiting()
     {
-        foreach(var player in GetNode<RunState>("/root/RunState").Campaign.Players.Where(p => p.IsValid))
+        var runState = GetNode<RunState>("/root/RunState");
+        foreach(var player in runState.Campaign.Players.Where(p => p.IsValid))
         {
             player.ActiveChanged = null;
         }
+
+        // persist anything the battle changed on the campaign (clock fills,
+        // mid-battle clock adds/removes) — this also covers quitting the app
+        // from inside the battle, where no campaign-screen save can happen
+        var configuration = GD.Load<FirstProject.Configuration>("res://configuration.tres");
+        if (runState.Campaign != null && configuration != null)
+        {
+            runState.Campaign.Save(configuration.CampaignFolder + $"{runState.Campaign.Id}.tres");
+        }
+
         var _ = _messageRouter.TearDown();
     }
 }

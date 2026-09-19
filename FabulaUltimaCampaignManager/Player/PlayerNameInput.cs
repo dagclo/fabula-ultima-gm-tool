@@ -10,8 +10,9 @@ public partial class PlayerNameInput : LineEdit, IPlayerAttribute
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-        var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");        
+        var messageRouter = GetNode<MessageRouter>("/root/MessageRouter");
         _messagePublisher = messageRouter.GetPublisher<SaveMessage>();
+        this.FocusExited += () => OnTextSubmitted(this.Text); // commit on click-away, not just Enter
     }
 
     public void SetPlayer(PlayerData player)
@@ -21,8 +22,9 @@ public partial class PlayerNameInput : LineEdit, IPlayerAttribute
     }
 
     public void OnTextSubmitted(string newText)
-    {	
-        _player.Name = newText;        
+    {
+        if (_player == null || (_player.Name ?? "") == newText) return;
+        _player.Name = newText;
         _messagePublisher.Publish((new SaveMessage()).AsMessage());
     }
 }

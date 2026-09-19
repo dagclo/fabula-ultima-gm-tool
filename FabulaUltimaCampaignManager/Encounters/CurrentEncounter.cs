@@ -37,12 +37,18 @@ public partial class CurrentEncounter : PanelContainer
 		{
 			if (!nameQueue.Any())
 			{
+                if (_configuration?.InstanceNames == null || _configuration.InstanceNames.Length == 0)
+                {
+                    // survive a missing/unloaded configuration resource instead of NRE-ing
+                    GD.PushError("CurrentEncounter has no instance-name configuration; using a generic name");
+                    return $"NPC {Guid.NewGuid().ToString("N")[..4]}";
+                }
                 var nameList = new Godot.Collections.Array<string>(_configuration.InstanceNames);
                 nameList.Shuffle();
 				foreach(var name in nameList)
 				{
 					nameQueue.Enqueue(name);
-				}	
+				}
             }
 			return nameQueue.Dequeue();
 		});

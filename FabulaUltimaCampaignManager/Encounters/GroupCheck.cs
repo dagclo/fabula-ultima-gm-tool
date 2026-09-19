@@ -25,17 +25,24 @@ public partial class GroupCheck : LineEdit, IInitiativeSeedReader
         _initiativeSeed = seed;
     }
 
-    public void OnTextChanged(string newText) 
+    public void OnTextChanged(string newText)
     {
-        if (_initiativeSeed == null) throw new Exception("not set");
+        if (_initiativeSeed == null)
+        {
+            GD.PushError("GroupCheck received input before its initiative seed was set");
+            return;
+        }
         if (string.IsNullOrWhiteSpace(newText))
         {
             _curText = string.Empty;
+            _initiativeSeed.PlayerCheck = -1; // no input -> seed invalid -> Run disabled
             return;
         }
-        if(!int.TryParse(newText, out var checkNum))
+        if(!int.TryParse(newText, out var checkNum) || checkNum < 0)
         {
+            // reject the keystroke: restore the last accepted text
             this.Text = _curText;
+            this.CaretColumn = _curText?.Length ?? 0;
             return;
         }
         _initiativeSeed.PlayerCheck =  checkNum;
@@ -44,7 +51,8 @@ public partial class GroupCheck : LineEdit, IInitiativeSeedReader
 
     public void HandleTextSubmitted(string _)
     {
-        if (string.IsNullOrWhiteSpace(_curText)) return;
+        // Enter must respect the same validity gate as the Run button
+        if (_initiativeSeed?.IsValid != true) return;
         OnSubmit?.Invoke();
     }
 }

@@ -25,6 +25,10 @@ public partial class EncounterList : Node
     private MessagePublisher<SaveMessage> _messagePublisher;
 
 
+    private ConfirmationDialog _deleteConfirm;
+    private Encounter _pendingDelete;
+    private EncounterEntry _pendingDeleteEntry;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -37,6 +41,10 @@ public partial class EncounterList : Node
             this.RemoveChild(child);
             child.QueueFree();
         }
+
+        _deleteConfirm = new ConfirmationDialog { Title = "Delete Scene" };
+        AddChild(_deleteConfirm);
+        _deleteConfirm.Confirmed += HandleDeleteConfirmed;
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,17 +84,36 @@ public partial class EncounterList : Node
 		if (targetEncounterIndex < 0) return;
 		if (encounter.HasTag(ArchiveTag))
 		{
-            _campaign.Encounters.RemoveAt(targetEncounterIndex);
+            // permanent deletion needs a confirmation; archiving is reversible and doesn't
+            _pendingDelete = encounter;
+            _pendingDeleteEntry = entry;
+            var name = string.IsNullOrWhiteSpace(encounter.Name) ? "this scene" : $"\"{encounter.Name}\"";
+            _deleteConfirm.DialogText = $"Permanently delete {name}? This can't be undone.";
+            _deleteConfirm.PopupCentered();
+            return;
 		}
-		else
-		{
-			encounter.AddTags(ArchiveTag);
-		}
-		
+
+		encounter.AddTags(ArchiveTag);
 		this.RemoveChild(entry);
 		entry.QueueFree();
 		SaveCampaign();
 		EmitSignal(SignalName.DeleteEncounter, encounter);
+    }
+
+    private void HandleDeleteConfirmed()
+    {
+        if (_pendingDelete == null) return;
+        var index = _campaign?.Encounters.IndexOf(_pendingDelete) ?? -1;
+        if (index >= 0) _campaign.Encounters.RemoveAt(index);
+        if (IsInstanceValid(_pendingDeleteEntry))
+        {
+            this.RemoveChild(_pendingDeleteEntry);
+            _pendingDeleteEntry.QueueFree();
+        }
+        SaveCampaign();
+        EmitSignal(SignalName.DeleteEncounter, _pendingDelete);
+        _pendingDelete = null;
+        _pendingDeleteEntry = null;
     }
 
     private void SaveCampaign()

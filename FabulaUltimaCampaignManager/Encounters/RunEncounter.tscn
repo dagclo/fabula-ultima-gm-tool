@@ -151,6 +151,10 @@ visible = false
 layout_mode = 2
 text = "Hide Progress Clocks"
 
+[node name="AddClockButton" type="Button" parent="GMScreen/VBoxContainer/ProgressClockContainer"]
+layout_mode = 2
+text = "Add Clock"
+
 [node name="GameLog" type="PanelContainer" parent="GMScreen/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -229,6 +233,7 @@ visible = false
 [connection signal="tree_exiting" from="." to="." method="HandleTreeExiting"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/ProgressClockContainer/ShowProgressClockButton" to="GMScreen/VBoxContainer/ProgressClockContainer" method="HandleShowPressed"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/ProgressClockContainer/HideProgressClockButton" to="GMScreen/VBoxContainer/ProgressClockContainer" method="HandleHidePressed"]
+[connection signal="pressed" from="GMScreen/VBoxContainer/ProgressClockContainer/AddClockButton" to="GMScreen/VBoxContainer/ProgressClockContainer" method="HandleAddPressed"]
 [connection signal="drag_ended" from="GMScreen/VBoxContainer/MusicControlContainer/VolumeSlider" to="GMScreen/VBoxContainer/MusicControlContainer/VolumeSlider" method="HandleDragEnded"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/ResetRoundButton" to="GMScreen/VBoxContainer/VFlowContainer/ResetRoundButton" method="HandlePressed"]
 [connection signal="pressed" from="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" to="GMScreen/VBoxContainer/VFlowContainer/EndEncounterButton" method="OnButtonPressed"]
