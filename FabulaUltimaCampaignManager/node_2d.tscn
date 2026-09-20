@@ -372,7 +372,6 @@ columns = 2
 script = ExtResource("3_tscfl")
 CampaignData = ExtResource("4_wujyf")
 Configuration = ExtResource("8_qwns5")
-SaveStatusLabel = NodePath("CampaignName/SaveStatusLabel")
 metadata/_tab_index = 0
 
 [node name="CampaignName" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
@@ -393,7 +392,6 @@ script = ExtResource("20_n478f")
 layout_mode = 2
 tooltip_text = "When the campaign was last written to disk"
 mouse_filter = 1
-text = ""
 
 [node name="PanelContainer" type="PanelContainer" parent="HSplitContainer/CampaignManager/Campaign"]
 layout_mode = 2
@@ -551,60 +549,60 @@ script = ExtResource("27_4odix")
 Entry = ExtResource("28_mfo4r")
 EquipmentDialog = ExtResource("26_3ixru")
 
-[node name="Beastiary" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
+[node name="Bestiary" type="VBoxContainer" parent="HSplitContainer/CampaignManager"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="FilteredSearch" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary"]
+[node name="FilteredSearch" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Bestiary"]
 layout_mode = 2
 
-[node name="AddNpcButton" type="Button" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch"]
+[node name="AddNpcButton" type="Button" parent="HSplitContainer/CampaignManager/Bestiary/FilteredSearch"]
 layout_mode = 2
 text = "Add NPC"
 script = ExtResource("23_yxpob")
 AddNpcScene = ExtResource("24_tvbgp")
 
-[node name="Search" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch"]
+[node name="Search" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Bestiary/FilteredSearch"]
 layout_mode = 2
 
-[node name="SearchText" type="LineEdit" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search"]
+[node name="SearchText" type="LineEdit" parent="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Search"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "search"
 max_length = 25
 script = ExtResource("25_dycy4")
 
-[node name="Filters" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch"]
+[node name="Filters" type="HBoxContainer" parent="HSplitContainer/CampaignManager/Bestiary/FilteredSearch"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SpeciesFilterLabel" type="Label" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+[node name="SpeciesFilterLabel" type="Label" parent="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Filters"]
 layout_mode = 2
 text = "Filter By Species"
 
-[node name="SpeciesOptionButton" type="OptionButton" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+[node name="SpeciesOptionButton" type="OptionButton" parent="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Filters"]
 layout_mode = 2
 script = ExtResource("26_k15df")
 
-[node name="LevelFilterLabel" type="Label" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+[node name="LevelFilterLabel" type="Label" parent="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Filters"]
 layout_mode = 2
 text = "Level"
 
-[node name="LevelOptionButton" type="OptionButton" parent="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters"]
+[node name="LevelOptionButton" type="OptionButton" parent="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Filters"]
 layout_mode = 2
 script = ExtResource("27_rlqv4")
 
-[node name="BeastiaryPanel" type="PanelContainer" parent="HSplitContainer/CampaignManager/Beastiary"]
+[node name="BeastiaryPanel" type="PanelContainer" parent="HSplitContainer/CampaignManager/Bestiary"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BeastList" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel"]
+[node name="BeastList" type="ScrollContainer" parent="HSplitContainer/CampaignManager/Bestiary/BeastiaryPanel"]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("28_yuje5")
 
-[node name="BeastList" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList"]
+[node name="BeastList" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Bestiary/BeastiaryPanel/BeastList"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -612,21 +610,21 @@ script = ExtResource("1_4mhff")
 BeastEntryScene = ExtResource("1_4uxgl")
 NpcWizard = ExtResource("24_tvbgp")
 
-[node name="BeastEntry" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" instance=ExtResource("1_4uxgl")]
+[node name="BeastEntry" parent="HSplitContainer/CampaignManager/Bestiary/BeastiaryPanel/BeastList/BeastList" instance=ExtResource("1_4uxgl")]
 layout_mode = 2
 
-[node name="Loading" type="PanelContainer" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel"]
+[node name="Loading" type="PanelContainer" parent="HSplitContainer/CampaignManager/Bestiary/BeastiaryPanel"]
 visible = false
 layout_mode = 2
 script = ExtResource("32_gxmwi")
 
-[node name="LoadingTexture" type="TextureRect" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/Loading"]
+[node name="LoadingTexture" type="TextureRect" parent="HSplitContainer/CampaignManager/Bestiary/BeastiaryPanel/Loading"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("32_fx1uk")
 
-[node name="LoadingAnimationPlayer" type="AnimationPlayer" parent="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/Loading"]
+[node name="LoadingAnimationPlayer" type="AnimationPlayer" parent="HSplitContainer/CampaignManager/Bestiary/BeastiaryPanel/Loading"]
 libraries = {
 &"": SubResource("AnimationLibrary_nvo1n")
 }
@@ -643,7 +641,7 @@ script = ExtResource("38_3f044")
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 240.0
-offset_bottom = 14254.0
+offset_bottom = 14260.0
 
 [node name="Title" type="Label" parent="AboutPanel/VBoxContainer"]
 layout_mode = 2
@@ -753,8 +751,8 @@ script = ExtResource("50_ifarl")
 [connection signal="SwitchScene" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton" method="OnSwitchScene"]
 [connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" method="OnTextChanged"]
 [connection signal="text_submitted" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/GroupCheck" method="HandleTextSubmitted"]
-[connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/CancelButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup" method="HandleCancel"]
 [connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/RunEncounterButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/RunEncounterButton" method="HandlePressed"]
+[connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup/VBoxContainer/CancelButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/StartEncounterButton/InitiativePopup" method="HandleCancel"]
 [connection signal="item_selected" from="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Background/BattleBackOptions" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Background/BattleBackOptions" method="OnSelection"]
 [connection signal="pressed" from="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Clocks/AddClockButton" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Clocks/ProgressClockList" method="HandleAdd"]
 [connection signal="text_changed" from="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer/MusicFilePathLineEdit" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer/MusicFilePathLineEdit" method="OnTextChanged"]
@@ -779,25 +777,25 @@ script = ExtResource("50_ifarl")
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter" method="HandleUpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/EncounterTitle" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Background/BattleBackOptions" method="UpdateEncounter"]
+[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Clocks/ProgressClockList" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/MusicConfigurationContainer/MusicFilePathLineEdit" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Music/VictoryMusicConfigurationContainer/VictoryMusicLineEdit" method="UpdateEncounter"]
 [connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/NPCPanel/ScrollContainer/NPCList" method="UpdateEncounter"]
-[connection signal="UpdateCurrentEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters" to="HSplitContainer/CurrentEncounter/VBoxContainer/TabContainer/Clocks/ProgressClockList" method="UpdateEncounter"]
 [connection signal="toggled" from="HSplitContainer/CampaignManager/Campaign/Encounters/ArchiveFilterCheckButton" to="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" method="HandleToggleArchive"]
 [connection signal="DeleteEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CurrentEncounter" method="HideEncounterIfDeleted"]
 [connection signal="LoadEncounter" from="HSplitContainer/CampaignManager/Campaign/Encounters/ScrollContainer/EncounterList" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnLoadEncounter"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Encounters/AddEncounterButton" to="HSplitContainer/CampaignManager/Campaign/Encounters" method="OnAddEncounterButtonPressed"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Misc/Progress Clocks/AddProgressClockButton" to="HSplitContainer/CampaignManager/Campaign/Misc/Progress Clocks/ScrollContainer/ProgressClockList" method="HandleAdd"]
 [connection signal="pressed" from="HSplitContainer/CampaignManager/Campaign/Misc/Equipment/CustomEquipmentButton" to="HSplitContainer/CampaignManager/Campaign/Misc/Equipment/ScrollContainer/CustomEquipmentList" method="HandlePressed"]
-[connection signal="pressed" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/AddNpcButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/AddNpcButton" method="HandlePressed"]
-[connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" method="HandledSearchFilterChanged"]
-[connection signal="text_submitted" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Search/SearchText" method="OnTextSubmitted"]
-[connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/SpeciesOptionButton" to="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" method="HandledSearchFilterChanged"]
-[connection signal="item_selected" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/SpeciesOptionButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/SpeciesOptionButton" method="HandleItemSelect"]
-[connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/LevelOptionButton" to="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" method="HandledSearchFilterChanged"]
-[connection signal="item_selected" from="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/LevelOptionButton" to="HSplitContainer/CampaignManager/Beastiary/FilteredSearch/Filters/LevelOptionButton" method="OnItemSelected"]
-[connection signal="AddBeastToEncounter" from="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" to="HSplitContainer/CurrentEncounter" method="AddNpcToEncounter"]
-[connection signal="LoadingBeasts" from="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/BeastList/BeastList" to="HSplitContainer/CampaignManager/Beastiary/BeastiaryPanel/Loading" method="HandleLoading"]
+[connection signal="pressed" from="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/AddNpcButton" to="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/AddNpcButton" method="HandlePressed"]
+[connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Bestiary/BeastiaryPanel/BeastList/BeastList" method="HandledSearchFilterChanged"]
+[connection signal="text_submitted" from="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Search/SearchText" to="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Search/SearchText" method="OnTextSubmitted"]
+[connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Filters/SpeciesOptionButton" to="HSplitContainer/CampaignManager/Bestiary/BeastiaryPanel/BeastList/BeastList" method="HandledSearchFilterChanged"]
+[connection signal="item_selected" from="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Filters/SpeciesOptionButton" to="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Filters/SpeciesOptionButton" method="HandleItemSelect"]
+[connection signal="UpdateBeastFilter" from="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Filters/LevelOptionButton" to="HSplitContainer/CampaignManager/Bestiary/BeastiaryPanel/BeastList/BeastList" method="HandledSearchFilterChanged"]
+[connection signal="item_selected" from="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Filters/LevelOptionButton" to="HSplitContainer/CampaignManager/Bestiary/FilteredSearch/Filters/LevelOptionButton" method="OnItemSelected"]
+[connection signal="AddBeastToEncounter" from="HSplitContainer/CampaignManager/Bestiary/BeastiaryPanel/BeastList/BeastList" to="HSplitContainer/CurrentEncounter" method="AddNpcToEncounter"]
+[connection signal="LoadingBeasts" from="HSplitContainer/CampaignManager/Bestiary/BeastiaryPanel/BeastList/BeastList" to="HSplitContainer/CampaignManager/Bestiary/BeastiaryPanel/Loading" method="HandleLoading"]
 [connection signal="OnVisibilityChanged" from="ChooseCampaignPanel" to="ChooseCampaignPanel/CampaignScroller/CampaignList" method="HandleVisibilityChanged"]
 [connection signal="visibility_changed" from="ChooseCampaignPanel" to="ChooseCampaignPanel" method="HandleVisibilityChanged"]
 [connection signal="OnCampaignChosen" from="ChooseCampaignPanel/CampaignScroller/CampaignList" to="ChooseCampaignPanel" method="HandleCampaignChosen"]
