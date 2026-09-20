@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cdbhgvau850oy"]
+[gd_scene load_steps=19 format=3 uid="uid://cdbhgvau850oy"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_27rb4"]
 [ext_resource type="Script" uid="uid://ccf876kfu5ssy" path="res://Battle/RunEncounter.cs" id="1_dwbmd"]
@@ -17,6 +17,9 @@
 [ext_resource type="Script" uid="uid://cxcmj8anwmrk6" path="res://Encounters/PlayersWinButton.cs" id="11_vguco"]
 [ext_resource type="Script" uid="uid://dvvb0c3877cs7" path="res://Encounters/EndEncounterButton.cs" id="12_2xgj5"]
 [ext_resource type="PackedScene" uid="uid://cxgjs17e7mmas" path="res://Battle/battle_window.tscn" id="14_c81va"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j1li7"]
+bg_color = Color(0.9019608, 0.6039216, 0.8509804, 1)
 
 [node name="RunEncounter" type="Control"]
 layout_mode = 3
@@ -218,12 +221,15 @@ script = ExtResource("6_0ebfa")
 [node name="EndEncounterButton" type="Button" parent="GMScreen/VBoxContainer/VFlowContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_type_variation = &"DeleteButton"
 text = "End Scene"
 script = ExtResource("12_2xgj5")
 
 [node name="PlayersWinButton" type="Button" parent="GMScreen/VBoxContainer/VFlowContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("11_42xhc")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j1li7")
 text = "Players Win!"
 script = ExtResource("11_vguco")
 

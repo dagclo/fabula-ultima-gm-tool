@@ -1,14 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxbt82uyb2oo7"]
+[gd_scene load_steps=11 format=3 uid="uid://cxbt82uyb2oo7"]
 
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="1_3wx5j"]
-[ext_resource type="Script" path="res://Player/PlayerSlot.cs" id="1_alfyt"]
-[ext_resource type="Script" path="res://Player/PlayerNameInput.cs" id="2_xsw1t"]
+[ext_resource type="Script" uid="uid://caqvak0bm5wf3" path="res://Player/PlayerSlot.cs" id="1_alfyt"]
+[ext_resource type="Script" uid="uid://1tqaw3ygqot4" path="res://Player/PlayerNameInput.cs" id="2_xsw1t"]
 [ext_resource type="Texture2D" uid="uid://b3gf3s0ufse2n" path="res://Player/Portrait_Placeholder.png" id="3_pxksc"]
-[ext_resource type="Script" path="res://Player/CharacterNameEdit.cs" id="3_qclik"]
-[ext_resource type="Script" path="res://Player/CharacterTitleEdit.cs" id="4_laftu"]
-[ext_resource type="Script" path="res://Player/PortraitTexture.cs" id="4_wr4x0"]
-[ext_resource type="Script" path="res://Player/PortraitFileDialog.cs" id="5_tiwgs"]
-[ext_resource type="Script" path="res://Player/PlayerEnabled.cs" id="9_5xy6i"]
+[ext_resource type="Script" uid="uid://46s0t43qb02f" path="res://Player/CharacterNameEdit.cs" id="3_qclik"]
+[ext_resource type="Script" uid="uid://cfqmo3pxpfn8j" path="res://Player/CharacterTitleEdit.cs" id="4_laftu"]
+[ext_resource type="Script" uid="uid://d4f3gk36ll1f8" path="res://Player/PortraitTexture.cs" id="4_wr4x0"]
+[ext_resource type="Script" uid="uid://cm21qnjiwqwep" path="res://Player/PortraitFileDialog.cs" id="5_tiwgs"]
+[ext_resource type="Script" uid="uid://bc31p62kxdaba" path="res://Player/PlayerEnabled.cs" id="9_5xy6i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4b63q"]
+bg_color = Color(0.12941177, 0.10980392, 0.16862746, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.23921569, 0.20784314, 0.32156864, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="PlayerSlot" type="VBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
@@ -23,6 +35,7 @@ layout_mode = 2
 
 [node name="Portrait" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4b63q")
 
 [node name="PortraitTexture" type="TextureRect" parent="HBoxContainer/Portrait"]
 layout_mode = 2
@@ -80,8 +93,8 @@ placeholder_text = "Character Title"
 script = ExtResource("4_laftu")
 
 [node name="EnabledCheckButton" type="CheckButton" parent="HBoxContainer/Attributes"]
-tooltip_text = "Include this player in battles."
 layout_mode = 2
+tooltip_text = "Include this player in battles."
 text = "Enabled"
 script = ExtResource("9_5xy6i")
 

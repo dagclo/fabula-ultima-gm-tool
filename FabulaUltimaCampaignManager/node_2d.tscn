@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://ec56818wobea"]
+[gd_scene load_steps=61 format=3 uid="uid://ec56818wobea"]
 
 [ext_resource type="Script" uid="uid://qd737jwjpmc5" path="res://GetBeastiary.cs" id="1_4mhff"]
 [ext_resource type="PackedScene" uid="uid://dvrc1lde82y6f" path="res://BeastiaryScenes/BeastEntryNode.tscn" id="1_4uxgl"]
@@ -56,6 +56,13 @@
 [ext_resource type="Script" uid="uid://7ryw6fhi8lu3" path="res://Campaign/NewCampaignPanel.cs" id="48_0l0jh"]
 [ext_resource type="Script" uid="uid://drn3riloyh6ik" path="res://Campaign/NewCampaignLineEdit.cs" id="49_uxrjf"]
 [ext_resource type="Script" uid="uid://bev42i5kq1i58" path="res://Campaign/NewCampaignButton.cs" id="50_ifarl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ma08v"]
+bg_color = Color(0.6509804, 0.40392157, 0.7176471, 0.26666668)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="Animation" id="Animation_romfh"]
 length = 0.001
@@ -388,13 +395,17 @@ size_flags_horizontal = 3
 placeholder_text = "Campaign Name"
 script = ExtResource("20_n478f")
 
-[node name="SaveStatusLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/CampaignName"]
-layout_mode = 2
-tooltip_text = "When the campaign was last written to disk"
-mouse_filter = 1
-
 [node name="PanelContainer" type="PanelContainer" parent="HSplitContainer/CampaignManager/Campaign"]
 layout_mode = 2
+
+[node name="SaveStatusLabel" type="Label" parent="HSplitContainer/CampaignManager/Campaign/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "When the campaign was last written to disk"
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.8392157, 0.65882355, 0.9137255, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ma08v")
+horizontal_alignment = 1
 
 [node name="Encounters" type="VBoxContainer" parent="HSplitContainer/CampaignManager/Campaign"]
 layout_mode = 2
@@ -641,7 +652,7 @@ script = ExtResource("38_3f044")
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 240.0
-offset_bottom = 14260.0
+offset_bottom = 14250.0
 
 [node name="Title" type="Label" parent="AboutPanel/VBoxContainer"]
 layout_mode = 2

@@ -1,14 +1,14 @@
 [gd_scene load_steps=11 format=3 uid="uid://dn3nwxahhysgn"]
 
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="1_3dubo"]
-[ext_resource type="Script" path="res://Encounters/NPCShortEntry.cs" id="1_cbp4a"]
-[ext_resource type="Script" path="res://Npc/NpcName.cs" id="3_eb1qw"]
-[ext_resource type="Script" path="res://Npc/NpcType.cs" id="4_w2gt0"]
-[ext_resource type="Script" path="res://Npc/NpcLevel.cs" id="5_o07c8"]
-[ext_resource type="Script" path="res://Encounters/ShowStats.cs" id="7_23fly"]
-[ext_resource type="Script" path="res://Npc/NpcRank.cs" id="7_b5hw3"]
-[ext_resource type="Script" path="res://Encounters/NpcVillianRank.cs" id="7_impxn"]
-[ext_resource type="Script" path="res://Encounters/VillianRankText.cs" id="8_6hg6c"]
+[ext_resource type="Script" uid="uid://d2fgvr7643dyf" path="res://Encounters/NPCShortEntry.cs" id="1_cbp4a"]
+[ext_resource type="Script" uid="uid://qqj1mjixppsj" path="res://Npc/NpcName.cs" id="3_eb1qw"]
+[ext_resource type="Script" uid="uid://d2jknm8vnd776" path="res://Npc/NpcType.cs" id="4_w2gt0"]
+[ext_resource type="Script" uid="uid://hqdmssc1dyq1" path="res://Npc/NpcLevel.cs" id="5_o07c8"]
+[ext_resource type="Script" uid="uid://dbjirwu0hgd1m" path="res://Encounters/ShowStats.cs" id="7_23fly"]
+[ext_resource type="Script" uid="uid://cmih5psfwayg7" path="res://Npc/NpcRank.cs" id="7_b5hw3"]
+[ext_resource type="Script" uid="uid://nbsg6co255vy" path="res://Encounters/NpcVillianRank.cs" id="7_impxn"]
+[ext_resource type="Script" uid="uid://jnd3lcif8fq6" path="res://Encounters/VillianRankText.cs" id="8_6hg6c"]
 [ext_resource type="PackedScene" uid="uid://c8y0lhlyoaa45" path="res://Encounters/NpcStatWindow.tscn" id="8_dgv5w"]
 
 [node name="NPCShortEntry" type="VBoxContainer"]
@@ -85,6 +85,7 @@ StatWindowScene = ExtResource("8_dgv5w")
 
 [node name="RemoveButton" type="Button" parent="."]
 layout_mode = 2
+theme_type_variation = &"DeleteButton"
 text = "Remove"
 
 [connection signal="VillianRankStatus" from="." to="VillianRank" method="HandleVillianRankStatus"]
