@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=28 format=3 uid="uid://d2sfrnkc8pqs1"]
+[gd_resource type="Theme" load_steps=30 format=3 uid="uid://d2sfrnkc8pqs1"]
 
 [ext_resource type="FontFile" uid="uid://xh7tj07do221" path="res://Font/Mukta-Bold.ttf" id="1_05gy6"]
 [ext_resource type="FontFile" uid="uid://d3qnkiy0xhdyx" path="res://Font/Mukta-Regular.ttf" id="3_7uv60"]
@@ -108,6 +108,12 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_emjbh"]
+bg_color = Color(0.09019608, 0.078431375, 0.10980392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d13hb"]
+bg_color = Color(0.09019608, 0.078431375, 0.10980392, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwabc"]
 content_margin_left = 5.0
 content_margin_right = 5.0
@@ -190,6 +196,8 @@ OptionButton/styles/hover = SubResource("StyleBoxFlat_4d81k")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_giywu")
 OptionButton/styles/pressed = SubResource("StyleBoxFlat_5uu8g")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_g6e2l")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_emjbh")
+PopupPanel/styles/panel = SubResource("StyleBoxFlat_d13hb")
 RichTextLabel/fonts/bold_font = ExtResource("1_05gy6")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_wwabc")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_cd1bp")
