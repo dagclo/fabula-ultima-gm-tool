@@ -1,17 +1,17 @@
 [gd_scene load_steps=47 format=3 uid="uid://dvrc1lde82y6f"]
 
-[ext_resource type="Script" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_t4gi0"]
+[ext_resource type="Script" uid="uid://bu5d3ryrlqhmj" path="res://BeastiaryScenes/BeastEntryNode.cs" id="1_t4gi0"]
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="2_6f5hl"]
 [ext_resource type="Texture2D" uid="uid://i7qlj5i8k4cu" path="res://Battle/Monster Unknown.png" id="2_g8s5x"]
-[ext_resource type="Script" path="res://BeastiaryScenes/DescriptionImage.cs" id="3_bbr3a"]
-[ext_resource type="Script" path="res://BeastiaryScenes/AttributeLabel.cs" id="3_nqrqn"]
+[ext_resource type="Script" uid="uid://p6nd3cqpm8ok" path="res://BeastiaryScenes/DescriptionImage.cs" id="3_bbr3a"]
+[ext_resource type="Script" uid="uid://pyns8wl781qy" path="res://BeastiaryScenes/AttributeLabel.cs" id="3_nqrqn"]
 [ext_resource type="PackedScene" uid="uid://c8bw0vtfllsa1" path="res://BeastiaryScenes/ResistancePanel.tscn" id="3_vhcs2"]
 [ext_resource type="PackedScene" uid="uid://cwsegr0yegay2" path="res://BeastiaryScenes/attack.tscn" id="4_716ij"]
-[ext_resource type="Script" path="res://BeastiaryScenes/UpdateImageButton.cs" id="4_fyidg"]
-[ext_resource type="Script" path="res://BeastiaryScenes/ComputedHealthLabel.cs" id="5_f5oe2"]
-[ext_resource type="Script" path="res://BeastiaryScenes/FileDialog.cs" id="5_i30y8"]
-[ext_resource type="Script" path="res://BeastiaryScenes/ComputedMagicPointsLabel.cs" id="6_x4de1"]
-[ext_resource type="Script" path="res://BeastiaryScenes/UseDiceSizeLabel.cs" id="7_g4asi"]
+[ext_resource type="Script" uid="uid://ddkxxyu2iiwy0" path="res://BeastiaryScenes/UpdateImageButton.cs" id="4_fyidg"]
+[ext_resource type="Script" uid="uid://bvxpdt1ejyv2d" path="res://BeastiaryScenes/ComputedHealthLabel.cs" id="5_f5oe2"]
+[ext_resource type="Script" uid="uid://dvy2qjottppb8" path="res://BeastiaryScenes/FileDialog.cs" id="5_i30y8"]
+[ext_resource type="Script" uid="uid://dcdxieewx21w" path="res://BeastiaryScenes/ComputedMagicPointsLabel.cs" id="6_x4de1"]
+[ext_resource type="Script" uid="uid://bshnlxoe8r1wp" path="res://BeastiaryScenes/UseDiceSizeLabel.cs" id="7_g4asi"]
 [ext_resource type="Texture2D" uid="uid://841utmxt0qwh" path="res://ResistanceImages/fire.png" id="9_7ggv3"]
 [ext_resource type="Texture2D" uid="uid://dn022obe4wsvv" path="res://ResistanceImages/Physical.png" id="9_o3jl4"]
 [ext_resource type="Texture2D" uid="uid://b8unp67ejg4g8" path="res://ResistanceImages/fire_gray.png" id="10_1k8xn"]
@@ -30,22 +30,22 @@
 [ext_resource type="Texture2D" uid="uid://b3erp4ynwlnuf" path="res://ResistanceImages/Light_Gray.png" id="24_cqar5"]
 [ext_resource type="Texture2D" uid="uid://dyyns8miuhia7" path="res://ResistanceImages/Poison.png" id="25_neycv"]
 [ext_resource type="Texture2D" uid="uid://c5dpdbuy6wbb6" path="res://ResistanceImages/Poison_Gray.png" id="26_6eorr"]
-[ext_resource type="Script" path="res://BeastiaryScenes/Attacks.cs" id="28_80a1i"]
-[ext_resource type="Script" path="res://Equipment/EquipmentList.cs" id="28_ful48"]
-[ext_resource type="Script" path="res://BeastiaryScenes/GetSpells.cs" id="30_tqdql"]
+[ext_resource type="Script" uid="uid://5v2lo8h7o2t0" path="res://BeastiaryScenes/Attacks.cs" id="28_80a1i"]
+[ext_resource type="Script" uid="uid://0bruj8rlos6f" path="res://Equipment/EquipmentList.cs" id="28_ful48"]
+[ext_resource type="Script" uid="uid://bsamwy4v4mfr1" path="res://BeastiaryScenes/GetSpells.cs" id="30_tqdql"]
 [ext_resource type="PackedScene" uid="uid://l57ucy852qf2" path="res://BeastiaryScenes/spell.tscn" id="31_1wadr"]
-[ext_resource type="Script" path="res://Skills/SpecialRules.cs" id="33_gd0nc"]
-[ext_resource type="Script" path="res://BeastiaryScenes/OtherActions.cs" id="33_icnde"]
+[ext_resource type="Script" uid="uid://cq4wucddfusst" path="res://Skills/SpecialRules.cs" id="33_gd0nc"]
+[ext_resource type="Script" uid="uid://dad6cmrfmrl6q" path="res://BeastiaryScenes/OtherActions.cs" id="33_icnde"]
 [ext_resource type="PackedScene" uid="uid://ddx26ghe36o0p" path="res://BeastiaryScenes/action.tscn" id="33_ma2ky"]
 [ext_resource type="PackedScene" uid="uid://b6kwc80e1vqp1" path="res://BeastiaryScenes/other_action.tscn" id="34_mp60j"]
-[ext_resource type="Script" path="res://BeastiaryScenes/AddToEncounterButton.cs" id="39_l5v3b"]
-[ext_resource type="Script" path="res://BeastiaryScenes/DeleteButton.cs" id="40_1wrog"]
-[ext_resource type="Script" path="res://BeastiaryScenes/EditNpcTemplateButton.cs" id="40_r4t3x"]
-[ext_resource type="Script" path="res://BeastiaryScenes/DeleteQuestion.cs" id="41_kbchb"]
+[ext_resource type="Script" uid="uid://bu8mjd1etok3l" path="res://BeastiaryScenes/AddToEncounterButton.cs" id="39_l5v3b"]
+[ext_resource type="Script" uid="uid://dnp05apx5ppj0" path="res://BeastiaryScenes/DeleteButton.cs" id="40_1wrog"]
+[ext_resource type="Script" uid="uid://k0h8wujihb2u" path="res://BeastiaryScenes/EditNpcTemplateButton.cs" id="40_r4t3x"]
+[ext_resource type="Script" uid="uid://cjxjklt4g73rf" path="res://BeastiaryScenes/DeleteQuestion.cs" id="41_kbchb"]
 [ext_resource type="PackedScene" uid="uid://7xtkfi8kp6pg" path="res://BeastiaryScenes/new_npc_sheet.tscn" id="41_xckw7"]
-[ext_resource type="Script" path="res://BeastiaryScenes/DeleteConfirmButton.cs" id="42_nml4d"]
-[ext_resource type="Script" path="res://BeastiaryScenes/CancelDeleteButton.cs" id="43_jbvkn"]
-[ext_resource type="Script" path="res://BeastiaryScenes/ClipboardButton.cs" id="46_p3wsb"]
+[ext_resource type="Script" uid="uid://budb2kknisfo2" path="res://BeastiaryScenes/DeleteConfirmButton.cs" id="42_nml4d"]
+[ext_resource type="Script" uid="uid://db8d3ccf4xf66" path="res://BeastiaryScenes/CancelDeleteButton.cs" id="43_jbvkn"]
+[ext_resource type="Script" uid="uid://dfrmkdqvh66v5" path="res://BeastiaryScenes/ClipboardButton.cs" id="46_p3wsb"]
 
 [node name="BeastEntryNode" type="PanelContainer"]
 anchors_preset = 10
@@ -398,21 +398,24 @@ text = "Edit NPC"
 script = ExtResource("40_r4t3x")
 BeastEditScene = ExtResource("41_xckw7")
 
-[node name="DeleteButton" type="Button" parent="VBoxContainer/ModifySection"]
+[node name="DeleteButton" type="Button" parent="VBoxContainer/ModifySection" node_paths=PackedStringArray("DeleteDialog")]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_type_variation = &"DeleteButton"
 text = "Delete  NPC"
 script = ExtResource("40_1wrog")
+DeleteDialog = NodePath("DeleteDialog")
 
 [node name="DeleteDialog" type="PopupPanel" parent="VBoxContainer/ModifySection/DeleteButton"]
+oversampling_override = 1.0
 initial_position = 1
-size = Vector2i(444, 100)
+size = Vector2i(444, 110)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ModifySection/DeleteButton/DeleteDialog"]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 440.0
-offset_bottom = 106.0
+offset_bottom = 108.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ModifySection/DeleteButton/DeleteDialog/VBoxContainer"]
 layout_mode = 2

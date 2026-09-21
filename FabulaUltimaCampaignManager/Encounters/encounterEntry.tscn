@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://3eqvokisi6o7"]
 
 [ext_resource type="PackedScene" uid="uid://btyqcwcw47tqx" path="res://LabeledText.tscn" id="1_gn58d"]
-[ext_resource type="Script" path="res://Encounters/EncounterEntry.cs" id="1_o6o6v"]
+[ext_resource type="Script" uid="uid://cl1lsd5pogium" path="res://Encounters/EncounterEntry.cs" id="1_o6o6v"]
 [ext_resource type="FontFile" uid="uid://gic4i6tx73e1" path="res://Font/NicoClean-Regular.ttf" id="3_cvxr5"]
-[ext_resource type="Script" path="res://Encounters/EncounterName.cs" id="3_d5kal"]
-[ext_resource type="Script" path="res://Encounters/NumNpcs.cs" id="4_wf6x0"]
+[ext_resource type="Script" uid="uid://chu1qxbvg7deg" path="res://Encounters/EncounterName.cs" id="3_d5kal"]
+[ext_resource type="Script" uid="uid://d3tkwir213jqr" path="res://Encounters/NumNpcs.cs" id="4_wf6x0"]
 [ext_resource type="Theme" uid="uid://d2sfrnkc8pqs1" path="res://node_2d.tres" id="5_8r10l"]
-[ext_resource type="Script" path="res://Encounters/ArchiveDeleteEncounterButton.cs" id="7_lhb01"]
+[ext_resource type="Script" uid="uid://6svp0vs1mr6s" path="res://Encounters/ArchiveDeleteEncounterButton.cs" id="7_lhb01"]
 [ext_resource type="Resource" uid="uid://bmc76hiwu7v3r" path="res://Tags/archive_tag.tres" id="8_jtt37"]
 
 [node name="Encounter" type="VBoxContainer"]
@@ -44,6 +44,7 @@ text = "Load"
 [node name="ArchiveDeleteEncounterButton" type="Button" parent="."]
 layout_mode = 2
 theme = ExtResource("5_8r10l")
+theme_type_variation = &"DeleteButton"
 text = "Archive"
 script = ExtResource("7_lhb01")
 ArchiveTag = ExtResource("8_jtt37")
